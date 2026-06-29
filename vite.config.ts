@@ -29,4 +29,9 @@ export default defineConfig({
       showFileList: true,
     })
   ],
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001'
+    }
+  }
 })

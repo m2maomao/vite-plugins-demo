@@ -42,9 +42,9 @@ export default function scanPagesPlugin(options:
           .replace('src/pages/', '')
           .replace(/\.tsx$/, '')
           // index 转换为 ''(首页)
-          .replace(/\/?index$/, '') || '/'
+          .replace(/\/?index$/, '')
         return {
-          path: routePath || '/',
+          path: '/' + routePath,
           file: '/' + file
         }
       })
