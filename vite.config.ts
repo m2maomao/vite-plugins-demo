@@ -5,6 +5,7 @@ import timestampPlugin from "./plugins/timestamp-plugin";
 import greetingPlugin from "./plugins/greeting-plugin";
 import loggerPlugin from './plugins/logger-plugin';
 import scanPagesPlugin from './plugins/scan-pages-plugin';
+import configPlugin from "./plugins/config-plugin";
 
 export default defineConfig({
   plugins: [
@@ -27,6 +28,15 @@ export default defineConfig({
     loggerPlugin({
       prefix: '📚',
       showFileList: true,
+    }),
+    configPlugin({
+      title: '111',
+      author: 'michael',
+      theme: {
+        primaryColor: 'red',
+        darkMode: true,
+      },
+      layout: 'top'
     })
   ],
   server: {

@@ -1,8 +1,10 @@
 import { createApp, defineComponent } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes as staticRoutes } from 'virtual:routes';
+import { appConfig } from 'virtual:app-config';
 
 async function setupApp() {
+  console.log('🎨 应用配置：', appConfig);
   // 服务器路由
   let serverRoutes: any[] = [];
   try {

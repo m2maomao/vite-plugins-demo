@@ -18,3 +18,17 @@ declare module 'virtual:routes' {
 
   export const routes: RouteConfig[]
 }
+
+declare module 'virtual:app-config' {
+  export const appConfig: {
+    title: string
+    description: string
+    author: string
+    base: string
+    theme: {
+      primaryColor: string
+      darkMode: boolean
+    }
+    layout: 'side' | 'top' | 'mix'
+  }
+}
