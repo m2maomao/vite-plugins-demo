@@ -6,6 +6,7 @@ import greetingPlugin from "./plugins/greeting-plugin";
 import loggerPlugin from './plugins/logger-plugin';
 import scanPagesPlugin from './plugins/scan-pages-plugin';
 import configPlugin from "./plugins/config-plugin";
+import setupPlugin from "./plugins/setup-plugin";
 
 export default defineConfig({
   plugins: [
@@ -37,7 +38,8 @@ export default defineConfig({
         darkMode: true,
       },
       layout: 'top'
-    })
+    }),
+    setupPlugin()
   ],
   server: {
     proxy: {

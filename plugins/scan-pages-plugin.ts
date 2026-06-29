@@ -43,6 +43,8 @@ export default function scanPagesPlugin(options:
           .replace(/\.tsx$/, '')
           // index 转换为 ''(首页)
           .replace(/\/?index$/, '')
+          // 动态路由 [id] -> :id
+          .replace(/\[(\w+)\]/g, ':$1') // 
         return {
           path: '/' + routePath,
           file: '/' + file
