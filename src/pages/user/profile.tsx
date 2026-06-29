@@ -1,12 +1,13 @@
 import { defineComponent, ref, onMounted } from 'vue';
+import { useApi } from '../../composables/useApi';
 
 export default defineComponent({
   setup() {
+    const { user } = useApi();
     const profile = ref<any>(null);
 
     onMounted(async() => {
-      const res = await (window as any).$api.user.getProfile(1)
-      profile.value = res.data
+      profile.value = (await user.getProfile(1)).data;
     })
     return () => (
       <div>

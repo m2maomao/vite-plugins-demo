@@ -32,3 +32,11 @@ declare module 'virtual:app-config' {
     layout: 'side' | 'top' | 'mix'
   }
 }
+
+declare module 'virtual:api' {
+  export const api: {
+    [moduleName: string]: {
+      [methodName: string]: (...args: any[]) => Promise<any>
+    }
+  }
+}
