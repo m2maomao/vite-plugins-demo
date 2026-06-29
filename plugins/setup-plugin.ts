@@ -1,9 +1,10 @@
 import type { Plugin } from 'vite';
+import type { FrameworkPlugin } from './config-plugin';
 
 const VIRTUAL_MODULE_ID = 'virtual:setup-app';
 const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID;
 
-export default function setupPlugin(): Plugin {
+export default function setupPlugin(frameworkPlugins: FrameworkPlugin[] = []): Plugin {
   return {
     name: 'setup-plugin',
 
@@ -16,10 +17,16 @@ export default function setupPlugin(): Plugin {
 
     load(id) {
       if (id === RESOLVED_VIRTUAL_MODULE_ID) {
+        // 收集插件注入的运行时代码
+        const runtimeCodes = frameworkPlugins
+          .filter(p => p.onRuntime)
+          .map(p => p.onRuntime!())
+          .join('\n');
         return `
           import { createApp, h } from 'vue';
           import { createRouter, createWebHistory, RouterView } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
+          import Layout from '/src/layouts/index.tsx';
 
           async function setupApp() {
             let serverRoutes = [];
@@ -42,12 +49,12 @@ export default function setupPlugin(): Plugin {
               routes: Array.from(routeMap.values()),
             });
 
-            const app = createApp({
-              render() {
-                return h(RouterView);
-              }
-            });
+            const app = createApp(Layout);
             app.use(router);
+
+            // 执行插件注入的运行时代码
+            ${runtimeCodes}
+            
             app.mount('#app');
           }
           setupApp();

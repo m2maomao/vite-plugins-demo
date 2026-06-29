@@ -7,6 +7,25 @@ import loggerPlugin from './plugins/logger-plugin';
 import scanPagesPlugin from './plugins/scan-pages-plugin';
 import configPlugin from "./plugins/config-plugin";
 import setupPlugin from "./plugins/setup-plugin";
+import apiPlugin from './plugins/api-plugin';
+
+// 定义一个框架插件
+const pageStatsPlugin = {
+  name: 'page-stats',
+  onRuntime: () => `
+    router.afterEach((to) => {
+      console.log('📊 访问：', to.path)
+    })
+  `
+}
+
+const apiPluginRuntime = {
+  name: 'api-runtime',
+  onRuntime: () => `
+    import { api } from 'virtual:api'
+    app.config.globalProperties.$api = api
+  `  
+}
 
 export default defineConfig({
   plugins: [
@@ -38,8 +57,9 @@ export default defineConfig({
         darkMode: true,
       },
       layout: 'top'
-    }),
-    setupPlugin()
+    }, [pageStatsPlugin, apiPluginRuntime]),
+    setupPlugin([pageStatsPlugin]),
+    apiPlugin()
   ],
   server: {
     proxy: {

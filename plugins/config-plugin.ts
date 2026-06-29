@@ -35,7 +35,10 @@ type ConfigPluginOptions = Partial<AppConfig>;
 const VIRTUAL_MODULE_ID = 'virtual:app-config';
 const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID;
 
-export default function configPlugin(options: ConfigPluginOptions = {}): Plugin {
+export default function configPlugin(
+  options: ConfigPluginOptions = {},
+  frameworkPlugins: FrameworkPlugin[] = []
+): Plugin {
   // 合并用户配置和默认配置
   const mergedConfig: AppConfig = {
     ...DEFAULT_CONFIG,
@@ -46,6 +49,7 @@ export default function configPlugin(options: ConfigPluginOptions = {}): Plugin 
     // 新增：config 钩子，可以修改 Vite 配置
     config() {
       console.log('⚙️ 应用配置：', mergedConfig)
+      console.log('🔌 框架插件：', frameworkPlugins.map(p => p.name))
       return {
         base: mergedConfig.base,
       }
@@ -62,4 +66,10 @@ export default function configPlugin(options: ConfigPluginOptions = {}): Plugin 
       }
     }
   }
+}
+
+export interface FrameworkPlugin {
+  name: string;
+  // 返回要在浏览器执行的代码字符串
+  onRuntime?: () => string;
 }
