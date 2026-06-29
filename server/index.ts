@@ -22,6 +22,19 @@ app.get('/api/routes', (req, res) => {
   })
 })
 
+app.get('/api/user/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    code: 0,
+    data: {
+      id: Number(id),
+      name: '张三',
+      email: 'zhangsan@example.com',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + id,
+    }
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`📡 Mock API Server running at http://localhost:${PORT}`)
 })

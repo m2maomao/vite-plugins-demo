@@ -1,10 +1,13 @@
 import type { Plugin } from 'vite';
 import type { FrameworkPlugin } from './config-plugin';
+import { getFrameworkPlugins } from './_shared';
 
 const VIRTUAL_MODULE_ID = 'virtual:setup-app';
 const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID;
 
-export default function setupPlugin(frameworkPlugins: FrameworkPlugin[] = []): Plugin {
+export default function setupPlugin(): Plugin {
+  // 自动获取
+  const frameworkPlugins = getFrameworkPlugins();
   return {
     name: 'setup-plugin',
 
@@ -17,12 +20,20 @@ export default function setupPlugin(frameworkPlugins: FrameworkPlugin[] = []): P
 
     load(id) {
       if (id === RESOLVED_VIRTUAL_MODULE_ID) {
+        // 分开收集 import 和 runtime
+        const moduleImports = frameworkPlugins
+          .filter(p => p.onImport)
+          .map(p => p.onImport!())
+          .join('\n');
+
         // 收集插件注入的运行时代码
         const runtimeCodes = frameworkPlugins
           .filter(p => p.onRuntime)
           .map(p => p.onRuntime!())
           .join('\n');
+
         return `
+          ${moduleImports} // 放模块顶部
           import { createApp, h } from 'vue';
           import { createRouter, createWebHistory, RouterView } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
@@ -50,11 +61,11 @@ export default function setupPlugin(frameworkPlugins: FrameworkPlugin[] = []): P
             });
 
             const app = createApp(Layout);
-            app.use(router);
 
-            // 执行插件注入的运行时代码
+            // 执行插件注入的运行时代码(先注册 $api)
             ${runtimeCodes}
-            
+
+            app.use(router);
             app.mount('#app');
           }
           setupApp();

@@ -21,10 +21,8 @@ const pageStatsPlugin = {
 
 const apiPluginRuntime = {
   name: 'api-runtime',
-  onRuntime: () => `
-    import { api } from 'virtual:api'
-    app.config.globalProperties.$api = api
-  `  
+  onImport: () => `import { api } from 'virtual:api'`,
+  onRuntime: () => `app.config.globalProperties.$api = api`,  
 }
 
 export default defineConfig({
@@ -58,7 +56,7 @@ export default defineConfig({
       },
       layout: 'top'
     }, [pageStatsPlugin, apiPluginRuntime]),
-    setupPlugin([pageStatsPlugin]),
+    setupPlugin(),
     apiPlugin()
   ],
   server: {

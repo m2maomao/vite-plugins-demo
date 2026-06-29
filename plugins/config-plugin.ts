@@ -1,4 +1,5 @@
 import type { Plugin } from 'vite';
+import { setFrameworkPlugins } from './_shared';
 
 // 1、应用配置类型
 interface AppConfig {
@@ -39,6 +40,8 @@ export default function configPlugin(
   options: ConfigPluginOptions = {},
   frameworkPlugins: FrameworkPlugin[] = []
 ): Plugin {
+  // 保存到共享状态
+  setFrameworkPlugins(frameworkPlugins);
   // 合并用户配置和默认配置
   const mergedConfig: AppConfig = {
     ...DEFAULT_CONFIG,
@@ -70,6 +73,7 @@ export default function configPlugin(
 
 export interface FrameworkPlugin {
   name: string;
+  onImport?: () => string;
   // 返回要在浏览器执行的代码字符串
   onRuntime?: () => string;
 }

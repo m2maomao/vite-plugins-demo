@@ -38,10 +38,10 @@ export default function apiPlugin(): Plugin {
         ${imports}
         import { http } from '/src/utils/request'
 
-        const $get = (url: string, config?: any) => http.get(url, config)
-        const $post = (url: string, data?: any, config?: any) => http.post(url, data, config)
-        const $put = (url: string, data?: any, config?: any) => http.put(url, data, config)
-        const $delete = (url: string, config?: any) => http.delete(url, config)
+        const $get = (url, config) => http.get(url, config)
+        const $post = (url, data, config) => http.post(url, data, config)
+        const $put = (url, data, config) => http.put(url, data, config)
+        const $delete = (url, config) => http.delete(url, config)
 
         export const api = {
           ${apiEntries}
