@@ -1,5 +1,5 @@
 import { defineComponent, ref, onMounted } from 'vue';
-import { useApi } from '../../composables/useApi';
+import { useApi } from '@/composables/useApi';
 
 export default defineComponent({
   setup() {
