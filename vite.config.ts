@@ -11,6 +11,7 @@ import apiPlugin from './plugins/api-plugin';
 import path from "path";
 import tailwindcss from '@tailwindcss/vite';
 import builtinPlugin from './plugins/builtin-plugin';
+import authPlugin from './plugins/auth-plugin';
 
 // 定义一个框架插件
 const pageStatsPlugin = {
@@ -71,6 +72,7 @@ export default defineConfig({
     setupPlugin(),
     apiPlugin(),
     builtinPlugin(),
+    authPlugin(),
   ],
   resolve: {
     alias: {

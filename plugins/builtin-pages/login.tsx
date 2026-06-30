@@ -1,4 +1,5 @@
 import { defineComponent, ref, h } from 'vue';
+import { useStorage } from '@vueuse/core';
 import { useApi } from '@/composables/useApi';
 import { useRouter } from 'vue-router';
 
@@ -8,13 +9,17 @@ export default defineComponent({
     const router = useRouter();
     const username = ref('');
     const password = ref('');
+    const token = useStorage('token', '');
 
     const handleLogin = async () => {
       const res = await user.login({
         username: username.value,
         password: password.value
       });
-      if (res.code === 0) router.push('/');
+      if (res.code === 0) {
+        token.value = res.data.token;
+        router.push('/');
+      }
     }
 
     return () => (
