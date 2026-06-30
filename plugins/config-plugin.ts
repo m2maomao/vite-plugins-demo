@@ -12,6 +12,7 @@ interface AppConfig {
     darkMode: boolean;
   }
   layout: 'side' | 'top' | 'mix';
+  noNavPages: string[];
 }
 
 // 2、默认配置
@@ -24,7 +25,8 @@ const DEFAULT_CONFIG: AppConfig = {
     primaryColor: '#1890ff',
     darkMode: false,
   },
-  layout: 'side'
+  layout: 'side',
+  noNavPages: ['/login', '/404']
 }
 
 // 3、插件选项类型（用户传参用，都是可选的）

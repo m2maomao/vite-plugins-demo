@@ -30,6 +30,7 @@ declare module 'virtual:app-config' {
       darkMode: boolean
     }
     layout: 'side' | 'top' | 'mix'
+    noNavPages: string[]
   }
 }
 

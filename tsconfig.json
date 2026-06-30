@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "target": "es2023",
     "module": "esnext",
     "lib": ["ES2023", "DOM"],
     "types": ["vite/client", "vue/jsx"],
     "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
@@ -27,5 +29,5 @@
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment"
   },
-  "include": ["src"],
+  "include": ["src", "plugins"],
 }

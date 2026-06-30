@@ -1,18 +1,32 @@
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { appConfig } from 'virtual:app-config';
 
 export default defineComponent({
   setup() {
+    const route = useRoute();
+    const showNav = computed(() => !(appConfig.noNavPages || []).includes(route.path));
+
     return () => (
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
-        <header style={{ padding: '16px', background: '#722ed1', color: '#fff'}}>
-          <h2 style={{ margin: 0}}>My Framework</h2>
-        </header>
-        <main style={{ flex: 1, padding: '24px'}}>
+      <div class="min-h-screen flex flex-col">
+        {/* 头部 */}
+        {
+          showNav.value && (
+            <header class="p-4 bg-purple-600 text-white">
+              <h2 class="m-0 text-xl font-bold">My Framework</h2>
+            </header>
+          )
+        }
+        {/* 主内容区 */}
+        <main class="flex-1 p-6">
           <router-view />
         </main>
-        <footer style={{ padding: '12px', textAlign: 'center', color: '#999'}}>
-          © 2026 My Framework Demo
-        </footer>
+        {/* 底部 */}
+        {
+          showNav.value && (
+            <footer class="p-3 text-center text-gray-400 text-sm">© 2026 My Framework Demo</footer>
+          )
+        }
       </div>
     )
   }

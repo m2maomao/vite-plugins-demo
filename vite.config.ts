@@ -9,6 +9,8 @@ import configPlugin from "./plugins/config-plugin";
 import setupPlugin from "./plugins/setup-plugin";
 import apiPlugin from './plugins/api-plugin';
 import path from "path";
+import tailwindcss from '@tailwindcss/vite';
+import builtinPlugin from './plugins/builtin-plugin';
 
 // 定义一个框架插件
 const pageStatsPlugin = {
@@ -28,6 +30,7 @@ const apiPluginRuntime = {
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     VueJsx(),
     scanPagesPlugin({
       pluginRoutes: [
@@ -38,6 +41,14 @@ export default defineConfig({
         {
           path: '/old-home',
           redirect: '/'
+        },
+        {
+          path: '/login',
+          file: 'virtual:builtin/login'
+        },
+        {
+          path: '/:pathMatch(.*)*',
+          file: 'virtual:builtin/404',
         }
       ]
     }),
@@ -58,7 +69,8 @@ export default defineConfig({
       layout: 'top'
     }, [pageStatsPlugin, apiPluginRuntime]),
     setupPlugin(),
-    apiPlugin()
+    apiPlugin(),
+    builtinPlugin(),
   ],
   resolve: {
     alias: {

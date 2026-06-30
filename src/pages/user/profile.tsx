@@ -11,7 +11,7 @@ export default defineComponent({
     })
     return () => (
       <div>
-        <h3>用户资料</h3>
+        <h3 class="text-2xl font-bold text-purple-600">用户资料</h3>
         {
           profile.value ? (
             <div>

@@ -38,6 +38,7 @@ export default function setupPlugin(): Plugin {
           import { createRouter, createWebHistory, RouterView } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
           import Layout from '/src/layouts/index.tsx';
+          import '/src/style.css';
 
           async function setupApp() {
             let serverRoutes = [];
