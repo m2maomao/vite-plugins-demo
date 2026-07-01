@@ -59,8 +59,8 @@ export default function configPlugin(
     name: 'config-plugin',
     // 新增：config 钩子，可以修改 Vite 配置
     config() {
-      console.log('⚙️ 应用配置：', mergedConfig)
-      console.log('🔌 框架插件：', frameworkPlugins.map(p => p.name))
+      // console.log('⚙️ 应用配置：', mergedConfig)
+      // console.log('🔌 框架插件：', frameworkPlugins.map(p => p.name))
       return {
         base: mergedConfig.base,
       }

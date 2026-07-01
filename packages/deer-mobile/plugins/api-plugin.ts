@@ -36,7 +36,7 @@ export default function apiPlugin(): Plugin {
 
       return `
         ${imports}
-        import { http } from '/src/utils/request'
+        import { http } from 'deer-mobile/utils'
 
         const $get = (url, config) => http.get(url, config)
         const $post = (url, data, config) => http.post(url, data, config)

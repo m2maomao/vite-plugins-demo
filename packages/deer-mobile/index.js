@@ -78,7 +78,6 @@ function setupPlugin() {
           import { createRouter, createWebHistory, RouterView } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
           import Layout from 'deer-mobile/layouts';
-          import '/src/style.css';
 
           async function setupApp() {
             let serverRoutes = [];
@@ -209,7 +208,7 @@ function apiPlugin() {
       }).join(",\n");
       return `
         ${imports}
-        import { http } from '/src/utils/request'
+        import { http } from 'deer-mobile/utils'
 
         const $get = (url, config) => http.get(url, config)
         const $post = (url, data, config) => http.post(url, data, config)

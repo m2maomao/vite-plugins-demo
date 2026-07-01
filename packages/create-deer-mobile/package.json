@@ -1,11 +1,12 @@
 {
   "name": "create-deer-mobile",
-  "version": "0.1.9",
+  "version": "0.1.20",
   "type": "module",
   "bin": {
     "create-deer-mobile": "./index.js"
   },
   "scripts": {
+    "prepublishOnly": "node scripts/prepublish.js",
     "publish:dev": "npm version patch && npm publish --registry http://localhost:4873"
   },
   "dependencies": {

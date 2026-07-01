@@ -37,7 +37,6 @@ export default function setupPlugin(): Plugin {
           import { createRouter, createWebHistory, RouterView } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
           import Layout from 'deer-mobile/layouts';
-          import '/src/style.css';
 
           async function setupApp() {
             let serverRoutes = [];
@@ -52,9 +51,9 @@ export default function setupPlugin(): Plugin {
             const routeMap = new Map();
             staticRoutes.forEach(r => routeMap.set(r.path, {...r, source: 'static'}));
             serverRoutes.forEach(r => routeMap.set(r.path, {...r, source: 'server'}));
-            console.log('📃 静态路由：', staticRoutes);
-            console.log('🌐 服务器路由：', serverRoutes);
-            console.log('📍 合并后路由：', Array.from(routeMap.values()));
+            // console.log('📃 静态路由：', staticRoutes);
+            // console.log('🌐 服务器路由：', serverRoutes);
+            // console.log('📍 合并后路由：', Array.from(routeMap.values()));
             const router = createRouter({
               history: createWebHistory(),
               routes: Array.from(routeMap.values()),

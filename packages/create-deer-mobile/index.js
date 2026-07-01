@@ -46,14 +46,19 @@ copyDir(templateDir, targetDir)
 s.stop('✔ Template copied')
 
 // 3️⃣ 安装依赖（关键：静默 npm 输出）
-s.start('Installing dependencies...')
+// 检查包管理器并安装依赖（yarn > pnpm > npm）
+async function getPackageManager() {
+  const managers = ['yarn', 'pnpm', 'npm'];
+  for (const pm of managers) {
+    try {
+      await execa(pm, ['--version'], { stdio: 'pipe' });
+      return pm;
+    } catch { /* ignore */ }
+  }
+  return 'npm'
+}
 
-// 检测 pnpm
-let pm = 'npm'
-try {
-  await execa('pnpm', ['--version'], { stdio: 'pipe' })
-  pm = 'pnpm'
-} catch { /* ignore */ }
+const pm = await getPackageManager();
 s.start(`Installing dependencies (${pm})...`)
 
 await execa('npm', ['install'], {

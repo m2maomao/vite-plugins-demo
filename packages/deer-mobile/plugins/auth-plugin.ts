@@ -5,7 +5,7 @@ export default function authPlugin(): Plugin {
     name: 'auth-plugin',
 
     transform(code, id) {
-      console.log('🔍 auth-plugin transform:', id);
+      // console.log('🔍 auth-plugin transform:', id);
       // 向生成的启动代码注入路由守卫
       if (id.includes('virtual:setup-app')) {
         return {
