@@ -1,9 +1,12 @@
 {
   "name": "create-deer-mobile",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "bin": {
     "create-deer-mobile": "./index.js"
+  },
+  "scripts": {
+    "publish:dev": "npm version patch && npm publish --registry http://localhost:4873"
   },
   "dependencies": {
     "@clack/prompts": "^1.6.0",

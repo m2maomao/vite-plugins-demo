@@ -47,6 +47,15 @@ s.stop('✔ Template copied')
 
 // 3️⃣ 安装依赖（关键：静默 npm 输出）
 s.start('Installing dependencies...')
+
+// 检测 pnpm
+let pm = 'npm'
+try {
+  await execa('pnpm', ['--version'], { stdio: 'pipe' })
+  pm = 'pnpm'
+} catch { /* ignore */ }
+s.start(`Installing dependencies (${pm})...`)
+
 await execa('npm', ['install'], {
   cwd: targetDir,
   stdio: 'ignore',

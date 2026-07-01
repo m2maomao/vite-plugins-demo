@@ -18,7 +18,10 @@ var DEFAULT_CONFIG = {
     darkMode: false
   },
   layout: "side",
-  noNavPages: ["/login", "/404"]
+  noNavPages: ["/login", "/404"],
+  request: {
+    baseURL: "/api"
+  }
 };
 var VIRTUAL_MODULE_ID = "virtual:app-config";
 var RESOLVED_VIRTUAL_MODULE_ID = "\0" + VIRTUAL_MODULE_ID;
@@ -74,7 +77,7 @@ function setupPlugin() {
           import { createApp, h } from 'vue';
           import { createRouter, createWebHistory, RouterView } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
-          import Layout from '/src/layouts/index.tsx';
+          import Layout from 'deer-mobile/layouts';
           import '/src/style.css';
 
           async function setupApp() {

@@ -31,6 +31,9 @@ declare module 'virtual:app-config' {
     }
     layout: 'side' | 'top' | 'mix'
     noNavPages: string[]
+    request: {
+      baseURL: string
+    }
   }
 }
 

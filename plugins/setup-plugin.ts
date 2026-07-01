@@ -36,7 +36,7 @@ export default function setupPlugin(): Plugin {
           import { createApp, h } from 'vue';
           import { createRouter, createWebHistory, RouterView } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
-          import Layout from '/src/layouts/index.tsx';
+          import Layout from 'deer-mobile/layouts';
           import '/src/style.css';
 
           async function setupApp() {

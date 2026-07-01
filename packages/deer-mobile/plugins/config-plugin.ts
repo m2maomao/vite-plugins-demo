@@ -13,6 +13,9 @@ interface AppConfig {
   }
   layout: 'side' | 'top' | 'mix';
   noNavPages: string[];
+  request: {
+    baseURL: string;
+  }
 }
 
 // 2、默认配置
@@ -26,7 +29,10 @@ const DEFAULT_CONFIG: AppConfig = {
     darkMode: false,
   },
   layout: 'side',
-  noNavPages: ['/login', '/404']
+  noNavPages: ['/login', '/404'],
+  request: {
+    baseURL: '/api',
+  }
 }
 
 // 3、插件选项类型（用户传参用，都是可选的）

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { appConfig } from 'virtual:app-config';
 
 class HttpClient {
   private instance: AxiosInstance;
 
   constructor(config: AxiosRequestConfig = {}) {
     this.instance = axios.create({
-      baseURL: '/api',
+      baseURL: appConfig.request.baseURL,
       timeout: 10000,
       headers: { 'Content-Type': 'application/json' },
       ...config,
