@@ -1,4 +1,4 @@
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStorage } from '@vueuse/core';
 import { appConfig } from 'virtual:app-config';
@@ -8,7 +8,11 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const token = useStorage('token', '');
-    const showNav = computed(() => !(appConfig.noNavPages || []).includes(route.path));
+    const isReady = ref(false);
+    const showNav = computed(() => {
+      if (!isReady.value) return false;
+      return !(appConfig.noNavPages || []).includes(route.path);
+    });
 
     const handleLogout = () => {
       token.value = '';

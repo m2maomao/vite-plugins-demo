@@ -1,6 +1,6 @@
 {
   "name": "create-deer-mobile",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "type": "module",
   "bin": {
     "create-deer-mobile": "./index.js"
