@@ -1,4 +1,4 @@
-## 本地发布测试
+## 本地发布测试（请先发布deer-mobile）
 ### 1、安装vedarccio
 ```
 npm install -g verdaccio
