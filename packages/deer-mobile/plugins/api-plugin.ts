@@ -44,7 +44,11 @@ export default function apiPlugin(): Plugin {
         const $delete = (url, config) => http.delete(url, config)
 
         export const api = {
-          ${apiEntries}
+          ${apiEntries ? apiEntries + ',' : ''}
+          user: {
+            login: (data) => http.post('/user/login', data),
+            getProfile: (id) => http.get('/user/' + id),
+          }
         }
       `
     }

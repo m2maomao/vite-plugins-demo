@@ -2,6 +2,7 @@ import type { Plugin } from 'vite';
 import { transform } from 'esbuild';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 // 所有内置页面的映射
 const BUILTIN_PAGES: Record<string, string> = {
@@ -27,7 +28,8 @@ export default function builtinPlugin(): Plugin {
       const rawId = id.replace(/^\0/, '');
       for (const [name, virtualId] of Object.entries(BUILTIN_PAGES)) {
         if (rawId === virtualId) {
-          const filePath = path.resolve(__dirname, `builtin-pages/${name}.tsx`);
+          const currentDir = path.dirname(fileURLToPath(import.meta.url));
+          const filePath = path.resolve(currentDir, `plugins/builtin-pages/${name}.tsx`);
           const code = fs.readFileSync(filePath, 'utf-8');
           const result = await transform(code, {
             loader: 'tsx',

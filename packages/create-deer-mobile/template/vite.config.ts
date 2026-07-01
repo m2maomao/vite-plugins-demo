@@ -1,18 +1,34 @@
 import { defineConfig } from 'vite';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import tailwindcss from '@tailwindcss/vite';
-import scanPagesPlugin from './plugins/scan-pages-plugin';
-import configPlugin from './plugins/config-plugin';
-import setupPlugin from './plugins/setup-plugin';
-import apiPlugin from './plugins/api-plugin';
-import builtinPlugin from './plugins/builtin-plugin';
-import authPlugin from './plugins/auth-plugin';
+import {
+  configPlugin,
+  setupPlugin,
+  apiPlugin,
+  builtinPlugin,
+  authPlugin,
+  scanPagesPlugin
+} from 'deer-mobile';
 
 export default defineConfig({
+  optimizeDeps: {
+    include: ['deer-mobile']
+  },
   plugins: [
     tailwindcss(),
     vueJsx(),
-    scanPagesPlugin(),
+    scanPagesPlugin({
+      pluginRoutes: [
+        {
+          path: '/login',
+          file: 'virtual:builtin/login'
+        },
+        {
+          path: '/:pathMatch(.*)*',
+          file: 'virtual:builtin/404',
+        }
+      ]
+    }),
     configPlugin({ title: 'PROJECT_NAME' }),
     setupPlugin(),
     apiPlugin(),

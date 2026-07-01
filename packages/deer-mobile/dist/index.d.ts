@@ -1,4 +1,3 @@
-// 插件（vite.config。ts 中使用）
 export { default as configPlugin } from './plugins/config-plugin';
 export { default as setupPlugin } from './plugins/setup-plugin';
 export { default as scanPagesPlugin } from './plugins/scan-pages-plugin';

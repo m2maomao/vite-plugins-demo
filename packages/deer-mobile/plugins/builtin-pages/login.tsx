@@ -1,6 +1,6 @@
 import { defineComponent, ref, h } from 'vue';
 import { useStorage } from '@vueuse/core';
-import { useApi } from '@/composables/useApi';
+import { useApi } from 'deer-mobile/composables';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
