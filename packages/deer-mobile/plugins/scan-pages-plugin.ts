@@ -87,11 +87,6 @@ export default function scanPagesPlugin(options:
           ${routesArray}
         ]
       `;
-    },
-    buildStart() {
-      const files = fg.sync('src/pages/**/*.tsx')
-      console.log('📃 扫描到以下页面：')
-      files.forEach((f, i) => console.log(`  ${i + 1}. ${f}`))
     }
   }
 }

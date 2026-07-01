@@ -10,7 +10,7 @@
     "server": "npx tsx server/index.ts"
   },
   "dependencies": {
-    "deer-mobile": "^0.1.23",
+    "deer-mobile": "^0.1.25",
     "vue": "^3.5.39",
     "vue-router": "^4.6.4",
     "axios": "^1.18.1",

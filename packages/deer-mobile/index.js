@@ -35,8 +35,6 @@ function configPlugin(options = {}, frameworkPlugins = []) {
     name: "config-plugin",
     // 新增：config 钩子，可以修改 Vite 配置
     config() {
-      console.log("\u2699\uFE0F \u5E94\u7528\u914D\u7F6E\uFF1A", mergedConfig);
-      console.log("\u{1F50C} \u6846\u67B6\u63D2\u4EF6\uFF1A", frameworkPlugins.map((p) => p.name));
       return {
         base: mergedConfig.base
       };
@@ -92,9 +90,9 @@ function setupPlugin() {
             const routeMap = new Map();
             staticRoutes.forEach(r => routeMap.set(r.path, {...r, source: 'static'}));
             serverRoutes.forEach(r => routeMap.set(r.path, {...r, source: 'server'}));
-            console.log('\u{1F4C3} \u9759\u6001\u8DEF\u7531\uFF1A', staticRoutes);
-            console.log('\u{1F310} \u670D\u52A1\u5668\u8DEF\u7531\uFF1A', serverRoutes);
-            console.log('\u{1F4CD} \u5408\u5E76\u540E\u8DEF\u7531\uFF1A', Array.from(routeMap.values()));
+            // console.log('\u{1F4C3} \u9759\u6001\u8DEF\u7531\uFF1A', staticRoutes);
+            // console.log('\u{1F310} \u670D\u52A1\u5668\u8DEF\u7531\uFF1A', serverRoutes);
+            // console.log('\u{1F4CD} \u5408\u5E76\u540E\u8DEF\u7531\uFF1A', Array.from(routeMap.values()));
             const router = createRouter({
               history: createWebHistory(),
               routes: Array.from(routeMap.values()),
@@ -173,11 +171,6 @@ function scanPagesPlugin(options = {}) {
           ${routesArray}
         ]
       `;
-    },
-    buildStart() {
-      const files = fg.sync("src/pages/**/*.tsx");
-      console.log("\u{1F4C3} \u626B\u63CF\u5230\u4EE5\u4E0B\u9875\u9762\uFF1A");
-      files.forEach((f, i) => console.log(`  ${i + 1}. ${f}`));
     }
   };
 }
@@ -270,7 +263,6 @@ function authPlugin() {
   return {
     name: "auth-plugin",
     transform(code, id) {
-      console.log("\u{1F50D} auth-plugin transform:", id);
       if (id.includes("virtual:setup-app")) {
         return {
           code: code.replace(
