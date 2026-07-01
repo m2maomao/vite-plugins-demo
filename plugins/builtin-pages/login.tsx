@@ -29,7 +29,7 @@ export default defineComponent({
           <input
             placeholder="用户名" 
             value={username.value}
-            onInput={(e: any) => username.value = e.target.value}
+            onInput={(e: Event) => username.value = (e.target as HTMLInputElement).value}
             class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
           />
         </div>
@@ -38,7 +38,7 @@ export default defineComponent({
             placeholder="密码" 
             type="password"
             value={password.value}
-            onInput={(e: any) => password.value = e.target.value}
+            onInput={(e: Event) => password.value = (e.target as HTMLInputElement).value}
             class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
           />
         </div>

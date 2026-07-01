@@ -1,5 +1,4 @@
 import type { Plugin } from 'vite';
-import type { FrameworkPlugin } from './config-plugin';
 import { getFrameworkPlugins } from './_shared';
 
 const VIRTUAL_MODULE_ID = 'virtual:setup-app';

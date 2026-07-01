@@ -60,7 +60,7 @@ try {
     cwd: targetDir,
     stdio: 'ignore',
   })
-} catch {}
+} catch { /* ignore */ }
 s.stop('✔ Git repository initialized')
 
 // 5️⃣ 结束

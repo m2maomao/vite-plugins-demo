@@ -4,7 +4,7 @@ import { useApi } from '@/composables/useApi';
 export default defineComponent({
   setup() {
     const { user } = useApi();
-    const profile = ref<any>(null);
+    const profile = ref<{id: number; name: string; email: string} | null>(null);
 
     onMounted(async() => {
       profile.value = (await user.getProfile(1)).data;

@@ -1,6 +1,5 @@
 import type { Plugin } from 'vite';
 import fg from 'fast-glob';
-import path from 'path';
 
 const VIRTUAL_MODULE_ID = 'virtual:routes';
 const RESOLVED_ID = `\0` + VIRTUAL_MODULE_ID;
@@ -11,6 +10,7 @@ interface RouteConfig {
   // 可以是组件路径，也可以是重定向
   file?: string;
   redirect?: string;
+  type?: string;
 }
 
 // 插件现在接收 pluginRoutes参数
@@ -53,7 +53,7 @@ export default function scanPagesPlugin(options:
 
       // 2、合并路由：文件路由 + 插件路由（插件覆盖文件）
       // 用Map去重，后添加的覆盖前面的
-      const routeMap = new Map<string, any>()
+      const routeMap = new Map<string, RouteConfig>()
 
       // 先放文件扫描的（优先级最低）
       fileRoutes.forEach(r => routeMap.set(r.path, {...r, type: 'file'}))

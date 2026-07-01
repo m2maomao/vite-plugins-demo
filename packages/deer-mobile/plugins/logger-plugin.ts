@@ -1,4 +1,4 @@
-import type { Plugin, ResolvedConfig, UserConfig } from 'vite';
+import type { Plugin, ResolvedConfig } from 'vite';
 
 // 定义插件的配置参数类型
 interface LoggerPluginOptions {

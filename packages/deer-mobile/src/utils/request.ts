@@ -31,19 +31,19 @@ class HttpClient {
     )
   }
 
-  get<T>(url: string, params?: any) {
+  get<T>(url: string, params?: Record<string, unknown>) {
     return this.instance.get<T>(url, { params })
   }
 
-  post<T>(url: string, data?: any) {
+  post<T>(url: string, data?: unknown) {
     return this.instance.post<T>(url, data)
   }
 
-  put<T>(url: string, data?: any) {
+  put<T>(url: string, data?: unknown) {
     return this.instance.put<T>(url, data)
   }
 
-  delete<T>(url: string, params?: any) {
+  delete<T>(url: string, params?: unknown) {
     return this.instance.delete<T>(url, { params })
   }
 }
