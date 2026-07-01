@@ -59,7 +59,15 @@ export default function setupPlugin(): Plugin {
               routes: Array.from(routeMap.values()),
             });
 
-            const app = createApp(Layout);
+            const App = {
+              setup() {
+                const router = useRouter()
+                const isReady = ref(false)
+                router.isReady().then(() => { isReady.value = true })
+                return () => isReady.value ? h(Layout) : null
+              }
+            }
+            const app = createApp(App);
 
             // 执行插件注入的运行时代码(先注册 $api)
             ${runtimeCodes}
