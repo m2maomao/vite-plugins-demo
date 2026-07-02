@@ -35,5 +35,8 @@ export default defineConfig({
     builtinPlugin(),
     authPlugin()
   ],
-  server: { proxy: { '/api': 'http://localhost:3001' } },
+  server: {
+    open: true,
+    proxy: { '/api': 'http://localhost:3001' }
+  },
 })

@@ -33,8 +33,8 @@ export default function setupPlugin(): Plugin {
 
         return `
           ${moduleImports} // 放模块顶部
-          import { createApp, h } from 'vue';
-          import { createRouter, createWebHistory, RouterView } from 'vue-router';
+          import { createApp, h, ref } from 'vue';
+          import { createRouter, createWebHistory, RouterView, useRouter } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
           import Layout from 'deer-mobile/layouts';
 

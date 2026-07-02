@@ -72,8 +72,8 @@ function setupPlugin() {
         const runtimeCodes = frameworkPlugins.filter((p) => p.onRuntime).map((p) => p.onRuntime()).join("\n");
         return `
           ${moduleImports} // \u653E\u6A21\u5757\u9876\u90E8
-          import { createApp, h } from 'vue';
-          import { createRouter, createWebHistory, RouterView } from 'vue-router';
+          import { createApp, h, ref } from 'vue';
+          import { createRouter, createWebHistory, RouterView, useRouter } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
           import Layout from 'deer-mobile/layouts';
 
@@ -98,7 +98,15 @@ function setupPlugin() {
               routes: Array.from(routeMap.values()),
             });
 
-            const app = createApp(Layout);
+            const App = {
+              setup() {
+                const router = useRouter()
+                const isReady = ref(false)
+                router.isReady().then(() => { isReady.value = true })
+                return () => isReady.value ? h(Layout) : null
+              }
+            }
+            const app = createApp(App);
 
             // \u6267\u884C\u63D2\u4EF6\u6CE8\u5165\u7684\u8FD0\u884C\u65F6\u4EE3\u7801(\u5148\u6CE8\u518C $api)
             ${runtimeCodes}
