@@ -1,0 +1,22 @@
+{
+  "name": "kangaroo-mobile",
+  "version": "0.0.1",
+  "description": "A Vue 3 mobile framework inspired by Umi",
+  "type": "module",
+  "main": "./index.js",
+  "scripts": {
+    "publish:public": "npm publish --access public"
+  },
+  "keywords": [
+    "vue",
+    "mobile",
+    "framework",
+    "vite-plugin"
+  ],
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "src/",
+    "plugins/"
+  ]
+}
