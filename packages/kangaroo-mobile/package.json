@@ -18,5 +18,9 @@
     "index.js",
     "src/",
     "plugins/"
-  ]
+  ],
+  "dependencies": {
+    "@iconify/vue": "^5.0.1",
+    "vant": "^4.10.0"
+  }
 }
