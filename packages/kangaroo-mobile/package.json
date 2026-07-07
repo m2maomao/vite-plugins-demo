@@ -3,9 +3,13 @@
   "version": "0.0.1",
   "description": "A Vue 3 mobile framework inspired by Umi",
   "type": "module",
-  "main": "./index.js",
+  "main": "dist/kangaroo-mobile.umd.cjs",
+  "module": "dist/kangaroo-mobile.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
-    "publish:public": "npm publish --access public"
+    "build": "vite build",
+    "publish:public": "npm run build && npm publish --access public"
   },
   "keywords": [
     "vue",
@@ -14,13 +18,16 @@
     "vite-plugin"
   ],
   "license": "MIT",
-  "files": [
-    "index.js",
-    "src/",
-    "plugins/"
-  ],
   "dependencies": {
     "@iconify/vue": "^5.0.1",
     "vant": "^4.10.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
+    "less": "^4.6.7",
+    "vite": "^8.1.0"
   }
 }
