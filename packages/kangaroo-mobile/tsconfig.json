@@ -1,18 +1,39 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "rootDir": "./src",
-    "declaration": true,
-    "declarationDir": "dist",
-    "emitDeclarationOnly": true,
-    "jsx": "preserve",
+    /* 基础 */
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler", // ✅ 关键！不是 Node
+    "types": ["vite/client", "vue"],
+
+    /* 严格 */
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+
+    /* JSX / Vue */
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+
+    /* 路径映射 */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    /* 构建 */
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"]
+    "noEmit": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "vite.config.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }
