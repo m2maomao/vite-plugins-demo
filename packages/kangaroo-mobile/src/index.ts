@@ -1,13 +1,14 @@
 import type { App } from 'vue'
-import { YhmIcon } from './components/icon'
+import * as components from './components'
+import './theme/index.less'
 
-const components = [YhmIcon]
-
-export function install(app: App) {
-  components.forEach((c) => {
-    app.component(c.name!, c)
+const install = (app: App) => {
+  Object.values(components).forEach((component: any) => {
+    if (component.name) {
+      app.component(component.name, component)
+    }
   })
 }
 
-export { YhmIcon }
 export default { install }
+export * from './components'
