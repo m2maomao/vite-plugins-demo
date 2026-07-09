@@ -1,0 +1,84 @@
+// ============================================
+// Kangaroo Mobile — Theme
+// ============================================
+// Vant 4 使用 CSS 自定义属性（CSS Variables）进行主题定制
+// 所有 `--van-*` 变量在 :root 上声明，可全局覆盖
+// 参考: Vant 4 css-variables.less
+// ============================================
+
+// -------------------------------------------
+// 1. Kangaroo 品牌色 CSS 变量
+// -------------------------------------------
+:root {
+  --yh-primary-color: #1677ff;
+  --yh-success-color: #00b578;
+  --yh-warning-color: #ff8f1f;
+  --yh-danger-color: #ff3141;
+  --yh-text-color: #333333;
+  --yh-text-color-secondary: #969799;
+  --yh-bg-color: #f5f6fa;
+  --yh-bg-color-white: #ffffff;
+  --yh-font-size-xs: 10px;
+  --yh-font-size-sm: 12px;
+  --yh-font-size-md: 14px;
+  --yh-font-size-lg: 16px;
+  --yh-font-size-xl: 18px;
+  --yh-radius-sm: 4px;
+  --yh-radius-md: 8px;
+  --yh-radius-lg: 12px;
+  --yh-radius-xl: 16px;
+  --yh-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --yh-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --yh-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+// -------------------------------------------
+// 2. 覆盖 Vant 默认变量 → 匹配 Kangaroo 品牌
+// -------------------------------------------
+:root {
+  // 颜色
+  --van-primary-color: var(--yh-primary-color);
+  --van-success-color: var(--yh-success-color);
+  --van-danger-color: var(--yh-danger-color);
+  --van-warning-color: var(--yh-warning-color);
+  --van-text-color: var(--yh-text-color);
+  --van-text-color-2: var(--yh-text-color-secondary);
+  --van-background: var(--yh-bg-color);
+  --van-background-2: var(--yh-bg-color-white);
+
+  // 字体
+  --van-font-size-xs: var(--yh-font-size-xs);
+  --van-font-size-sm: var(--yh-font-size-sm);
+  --van-font-size-md: var(--yh-font-size-md);
+  --van-font-size-lg: var(--yh-font-size-lg);
+
+  // 圆角
+  --van-radius-sm: var(--yh-radius-sm);
+  --van-radius-md: var(--yh-radius-md);
+  --van-radius-lg: var(--yh-radius-lg);
+
+  // NavBar
+  --van-nav-bar-background: var(--yh-bg-color-white);
+  --van-nav-bar-icon-color: var(--yh-text-color);
+  --van-nav-bar-text-color: var(--yh-primary-color);
+  --van-nav-bar-title-text-color: var(--yh-text-color);
+}
+
+// -------------------------------------------
+// 3. 暗黑模式
+// -------------------------------------------
+.van-theme-dark {
+  --yh-text-color: #f5f5f5;
+  --yh-text-color-secondary: #707070;
+  --yh-bg-color: #000000;
+  --yh-bg-color-white: #1c1c1e;
+
+  --van-text-color: #f5f5f5;
+  --van-text-color-2: #707070;
+  --van-background: #000000;
+  --van-background-2: #1c1c1e;
+  --van-background-3: #37363b;
+  --van-border-color: #3a3a3c;
+  --van-nav-bar-background: #1c1c1e;
+  --van-nav-bar-title-text-color: #f5f5f5;
+}
