@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import Icons from 'unplugin-icons/vite';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import { optimize } from 'svgo';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -19,6 +20,12 @@ export default defineConfig({
       },
     }),
   ],
+
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, '../src'),
+    }
+  },
 
   optimizeDeps: {
     include: ['@iconify/vue'],

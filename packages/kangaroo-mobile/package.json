@@ -12,7 +12,7 @@
     "src/assets/icons"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev:play": "vite --host --config playground/vite.config.ts",
     "build": "vite build",
     "preview": "vite preview",
     "publish:public": "npm run build && npm publish --access public"
