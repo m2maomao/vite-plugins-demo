@@ -284,23 +284,21 @@ export function useKangarooThemeVars(): ConfigProviderThemeVars {
 
 ---
 
-## 五、推荐封装顺序
+## 五、组件封装优先级（按重要程度排序）
 
-建议按以下顺序逐个封装组件，每个组件都可在完成后立即使用，互不阻塞：
-
-```
-Phase 1 ─── 主题系统 (theme/index.less → CSS 变量覆盖 Vant)
-               ↓
-Phase 2 ─── 导航类 (NavBar → TabBar → Tabs)
-               ↓
-Phase 3 ─── 展示类 (Cell → Card → Tag → Badge)
-               ↓
-Phase 4 ─── 反馈类 (Toast → Dialog → Popup)
-               ↓
-Phase 5 ─── 表单类 (Button → Form/Field)
-               ↓
-Phase 6 ─── 业务类 (Empty → Skeleton → Result → Exception)
-```
+| 优先级 | 组件 | 理由 | 状态 |
+|--------|------|------|------|
+| 🥇 1 | **NavBar** 导航栏 | 页面导航核心，几乎每个页面都需要 | ✅ 已完成 |
+| 🥇 2 | **Button** 按钮 | 最基础的交互组件，品牌样式起点 | ✅ 已完成 |
+| 🥇 3 | **Field / Form** 表单输入 | 用户信息收集核心，登录注册等场景必备 | ⏳ 下一个 |
+| 🥇 4 | **Cell** 单元格 | 列表页、设置页的核心布局单元，使用频率极高 | ⏳ |
+| 🥈 5 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
+| 🥈 6 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
+| 🥈 7 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
+| 🥉 8 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
+| 🥉 9 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
+| 🥉 10 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
+| 🥉 11 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
 
 ---
 

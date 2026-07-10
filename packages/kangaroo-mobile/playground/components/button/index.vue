@@ -88,11 +88,29 @@
           :text="t('gradient')"
         />
       </div>
+
+      <!-- 动画按钮 -->
+      <div class="demo-block">
+        <div class="demo-block__title">{{ t('animatedButton') }}</div>
+        <yhm-button type="danger" round>
+          <van-swipe
+            vertical
+            class="notice-swipe"
+            :autoplay="2000"
+            :touchable="false"
+            :show-indicators="false"
+          >
+            <van-swipe-item>{{ t('doTask') }}</van-swipe-item>
+            <van-swipe-item>{{ t('lottery') }}</van-swipe-item>
+          </van-swipe>
+        </yhm-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Swipe as VanSwipe, SwipeItem as VanSwipeItem } from 'vant'
 import { createTranslate } from '@/locale'
 
 defineEmits<{ (e: 'back'): void }>()
@@ -130,5 +148,11 @@ const t = createTranslate('buttonDemo')
 .demo-button .van-button--small,
 .demo-button .van-button--normal:not(:last-child) {
   margin-right: var(--van-padding-md);
+}
+
+/* 动画按钮轮播 */
+.demo-button .notice-swipe {
+  height: 40px;
+  line-height: 40px;
 }
 </style>
