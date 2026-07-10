@@ -1,6 +1,7 @@
 import type { App } from 'vue'
 import * as components from './components'
 import './theme/index.less'
+import 'vant/lib/index.css'
 
 const install = (app: App) => {
   Object.values(components).forEach((component: any) => {
