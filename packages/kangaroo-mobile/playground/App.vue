@@ -29,7 +29,14 @@
         <yhm-icon name="chevron-right" size="14" class="home-item__arrow" />
       </div>
 
-      <!-- 后续更多组件加在这里 -->
+      <div
+        class="home-item"
+        @click="currentDemo = 'button'"
+      >
+        <span class="home-item__name">Button</span>
+        <span class="home-item__desc">按钮</span>
+        <yhm-icon name="chevron-right" size="14" class="home-item__arrow" />
+      </div>
     </div>
   </div>
 
@@ -38,12 +45,17 @@
     v-else-if="currentDemo === 'nav-bar'"
     @back="currentDemo = null"
   />
+  <ButtonDemo
+    v-else-if="currentDemo === 'button'"
+    @back="currentDemo = null"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { setLocale, getLocale } from '@/locale'
 import NavBarDemo from './components/nav-bar/index.vue'
+import ButtonDemo from './components/button/index.vue'
 
 const currentDemo = ref<string | null>(null)
 const currentLang = ref(getLocale())
@@ -68,6 +80,35 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
       'useSlot': '使用插槽',
       'disableButton': '禁用按钮',
     },
+    buttonDemo: {
+      'back': '返回',
+      'type': '按钮类型',
+      'default': '默认按钮',
+      'primary': '主要按钮',
+      'success': '成功按钮',
+      'danger': '危险按钮',
+      'warning': '警告按钮',
+      'plain': '朴素按钮',
+      'disabled': '禁用状态',
+      'loading': '加载状态',
+      'loadingText': '加载中...',
+      'shape': '按钮形状',
+      'square': '方形按钮',
+      'round': '圆形按钮',
+      'size': '按钮尺寸',
+      'large': '大号按钮',
+      'normal': '普通按钮',
+      'small': '小型按钮',
+      'mini': '迷你按钮',
+      'blockElement': '块级元素',
+      'hairline': '细边框',
+      'hairlineButton': '细边框按钮',
+      'icon': '图标按钮',
+      'button': '按钮',
+      'gradient': '渐变色按钮',
+      'customColor': '自定义颜色',
+      'pure': '单色按钮',
+    },
   },
   'en-US': {
     navBarDemo: {
@@ -82,6 +123,35 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
       'useSlot': 'Use Slot',
       'disableButton': 'Disable Button',
     },
+    buttonDemo: {
+      'back': 'Back',
+      'type': 'Type',
+      'default': 'Default',
+      'primary': 'Primary',
+      'success': 'Success',
+      'danger': 'Danger',
+      'warning': 'Warning',
+      'plain': 'Plain',
+      'hairline': 'Hairline',
+      'hairlineButton': 'Hairline',
+      'disabled': 'Disabled',
+      'loading': 'Loading',
+      'loadingText': 'Loading...',
+      'shape': 'Shape',
+      'square': 'Square',
+      'round': 'Round',
+      'icon': 'Icon',
+      'button': 'Button',
+      'size': 'Size',
+      'large': 'Large',
+      'normal': 'Normal',
+      'small': 'Small',
+      'mini': 'Mini',
+      'blockElement': 'Block Element',
+      'customColor': 'Custom Color',
+      'pure': 'Pure',
+      'gradient': 'Gradient',
+    },
   },
   'ja-JP': {
     navBarDemo: {
@@ -95,6 +165,35 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
       'button': 'ボタン',
       'useSlot': 'スロット使用',
       'disableButton': '無効化ボタン',
+    },
+    buttonDemo: {
+      'back': '戻る',
+      'type': 'ボタンタイプ',
+      'default': 'デフォルト',
+      'primary': 'プライマリ',
+      'success': 'サクセス',
+      'danger': 'デンジャー',
+      'warning': 'ワーニング',
+      'plain': 'プレーン',
+      'hairline': 'ヘアライン',
+      'hairlineButton': 'ヘアライン',
+      'disabled': '無効',
+      'loading': 'ローディング',
+      'loadingText': '読み込み中...',
+      'shape': 'シェイプ',
+      'square': 'スクエア',
+      'round': 'ラウンド',
+      'icon': 'アイコン',
+      'button': 'ボタン',
+      'size': 'サイズ',
+      'large': 'ラージ',
+      'normal': 'ノーマル',
+      'small': 'スモール',
+      'mini': 'ミニ',
+      'blockElement': 'ブロック要素',
+      'customColor': 'カスタム色',
+      'pure': '単色',
+      'gradient': 'グラデーション',
     },
   },
 }
@@ -175,6 +274,7 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 16px;
+  margin-bottom: 12px;
   background: var(--yh-bg-color-white, #fff);
   border-radius: var(--yh-radius-md, 8px);
   cursor: pointer;
