@@ -151,6 +151,12 @@ const props = withDefaults(
 
     /** 是否适配顶部安全区（刘海屏） */
     safeAreaInsetTop?: boolean
+
+    /** 是否禁用左侧按钮 */
+    leftDisabled?: boolean
+
+    /** 是否禁用右侧按钮 */
+    rightDisabled?: boolean
   }>(),
   {
     showBack: false,

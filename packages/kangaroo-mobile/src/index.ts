@@ -13,3 +13,5 @@ const install = (app: App) => {
 
 export default { install }
 export * from './components'
+export { setLocale, getLocale, createTranslate, onLocaleChange, i18nPlugin, I18N_KEY } from './locale'
+export type { LocaleLang, LocaleMessages, Translate } from './locale'

@@ -1,9 +1,15 @@
 import { VANT_FALLBACK_ICONS } from './vant-fallback'
 
 export const ICON_MAP: Record<string, string> = {
-  'back': 'mdi:arrow-left',
+  'back': 'vant:arrow-left',
   'home': 'mdi:home',
   'close': 'mdi:close',
+  'search': 'vant:search',
+  'chat': 'mdi:chat',
+  'bell': 'mdi:bell',
+  'cart': 'mdi:cart',
+  'chevron-right': 'vant:arrow',
+  'lighting-bolt': 'mdi:lightning-bolt',
   // ... 其他映射
 }
 

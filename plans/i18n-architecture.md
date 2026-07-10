@@ -1,210 +1,157 @@
 # i18n 多语言架构方案
 
-## 项目角色回顾
-
-| 包 | 角色 | 说明 |
-|---|------|------|
-| `deer-mobile` | **框架层** | Vue 3 框架，通过 Vite Plugin 注入运行时代码 |
-| `kangaroo-mobile` | **UI 组件库层** | 封装 Vant 4 的 Vue 3 移动端组件库 |
-| `vant` | **底层 UI 库** | 自带 `Locale` API 可切换内部文案的语言 |
-
-## 核心问题拆解：需要两层的国际化
-
-### 第一层：框架应用文案 i18n（App Text）
-
-这是业务层面的翻译——页面标题、按钮文字、菜单项、表单 label 等。
-
-```
-"pages.user.title" → "个人中心" / "Profile"
-"common.submit"    → "提交" / "Submit"
-```
-
-👉 **这是 `deer-mobile` 框架的职责**
-
-### 第二层：Vant 组件内置文案 i18n（Component Text）
-
-Vant 组件内部有固定的文案——日历的"确认"/"取消"，Pagination 的页码文字，Search 的 placeholder 等。
-
-```
-import { Locale } from 'vant'
-import enUS from 'vant/lib/locale/lang/en-US'
-Locale.use('en-US', enUS)
-```
-
-👉 **这是 `kangaroo-mobile` 的职责，但要和框架同步**
+> 更新说明：聚焦 `kangaroo-mobile`，兼顾后续 `deer-mobile` 集成
 
 ---
 
-## 架构设计
+## 核心问题：kangaroo-mobile 的 i18n 怎么选？
 
-```
-┌──────────────────────────────────────────────────┐
-│                  应用代码                          │
-│  <template>{{ $t('pages.user.title') }}</template> │
-├──────────────────────────────────────────────────┤
-│                                                    │
-│  deer-mobile（框架层）                              │
-│  ┌────────────────────────────────────────────┐   │
-│  │ i18n-plugin.ts（Vite Plugin）               │   │
-│  │                                              │   │
-│  │ onImport() → import { createI18n } ...      │   │
-│  │ onRuntime() → 初始化 vue-i18n + 同步 Vant    │   │
-│  │                                              │   │
-│  │ 用户提供: messages/{zh-CN,en-US}.ts          │   │
-│  └────────────────────────────────────────────┘   │
-│                          │                         │
-│                          ▼                         │
-│  kangaroo-mobile（UI 层）                          │
-│  ┌────────────────────────────────────────────┐   │
-│  │ setVantLocale(lang: string)                 │   │
-│  │  - 调用 Locale.use() 切换 Vant 内置文案     │   │
-│  │  - 导出给框架调用                           │   │
-│  └────────────────────────────────────────────┘   │
-│                          │                         │
-│                          ▼                         │
-│  Vant 4（底层 UI 库）                              │
-│  ┌────────────────────────────────────────────┐   │
-│  │ Locale.use('en-US', enUS)                   │   │
-│  │  - 日历确认/取消按钮                         │   │
-│  │  - Pagination 文字                           │   │
-│  │  - Search placeholder                        │   │
-│  │  - ...                                        │   │
-│  └────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────┘
-```
+| 选项 | 做法 | 推荐？ |
+|------|------|--------|
+| **A. 沿用 Vant 的 Locale API** | 包装 `Locale.use()` 暴露 `setLocale()` | ✅ **推荐** |
+| B. 自己建一套 | 自建 locale 管理，再桥接 Vant | ❌ 重复造轮子 |
+
+### 为什么选 A？
+
+1. **定位匹配** — `kangaroo-mobile` 是 Vant 的封装层，组件都是基于 Vant 的，Vant 的 `Locale` 已经覆盖了这些组件的内部文案（日历确认/取消、Search placeholder、Pagination 文字等）
+2. **开箱即用** — Vant 已内置 30+ 语言包，无需自己维护翻译
+3. **接口简洁** — 对上层（`deer-mobile` 或直接使用方）只暴露一个 `setLocale(lang)` 即可
+4. **扩展灵活** — 未来 `kangaroo-mobile` 有自定义组件时，`setLocale()` 可额外接受自定义 messages 参数
 
 ---
 
-## 关键设计决策
+## 架构分层
 
-### 决策 1：i18n 放在 `deer-mobile` 的 Plugin 中
-
-**理由：**
-
-1. **一致性** — 框架所有能力都是 Plugin 提供（config、setup、scan-pages、auth、api）
-2. **框架职责** — i18n 是全局基础设施，不是组件级别的功能
-3. **插件钩子天然合适** — `onRuntime()` 可以注入 i18n 初始化代码到 app setup 流程
-
-### 决策 2：Vant i18n 由 `kangaroo-mobile` 封装
-
-**理由：**
-
-1. **解耦** — `deer-mobile` 不应该直接依赖 Vant
-2. **封装** — Vant 的 locale API 细节对框架透明
-3. **可替换** — 如果以后换底层 UI 库，只需改 `kangaroo-mobile`
-
-### 决策 3：框架 Plugin 自动同步到 Vant
-
-i18n Plugin 的运行时在初始化 `vue-i18n` 后，自动调用 `kangaroo-mobile` 暴露的 `setVantLocale()`。对用户来说完全无感。
+```
+deer-mobile（框架层，后续实现）
+┌──────────────────────────────────┐
+│ i18n-plugin.ts                   │
+│ - vue-i18n 管理业务文案          │
+│ - 调用 kangaroo-mobile.setLocale │
+│   同步 UI 组件文案               │
+└──────────┬───────────────────────┘
+           │ setLocale('en-US')
+           ▼
+kangaroo-mobile（UI 组件库层，现在实现）
+┌──────────────────────────────────┐
+│ src/locale/index.ts              │
+│                                  │
+│ setLocale(lang, customMessages?) │
+│  ├─ 内部调用 Vant Locale.use()   │
+│  └─ 可选：注册组件自定义文案     │
+│                                  │
+│ useLocale()         ← composable │
+│ $t(key)             ← 模板用     │
+└──────────┬───────────────────────┘
+           │ Locale.use('en-US', enUS)
+           ▼
+Vant 4（底层 UI 库）
+┌──────────────────────────────────┐
+│ Locale.use('en-US', enUS)        │
+│ - NavBar 返回文字                │
+│ - Calendar 确认/取消             │
+│ - Pagination 页数文字            │
+│ - ...                            │
+└──────────────────────────────────┘
+```
 
 ---
 
 ## 实现计划
 
-### Step 1: `kangaroo-mobile` 暴露 Vant locale 工具
+### Step 1: 新建 `src/locale/` 模块
 
-**文件**: `packages/kangaroo-mobile/src/locale/index.ts`
+**文件**: [`packages/kangaroo-mobile/src/locale/index.ts`](packages/kangaroo-mobile/src/locale/index.ts)
 
 ```ts
-// 导出 Vant 语言包方便框架使用
 import { Locale } from 'vant'
-import enUS from 'vant/lib/locale/lang/en-US'
 import zhCN from 'vant/lib/locale/lang/zh-CN'
+import enUS from 'vant/lib/locale/lang/en-US'
 import jaJP from 'vant/lib/locale/lang/ja-JP'
 
-// 内置支持的语言映射
-const vantLocaleMap: Record<string, Record<string, string>> = {
+// Vant 内置语言映射
+const vantMessages: Record<string, Record<string, string>> = {
   'zh-CN': zhCN,
   'en-US': enUS,
   'ja-JP': jaJP,
 }
 
+// kangaroo-mobile 自定义组件文案
+type LocaleMessages = Record<string, string>
+const customMessages: Record<string, LocaleMessages> = {}
+
+let currentLang = 'zh-CN'
+
 /**
- * 切换 Vant 组件内置文案的语言
- * @param lang 语言标记，如 'zh-CN', 'en-US'
+ * 切换语言
+ * @param lang 语言标记，如 'zh-CN' | 'en-US' | 'ja-JP'
+ * @param messages 可选，kangaroo-mobile 自定义组件的文案
  */
-export function setVantLocale(lang: string) {
-  const messages = vantLocaleMap[lang]
-  if (messages) {
-    Locale.use(lang, messages)
+export function setLocale(lang: string, messages?: LocaleMessages) {
+  currentLang = lang
+
+  // 1. 同步 Vant 内置组件文案
+  const vantMsg = vantMessages[lang]
+  if (vantMsg) {
+    Locale.use(lang, vantMsg)
   }
+
+  // 2. 注册自定义组件文案
+  if (messages) {
+    customMessages[lang] = messages
+  }
+}
+
+/**
+ * 获取当前语言
+ */
+export function getLocale(): string {
+  return currentLang
+}
+
+/**
+ * 翻译 key（给自定义组件用）
+ */
+export function t(key: string): string {
+  return customMessages[currentLang]?.[key] ?? key
 }
 ```
 
-然后在 [`src/index.ts`](packages/kangaroo-mobile/src/index.ts) 中导出。
-
-### Step 2: `deer-mobile` 新增 i18n Plugin
-
-**文件**: `packages/deer-mobile/plugins/i18n-plugin.ts`
-
-作为 FrameworkPlugin，利用 `onImport()` 和 `onRuntime()` 钩子：
-
-```
-onImport() → 生成 import { createI18n } from 'vue-i18n'
-              import { setVantLocale } from 'kangaroo-mobile'
-
-onRuntime() → 生成:
-  const i18n = createI18n({
-    locale: 'zh-CN',
-    messages: { 'zh-CN': ..., 'en-US': ... },
-    legacy: false,  // Composition API 模式
-  })
-  app.use(i18n)
-
-  // 切换语言时同步 Vant
-  watch(i18n.global.locale, (newLocale) => {
-    setVantLocale(newLocale)
-  })
-```
-
-### Step 3: 用户项目中使用
+### Step 2: 导出到 [`src/index.ts`](packages/kangaroo-mobile/src/index.ts)
 
 ```ts
-// vite.config.ts
-import { defineConfig } from 'vite'
-import deer from 'deer-mobile'
-import { i18nPlugin } from 'deer-mobile/i18n-plugin'
-
-export default defineConfig({
-  plugins: [
-    deer({
-      title: 'My App',
-    }, [
-      i18nPlugin({
-        defaultLocale: 'zh-CN',
-        messages: {
-          'zh-CN': {
-            'pages.user.title': '个人中心',
-          },
-          'en-US': {
-            'pages.user.title': 'Profile',
-          },
-        },
-      }),
-    ])
-  ]
-})
+export { setLocale, getLocale, t } from './locale'
 ```
 
+### Step 3: 后续 `deer-mobile` i18n Plugin 集成
+
+待 `kangaroo-mobile` 完成后再实现。Plugin 的工作就是：
+
+```
+onRuntime() → 生成代码:
+  import { setLocale } from 'kangaroo-mobile'
+  import { createI18n } from 'vue-i18n'
+
+  const i18n = createI18n({ ... })
+  app.use(i18n)
+
+  watch(i18n.global.locale, (newLang) => {
+    setLocale(newLang)  // 切换 UI 组件文案
+  })
+```
+
+两个包完全解耦，通过 `setLocale()` 这一个接口连接。
+
 ---
 
-## 为什么不直接在 Vant 里做 i18n？
+## 为什么 kangaroo-mobile 不直接用 vue-i18n？
 
-Vant 的 `Locale` API 只覆盖 **组件内部固定文案**（约 20 个组件有内置文案），不覆盖：
+因为 **职责不同**：
 
-- 业务页面标题
-- 自定义表单 label / placeholder
-- 按钮文字、提示信息
-- 菜单项、Tab 标签
+| 工具 | kangaroo-mobile 用？ | 理由 |
+|------|---------------------|------|
+| Vant `Locale` | ✅ 核心 | 组件内部文案翻译 |
+| `vue-i18n` | ❌ 不用 | 那是框架层的职责（业务文案），kangaroo 是 UI 库不应依赖它 |
+| 自己的 `t()` | ⚠️ 轻量 | 只在 kangaroo-mobile 自定义组件内部使用 |
 
-所以 **必须要有框架层的 i18n**，Vant locale 只是锦上添花的补充。
-
----
-
-## 总结
-
-| 层面 | 技术选型 | 职责 |
-|------|---------|------|
-| 框架 i18n | `vue-i18n`（Composition API 模式） | 业务文案国际化 |
-| Vant locale | `Locale.use()` 封装在 kangaroo-mobile | 组件内置文案国际化 |
-| 同步机制 | i18n-plugin runtime 自动调用 setVantLocale | 用户无感 |
+用 Vant 的 Locale + 一个非常轻量的 `t()` 函数就够了，不需要引入 `vue-i18n` 这么大的依赖。

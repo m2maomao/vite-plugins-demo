@@ -10,12 +10,11 @@
     class="yhm-icon"
   />
 
-  <!-- Vant 兜底 -->
+  <!-- Vant 兜底：不传 color，图标色继承自 CSS -->
   <VanIcon
     v-else
     :name="vantIconName"
     :size="size"
-    :color="color"
     aria-hidden="true"
     class="yhm-icon"
   />
@@ -26,6 +25,10 @@ import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { Icon as VanIcon } from 'vant'
 import { resolveIconName, isVantIcon } from './icon-map'
+
+defineOptions({
+  name: 'YhmIcon',
+})
 
 const props = withDefaults(
   defineProps<{
@@ -52,9 +55,24 @@ const iconName = computed(() => {
 
 // ✅ Vant 图标名
 const vantIconName = computed(() => {
-  if (resolved.value === '') {
-    return props.name // vant:xxx 或 coupon-o
+  // 映射表：kangaroo 业务名 → 对应的 Vant 图标名
+  const vantNameMap: Record<string, string> = {
+    'back': 'arrow-left',
+    'search': 'search',
+    'chevron-right': 'arrow',
   }
+
+  // 1️⃣ 业务名映射（如 'back' → 'arrow-left'）
+  if (vantNameMap[props.name]) {
+    return vantNameMap[props.name]
+  }
+
+  // 2️⃣ 空解析结果：直接使用原始 name（如 vant:xxx 或 coupon-o）
+  if (resolved.value === '') {
+    return props.name
+  }
+
+  // 3️⃣ 其他：直接透传
   return props.name
 })
 </script>
