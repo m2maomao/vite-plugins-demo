@@ -205,13 +205,98 @@ export function useKangarooThemeVars(): ConfigProviderThemeVars {
 ```
 
 #### 2.2 `YhmTabBar` — 标签栏
-- 基于 Vant [`TabBar`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/tabbar)
-- 封装底部导航，支持路由绑定
-- 自定义图标（使用 `YhmIcon`）
+- 基于 Vant [`Tabbar`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/tabbar) + [`TabbarItem`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/tabbar-item)
+- 封装底部导航栏，支持 `items` 数组配置模式和路由绑定
+- 图标统一使用 `YhmIcon`，支持激活态/未激活态双图标
+- 支持徽标（badge）和小红点（dot）
+
+```vue
+<template>
+  <van-tabbar
+    v-model="current"
+    :route="route"
+    :placeholder="placeholder"
+    :safe-area-inset-bottom="safeAreaInsetBottom"
+    v-bind="$attrs"
+  >
+    <van-tabbar-item
+      v-for="item in items"
+      :key="item.name"
+      :name="item.name"
+      :to="item.to"
+      :badge="item.badge"
+      :dot="item.dot"
+    >
+      <template #icon="props">
+        <YhmIcon
+          v-if="current === item.name && item.activeIcon"
+          :name="item.activeIcon"
+        />
+        <YhmIcon v-else-if="item.icon" :name="item.icon" />
+        <slot v-else :name="`icon-${item.name}`" v-bind="props" />
+      </template>
+      <slot :name="`title-${item.name}`">
+        {{ item.label }}
+      </slot>
+    </van-tabbar-item>
+  </van-tabbar>
+</template>
+```
+
+**`YhmTabBar` Props**:
+
+| Prop | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `items` | `TabItem[]` | `[]` | 标签页配置数组 |
+| `route` | `boolean` | `false` | 是否启用路由模式 |
+| `placeholder` | `boolean` | `true` | 是否在标签栏下方生成占位元素 |
+| `safe-area-inset-bottom` | `boolean` | `true` | 是否开启底部安全区适配 |
+| `modelValue` | `string \| number` | `0` | 当前选中标签的标识（v-model） |
+
+**`TabItem` 类型定义**:
+
+```typescript
+interface TabItem {
+  name: string               // 唯一标识
+  label: string              // 显示文本
+  icon?: string              // YhmIcon 名称（未选中态）
+  activeIcon?: string        // YhmIcon 名称（激活态，可选）
+  to?: string | Record<string, unknown>  // 路由路径（route 模式下使用）
+  badge?: string | number    // 徽标内容
+  dot?: boolean              // 是否显示小红点
+}
+```
 
 #### 2.3 `YhmTabs` — 选项卡
-- 基于 Vant [`Tabs`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/tabs)
-- 粘性布局、滑动切换、徽章
+- 基于 Vant [`Tabs`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/tabs) + [`Tab`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/tab)
+- 支持粘性布局、滑动切换、徽章
+- 封装 `items` 数组配置模式，简化使用
+- 自定义标签标题（支持 `YhmIcon` + 文本组合）
+
+```vue
+<template>
+  <van-tabs
+    v-model:active="current"
+    :sticky="sticky"
+    :swipeable="swipeable"
+    :ellipsis="ellipsis"
+    v-bind="$attrs"
+    @change="onChange"
+  >
+    <van-tab
+      v-for="tab in items"
+      :key="tab.name"
+      :name="tab.name"
+      :title="tab.label"
+      :disabled="tab.disabled"
+      :badge="tab.badge"
+      :dot="tab.dot"
+    >
+      <slot :name="tab.name" />
+    </van-tab>
+  </van-tabs>
+</template>
+```
 
 ---
 
@@ -231,6 +316,38 @@ export function useKangarooThemeVars(): ConfigProviderThemeVars {
 #### 3.4 `YhmBadge` — 徽标 (透传)
 - 直接包装 Vant [`Badge`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/badge)
 
+#### 3.5 `YhmCollapse` — 折叠面板
+- 基于 Vant [`Collapse`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/collapse) + [`CollapseItem`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/collapse-item)
+- 支持手风琴模式（`accordion`）
+- 自定义标题区域（支持 `YhmIcon` + 文本）
+- 扩展：预设常见场景样式（表单分组、帮助 FAQ）
+
+```vue
+<template>
+  <van-collapse
+    v-model="activeNames"
+    :accordion="accordion"
+    :border="border"
+    v-bind="$attrs"
+  >
+    <van-collapse-item
+      v-for="item in items"
+      :key="item.name"
+      :name="item.name"
+      :disabled="item.disabled"
+    >
+      <template #title>
+        <YhmIcon v-if="item.icon" :name="item.icon" />
+        <span>{{ item.title }}</span>
+      </template>
+      <slot :name="item.name">
+        {{ item.content }}
+      </slot>
+    </van-collapse-item>
+  </van-collapse>
+</template>
+```
+
 ---
 
 ### Phase 4 — 反馈类组件
@@ -248,6 +365,31 @@ export function useKangarooThemeVars(): ConfigProviderThemeVars {
 - 基于 Vant [`Popup`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/popup)
 - 预设上下左右四个方向的弹出
 
+#### 4.4 `YhmActionSheet` — 动作面板
+- 基于 Vant [`ActionSheet`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/action-sheet)
+- 封装统一的 actions 配置，支持 `YhmIcon` 图标
+- 内置取消按钮、标题栏、描述文字
+- 扩展：危险操作红色警示项
+
+```vue
+<template>
+  <van-action-sheet
+    v-model:show="visible"
+    :title="title"
+    :description="description"
+    :actions="actions"
+    :cancel-text="cancelText"
+    :close-on-click-action="closeOnClickAction"
+    v-bind="$attrs"
+    @select="onSelect"
+  >
+    <template v-if="$slots.default" #default>
+      <slot />
+    </template>
+  </van-action-sheet>
+</template>
+```
+
 ---
 
 ### Phase 5 — 表单类组件
@@ -259,6 +401,48 @@ export function useKangarooThemeVars(): ConfigProviderThemeVars {
 #### 5.2 `YhmForm` + `YhmField` — 表单
 - 基于 Vant [`Form`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/form) + [`Field`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/field)
 - 封装表单校验、提交逻辑、错误提示
+
+#### 5.3 `YhmPicker` — 选择器
+- 基于 Vant [`Picker`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/picker)
+- 支持单列、多列、级联选择
+- 结合 Popup 封装为底部弹窗选择模式
+- 扩展：表单场景下 `YhmField` + `YhmPicker` 联动选择
+
+```vue
+<template>
+  <van-popup v-model:show="visible" position="bottom" round>
+    <van-picker
+      :columns="columns"
+      :title="title"
+      :toolbar="toolbar"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+      @change="onChange"
+      v-bind="$attrs"
+    />
+  </van-popup>
+</template>
+```
+
+#### 5.4 `YhmSwitch` — 开关
+- 基于 Vant [`Switch`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/switch)
+- 支持 `v-model` 双向绑定
+- 自定义大小、颜色
+- 扩展：带文字描述的开关项（常与 Cell 组合使用）
+
+```vue
+<template>
+  <van-switch
+    :model-value="modelValue"
+    :size="size"
+    :active-color="activeColor"
+    :inactive-color="inactiveColor"
+    :disabled="disabled"
+    v-bind="$attrs"
+    @update:model-value="$emit('update:modelValue', $event)"
+  />
+</template>
+```
 
 ---
 
@@ -290,15 +474,25 @@ export function useKangarooThemeVars(): ConfigProviderThemeVars {
 |--------|------|------|------|
 | 🥇 1 | **NavBar** 导航栏 | 页面导航核心，几乎每个页面都需要 | ✅ 已完成 |
 | 🥇 2 | **Button** 按钮 | 最基础的交互组件，品牌样式起点 | ✅ 已完成 |
-| 🥇 3 | **Field / Form** 表单输入 | 用户信息收集核心，登录注册等场景必备 | ⏳ 下一个 |
-| 🥇 4 | **Cell** 单元格 | 列表页、设置页的核心布局单元，使用频率极高 | ⏳ |
-| 🥈 5 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
-| 🥈 6 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
-| 🥈 7 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
-| 🥉 8 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
-| 🥉 9 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
-| 🥉 10 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
+| 🥇 3 | **TabBar** 标签栏 | 底部导航核心，多数移动 App 标配 | ⏳ |
+| 🥇 4 | **Field / Form** 表单输入 | 用户信息收集核心，登录注册等场景必备 | ⏳ 下一个 |
+| 🥇 5 | **Cell** 单元格 | 列表页、设置页的核心布局单元，使用频率极高 | ⏳ |
+| 🥈 6 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
+| 🥈 7 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
+| 🥈 8 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
+| 🥈 9 | **ActionSheet** 动作面板 | 操作菜单选择，业务通用 | ⏳ |
+| 🥈 10 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
 | 🥉 11 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
+| 🥉 12 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
+| 🥉 13 | **Tag** 标签 | 状态标记、分类标识 | ⏳ |
+| 🥉 14 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
+| 🥉 15 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
+| 🥉 16 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
+| 🥉 17 | **Badge** 徽标 | 消息/通知角标 | ⏳ |
+| 🥉 18 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ⏳ |
+| 🥉 19 | **Switch** 开关 | 设置项开关控制 | ⏳ |
+| 🥉 20 | **Result** 结果页 | 操作结果反馈（成功/失败/警告） | ⏳ |
+| 🥉 21 | **Exception** 异常页 | 403 / 404 / 500 错误页面 | ⏳ |
 
 ---
 
