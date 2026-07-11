@@ -1,27 +1,73 @@
 <template>
   <div class="demo-tabbar">
     <demo-block :title="t('basicUsage')">
-      <yhm-tab-bar v-model="active" :items="basicItems" />
+      <yhm-tab-bar v-model="active">
+        <yhm-tabbar-item name="0" icon="home-o">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="1" icon="search">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="2" icon="friends-o">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="3" icon="setting-o">{{ t('tab') }}</yhm-tabbar-item>
+      </yhm-tab-bar>
     </demo-block>
 
     <demo-block :title="t('matchByName')">
-      <yhm-tab-bar v-model="activeName" :items="nameItems" />
+      <yhm-tab-bar v-model="activeName">
+        <yhm-tabbar-item name="home" icon="home-o">
+          {{ t('tab') }}
+        </yhm-tabbar-item>
+        <yhm-tabbar-item name="search" icon="search">
+          {{ t('tab') }}
+        </yhm-tabbar-item>
+        <yhm-tabbar-item name="friends" icon="friends-o">
+          {{ t('tab') }}
+        </yhm-tabbar-item>
+        <yhm-tabbar-item name="setting" icon="setting-o">
+          {{ t('tab') }}
+        </yhm-tabbar-item>
+      </yhm-tab-bar>
     </demo-block>
 
     <demo-block :title="t('badge')">
-      <yhm-tab-bar v-model="active2" :items="badgeItems" />
+      <yhm-tab-bar v-model="active2">
+        <yhm-tabbar-item name="0" icon="home-o">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="1" icon="search" dot>{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="2" icon="friends-o" badge="5">
+          {{ t('tab') }}
+        </yhm-tabbar-item>
+        <yhm-tabbar-item name="3" icon="setting-o" badge="20">
+          {{ t('tab') }}
+        </yhm-tabbar-item>
+      </yhm-tab-bar>
     </demo-block>
 
     <demo-block :title="t('customIcon')">
-      <yhm-tab-bar v-model="active3" :items="customIconItems" />
+      <yhm-tab-bar v-model="active3">
+        <yhm-tabbar-item name="0" badge="3">
+          <span>{{ t('custom') }}</span>
+          <template #icon="props">
+            <img :src="props.active ? icon.active : icon.inactive" />
+          </template>
+        </yhm-tabbar-item>
+        <yhm-tabbar-item name="1" icon="search">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="2" icon="setting-o">{{ t('tab') }}</yhm-tabbar-item>
+      </yhm-tab-bar>
     </demo-block>
 
     <demo-block :title="t('customColor')">
-      <yhm-tab-bar v-model="active4" :items="colorItems" active-color="#ee0a24" />
+      <yhm-tab-bar v-model="active4" active-color="#ee0a24">
+        <yhm-tabbar-item name="0" icon="home-o">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="1" icon="search">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="2" icon="friends-o">{{ t('tab') }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="3" icon="setting-o">{{ t('tab') }}</yhm-tabbar-item>
+      </yhm-tab-bar>
     </demo-block>
 
     <demo-block :title="t('switchEvent')">
-      <yhm-tab-bar v-model="active5" :items="eventItems" @change="onChange" />
+      <yhm-tab-bar v-model="active5" @change="onChange">
+        <yhm-tabbar-item name="0" icon="home-o">{{ `${t('tab')} 1` }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="1" icon="search">{{ `${t('tab')} 2` }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="2" icon="friends-o">{{ `${t('tab')} 3` }}</yhm-tabbar-item>
+        <yhm-tabbar-item name="3" icon="setting-o">{{ `${t('tab')} 4` }}</yhm-tabbar-item>
+      </yhm-tab-bar>
     </demo-block>
   </div>
 </template>
@@ -30,6 +76,7 @@
 import { ref } from 'vue'
 import { showToast } from 'vant'
 import { createTranslate } from '@/locale'
+import { cdnURL } from '../../site'
 
 const t = createTranslate('tabBarDemo')
 
@@ -40,46 +87,10 @@ const active4 = ref(0)
 const active5 = ref(0)
 const activeName = ref('home')
 
-const basicItems = [
-  { name: 0, icon: 'home-o', label: t('tab') },
-  { name: 1, icon: 'search', label: t('tab') },
-  { name: 2, icon: 'friends-o', label: t('tab') },
-  { name: 3, icon: 'setting-o', label: t('tab') },
-]
-
-const nameItems = [
-  { name: 'home', icon: 'home-o', label: t('tab') },
-  { name: 'search', icon: 'search', label: t('tab') },
-  { name: 'friends', icon: 'friends-o', label: t('tab') },
-  { name: 'setting', icon: 'setting-o', label: t('tab') },
-]
-
-const badgeItems = [
-  { name: 0, icon: 'home-o', label: t('tab') },
-  { name: 1, icon: 'search', label: t('tab'), dot: true },
-  { name: 2, icon: 'friends-o', label: t('tab'), badge: '5' },
-  { name: 3, icon: 'setting-o', label: t('tab'), badge: '20' },
-]
-
-const customIconItems = [
-  { name: 0, icon: 'home-o', activeIcon: 'setting-o', label: t('custom') },
-  { name: 1, icon: 'search', label: t('tab') },
-  { name: 2, icon: 'friends-o', label: t('tab') },
-]
-
-const colorItems = [
-  { name: 0, icon: 'home-o', label: t('tab') },
-  { name: 1, icon: 'search', label: t('tab') },
-  { name: 2, icon: 'friends-o', label: t('tab') },
-  { name: 3, icon: 'setting-o', label: t('tab') },
-]
-
-const eventItems = [
-  { name: 0, icon: 'home-o', label: `${t('tab')} 1` },
-  { name: 1, icon: 'search', label: `${t('tab')} 2` },
-  { name: 2, icon: 'friends-o', label: `${t('tab')} 3` },
-  { name: 3, icon: 'setting-o', label: `${t('tab')} 4` },
-]
+const icon = {
+  active: cdnURL('user-active.png'),
+  inactive: cdnURL('user-inactive.png'),
+}
 
 const onChange = (index: number | string) => {
   showToast(`${t('tab')} ${index}`)
@@ -93,4 +104,5 @@ const onChange = (index: number | string) => {
     padding-bottom: 0;
   }
 }
+
 </style>
