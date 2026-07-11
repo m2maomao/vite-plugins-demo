@@ -83,10 +83,10 @@ const themeVars: ConfigProviderThemeVars = {
 ```
 kangaroo-mobile
 ├── 组件层 (基于 Vant 4 二次封装)
-│   ├── 导航类：NavBar, TabBar, Tabs
-│   ├── 展示类：Cell, Card, Tag, Badge, Collapse
-│   ├── 反馈类：Toast, Dialog, Popup, ActionSheet
-│   ├── 表单类：Button, Form/Field, Picker, Switch
+│   ├── 导航类：NavBar, TabBar, Tabs, Steps, BackTop
+│   ├── 展示类：Cell/CellGroup, Card, Tag, Badge, Collapse, Divider, Image
+│   ├── 反馈类：Toast, Dialog, Popup, ActionSheet, ImagePreview
+│   ├── 表单类：Button, Form/Field, Picker, DateTimePicker, Switch, Search, Stepper
 │   ├── 业务类：Empty, Skeleton, Result, Exception
 │   └── 基础类：Icon (已完成)
 │
@@ -298,13 +298,89 @@ interface TabItem {
 </template>
 ```
 
+#### 2.4 `YhmSteps` — 步骤条
+- 基于 Vant [`Steps`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/steps) + [`Step`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/step)
+- 支持横向、纵向布局
+- 自定义步骤图标（使用 `YhmIcon`）
+- 扩展：流程状态追踪、订单进度展示
+
+```vue
+<template>
+  <van-steps
+    :active="active"
+    :direction="direction"
+    :active-icon="activeIcon"
+    :inactive-icon="inactiveIcon"
+    v-bind="$attrs"
+  >
+    <van-step
+      v-for="(step, index) in steps"
+      :key="index"
+    >
+      <template #active-icon>
+        <YhmIcon v-if="step.activeIcon" :name="step.activeIcon" />
+      </template>
+      <template #inactive-icon>
+        <YhmIcon v-if="step.icon" :name="step.icon" />
+      </template>
+      <slot :name="`step-${index}`">
+        {{ step.label }}
+      </slot>
+    </van-step>
+  </van-steps>
+</template>
+```
+
+#### 2.5 `YhmBackTop` — 回到顶部
+- 基于 Vant [`BackTop`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/back-top)
+- 封装滚动容器监听和点击回到顶部行为
+- 自定义按钮内容（默认使用 `YhmIcon` 向上箭头）
+- 扩展：可配置滚动高度阈值、底部偏移
+
+```vue
+<template>
+  <van-back-top
+    v-model:visible="visible"
+    :target="target"
+    :offset="offset"
+    :bottom="bottom"
+    :right="right"
+    v-bind="$attrs"
+    @click="onClick"
+  >
+    <slot>
+      <YhmIcon name="back-top" />
+    </slot>
+  </van-back-top>
+</template>
+```
+
 ---
 
 ### Phase 3 — 展示类组件
 
-#### 3.1 `YhmCell` — 单元格
-- 基于 Vant [`Cell`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/cell)
+#### 3.1 `YhmCell` + `YhmCellGroup` — 单元格 & 单元格组
+- 基于 Vant [`Cell`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/cell) + [`CellGroup`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/cell-group)
 - 扩展：左侧图标（`YhmIcon`）、右侧箭头、多种预设样式
+- `YhmCellGroup` 提供分组标题、圆角等样式预设
+
+```vue
+<template>
+  <van-cell-group :title="groupTitle" :border="border" v-bind="$attrs">
+    <YhmCell
+      v-for="item in items"
+      :key="item.key"
+      :title="item.title"
+      :label="item.label"
+      :value="item.value"
+      :icon="item.icon"
+      :is-link="item.isLink"
+      v-bind="$attrs"
+    />
+    <slot />
+  </van-cell-group>
+</template>
+```
 
 #### 3.2 `YhmCard` — 卡片
 - 基于 Vant [`Card`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/card)
@@ -348,6 +424,50 @@ interface TabItem {
 </template>
 ```
 
+#### 3.6 `YhmDivider` — 分割线
+- 基于 Vant [`Divider`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/divider)
+- 支持实线/虚线、文字位置（left/center/right）
+- 扩展：品牌色预设、自定义间距
+
+```vue
+<template>
+  <van-divider
+    :dashed="dashed"
+    :hairline="hairline"
+    :content-position="contentPosition"
+    v-bind="$attrs"
+  >
+    <slot />
+  </van-divider>
+</template>
+```
+
+#### 3.7 `YhmImage` — 图片
+- 基于 Vant [`Image`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/image)
+- 封装统一的图片加载行为：loading 占位、error 兜底、懒加载
+- 扩展：统一使用 Kangaroo 品牌加载/错误图标
+
+```vue
+<template>
+  <van-image
+    :src="src"
+    :fit="fit"
+    :lazy-load="lazyLoad"
+    :radius="radius"
+    v-bind="$attrs"
+    @load="onLoad"
+    @error="onError"
+  >
+    <template #loading>
+      <YhmIcon name="image-loading" />
+    </template>
+    <template #error>
+      <YhmIcon name="image-error" />
+    </template>
+  </van-image>
+</template>
+```
+
 ---
 
 ### Phase 4 — 反馈类组件
@@ -388,6 +508,23 @@ interface TabItem {
     </template>
   </van-action-sheet>
 </template>
+```
+
+#### 4.5 `YhmImagePreview` — 图片预览
+- 基于 Vant [`ImagePreview`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/image-preview)
+- 封装为函数调用模式：`showImagePreview(images, startPosition)`
+- 支持图片缩放、滑动切换、关闭方式自定义
+
+```typescript
+import { showImagePreview } from 'vant'
+
+// 函数式调用，保持 Vant 原始 API
+export function useImagePreview() {
+  const preview = (images: string[], startPosition = 0) => {
+    return showImagePreview({ images, startPosition })
+  }
+  return { preview }
+}
 ```
 
 ---
@@ -444,6 +581,89 @@ interface TabItem {
 </template>
 ```
 
+#### 5.5 `YhmDateTimePicker` — 日期时间选择器
+- 基于 Vant [`DateTimePicker`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/date-time-picker)
+- 支持 date / time / year-month / month-day 四种模式
+- 扩展：结合 Popup 封装为底部弹窗选择模式
+- 可选：搭配 Field 展示选中值
+
+```vue
+<template>
+  <van-popup v-model:show="visible" position="bottom" round>
+    <van-date-time-picker
+      :type="type"
+      :model-value="currentDate"
+      :min-date="minDate"
+      :max-date="maxDate"
+      :title="title"
+      :columns-order="columnsOrder"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+      v-bind="$attrs"
+    />
+  </van-popup>
+</template>
+```
+
+#### 5.6 `YhmSearch` — 搜索
+- 基于 Vant [`Search`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/search)
+- 支持 `v-model` 双向绑定
+- 自定义搜索图标（使用 `YhmIcon`）、清除按钮、取消按钮
+- 扩展：联想建议列表、防抖搜索
+
+```vue
+<template>
+  <van-search
+    v-model="value"
+    :placeholder="placeholder"
+    :shape="shape"
+    :clearable="clearable"
+    :show-action="showAction"
+    :action-text="actionText"
+    :left-icon="leftIcon"
+    v-bind="$attrs"
+    @search="onSearch"
+    @cancel="onCancel"
+    @clear="onClear"
+    @input="onInput"
+    @focus="onFocus"
+    @blur="onBlur"
+  >
+    <template #left-icon>
+      <YhmIcon name="search" />
+    </template>
+  </van-search>
+</template>
+```
+
+#### 5.7 `YhmStepper` — 步进器
+- 基于 Vant [`Stepper`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/stepper)
+- 支持 `v-model` 双向绑定
+- 自定义步长、最小值/最大值、整数/小数模式
+- 扩展：搭配 Cell 用于购物车数量选择等场景
+
+```vue
+<template>
+  <van-stepper
+    :model-value="modelValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :integer="integer"
+    :disabled="disabled"
+    :input-width="inputWidth"
+    :button-size="buttonSize"
+    v-bind="$attrs"
+    @update:model-value="$emit('update:modelValue', $event)"
+    @plus="onPlus"
+    @minus="onMinus"
+    @focus="onFocus"
+    @blur="onBlur"
+    @change="onChange"
+  />
+</template>
+```
+
 ---
 
 ### Phase 6 — 业务组件
@@ -476,23 +696,31 @@ interface TabItem {
 | 🥇 2 | **Button** 按钮 | 最基础的交互组件，品牌样式起点 | ✅ 已完成 |
 | 🥇 3 | **TabBar** 标签栏 | 底部导航核心，多数移动 App 标配 | ⏳ |
 | 🥇 4 | **Field / Form** 表单输入 | 用户信息收集核心，登录注册等场景必备 | ⏳ 下一个 |
-| 🥇 5 | **Cell** 单元格 | 列表页、设置页的核心布局单元，使用频率极高 | ⏳ |
-| 🥈 6 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
-| 🥈 7 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
-| 🥈 8 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
-| 🥈 9 | **ActionSheet** 动作面板 | 操作菜单选择，业务通用 | ⏳ |
-| 🥈 10 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
-| 🥉 11 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
-| 🥉 12 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
-| 🥉 13 | **Tag** 标签 | 状态标记、分类标识 | ⏳ |
-| 🥉 14 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
-| 🥉 15 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
-| 🥉 16 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
-| 🥉 17 | **Badge** 徽标 | 消息/通知角标 | ⏳ |
-| 🥉 18 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ⏳ |
-| 🥉 19 | **Switch** 开关 | 设置项开关控制 | ⏳ |
-| 🥉 20 | **Result** 结果页 | 操作结果反馈（成功/失败/警告） | ⏳ |
-| 🥉 21 | **Exception** 异常页 | 403 / 404 / 500 错误页面 | ⏳ |
+| 🥇 5 | **Cell / CellGroup** 单元格 + 组 | 列表页、设置页的核心布局单元，使用频率极高 | ⏳ |
+| 🥇 6 | **Search** 搜索 | 列表搜索、筛选场景核心，业务通用 | ⏳ |
+| 🥈 7 | **Image** 图片 | 图片展示基础组件，内容型页面必备 | ⏳ |
+| 🥈 8 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
+| 🥈 9 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
+| 🥈 10 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
+| 🥈 11 | **ActionSheet** 动作面板 | 操作菜单选择，业务通用 | ⏳ |
+| 🥈 12 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
+| 🥈 13 | **DateTimePicker** 日期时间选择 | 时间日期选择，表单中高频使用 | ⏳ |
+| 🥈 14 | **Steps** 步骤条 | 流程引导、订单进度、多步表单 | ⏳ |
+| 🥉 15 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
+| 🥉 16 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
+| 🥉 17 | **Tag** 标签 | 状态标记、分类标识 | ⏳ |
+| 🥉 18 | **Stepper** 步进器 | 数量选择、购物车等场景 | ⏳ |
+| 🥉 19 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
+| 🥉 20 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
+| 🥉 21 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
+| 🥉 22 | **Badge** 徽标 | 消息/通知角标 | ⏳ |
+| 🥉 23 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ⏳ |
+| 🥉 24 | **Switch** 开关 | 设置项开关控制 | ⏳ |
+| 🥉 25 | **ImagePreview** 图片预览 | 图片放大查看、画廊模式 | ⏳ |
+| 🥉 26 | **BackTop** 回到顶部 | 长列表/长页面快速回到顶部 | ⏳ |
+| 🥉 27 | **Divider** 分割线 | 内容分组、视觉分隔 | ⏳ |
+| 🥉 28 | **Result** 结果页 | 操作结果反馈（成功/失败/警告） | ⏳ |
+| 🥉 29 | **Exception** 异常页 | 403 / 404 / 500 错误页面 | ⏳ |
 
 ---
 
