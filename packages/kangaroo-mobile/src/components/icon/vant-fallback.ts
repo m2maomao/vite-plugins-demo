@@ -12,6 +12,16 @@ export const VANT_FALLBACK_ICONS = new Set([
   'back',
   'search',
   'chevron-right',
+  // TabBar 常用图标
+  'home-o',
+  'friends-o',
+  'setting-o',
+  // 通用
+  'arrow',
+  'cross',
+  'success',
+  'fail',
+  'plus',
 ])
 
 /**

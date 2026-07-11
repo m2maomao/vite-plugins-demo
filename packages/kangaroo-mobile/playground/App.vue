@@ -19,36 +19,49 @@
       </div>
     </header>
 
-    <div class="home-list">
+    <div class="home-body">
       <div
-        class="home-item"
-        @click="currentDemo = 'nav-bar'"
+        v-for="group in componentGroups"
+        :key="group.title"
+        class="home-group"
       >
-        <span class="home-item__name">NavBar</span>
-        <span class="home-item__desc">导航栏</span>
-        <yhm-icon name="chevron-right" size="14" class="home-item__arrow" />
-      </div>
-
-      <div
-        class="home-item"
-        @click="currentDemo = 'button'"
-      >
-        <span class="home-item__name">Button</span>
-        <span class="home-item__desc">按钮</span>
-        <yhm-icon name="chevron-right" size="14" class="home-item__arrow" />
+        <div class="home-group__title">{{ group.title }}</div>
+        <div class="home-group__list">
+          <div
+            v-for="item in group.items"
+            :key="item.key"
+            class="home-item"
+            @click="currentDemo = item.key"
+          >
+            <span class="home-item__name">{{ item.name }}</span>
+            <span class="home-item__desc">{{ item.desc }}</span>
+            <yhm-icon name="chevron-right" size="14" class="home-item__arrow" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Demo 页 -->
-  <NavBarDemo
-    v-else-if="currentDemo === 'nav-bar'"
-    @back="currentDemo = null"
-  />
-  <ButtonDemo
-    v-else-if="currentDemo === 'button'"
-    @back="currentDemo = null"
-  />
+  <template v-else>
+    <demo-nav
+      :title="currentDemo"
+      @back="currentDemo = null"
+    />
+    <demo-section>
+      <NavBarDemo
+        v-if="currentDemo === 'nav-bar'"
+        @back="currentDemo = null"
+      />
+      <ButtonDemo
+        v-else-if="currentDemo === 'button'"
+        @back="currentDemo = null"
+      />
+      <TabBarDemo
+        v-else-if="currentDemo === 'tab-bar'"
+        @back="currentDemo = null"
+      />
+    </demo-section>
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -56,6 +69,7 @@ import { ref } from 'vue'
 import { setLocale, getLocale } from '@/locale'
 import NavBarDemo from './components/nav-bar/index.vue'
 import ButtonDemo from './components/button/index.vue'
+import TabBarDemo from './components/tab-bar/index.vue'
 
 const currentDemo = ref<string | null>(null)
 const currentLang = ref(getLocale())
@@ -64,6 +78,79 @@ const languages = [
   { label: '中文', value: 'zh-CN' as const },
   { label: 'English', value: 'en-US' as const },
   { label: '日本語', value: 'ja-JP' as const },
+]
+
+interface GroupItem {
+  key: string
+  name: string
+  desc: string
+}
+
+interface ComponentGroup {
+  title: string
+  items: GroupItem[]
+}
+
+const componentGroups: ComponentGroup[] = [
+  {
+    title: '基础组件',
+    items: [
+      { key: 'icon', name: 'YhmIcon', desc: '图标' },
+      { key: 'button', name: 'YhmButton', desc: '按钮' },
+    ],
+  },
+  {
+    title: '导航组件',
+    items: [
+      { key: 'nav-bar', name: 'YhmNavBar', desc: '导航栏' },
+      { key: 'tab-bar', name: 'YhmTabBar', desc: '标签栏' },
+      { key: 'tabs', name: 'YhmTabs', desc: '选项卡' },
+      { key: 'steps', name: 'YhmSteps', desc: '步骤条' },
+      { key: 'back-top', name: 'YhmBackTop', desc: '回到顶部' },
+    ],
+  },
+  {
+    title: '展示组件',
+    items: [
+      { key: 'cell', name: 'YhmCell', desc: '单元格' },
+      { key: 'card', name: 'YhmCard', desc: '卡片' },
+      { key: 'tag', name: 'YhmTag', desc: '标签' },
+      { key: 'badge', name: 'YhmBadge', desc: '徽标' },
+      { key: 'collapse', name: 'YhmCollapse', desc: '折叠面板' },
+      { key: 'divider', name: 'YhmDivider', desc: '分割线' },
+      { key: 'image', name: 'YhmImage', desc: '图片' },
+    ],
+  },
+  {
+    title: '反馈组件',
+    items: [
+      { key: 'toast', name: 'YhmToast', desc: '轻提示' },
+      { key: 'dialog', name: 'YhmDialog', desc: '弹窗' },
+      { key: 'popup', name: 'YhmPopup', desc: '弹出层' },
+      { key: 'action-sheet', name: 'YhmActionSheet', desc: '动作面板' },
+      { key: 'image-preview', name: 'YhmImagePreview', desc: '图片预览' },
+    ],
+  },
+  {
+    title: '表单组件',
+    items: [
+      { key: 'form', name: 'YhmForm', desc: '表单' },
+      { key: 'picker', name: 'YhmPicker', desc: '选择器' },
+      { key: 'date-time-picker', name: 'YhmDateTimePicker', desc: '日期时间选择' },
+      { key: 'switch', name: 'YhmSwitch', desc: '开关' },
+      { key: 'search', name: 'YhmSearch', desc: '搜索' },
+      { key: 'stepper', name: 'YhmStepper', desc: '步进器' },
+    ],
+  },
+  {
+    title: '业务组件',
+    items: [
+      { key: 'empty', name: 'YhmEmpty', desc: '空状态' },
+      { key: 'skeleton', name: 'YhmSkeleton', desc: '骨架屏' },
+      { key: 'result', name: 'YhmResult', desc: '结果页' },
+      { key: 'exception', name: 'YhmException', desc: '异常页' },
+    ],
+  },
 ]
 
 const allMessages: Record<string, Record<string, Record<string, string>>> = {
@@ -112,6 +199,23 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
       'customColor': '自定义颜色',
       'pure': '单色按钮',
     },
+    tabBarDemo: {
+      'back': '返回',
+      'basicUsage': '基础用法',
+      'matchByName': '通过名称匹配',
+      'badge': '徽标提示',
+      'customIcon': '自定义图标',
+      'customColor': '自定义颜色',
+      'switchEvent': '监听切换事件',
+      'tabBar': 'TabBar',
+      'tab': '标签',
+      'home': '首页',
+      'search': '搜索',
+      'mine': '我的',
+      'messages': '消息',
+      'custom': '自定义',
+      'new': '新',
+    },
   },
   'en-US': {
     navBarDemo: {
@@ -158,6 +262,23 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
       'doTask': 'Do Task',
       'lottery': 'Lottery',
     },
+    tabBarDemo: {
+      'back': 'Back',
+      'basicUsage': 'Basic Usage',
+      'matchByName': 'Match by Name',
+      'badge': 'Show Badge',
+      'customIcon': 'Custom Icon',
+      'customColor': 'Custom Color',
+      'switchEvent': 'Change Event',
+      'tabBar': 'TabBar',
+      'tab': 'Tab',
+      'home': 'Home',
+      'search': 'Search',
+      'mine': 'Profile',
+      'messages': 'Messages',
+      'custom': 'Custom',
+      'new': 'New',
+    },
   },
   'ja-JP': {
     navBarDemo: {
@@ -171,6 +292,23 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
       'button': 'ボタン',
       'useSlot': 'スロット使用',
       'disableButton': '無効化ボタン',
+    },
+    tabBarDemo: {
+      'back': '戻る',
+      'basicUsage': '基本使用',
+      'matchByName': '名前で選択',
+      'badge': 'バッジ',
+      'customIcon': 'カスタムアイコン',
+      'customColor': 'カスタム色',
+      'switchEvent': '切り替えイベント',
+      'tabBar': 'TabBar',
+      'tab': 'タブ',
+      'home': 'ホーム',
+      'search': '検索',
+      'mine': 'マイ',
+      'messages': 'メッセージ',
+      'custom': 'カスタム',
+      'new': '新着',
     },
     buttonDemo: {
       'back': '戻る',
@@ -275,34 +413,54 @@ body {
   color: #fff;
 }
 
-.home-list {
+/* 分类分组 */
+.home-body {
   padding: 12px 16px;
+}
+
+.home-group {
+  margin-bottom: 16px;
+}
+
+.home-group__title {
+  padding: 8px 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--yh-text-color, #333);
+}
+
+.home-group__list {
+  background: #fff;
+  border-radius: var(--yh-radius-md, 8px);
+  overflow: hidden;
 }
 
 .home-item {
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  margin-bottom: 12px;
-  background: var(--yh-bg-color-white, #fff);
-  border-radius: var(--yh-radius-md, 8px);
   cursor: pointer;
-  box-shadow: var(--yh-shadow-sm);
   gap: 8px;
+  border-bottom: 1px solid #f5f5f5;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   &:active {
-    box-shadow: var(--yh-shadow-md);
+    background: #fafafa;
   }
 }
 
 .home-item__name {
   font-size: 14px;
+  font-weight: 500;
   color: var(--yh-text-color, #333);
 }
 
 .home-item__desc {
-  font-size: 14px;
-  color: var(--yh-text-color, #333);
+  font-size: 12px;
+  color: #999;
 }
 
 .home-item__arrow {
