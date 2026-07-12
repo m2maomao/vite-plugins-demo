@@ -44,7 +44,7 @@
 
   <template v-else>
     <demo-nav
-      :title="currentDemo"
+      :title="toComponentName(currentDemo)"
       @back="currentDemo = null"
     />
     <demo-section>
@@ -71,11 +71,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { setLocale, getLocale } from '@/locale'
-import IconDemo from './components/icon/index.vue'
 import NavBarDemo from './components/nav-bar/index.vue'
 import ButtonDemo from './components/button/index.vue'
 import TabBarDemo from './components/tab-bar/index.vue'
 
+/** 转换 key 为组件名，如 nav-bar → Yhm-Nav-Bar */
+function toComponentName(key: string | null): string {
+  if (!key) return ''
+  return 'Yhm-' + key
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('-')
+}
 const currentDemo = ref<string | null>(null)
 const currentLang = ref(getLocale())
 
@@ -100,40 +107,12 @@ const componentGroups: ComponentGroup[] = [
   {
     title: '基础组件',
     items: [
-      { key: 'icon', name: 'YhmIcon', desc: '图标' },
       { key: 'button', name: 'YhmButton', desc: '按钮' },
-    ],
-  },
-  {
-    title: '导航组件',
-    items: [
-      { key: 'nav-bar', name: 'YhmNavBar', desc: '导航栏' },
-      { key: 'tab-bar', name: 'YhmTabBar', desc: '标签栏' },
-      { key: 'tabs', name: 'YhmTabs', desc: '选项卡' },
-      { key: 'steps', name: 'YhmSteps', desc: '步骤条' },
-      { key: 'back-top', name: 'YhmBackTop', desc: '回到顶部' },
-    ],
-  },
-  {
-    title: '展示组件',
-    items: [
       { key: 'cell', name: 'YhmCell', desc: '单元格' },
-      { key: 'card', name: 'YhmCard', desc: '卡片' },
-      { key: 'tag', name: 'YhmTag', desc: '标签' },
-      { key: 'badge', name: 'YhmBadge', desc: '徽标' },
-      { key: 'collapse', name: 'YhmCollapse', desc: '折叠面板' },
-      { key: 'divider', name: 'YhmDivider', desc: '分割线' },
+      { key: 'icon', name: 'YhmIcon', desc: '图标' },
       { key: 'image', name: 'YhmImage', desc: '图片' },
-    ],
-  },
-  {
-    title: '反馈组件',
-    items: [
-      { key: 'toast', name: 'YhmToast', desc: '轻提示' },
-      { key: 'dialog', name: 'YhmDialog', desc: '弹窗' },
       { key: 'popup', name: 'YhmPopup', desc: '弹出层' },
-      { key: 'action-sheet', name: 'YhmActionSheet', desc: '动作面板' },
-      { key: 'image-preview', name: 'YhmImagePreview', desc: '图片预览' },
+      { key: 'toast', name: 'YhmToast', desc: '轻提示' },
     ],
   },
   {
@@ -148,10 +127,38 @@ const componentGroups: ComponentGroup[] = [
     ],
   },
   {
+    title: '反馈组件',
+    items: [
+      { key: 'dialog', name: 'YhmDialog', desc: '弹窗' },
+      { key: 'action-sheet', name: 'YhmActionSheet', desc: '动作面板' },
+    ],
+  },
+  {
+    title: '展示组件',
+    items: [
+      { key: 'badge', name: 'YhmBadge', desc: '徽标' },
+      { key: 'card', name: 'YhmCard', desc: '卡片' },
+      { key: 'collapse', name: 'YhmCollapse', desc: '折叠面板' },
+      { key: 'divider', name: 'YhmDivider', desc: '分割线' },
+      { key: 'empty', name: 'YhmEmpty', desc: '空状态' },
+      { key: 'image-preview', name: 'YhmImagePreview', desc: '图片预览' },
+      { key: 'skeleton', name: 'YhmSkeleton', desc: '骨架屏' },
+      { key: 'steps', name: 'YhmSteps', desc: '步骤条' },
+      { key: 'tag', name: 'YhmTag', desc: '标签' },
+    ],
+  },
+  {
+    title: '导航组件',
+    items: [
+      { key: 'nav-bar', name: 'YhmNavBar', desc: '导航栏' },
+      { key: 'tab-bar', name: 'YhmTabBar', desc: '标签栏' },
+      { key: 'tabs', name: 'YhmTabs', desc: '选项卡' },
+      { key: 'back-top', name: 'YhmBackTop', desc: '回到顶部' },
+    ],
+  },
+  {
     title: '业务组件',
     items: [
-      { key: 'empty', name: 'YhmEmpty', desc: '空状态' },
-      { key: 'skeleton', name: 'YhmSkeleton', desc: '骨架屏' },
       { key: 'result', name: 'YhmResult', desc: '结果页' },
       { key: 'exception', name: 'YhmException', desc: '异常页' },
     ],
