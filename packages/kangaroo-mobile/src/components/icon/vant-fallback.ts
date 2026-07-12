@@ -19,6 +19,10 @@ export const VANT_FALLBACK_ICONS = new Set([
   // Cell 常用图标
   'location-o',
   'shop-o',
+  // Field 图标
+  'smile-o',
+  'warning-o',
+  'music-o',
   // 通用
   'arrow',
   'arrow-down',

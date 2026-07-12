@@ -56,6 +56,10 @@
         v-else-if="currentDemo === 'cell'"
         @back="currentDemo = null"
       />
+      <FieldDemo
+        v-else-if="currentDemo === 'field'"
+        @back="currentDemo = null"
+      />
       <NavBarDemo
         v-else-if="currentDemo === 'nav-bar'"
         @back="currentDemo = null"
@@ -76,6 +80,7 @@
 import { ref } from 'vue'
 import { setLocale, getLocale } from '@/locale'
 import CellDemo from './components/cell/index.vue'
+import FieldDemo from './components/field/index.vue'
 import NavBarDemo from './components/nav-bar/index.vue'
 import ButtonDemo from './components/button/index.vue'
 import TabBarDemo from './components/tab-bar/index.vue'
@@ -123,6 +128,7 @@ const componentGroups: ComponentGroup[] = [
   {
     title: '表单组件',
     items: [
+      { key: 'field', name: 'YhmField', desc: '输入框' },
       { key: 'form', name: 'YhmForm', desc: '表单' },
       { key: 'picker', name: 'YhmPicker', desc: '选择器' },
       { key: 'date-time-picker', name: 'YhmDateTimePicker', desc: '日期时间选择' },
@@ -172,6 +178,51 @@ const componentGroups: ComponentGroup[] = [
 
 const allMessages: Record<string, Record<string, Record<string, string>>> = {
   'zh-CN': {
+    fieldDemo: {
+      'back': '返回',
+      'basicUsage': '基础用法',
+      'customType': '自定义类型',
+      'disabled': '禁用输入框',
+      'showIcon': '显示图标',
+      'required': '必填星号',
+      'autoRequired': '自动展示星号',
+      'errorInfo': '错误提示',
+      'insertButton': '插入按钮',
+      'formatValue': '格式化输入内容',
+      'formatOnBlur': '在失焦时执行格式化',
+      'formatOnChange': '在输入时执行格式化',
+      'autosize': '高度自适应',
+      'showWordLimit': '显示字数统计',
+      'inputAlign': '输入框内容对齐',
+      'labelAlign': '输入框文本位置',
+      'label': '文本',
+      'text': '文本',
+      'digit': '整数',
+      'number': '数字',
+      'phone': '手机号',
+      'password': '密码',
+      'username': '用户名',
+      'sms': '短信验证码',
+      'message': '留言',
+      'top': '顶部对齐',
+      'left': '左对齐',
+      'center': '居中对齐',
+      'right': '右对齐',
+      'textPlaceholder': '请输入文本',
+      'digitPlaceholder': '请输入整数',
+      'numberPlaceholder': '请输入数字（支持小数）',
+      'phonePlaceholder': '请输入手机号',
+      'passwordPlaceholder': '请输入密码',
+      'usernamePlaceholder': '请输入用户名',
+      'smsPlaceholder': '请输入短信验证码',
+      'messagePlaceholder': '请输入留言',
+      'inputReadonly': '输入框只读',
+      'inputDisabled': '输入框已禁用',
+      'showClearIcon': '显示清除图标',
+      'alignPlaceHolder': '输入框内容右对齐',
+      'phoneError': '手机号格式错误',
+      'sendSms': '发送验证码',
+    },
     cellDemo: {
       'back': '返回',
       'basicUsage': '基础用法',
@@ -356,6 +407,51 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
     },
   },
   'ja-JP': {
+    fieldDemo: {
+      'back': '戻る',
+      'basicUsage': '基本使用',
+      'customType': 'カスタムタイプ',
+      'disabled': '無効入力',
+      'showIcon': 'アイコン表示',
+      'required': '必須項目',
+      'autoRequired': '自動必須',
+      'errorInfo': 'エラー情報',
+      'insertButton': 'ボタン挿入',
+      'formatValue': '入力内容のフォーマット',
+      'formatOnBlur': 'フォーカス喪失時にフォーマット',
+      'formatOnChange': '入力時にフォーマット',
+      'autosize': '高さ自動調整',
+      'showWordLimit': '文字数制限表示',
+      'inputAlign': '入力位置',
+      'labelAlign': 'ラベル配置',
+      'label': 'テキスト',
+      'text': 'テキスト',
+      'digit': '整数',
+      'number': '数字',
+      'phone': '電話番号',
+      'password': 'パスワード',
+      'username': 'ユーザー名',
+      'sms': 'SMSコード',
+      'message': 'メッセージ',
+      'top': '上揃え',
+      'left': '左揃え',
+      'center': '中央揃え',
+      'right': '右揃え',
+      'textPlaceholder': 'テキストを入力',
+      'digitPlaceholder': '整数を入力',
+      'numberPlaceholder': '数字を入力',
+      'phonePlaceholder': '電話番号を入力',
+      'passwordPlaceholder': 'パスワードを入力',
+      'usernamePlaceholder': 'ユーザー名を入力',
+      'smsPlaceholder': 'SMSコードを入力',
+      'messagePlaceholder': 'メッセージを入力',
+      'inputReadonly': '読み取り専用',
+      'inputDisabled': '無効',
+      'showClearIcon': 'クリアアイコン表示',
+      'alignPlaceHolder': '右揃え',
+      'phoneError': '電話番号エラー',
+      'sendSms': '送信',
+    },
     cellDemo: {
       'back': '戻る',
       'basicUsage': '基本使用',
