@@ -14,11 +14,13 @@
 | `YhmNavBar` 组件 | ✅ | 基于 Vant NavBar，封装返回、插槽等 |
 | `YhmButton` 组件 | ✅ | 基于 Vant Button，品牌色预设、loading 态 |
 | `YhmTabBar` + `YhmTabbarItem` | ✅ | 基于 Vant TabBar，items 数组配置 + 路由绑定 |
-| 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` 空文件 |
+| `YhmCell` + `YhmCellGroup` | ✅ | 基于 Vant Cell/CellGroup，薄封装 + 右侧箭头用 YhmIcon |
+| `YhmTag` 组件 | ✅ | 基于 Vant Tag，薄封装 |
+| 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
 | 库构建输出 | ✅ | ES + CJS 双格式构建 |
-| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar） |
+| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag） |
 
 ---
 
@@ -700,20 +702,20 @@ export function useImagePreview() {
 | 🥇 2 | **Button** 按钮 | 最基础的交互组件，品牌样式起点 | ✅ 已完成 |
 | 🥇 3 | **TabBar** 标签栏 | 底部导航核心，多数移动 App 标配 | ✅ 已完成 |
 | 🥇 4 | **Icon** 图标 | 基础图形元素，所有组件依赖 | ✅ 已完成 |
-| 🥇 5 | **Cell / CellGroup** 单元格 + 组 | 列表页、设置页的核心布局单元，Field 依赖 Cell 布局 | ⏳ 下一个 |
-| 🥇 6 | **Field / Form** 表单输入 | 用户信息收集核心，依赖 Cell 完成布局 | ⏳ |
-| 🥇 7 | **Search** 搜索 | 列表搜索、筛选场景核心，业务通用 | ⏳ |
-| 🥈 8 | **Image** 图片 | 图片展示基础组件，内容型页面必备 | ⏳ |
-| 🥈 9 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
-| 🥈 10 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
-| 🥈 11 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
-| 🥈 12 | **ActionSheet** 动作面板 | 操作菜单选择，业务通用 | ⏳ |
-| 🥈 13 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
-| 🥈 14 | **DateTimePicker** 日期时间选择 | 时间日期选择，表单中高频使用 | ⏳ |
-| 🥈 15 | **Steps** 步骤条 | 流程引导、订单进度、多步表单 | ⏳ |
-| 🥉 16 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
-| 🥉 17 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
-| 🥉 18 | **Tag** 标签 | 状态标记、分类标识 | ⏳ |
+| 🥇 5 | **Cell / CellGroup** 单元格 + 组 | 列表页、设置页的核心布局单元，Field 依赖 Cell 布局 | ✅ 已完成 |
+| 🥇 6 | **Tag** 标签 | 状态标记、分类标识 | ✅ 已完成 |
+| 🥇 7 | **Field / Form** 表单输入 | 用户信息收集核心，依赖 Cell 完成布局 | ⏳ 下一个 |
+| 🥇 8 | **Search** 搜索 | 列表搜索、筛选场景核心，业务通用 | ⏳ |
+| 🥈 9 | **Image** 图片 | 图片展示基础组件，内容型页面必备 | ⏳ |
+| 🥈 10 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
+| 🥈 11 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
+| 🥈 12 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
+| 🥈 13 | **ActionSheet** 动作面板 | 操作菜单选择，业务通用 | ⏳ |
+| 🥈 14 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
+| 🥈 15 | **DateTimePicker** 日期时间选择 | 时间日期选择，表单中高频使用 | ⏳ |
+| 🥈 16 | **Steps** 步骤条 | 流程引导、订单进度、多步表单 | ⏳ |
+| 🥉 17 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
+| 🥉 18 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
 | 🥉 19 | **Stepper** 步进器 | 数量选择、购物车等场景 | ⏳ |
 | 🥉 20 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
 | 🥉 21 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
