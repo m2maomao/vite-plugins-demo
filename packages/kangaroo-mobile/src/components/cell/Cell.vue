@@ -1,17 +1,26 @@
 <template>
+  <!--
+    薄封装：
+    - 所有 props 透传给 VanCell（Vant 原生渲染 title/label/value/icon）
+    - 只覆盖 right-icon slot（使用 YhmIcon）
+    - 其他 slot 不覆盖，让 Vant 完全控制 DOM
+    - 如需自定义 title/label/value，用户可在父组件使用 #title/#label/#value slot
+  -->
   <VanCell
     v-bind="vanCellProps as any"
     :class="['yhm-cell', customClass]"
   >
     <template #right-icon>
-      <slot name="right-icon">
-        <YhmIcon
-          v-if="isLink"
-          :name="rightIconName"
-          size="16"
-          class="van-cell__right-icon yhm-cell__arrow"
-        />
-      </slot>
+      <span class="van-cell__right-icon">
+        <slot name="right-icon">
+          <YhmIcon
+            v-if="isLink"
+            :name="rightIconName"
+            size="16"
+            class="yhm-cell__arrow"
+          />
+        </slot>
+      </span>
     </template>
   </VanCell>
 </template>
@@ -80,7 +89,6 @@ const vanCellProps = computed(() => {
 
 <style lang="less" scoped>
 .yhm-cell__arrow {
-  // 覆盖 YhmIcon 默认的 line-height:1 以匹配 Vant 单元格的行高
   line-height: var(--van-cell-line-height, 24px);
 }
 </style>
