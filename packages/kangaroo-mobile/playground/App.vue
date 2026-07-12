@@ -64,6 +64,10 @@
         v-else-if="currentDemo === 'image'"
         @back="currentDemo = null"
       />
+      <CheckboxDemo
+        v-else-if="currentDemo === 'checkbox'"
+        @back="currentDemo = null"
+      />
       <StepperDemo
         v-else-if="currentDemo === 'stepper'"
         @back="currentDemo = null"
@@ -90,10 +94,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { setLocale, getLocale } from '@/locale'
+import { setLocale, getLocale, addGlobalMessages } from '@/locale'
 import IconDemo from './components/icon/index.vue'
 import CellDemo from './components/cell/index.vue'
 import FieldDemo from './components/field/index.vue'
+import CheckboxDemo from './components/checkbox/index.vue'
 import StepperDemo from './components/stepper/index.vue'
 import SwitchDemo from './components/switch/index.vue'
 import NavBarDemo from './components/nav-bar/index.vue'
@@ -150,6 +155,7 @@ const componentGroups: ComponentGroup[] = [
       { key: 'date-time-picker', name: 'YhmDateTimePicker', desc: '日期时间选择' },
       { key: 'switch', name: 'YhmSwitch', desc: '开关' },
       { key: 'search', name: 'YhmSearch', desc: '搜索' },
+      { key: 'checkbox', name: 'YhmCheckbox', desc: '复选框' },
       { key: 'stepper', name: 'YhmStepper', desc: '步进器' },
     ],
   },
@@ -196,6 +202,67 @@ function switchLang(lang: 'zh-CN' | 'en-US' | 'ja-JP') {
   setLocale(lang)
   currentLang.value = getLocale()
 }
+
+// 注册全局通用文案（供所有 demo 共享，如 basicUsage、disabled 等）
+addGlobalMessages({
+  'zh-CN': {
+    basicUsage: '基础用法',
+    disabled: '禁用状态',
+    loading: '加载状态',
+    title: '标题',
+    back: '返回',
+    button: '按钮',
+    label: '文本',
+    text: '文本',
+    phone: '手机号',
+    password: '密码',
+    username: '用户名',
+    sms: '短信验证码',
+    message: '留言',
+    top: '顶部对齐',
+    left: '左对齐',
+    center: '居中对齐',
+    right: '右对齐',
+  },
+  'en-US': {
+    basicUsage: 'Basic Usage',
+    disabled: 'Disabled',
+    loading: 'Loading',
+    title: 'Title',
+    back: 'Back',
+    button: 'Button',
+    label: 'Label',
+    text: 'Text',
+    phone: 'Phone',
+    password: 'Password',
+    username: 'Username',
+    sms: 'SMS',
+    message: 'Message',
+    top: 'Top',
+    left: 'Left',
+    center: 'Center',
+    right: 'Right',
+  },
+  'ja-JP': {
+    basicUsage: '基本使用',
+    disabled: '無効',
+    loading: 'ローディング',
+    title: 'タイトル',
+    back: '戻る',
+    button: 'ボタン',
+    label: 'ラベル',
+    text: 'テキスト',
+    phone: '電話',
+    password: 'パスワード',
+    username: 'ユーザー名',
+    sms: 'SMS',
+    message: 'メッセージ',
+    top: '上',
+    left: '左',
+    center: '中央',
+    right: '右',
+  },
+})
 
 // 初始化中文
 setLocale('zh-CN')

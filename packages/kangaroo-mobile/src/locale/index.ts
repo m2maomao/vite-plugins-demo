@@ -52,6 +52,9 @@ const vantMessages: Record<string, Record<string, any>> = {
  */
 const customMessages: Record<string, LocaleMessages> = {}
 
+/** 全局通用文案（如 basicUsage、disabled 等），供所有 demo 共享 */
+const globalMessages: Record<string, Record<string, string>> = {}
+
 let currentLang: LocaleLang = 'zh-CN'
 
 // -------------------------------------------
@@ -78,7 +81,7 @@ let currentLang: LocaleLang = 'zh-CN'
 export function createTranslate(namespace: string): Translate {
   return (path: string) => {
     const nsMessages = customMessages[currentLang]?.[namespace]
-    return nsMessages?.[path] ?? path
+    return nsMessages?.[path] ?? globalMessages[currentLang]?.[path] ?? path
   }
 }
 
@@ -130,6 +133,19 @@ export function setLocale(lang: LocaleLang, messages?: LocaleMessages) {
  * const lang = getLocale() // 'zh-CN'
  * ```
  */
+/**
+ * 注册全局通用文案（供所有 demo 共享，如 basicUsage、disabled 等）
+ * 不会改变 currentLang
+ */
+export function addGlobalMessages(messages: Record<string, Record<string, string>>) {
+  Object.keys(messages).forEach((lang) => {
+    globalMessages[lang] = {
+      ...(globalMessages[lang] || {}),
+      ...messages[lang],
+    }
+  })
+}
+
 export function getLocale(): LocaleLang {
   return currentLang
 }

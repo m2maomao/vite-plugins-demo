@@ -16,7 +16,7 @@
  */
 
 import { setLocale, getLocale, createTranslate } from './index'
-import type { LocaleMessages, Translate } from './index'
+import type { Translate } from './index'
 
 let demoUid = 0
 
@@ -24,12 +24,10 @@ export function useTranslate(i18n: Record<string, Record<string, string>>): Tran
   const demoName = `demo-i18n-${demoUid++}`
   const prevLang = getLocale()
 
-  // 将 i18n 按语言拆分注册到 Locale 系统
-  // 注意：必须在注册前保存 prevLang，因为 setLocale 会改变 getLocale() 的返回值
   Object.keys(i18n).forEach((lang) => {
     setLocale(lang as any, {
       [demoName]: i18n[lang],
-    } as LocaleMessages)
+    })
   })
 
   // 恢复用户当前选择的语言

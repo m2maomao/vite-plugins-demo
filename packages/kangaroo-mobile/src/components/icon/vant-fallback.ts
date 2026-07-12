@@ -33,6 +33,7 @@ export const VANT_FALLBACK_ICONS = new Set([
   'cross',
   'success',
   'fail',
+  'minus',
   'plus',
 ])
 
