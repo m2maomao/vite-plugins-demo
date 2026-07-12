@@ -48,8 +48,12 @@
       @back="currentDemo = null"
     />
     <demo-section>
+      <IconDemo
+        v-if="currentDemo === 'icon'"
+        @back="currentDemo = null"
+      />
       <NavBarDemo
-        v-if="currentDemo === 'nav-bar'"
+        v-else-if="currentDemo === 'nav-bar'"
         @back="currentDemo = null"
       />
       <ButtonDemo
@@ -67,6 +71,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { setLocale, getLocale } from '@/locale'
+import IconDemo from './components/icon/index.vue'
 import NavBarDemo from './components/nav-bar/index.vue'
 import ButtonDemo from './components/button/index.vue'
 import TabBarDemo from './components/tab-bar/index.vue'
@@ -155,6 +160,16 @@ const componentGroups: ComponentGroup[] = [
 
 const allMessages: Record<string, Record<string, Record<string, string>>> = {
   'zh-CN': {
+    iconDemo: {
+      'back': '返回',
+      'basicUsage': '基础用法',
+      'iconSize': '图标尺寸',
+      'iconColor': '图标颜色',
+      'businessMapping': '业务名称映射',
+      'vantFallback': 'Vant 兜底图标',
+      'iconifyIcons': 'Iconify 图标',
+      'customIcon': '自定义图标',
+    },
     navBarDemo: {
       'locale': '🌐 语言',
       'navBar': 'NavBar',
@@ -218,6 +233,16 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
     },
   },
   'en-US': {
+    iconDemo: {
+      'back': 'Back',
+      'basicUsage': 'Basic Usage',
+      'iconSize': 'Icon Size',
+      'iconColor': 'Icon Color',
+      'businessMapping': 'Business Name Mapping',
+      'vantFallback': 'Vant Fallback Icons',
+      'iconifyIcons': 'Iconify Icons',
+      'customIcon': 'Custom Icon',
+    },
     navBarDemo: {
       'locale': '🌐 Language',
       'navBar': 'NavBar',
@@ -281,6 +306,16 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
     },
   },
   'ja-JP': {
+    iconDemo: {
+      'back': '戻る',
+      'basicUsage': '基本使用',
+      'iconSize': 'アイコンサイズ',
+      'iconColor': 'アイコン色',
+      'businessMapping': '業務名マッピング',
+      'vantFallback': 'Vant 代替アイコン',
+      'iconifyIcons': 'Iconify アイコン',
+      'customIcon': 'カスタムアイコン',
+    },
     navBarDemo: {
       'locale': '🌐 言語',
       'navBar': 'NavBar',
