@@ -19,11 +19,12 @@
 | `YhmField` 组件 | ✅ | 基于 Vant Field，支持 v-model + 图标插槽 |
 | `YhmSwitch` 组件 | ✅ | 基于 Vant Switch，支持 v-model + 自定义颜色/大小 |
 | `YhmImage` 组件 | ✅ | 基于 Vant Image，支持 loading/error 占位 + lazy-load + position |
+| `YhmStepper` 组件 | ✅ | 基于 Vant Stepper，支持 v-model + 步长/范围/整数/异步变更 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
 | 库构建输出 | ✅ | ES + CJS 双格式构建 |
-| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image） |
+| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper） |
 
 ---
 
@@ -710,7 +711,7 @@ export function useImagePreview() {
 | 🥇 7 | **Field** 输入框 | 表单输入核心，依赖 Cell 布局 | ✅ 已完成 |
 | 🥇 8 | **Switch** 开关 | 表单最简组件，设置项开关控制 | ✅ 已完成 |
 | 🥇 9 | **Image** 图片 | 图片展示基础组件 | ✅ 已完成 |
-| 🥇 10 | **Stepper** 步进器 | 数量选择、购物车等场景 | ⏳ |
+| 🥇 10 | **Stepper** 步进器 | 数量选择、购物车等场景 | ✅ 已完成 |
 | 🥇 11 | **Checkbox / CheckboxGroup** 复选框 | 多选场景，Form 子组件 | ⏳ |
 | 🥇 12 | **Radio / RadioGroup** 单选框 | 单选场景，Form 子组件 | ⏳ |
 | 🥇 13 | **Rate** 评分 | 评分选择，Form 子组件 | ⏳ |

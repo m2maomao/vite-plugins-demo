@@ -86,9 +86,64 @@
 
 <script setup lang="ts">
 import { Cell as VanCell } from 'vant'
-import { createTranslate } from '@/locale'
+import { useTranslate } from '@/locale/useTranslate'
 
-const t = createTranslate('cellDemo')
+const t = useTranslate({
+  'zh-CN': {
+    basicUsage: '基础用法',
+    insetGrouped: '卡片风格',
+    largeSize: '单元格大小',
+    showIcon: '展示图标',
+    showArrow: '展示箭头',
+    router: '页面导航',
+    urlRoute: 'URL 跳转',
+    vueRoute: '路由跳转',
+    groupTitle: '分组标题',
+    useSlots: '使用插槽',
+    verticalCenter: '垂直居中',
+    cell: '单元格',
+    content: '内容',
+    desc: '描述信息',
+    group: '分组',
+    tag: '标签',
+  },
+  'en-US': {
+    basicUsage: 'Basic Usage',
+    insetGrouped: 'Inset Grouped',
+    largeSize: 'Size',
+    showIcon: 'Left Icon',
+    showArrow: 'Link',
+    router: 'Router',
+    urlRoute: 'URL',
+    vueRoute: 'Vue Router',
+    groupTitle: 'Group Title',
+    useSlots: 'Use Slots',
+    verticalCenter: 'Vertical center',
+    cell: 'Cell title',
+    content: 'Content',
+    desc: 'Description',
+    group: 'Group',
+    tag: 'Tag',
+  },
+  'ja-JP': {
+    basicUsage: '基本使用',
+    insetGrouped: 'インセットグループ',
+    largeSize: 'サイズ',
+    showIcon: 'アイコン表示',
+    showArrow: '矢印表示',
+    router: 'ページナビ',
+    urlRoute: 'URL 遷移',
+    vueRoute: 'ルート遷移',
+    groupTitle: 'グループタイトル',
+    useSlots: 'スロット使用',
+    verticalCenter: '垂直中央揃え',
+    cell: 'セル',
+    content: '内容',
+    desc: '説明',
+    group: 'グループ',
+    tag: 'タグ',
+  },
+})
 </script>
 
 <style lang="less">

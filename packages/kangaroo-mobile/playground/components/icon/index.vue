@@ -101,9 +101,37 @@
 </template>
 
 <script setup lang="ts">
-import { createTranslate } from '@/locale'
+import { useTranslate } from '@/locale/useTranslate'
 
-const t = createTranslate('iconDemo')
+const t = useTranslate({
+  'zh-CN': {
+    basicUsage: '基础用法',
+    iconSize: '图标尺寸',
+    iconColor: '图标颜色',
+    businessMapping: '业务名称映射',
+    vantFallback: 'Vant 兜底图标',
+    iconifyIcons: 'Iconify 图标',
+    customIcon: '自定义图标',
+  },
+  'en-US': {
+    basicUsage: 'Basic Usage',
+    iconSize: 'Icon Size',
+    iconColor: 'Icon Color',
+    businessMapping: 'Business Name Mapping',
+    vantFallback: 'Vant Fallback Icons',
+    iconifyIcons: 'Iconify Icons',
+    customIcon: 'Custom Icon',
+  },
+  'ja-JP': {
+    basicUsage: '基本使用',
+    iconSize: 'アイコンサイズ',
+    iconColor: 'アイコン色',
+    businessMapping: '業務名マッピング',
+    vantFallback: 'Vant 代替アイコン',
+    iconifyIcons: 'Iconify アイコン',
+    customIcon: 'カスタムアイコン',
+  },
+})
 
 const vantIcons = [
   'home-o',

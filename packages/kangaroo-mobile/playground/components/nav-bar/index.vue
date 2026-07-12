@@ -47,7 +47,35 @@
 </template>
 
 <script setup lang="ts">
-import { createTranslate } from '@/locale'
+import { useTranslate } from '@/locale/useTranslate'
 
-const t = createTranslate('navBarDemo')
+const t = useTranslate({
+  'zh-CN': {
+    basicUsage: '基础用法',
+    title: '标题',
+    showBack: '返回上级',
+    rightButton: '右侧按钮',
+    button: '按钮',
+    useSlot: '使用插槽',
+    disableButton: '禁用按钮',
+  },
+  'en-US': {
+    basicUsage: 'Basic Usage',
+    title: 'Title',
+    showBack: 'Show Back',
+    rightButton: 'Right Button',
+    button: 'Button',
+    useSlot: 'Use Slot',
+    disableButton: 'Disable Button',
+  },
+  'ja-JP': {
+    basicUsage: '基本使用',
+    title: 'タイトル',
+    showBack: '戻る',
+    rightButton: '右ボタン',
+    button: 'ボタン',
+    useSlot: 'スロット使用',
+    disableButton: '無効化ボタン',
+  },
+})
 </script>

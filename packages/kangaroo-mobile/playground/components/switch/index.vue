@@ -51,9 +51,36 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Icon as VanIcon, showConfirmDialog } from 'vant'
-import { createTranslate } from '@/locale'
+import { useTranslate } from '@/locale/useTranslate'
 
-const t = createTranslate('switchDemo')
+const t = useTranslate({
+  'zh-CN': {
+    basicUsage: '基础用法',
+    disabled: '禁用状态',
+    loadingStatus: '加载状态',
+    customSize: '自定义大小',
+    customColor: '自定义颜色',
+    customNode: '自定义按钮',
+    asyncControl: '异步控制',
+    withCell: '搭配单元格使用',
+    title: '标题',
+    confirm: '提醒',
+    message: '是否切换开关？',
+  },
+  'en-US': {
+    basicUsage: 'Basic Usage',
+    disabled: 'Disabled',
+    loadingStatus: 'Loading Status',
+    customSize: 'Custom Size',
+    customColor: 'Custom Color',
+    customNode: 'Custom Node',
+    asyncControl: 'Async Control',
+    withCell: 'With Cell',
+    title: 'Title',
+    confirm: 'Confirm',
+    message: 'Are you sure to switch?',
+  },
+})
 
 const checked = ref(true)
 const checked2 = ref(true)

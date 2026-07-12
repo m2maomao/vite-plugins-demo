@@ -75,10 +75,56 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { showToast } from 'vant'
-import { createTranslate } from '@/locale'
+import { useTranslate } from '@/locale/useTranslate'
 import { cdnURL } from '../../site'
 
-const t = createTranslate('tabBarDemo')
+const t = useTranslate({
+  'zh-CN': {
+    basicUsage: '基础用法',
+    matchByName: '通过名称匹配',
+    badge: '徽标提示',
+    customIcon: '自定义图标',
+    customColor: '自定义颜色',
+    switchEvent: '监听切换事件',
+    tab: '标签',
+    home: '首页',
+    search: '搜索',
+    mine: '我的',
+    messages: '消息',
+    custom: '自定义',
+    new: '新',
+  },
+  'en-US': {
+    basicUsage: 'Basic Usage',
+    matchByName: 'Match by Name',
+    badge: 'Show Badge',
+    customIcon: 'Custom Icon',
+    customColor: 'Custom Color',
+    switchEvent: 'Change Event',
+    tab: 'Tab',
+    home: 'Home',
+    search: 'Search',
+    mine: 'Profile',
+    messages: 'Messages',
+    custom: 'Custom',
+    new: 'New',
+  },
+  'ja-JP': {
+    basicUsage: '基本使用',
+    matchByName: '名前で選択',
+    badge: 'バッジ',
+    customIcon: 'カスタムアイコン',
+    customColor: 'カスタム色',
+    switchEvent: '切り替えイベント',
+    tab: 'タブ',
+    home: 'ホーム',
+    search: '検索',
+    mine: 'マイ',
+    messages: 'メッセージ',
+    custom: 'カスタム',
+    new: '新着',
+  },
+})
 
 const active = ref(0)
 const active2 = ref(0)
