@@ -52,6 +52,10 @@
         v-if="currentDemo === 'icon'"
         @back="currentDemo = null"
       />
+      <CellDemo
+        v-else-if="currentDemo === 'cell'"
+        @back="currentDemo = null"
+      />
       <NavBarDemo
         v-else-if="currentDemo === 'nav-bar'"
         @back="currentDemo = null"
@@ -71,6 +75,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { setLocale, getLocale } from '@/locale'
+import CellDemo from './components/cell/index.vue'
 import NavBarDemo from './components/nav-bar/index.vue'
 import ButtonDemo from './components/button/index.vue'
 import TabBarDemo from './components/tab-bar/index.vue'
@@ -167,6 +172,22 @@ const componentGroups: ComponentGroup[] = [
 
 const allMessages: Record<string, Record<string, Record<string, string>>> = {
   'zh-CN': {
+    cellDemo: {
+      'back': '返回',
+      'basicUsage': '基础用法',
+      'insetGrouped': '卡片风格',
+      'largeSize': '单元格大小',
+      'showIcon': '展示图标',
+      'showArrow': '展示箭头',
+      'groupTitle': '分组标题',
+      'useSlots': '使用插槽',
+      'verticalCenter': '垂直居中',
+      'cell': '单元格',
+      'content': '内容',
+      'desc': '描述信息',
+      'group': '分组',
+      'tag': '标签',
+    },
     iconDemo: {
       'back': '返回',
       'basicUsage': '基础用法',
@@ -240,6 +261,22 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
     },
   },
   'en-US': {
+    cellDemo: {
+      'back': 'Back',
+      'basicUsage': 'Basic Usage',
+      'insetGrouped': 'Inset Grouped',
+      'largeSize': 'Size',
+      'showIcon': 'Left Icon',
+      'showArrow': 'Link',
+      'groupTitle': 'Group Title',
+      'useSlots': 'Use Slots',
+      'verticalCenter': 'Vertical center',
+      'cell': 'Cell title',
+      'content': 'Content',
+      'desc': 'Description',
+      'group': 'Group',
+      'tag': 'Tag',
+    },
     iconDemo: {
       'back': 'Back',
       'basicUsage': 'Basic Usage',
@@ -313,6 +350,22 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
     },
   },
   'ja-JP': {
+    cellDemo: {
+      'back': '戻る',
+      'basicUsage': '基本使用',
+      'insetGrouped': 'インセットグループ',
+      'largeSize': 'サイズ',
+      'showIcon': 'アイコン表示',
+      'showArrow': '矢印表示',
+      'groupTitle': 'グループタイトル',
+      'useSlots': 'スロット使用',
+      'verticalCenter': '垂直中央揃え',
+      'cell': 'セル',
+      'content': '内容',
+      'desc': '説明',
+      'group': 'グループ',
+      'tag': 'タグ',
+    },
     iconDemo: {
       'back': '戻る',
       'basicUsage': '基本使用',

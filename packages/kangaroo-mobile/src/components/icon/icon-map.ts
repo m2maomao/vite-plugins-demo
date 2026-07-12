@@ -10,6 +10,10 @@ export const ICON_MAP: Record<string, string> = {
   'cart': 'mdi:cart',
   'chevron-right': 'vant:arrow',
   'lighting-bolt': 'mdi:lightning-bolt',
+  // 箭头方向
+  'chevron-up': 'mdi:chevron-up',
+  'chevron-down': 'mdi:chevron-down',
+  'chevron-left': 'mdi:chevron-left',
   // 本地自定义图标（通过 unplugin-icons 的 deer 集合加载）
   'deer': 'deer:mingcute--deer-line',
 }

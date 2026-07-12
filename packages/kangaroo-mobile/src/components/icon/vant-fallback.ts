@@ -16,8 +16,14 @@ export const VANT_FALLBACK_ICONS = new Set([
   'home-o',
   'friends-o',
   'setting-o',
+  // Cell 常用图标
+  'location-o',
+  'shop-o',
   // 通用
   'arrow',
+  'arrow-down',
+  'arrow-up',
+  'arrow-left',
   'cross',
   'success',
   'fail',
