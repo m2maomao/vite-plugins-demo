@@ -60,6 +60,14 @@
         v-else-if="currentDemo === 'field'"
         @back="currentDemo = null"
       />
+      <ImageDemo
+        v-else-if="currentDemo === 'image'"
+        @back="currentDemo = null"
+      />
+      <SwitchDemo
+        v-else-if="currentDemo === 'switch'"
+        @back="currentDemo = null"
+      />
       <NavBarDemo
         v-else-if="currentDemo === 'nav-bar'"
         @back="currentDemo = null"
@@ -79,11 +87,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { setLocale, getLocale } from '@/locale'
+import IconDemo from './components/icon/index.vue'
 import CellDemo from './components/cell/index.vue'
 import FieldDemo from './components/field/index.vue'
+import SwitchDemo from './components/switch/index.vue'
 import NavBarDemo from './components/nav-bar/index.vue'
 import ButtonDemo from './components/button/index.vue'
 import TabBarDemo from './components/tab-bar/index.vue'
+import ImageDemo from './components/image/index.vue'
 
 /** 转换 key 为组件名，如 nav-bar → Yhm-Nav-Bar */
 function toComponentName(key: string | null): string {
@@ -178,6 +189,32 @@ const componentGroups: ComponentGroup[] = [
 
 const allMessages: Record<string, Record<string, Record<string, string>>> = {
   'zh-CN': {
+    imageDemo: {
+      'back': '返回',
+      'basicUsage': '基础用法',
+      'fitMode': '填充模式',
+      'position': '图片位置',
+      'round': '圆形图片',
+      'loading': '加载中提示',
+      'error': '加载失败提示',
+      'defaultTip': '默认提示',
+      'customTip': '自定义提示',
+      'loadFail': '加载失败',
+    },
+    switchDemo: {
+      'back': '返回',
+      'basicUsage': '基础用法',
+      'disabled': '禁用状态',
+      'loadingStatus': '加载状态',
+      'customSize': '自定义大小',
+      'customColor': '自定义颜色',
+      'customNode': '自定义按钮',
+      'asyncControl': '异步控制',
+      'withCell': '搭配单元格使用',
+      'title': '标题',
+      'confirm': '提醒',
+      'message': '是否切换开关？',
+    },
     fieldDemo: {
       'back': '返回',
       'basicUsage': '基础用法',
@@ -315,6 +352,35 @@ const allMessages: Record<string, Record<string, Record<string, string>>> = {
     },
   },
   'en-US': {
+    imageDemo: {
+      'back': 'Back',
+      'basicUsage': 'Basic Usage',
+      'fitMode': 'Fit Mode',
+      'position': 'Position',
+      'round': 'Round',
+      'loading': 'Loading',
+      'error': 'Error',
+      'defaultTip': 'Default Tip',
+      'customTip': 'Custom Tip',
+      'loadFail': 'Load failed',
+    },
+    switchDemo: {
+      'back': 'Back',
+      'basicUsage': 'Basic Usage',
+      'disabled': 'Disabled',
+      'loading': 'Loading',
+      'customSize': 'Custom Size',
+      'customColor': 'Custom Color',
+      'customValue': 'Custom Value',
+      'title': 'Title',
+      'disabledTitle': 'Disabled',
+      'disabledTitle2': 'Disabled (off)',
+      'loadingTitle': 'Loading (on)',
+      'loadingTitle2': 'Loading (off)',
+      'sizeTitle': '24px',
+      'colorTitle': 'Red',
+      'valueTitle': 'Custom Value',
+    },
     cellDemo: {
       'back': 'Back',
       'basicUsage': 'Basic Usage',

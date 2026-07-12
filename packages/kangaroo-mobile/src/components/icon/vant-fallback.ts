@@ -8,6 +8,8 @@ export const VANT_FALLBACK_ICONS = new Set([
   'records',
   'todo-list-o',
   'smile-comment-o',
+  'photo',
+  'photo-o',
   'photo-fail',
   'back',
   'search',

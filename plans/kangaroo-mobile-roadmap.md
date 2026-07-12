@@ -1,7 +1,7 @@
 # Kangaroo Mobile — Vue 3 移动端组件库开发路线图
 
 > **定位**: 基于 Vant 4 二次封装的 Vue 3 移动端组件库，统一设计风格，提供开箱即用的业务组件
-> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar 组件
+> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image 组件
 
 ---
 
@@ -16,11 +16,14 @@
 | `YhmTabBar` + `YhmTabbarItem` | ✅ | 基于 Vant TabBar，items 数组配置 + 路由绑定 |
 | `YhmCell` + `YhmCellGroup` | ✅ | 基于 Vant Cell/CellGroup，薄封装 + 右侧箭头用 YhmIcon |
 | `YhmTag` 组件 | ✅ | 基于 Vant Tag，薄封装 |
+| `YhmField` 组件 | ✅ | 基于 Vant Field，支持 v-model + 图标插槽 |
+| `YhmSwitch` 组件 | ✅ | 基于 Vant Switch，支持 v-model + 自定义颜色/大小 |
+| `YhmImage` 组件 | ✅ | 基于 Vant Image，支持 loading/error 占位 + lazy-load + position |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
 | 库构建输出 | ✅ | ES + CJS 双格式构建 |
-| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag） |
+| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image） |
 
 ---
 
@@ -702,32 +705,39 @@ export function useImagePreview() {
 | 🥇 2 | **Button** 按钮 | 最基础的交互组件，品牌样式起点 | ✅ 已完成 |
 | 🥇 3 | **TabBar** 标签栏 | 底部导航核心，多数移动 App 标配 | ✅ 已完成 |
 | 🥇 4 | **Icon** 图标 | 基础图形元素，所有组件依赖 | ✅ 已完成 |
-| 🥇 5 | **Cell / CellGroup** 单元格 + 组 | 列表页、设置页的核心布局单元，Field 依赖 Cell 布局 | ✅ 已完成 |
+| 🥇 5 | **Cell / CellGroup** 单元格 + 组 | 列表页、设置页的核心布局单元 | ✅ 已完成 |
 | 🥇 6 | **Tag** 标签 | 状态标记、分类标识 | ✅ 已完成 |
-| 🥇 7 | **Field / Form** 表单输入 | 用户信息收集核心，依赖 Cell 完成布局 | ⏳ 下一个 |
-| 🥇 8 | **Search** 搜索 | 列表搜索、筛选场景核心，业务通用 | ⏳ |
-| 🥈 9 | **Image** 图片 | 图片展示基础组件，内容型页面必备 | ⏳ |
-| 🥈 10 | **Toast** 轻提示 | 操作反馈的基础组件（成功/失败/加载提示） | ⏳ |
-| 🥈 11 | **Dialog** 对话框 | 确认弹窗、提示弹窗，业务通用 | ⏳ |
-| 🥈 12 | **Popup** 弹出层 | 底部弹窗、筛选面板等 | ⏳ |
-| 🥈 13 | **ActionSheet** 动作面板 | 操作菜单选择，业务通用 | ⏳ |
-| 🥈 14 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
-| 🥈 15 | **DateTimePicker** 日期时间选择 | 时间日期选择，表单中高频使用 | ⏳ |
-| 🥈 16 | **Steps** 步骤条 | 流程引导、订单进度、多步表单 | ⏳ |
-| 🥉 17 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
-| 🥉 18 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
-| 🥉 19 | **Stepper** 步进器 | 数量选择、购物车等场景 | ⏳ |
-| 🥉 20 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
-| 🥉 21 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
-| 🥉 22 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
-| 🥉 23 | **Badge** 徽标 | 消息/通知角标 | ⏳ |
-| 🥉 24 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ⏳ |
-| 🥉 25 | **Switch** 开关 | 设置项开关控制 | ⏳ |
-| 🥉 26 | **ImagePreview** 图片预览 | 图片放大查看、画廊模式 | ⏳ |
-| 🥉 27 | **BackTop** 回到顶部 | 长列表/长页面快速回到顶部 | ⏳ |
-| 🥉 28 | **Divider** 分割线 | 内容分组、视觉分隔 | ⏳ |
-| 🥉 29 | **Result** 结果页 | 操作结果反馈（成功/失败/警告） | ⏳ |
-| 🥉 30 | **Exception** 异常页 | 403 / 404 / 500 错误页面 | ⏳ |
+| 🥇 7 | **Field** 输入框 | 表单输入核心，依赖 Cell 布局 | ✅ 已完成 |
+| 🥇 8 | **Switch** 开关 | 表单最简组件，设置项开关控制 | ✅ 已完成 |
+| 🥇 9 | **Image** 图片 | 图片展示基础组件 | ✅ 已完成 |
+| 🥇 10 | **Stepper** 步进器 | 数量选择、购物车等场景 | ⏳ |
+| 🥇 11 | **Checkbox / CheckboxGroup** 复选框 | 多选场景，Form 子组件 | ⏳ |
+| 🥇 12 | **Radio / RadioGroup** 单选框 | 单选场景，Form 子组件 | ⏳ |
+| 🥇 13 | **Rate** 评分 | 评分选择，Form 子组件 | ⏳ |
+| 🥇 14 | **Slider** 滑块 | 范围选择，Form 子组件 | ⏳ |
+| 🥇 15 | **Uploader** 文件上传 | 文件上传，Form 子组件 | ⏳ |
+| 🥇 16 | **Form** 表单 | 表单容器，依赖以上子组件 | ⏳ |
+| 🥇 17 | **Search** 搜索 | 列表搜索、筛选场景核心 | ⏳ |
+| 🥇 18 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
+| 🥇 19 | **DateTimePicker** 日期时间选择 | 时间日期选择 | ⏳ |
+| 🥇 20 | **Calendar** 日历 | 日期选择 | ⏳ |
+| 🥇 21 | **Toast** 轻提示 | 操作反馈基础组件 | ⏳ |
+| 🥇 22 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ⏳ |
+| 🥈 23 | **Popup** 弹出层 | 底部弹窗、筛选面板 | ⏳ |
+| 🥈 24 | **ActionSheet** 动作面板 | 操作菜单选择 | ⏳ |
+| 🥈 25 | **Steps** 步骤条 | 流程引导、多步表单 | ⏳ |
+| 🥈 26 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
+| 🥈 27 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
+| 🥈 28 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
+| 🥈 29 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
+| 🥈 30 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
+| 🥈 31 | **Badge** 徽标 | 消息/通知角标 | ⏳ |
+| 🥈 32 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ⏳ |
+| 🥈 33 | **ImagePreview** 图片预览 | 图片放大查看 | ⏳ |
+| 🥈 34 | **BackTop** 回到顶部 | 长列表快速回到顶部 | ⏳ |
+| 🥈 35 | **Divider** 分割线 | 内容分组、视觉分隔 | ⏳ |
+| 🥉 36 | **Result** 结果页 | 操作结果反馈 | ⏳ |
+| 🥉 37 | **Exception** 异常页 | 403 / 404 / 500 | ⏳ |
 
 ---
 
