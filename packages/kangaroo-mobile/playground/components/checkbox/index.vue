@@ -228,12 +228,12 @@ const checkedResultChange = (value: string[]) => {
 
 <style lang="less">
 .demo-checkbox {
-  .yhm-checkbox {
+  .van-checkbox {
     margin: 0 0 8px 20px;
   }
 
   .van-cell {
-    .yhm-checkbox {
+    .van-checkbox {
       margin: 0;
     }
   }

@@ -1,58 +1,49 @@
 <template>
-  <VanCheckboxGroup
-    ref="vanGroupRef"
+  <VanRadioGroup
     v-bind="groupProps as any"
-    :class="['yhm-checkbox-group', ($attrs.class as string)]"
+    :class="['yhm-radio-group', ($attrs.class as string)]"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)"
   >
     <slot />
-  </VanCheckboxGroup>
+  </VanRadioGroup>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useAttrs } from 'vue'
-import { CheckboxGroup as VanCheckboxGroup } from 'vant'
-import type { CheckboxGroupInstance } from 'vant'
+import { computed, useAttrs } from 'vue'
+import { RadioGroup as VanRadioGroup } from 'vant'
 
 defineOptions({
-  name: 'YhmCheckboxGroup',
+  name: 'YhmRadioGroup',
   inheritAttrs: false,
 })
 
 const $attrs = useAttrs()
-const vanGroupRef = ref<CheckboxGroupInstance>()
-
-defineExpose({
-  toggleAll: (options?: boolean) => vanGroupRef.value?.toggleAll(options),
-})
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: unknown[]
-    max?: string | number
-    shape?: 'round' | 'square'
+    modelValue?: unknown
     disabled?: boolean
     iconSize?: string | number
     direction?: 'horizontal' | 'vertical'
     checkedColor?: string
+    shape?: 'round' | 'square' | 'dot'
   }>(),
   {
-    modelValue: () => [],
     disabled: false,
   }
 )
 
 defineEmits<{
-  (e: 'update:modelValue', value: unknown[]): void
-  (e: 'change', value: unknown[]): void
+  (e: 'update:modelValue', value: unknown): void
+  (e: 'change', value: unknown): void
 }>()
 
 const groupProps = computed(() => {
   const result: Record<string, unknown> = {}
   const keys: (keyof typeof props)[] = [
-    'max', 'shape', 'disabled', 'iconSize', 'direction', 'checkedColor',
+    'disabled', 'iconSize', 'direction', 'checkedColor', 'shape',
   ]
   for (const key of keys) {
     const val = props[key]

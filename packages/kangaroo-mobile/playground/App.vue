@@ -64,6 +64,10 @@
         v-else-if="currentDemo === 'image'"
         @back="currentDemo = null"
       />
+      <RadioDemo
+        v-else-if="currentDemo === 'radio'"
+        @back="currentDemo = null"
+      />
       <CheckboxDemo
         v-else-if="currentDemo === 'checkbox'"
         @back="currentDemo = null"
@@ -98,6 +102,7 @@ import { setLocale, getLocale, addGlobalMessages } from '@/locale'
 import IconDemo from './components/icon/index.vue'
 import CellDemo from './components/cell/index.vue'
 import FieldDemo from './components/field/index.vue'
+import RadioDemo from './components/radio/index.vue'
 import CheckboxDemo from './components/checkbox/index.vue'
 import StepperDemo from './components/stepper/index.vue'
 import SwitchDemo from './components/switch/index.vue'
@@ -156,6 +161,7 @@ const componentGroups: ComponentGroup[] = [
       { key: 'switch', name: 'YhmSwitch', desc: '开关' },
       { key: 'search', name: 'YhmSearch', desc: '搜索' },
       { key: 'checkbox', name: 'YhmCheckbox', desc: '复选框' },
+      { key: 'radio', name: 'YhmRadio', desc: '单选框' },
       { key: 'stepper', name: 'YhmStepper', desc: '步进器' },
     ],
   },

@@ -1,7 +1,7 @@
 # Kangaroo Mobile — Vue 3 移动端组件库开发路线图
 
 > **定位**: 基于 Vant 4 二次封装的 Vue 3 移动端组件库，统一设计风格，提供开箱即用的业务组件
-> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox 组件
+> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio 组件
 
 ---
 
@@ -21,11 +21,12 @@
 | `YhmImage` 组件 | ✅ | 基于 Vant Image，支持 loading/error 占位 + lazy-load + position |
 | `YhmStepper` 组件 | ✅ | 基于 Vant Stepper，支持 v-model + 步长/范围/整数/异步变更 |
 | `YhmCheckbox` + `YhmCheckboxGroup` | ✅ | 基于 Vant Checkbox/CheckboxGroup，支持 v-model + 全选/反选/限制/不确定状态 |
+| `YhmRadio` + `YhmRadioGroup` | ✅ | 基于 Vant Radio/RadioGroup，支持 v-model + 自定义形状/颜色/图标 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
 | 库构建输出 | ✅ | ES + CJS 双格式构建 |
-| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper / Checkbox） |
+| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper / Checkbox / Radio） |
 
 ---
 
@@ -714,7 +715,7 @@ export function useImagePreview() {
 | 🥇 9 | **Image** 图片 | 图片展示基础组件 | ✅ 已完成 |
 | 🥇 10 | **Stepper** 步进器 | 数量选择、购物车等场景 | ✅ 已完成 |
 | 🥇 11 | **Checkbox / CheckboxGroup** 复选框 | 多选场景，Form 子组件 | ✅ 已完成 |
-| 🥇 12 | **Radio / RadioGroup** 单选框 | 单选场景，Form 子组件 | ⏳ |
+| 🥇 12 | **Radio / RadioGroup** 单选框 | 单选场景，Form 子组件 | ✅ 已完成 |
 | 🥇 13 | **Rate** 评分 | 评分选择，Form 子组件 | ⏳ |
 | 🥇 14 | **Slider** 滑块 | 范围选择，Form 子组件 | ⏳ |
 | 🥇 15 | **Uploader** 文件上传 | 文件上传，Form 子组件 | ⏳ |
