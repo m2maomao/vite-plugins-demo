@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed, useSlots, useAttrs } from 'vue'
 import { Field as VanField } from 'vant'
 import YhmIcon from '../icon/icon.vue'
 
@@ -119,9 +119,11 @@ defineEmits<{
   (e: 'clear'): void
 }>()
 
-/** 过滤私有 props */
+const attrs = useAttrs()
+
+/** 合并已知 props + $attrs（透传事件如 @click） */
 const vanFieldProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = { ...attrs }
   const keys: (keyof typeof props)[] = [
     'label', 'placeholder', 'type', 'name',
     'leftIcon', 'rightIcon', 'clearable', 'clearIcon',

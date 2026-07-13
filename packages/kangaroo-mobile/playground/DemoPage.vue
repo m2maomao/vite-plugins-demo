@@ -40,6 +40,8 @@ const demoComponent = computed(() => {
     slider: () => import('./components/slider/index.vue'),
     uploader: () => import('./components/uploader/index.vue'),
     form: () => import('./components/form/index.vue'),
+    picker: () => import('./components/picker/index.vue'),
+    popup: () => import('./components/popup/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
