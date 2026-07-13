@@ -5,6 +5,7 @@ import 'vant/lib/index.css'
 import 'vant/lib/image/index.css'
 import 'vant/lib/checkbox/index.css'
 import 'vant/lib/radio/index.css'
+import 'vant/lib/uploader/index.css'
 
 const install = (app: App) => {
   Object.values(components).forEach((component: any) => {

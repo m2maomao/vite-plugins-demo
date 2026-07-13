@@ -91,6 +91,7 @@ const componentGroups: ComponentGroup[] = [
       { key: 'radio', name: 'YhmRadio', desc: '单选框' },
       { key: 'rate', name: 'YhmRate', desc: '评分' },
       { key: 'slider', name: 'YhmSlider', desc: '滑块' },
+      { key: 'uploader', name: 'YhmUploader', desc: '文件上传' },
       { key: 'stepper', name: 'YhmStepper', desc: '步进器' },
     ],
   },

@@ -1,7 +1,7 @@
 # Kangaroo Mobile — Vue 3 移动端组件库开发路线图
 
 > **定位**: 基于 Vant 4 二次封装的 Vue 3 移动端组件库，统一设计风格，提供开箱即用的业务组件
-> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider 组件
+> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader 组件
 
 ---
 
@@ -24,6 +24,7 @@
 | `YhmRadio` + `YhmRadioGroup` | ✅ | 基于 Vant Radio/RadioGroup，支持 v-model + 自定义形状/颜色/图标 |
 | `YhmRate` 组件 | ✅ | 基于 Vant Rate，支持 v-model + 半星/自定义图标/只读/清除 |
 | `YhmSlider` 组件 | ✅ | 基于 Vant Slider，支持 v-model + 双滑块/范围/步长/垂直 |
+| `YhmUploader` 组件 | ✅ | 基于 Vant Uploader，支持 v-model + 多文件/预览/上传状态/限制 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
@@ -720,7 +721,7 @@ export function useImagePreview() {
 | 🥇 12 | **Radio / RadioGroup** 单选框 | 单选场景，Form 子组件 | ✅ 已完成 |
 | 🥇 13 | **Rate** 评分 | 评分选择，Form 子组件 | ✅ 已完成 |
 | 🥇 14 | **Slider** 滑块 | 范围选择，Form 子组件 | ✅ 已完成 |
-| 🥇 15 | **Uploader** 文件上传 | 文件上传，Form 子组件 | ⏳ |
+| 🥇 15 | **Uploader** 文件上传 | 文件上传，Form 子组件 | ✅ 已完成 |
 | 🥇 16 | **Form** 表单 | 表单容器，依赖以上子组件 | ⏳ |
 | 🥇 17 | **Search** 搜索 | 列表搜索、筛选场景核心 | ⏳ |
 | 🥇 18 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ⏳ |
