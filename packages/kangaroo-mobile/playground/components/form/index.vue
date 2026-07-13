@@ -3,6 +3,10 @@ import { ref } from 'vue'
 import VanButton from 'vant/es/button'
 import VanCellGroup from 'vant/es/cell-group'
 import { closeToast, showLoadingToast } from 'vant'
+import FieldTypePicker from './FieldTypePicker.vue'
+import FieldTypeTimePicker from './FieldTypeTimePicker.vue'
+import FieldTypeArea from './FieldTypeArea.vue'
+import FieldTypeCalendar from './FieldTypeCalendar.vue'
 import { useTranslate } from '@/locale/useTranslate'
 import { cdnURL } from '../../site'
 
@@ -248,6 +252,11 @@ const switchChecked = ref(false)
               <yhm-uploader v-model="uploader" max-count="2" />
             </template>
           </yhm-field>
+
+          <field-type-picker />
+          <field-type-time-picker />
+          <field-type-area />
+          <field-type-calendar />
         </van-cell-group>
 
         <div style="margin: 16px 16px 0">

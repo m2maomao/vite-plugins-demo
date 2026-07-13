@@ -602,31 +602,7 @@ export function useImagePreview() {
 </template>
 ```
 
-#### 5.5 `YhmDateTimePicker` — 日期时间选择器
-- 基于 Vant [`DateTimePicker`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/date-time-picker)
-- 支持 date / time / year-month / month-day 四种模式
-- 扩展：结合 Popup 封装为底部弹窗选择模式
-- 可选：搭配 Field 展示选中值
-
-```vue
-<template>
-  <van-popup v-model:show="visible" position="bottom" round>
-    <van-date-time-picker
-      :type="type"
-      :model-value="currentDate"
-      :min-date="minDate"
-      :max-date="maxDate"
-      :title="title"
-      :columns-order="columnsOrder"
-      @confirm="onConfirm"
-      @cancel="onCancel"
-      v-bind="$attrs"
-    />
-  </van-popup>
-</template>
-```
-
-#### 5.6 `YhmSearch` — 搜索
+#### 5.5 `YhmSearch` — 搜索
 - 基于 Vant [`Search`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/search)
 - 支持 `v-model` 双向绑定
 - 自定义搜索图标（使用 `YhmIcon`）、清除按钮、取消按钮
@@ -732,26 +708,25 @@ export function useImagePreview() {
 | 🥇 17 | **Search** 搜索 | 列表搜索、筛选场景核心 | ⏳ |
 | 🥇 18 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ✅ 已完成 |
 | 🥇 19 | **TimePicker** 时间选择 | 时分秒时间选择 | ✅ 已完成 |
-| 🥇 20 | **DateTimePicker** 日期时间选择 | 日期时间选择 | ⏳ |
-| 🥇 21 | **Area** 地区选择 | 省市区选择 | ✅ 已完成 |
+| 🥇 20 | **Area** 地区选择 | 省市区选择 | ✅ 已完成 |
 | 🥇 21 | **Calendar** 日历 | 日期选择 | ✅ 已完成 |
 | 🥇 22 | **Toast** 轻提示 | 操作反馈基础组件 | ⏳ |
 | 🥇 23 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ⏳ |
 | 🥈 24 | **Popup** 弹出层 | 底部弹窗、筛选面板 | ✅ 已完成 |
 | 🥈 25 | **ActionSheet** 动作面板 | 操作菜单选择 | ⏳ |
-| 🥈 25 | **Steps** 步骤条 | 流程引导、多步表单 | ⏳ |
-| 🥈 26 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
-| 🥈 27 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
-| 🥈 28 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
-| 🥈 29 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
-| 🥈 30 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
-| 🥈 31 | **Badge** 徽标 | 消息/通知角标 | ⏳ |
-| 🥈 32 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ⏳ |
-| 🥈 33 | **ImagePreview** 图片预览 | 图片放大查看 | ⏳ |
-| 🥈 34 | **BackTop** 回到顶部 | 长列表快速回到顶部 | ⏳ |
-| 🥈 35 | **Divider** 分割线 | 内容分组、视觉分隔 | ⏳ |
-| 🥉 36 | **Result** 结果页 | 操作结果反馈 | ⏳ |
-| 🥉 37 | **Exception** 异常页 | 403 / 404 / 500 | ⏳ |
+| 🥈 26 | **Steps** 步骤条 | 流程引导、多步表单 | ⏳ |
+| 🥈 27 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
+| 🥈 28 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
+| 🥈 29 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
+| 🥈 30 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
+| 🥈 31 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |
+| 🥈 32 | **Badge** 徽标 | 消息/通知角标 | ⏳ |
+| 🥈 33 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ⏳ |
+| 🥈 34 | **ImagePreview** 图片预览 | 图片放大查看 | ⏳ |
+| 🥈 35 | **BackTop** 回到顶部 | 长列表快速回到顶部 | ⏳ |
+| 🥈 36 | **Divider** 分割线 | 内容分组、视觉分隔 | ⏳ |
+| 🥉 37 | **Result** 结果页 | 操作结果反馈 | ⏳ |
+| 🥉 38 | **Exception** 异常页 | 403 / 404 / 500 | ⏳ |
 
 ---
 
