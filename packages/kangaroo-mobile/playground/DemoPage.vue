@@ -46,6 +46,7 @@ const demoComponent = computed(() => {
     area: () => import('./components/area/index.vue'),
     calendar: () => import('./components/calendar/index.vue'),
     search: () => import('./components/search/index.vue'),
+    toast: () => import('./components/toast/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
