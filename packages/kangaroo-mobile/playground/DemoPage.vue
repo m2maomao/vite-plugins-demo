@@ -49,6 +49,7 @@ const demoComponent = computed(() => {
     toast: () => import('./components/toast/index.vue'),
     dialog: () => import('./components/dialog/index.vue'),
     'action-sheet': () => import('./components/action-sheet/index.vue'),
+    steps: () => import('./components/steps/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
