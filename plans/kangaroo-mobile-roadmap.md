@@ -34,6 +34,7 @@
 | `YhmSearch` 组件 | ✅ | 基于 Vant Search，支持 v-model、事件监听、自定义按钮/背景 |
 | `YhmToast` 组件 | ✅ | 基于 Vant Toast，提供 showToast/showSuccessToast/showFailToast/showLoadingToast 函数 + 组件模式 |
 | `YhmDialog` 组件 | ✅ | 基于 Vant Dialog，提供 showDialog/showConfirmDialog 函数 + 组件模式，支持圆角按钮/异步关闭 |
+| `YhmActionSheet` 组件 | ✅ | 基于 Vant ActionSheet，支持选项列表/图标/取消按钮/描述/状态/自定义面板 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
@@ -716,7 +717,7 @@ export function useImagePreview() {
 | 🥇 22 | **Toast** 轻提示 | 操作反馈基础组件 | ✅ 已完成 |
 | 🥇 23 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ✅ 已完成 |
 | 🥈 24 | **Popup** 弹出层 | 底部弹窗、筛选面板 | ✅ 已完成 |
-| 🥈 25 | **ActionSheet** 动作面板 | 操作菜单选择 | ⏳ |
+| 🥈 25 | **ActionSheet** 动作面板 | 操作菜单选择 | ✅ 已完成 |
 | 🥈 26 | **Steps** 步骤条 | 流程引导、多步表单 | ⏳ |
 | 🥈 27 | **Tabs** 标签页 | 内容分类切换 | ⏳ |
 | 🥈 28 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
