@@ -37,6 +37,22 @@ const t = useTranslate({
     disabledOption: 'Disabled Option',
     showDescription: 'Show Description',
   },
+  'ja-JP': {
+    cancel: 'キャンセル',
+    option1: 'オプション1',
+    option2: 'オプション2',
+    option3: 'オプション3',
+    subname: '説明',
+    showIcon: 'アイコン表示',
+    showCancel: 'キャンセルボタン表示',
+    buttonText: 'アクションシート表示',
+    customPanel: 'カスタムパネル',
+    description: 'これは説明文です',
+    optionStatus: 'オプション状態',
+    coloredOption: '色付きオプション',
+    disabledOption: '無効オプション',
+    showDescription: '説明を表示',
+  },
 })
 
 const showBasic = ref(false)

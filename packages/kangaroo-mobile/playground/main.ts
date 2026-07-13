@@ -27,6 +27,14 @@ addGlobalMessages({
     search: 'Search',
     content: 'Content',
   },
+  'ja-JP': {
+    cancel: 'キャンセル',
+    confirm: '確認',
+    loading: '読み込み中...',
+    title: 'タイトル',
+    search: '検索',
+    content: '内容',
+  },
 })
 
 const app = createApp(App)

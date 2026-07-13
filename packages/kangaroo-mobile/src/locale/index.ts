@@ -81,7 +81,14 @@ let currentLang: LocaleLang = 'zh-CN'
 export function createTranslate(namespace: string): Translate {
   return (path: string) => {
     const nsMessages = customMessages[currentLang]?.[namespace]
-    return nsMessages?.[path] ?? globalMessages[currentLang]?.[path] ?? path
+    return (
+      nsMessages?.[path]
+      ?? globalMessages[currentLang]?.[path]
+      // 当前语言没有翻译时，尝试 en-US 作为兜底
+      ?? customMessages['en-US']?.[namespace]?.[path]
+      ?? globalMessages['en-US']?.[path]
+      ?? path
+    )
   }
 }
 
