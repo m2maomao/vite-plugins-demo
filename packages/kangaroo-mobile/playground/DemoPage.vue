@@ -44,6 +44,7 @@ const demoComponent = computed(() => {
     popup: () => import('./components/popup/index.vue'),
     'time-picker': () => import('./components/time-picker/index.vue'),
     area: () => import('./components/area/index.vue'),
+    calendar: () => import('./components/calendar/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null

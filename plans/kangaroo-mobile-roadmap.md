@@ -30,6 +30,7 @@
 | `YhmPopup` 组件 | ✅ | 基于 Vant Popup，支持 v-model:show + 位置/圆角/关闭图标 |
 | `YhmTimePicker` 组件 | ✅ | 基于 Vant TimePicker，支持时/分/秒选择、时间范围、过滤/格式化 |
 | `YhmArea` 组件 | ✅ | 基于 Vant Area，支持省市区三级联动、v-model、自定义列数/占位符 |
+| `YhmCalendar` 组件 | ✅ | 基于 Vant Calendar，支持单选/多选/区间、自定义颜色/范围/文案 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
@@ -733,7 +734,7 @@ export function useImagePreview() {
 | 🥇 19 | **TimePicker** 时间选择 | 时分秒时间选择 | ✅ 已完成 |
 | 🥇 20 | **DateTimePicker** 日期时间选择 | 日期时间选择 | ⏳ |
 | 🥇 21 | **Area** 地区选择 | 省市区选择 | ✅ 已完成 |
-| 🥇 21 | **Calendar** 日历 | 日期选择 | ⏳ |
+| 🥇 21 | **Calendar** 日历 | 日期选择 | ✅ 已完成 |
 | 🥇 22 | **Toast** 轻提示 | 操作反馈基础组件 | ⏳ |
 | 🥇 23 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ⏳ |
 | 🥈 24 | **Popup** 弹出层 | 底部弹窗、筛选面板 | ✅ 已完成 |
