@@ -1,7 +1,7 @@
 # Kangaroo Mobile — Vue 3 移动端组件库开发路线图
 
 > **定位**: 基于 Vant 4 二次封装的 Vue 3 移动端组件库，统一设计风格，提供开箱即用的业务组件
-> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker 组件
+> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker / Area / Calendar / Search 组件
 
 ---
 
@@ -36,7 +36,7 @@
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
 | 库构建输出 | ✅ | ES + CJS 双格式构建 |
-| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker） |
+| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker / Area / Calendar / Search） |
 
 ---
 
@@ -706,13 +706,12 @@ export function useImagePreview() {
 | 🥇 14 | **Slider** 滑块 | 范围选择，Form 子组件 | ✅ 已完成 |
 | 🥇 15 | **Uploader** 文件上传 | 文件上传，Form 子组件 | ✅ 已完成 |
 | 🥇 16 | **Form** 表单 | 表单容器，依赖以上子组件 | ✅ 已完成 |
-| 🥇 17 | **Search** 搜索 | 列表搜索、筛选场景核心 | ⏳ |
+| 🥇 17 | **Search** 搜索 | 列表搜索、筛选场景核心 | ✅ 已完成 |
 | 🥇 18 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ✅ 已完成 |
 | 🥇 19 | **TimePicker** 时间选择 | 时分秒时间选择 | ✅ 已完成 |
 | 🥇 20 | **Area** 地区选择 | 省市区选择 | ✅ 已完成 |
 | 🥇 21 | **Calendar** 日历 | 日期选择 | ✅ 已完成 |
-| 🥇 22 | **Search** 搜索 | 列表搜索、筛选场景核心 | ✅ 已完成 |
-| 🥇 23 | **Toast** 轻提示 | 操作反馈基础组件 | ⏳ |
+| 🥇 22 | **Toast** 轻提示 | 操作反馈基础组件 | ⏳ |
 | 🥇 23 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ⏳ |
 | 🥈 24 | **Popup** 弹出层 | 底部弹窗、筛选面板 | ✅ 已完成 |
 | 🥈 25 | **ActionSheet** 动作面板 | 操作菜单选择 | ⏳ |
