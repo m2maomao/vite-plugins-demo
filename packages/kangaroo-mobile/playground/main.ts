@@ -3,6 +3,7 @@ import KangarooMobile from '@/index'
 import '@/theme/index.less'
 import './playground-vars.less'
 import App from './App.vue'
+import router from './router'
 import DemoBlock from './components/DemoBlock.vue'
 import DemoNav from './components/DemoNav.vue'
 import DemoSection from './components/DemoSection.vue'
@@ -12,4 +13,5 @@ app.component('DemoBlock', DemoBlock)
 app.component('DemoNav', DemoNav)
 app.component('DemoSection', DemoSection)
 app.use(KangarooMobile)
+app.use(router)
 app.mount('#app')
