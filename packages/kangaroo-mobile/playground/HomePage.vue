@@ -81,6 +81,7 @@ const componentGroups: ComponentGroup[] = [
   {
     title: '表单组件',
     items: [
+      { key: 'form', name: 'YhmForm', desc: '表单' },
       { key: 'field', name: 'YhmField', desc: '输入框' },
       { key: 'form', name: 'YhmForm', desc: '表单' },
       { key: 'picker', name: 'YhmPicker', desc: '选择器' },

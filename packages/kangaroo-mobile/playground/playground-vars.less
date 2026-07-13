@@ -1,4 +1,4 @@
-/* 从 Vant 4 vant-cli vars.less 精确复制 */
+// Vant 官方 demo 站点 CSS 变量
 :root {
   --van-doc-black: #000;
   --van-doc-white: #fff;
@@ -11,16 +11,73 @@
   --van-doc-gray-7: #646566;
   --van-doc-gray-8: #323233;
   --van-doc-blue: #1989fa;
+  --van-doc-green: #07c160;
+  --van-doc-purple: #8e69d3;
   --van-doc-padding: 32px;
+  --van-doc-row-max-width: 1680px;
+  --van-doc-nav-width: 220px;
+  --van-doc-border-radius: 20px;
+  --van-doc-simulator-width: 360px;
+  --van-doc-simulator-height: 620px;
+  --van-doc-header-top-height: 64px;
+  --van-doc-code-font-family: "Menlo","Source Code Pro","Monaco","Inconsolata",monospace;
+}
 
-  /* text */
+// 亮色主题
+.van-doc-theme-light {
   --van-doc-text-color-1: var(--van-doc-black);
   --van-doc-text-color-2: var(--van-doc-gray-8);
   --van-doc-text-color-3: #34495e;
   --van-doc-text-color-4: var(--van-doc-gray-6);
-
-  /* background */
+  --van-doc-link-color: var(--van-doc-blue);
   --van-doc-background: #eff2f5;
   --van-doc-background-2: var(--van-doc-white);
   --van-doc-background-3: var(--van-doc-white);
+  --van-doc-header-background: #011f3c;
+  --van-doc-border-color: var(--van-doc-gray-2);
+  --van-doc-code-color: #58727e;
+  --van-doc-code-comment-color: var(--van-doc-gray-6);
+  --van-doc-code-background: var(--van-doc-gray-1);
+  --van-doc-blockquote-color: #2f85da;
+  --van-doc-blockquote-background: #ecf9ff;
+  background-color: var(--van-doc-gray-1);
+}
+
+body {
+  margin: 0;
+  font-family: Open Sans, -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB, Microsoft Yahei, sans-serif;
+  background-color: var(--van-doc-background);
+  color: var(--van-doc-text-color-2);
+  -webkit-font-smoothing: antialiased;
+}
+
+// DemoBlock 样式
+.van-doc-demo-block__title {
+  color: var(--van-doc-text-color-4);
+  margin: 0;
+  padding: 32px 16px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.van-doc-demo-block__card {
+  border-radius: 8px;
+  margin: 12px 12px 0;
+  overflow: hidden;
+}
+
+.van-doc-demo-block__title + .van-doc-demo-block__card {
+  margin-top: 0;
+}
+
+.van-doc-demo-block:first-of-type .van-doc-demo-block__title {
+  padding-top: 20px;
+}
+
+// DemoSection 样式
+.van-doc-demo-section {
+  box-sizing: border-box;
+  min-height: calc(100vh - 56px);
+  padding-bottom: 20px;
 }

@@ -39,6 +39,7 @@ const demoComponent = computed(() => {
     rate: () => import('./components/rate/index.vue'),
     slider: () => import('./components/slider/index.vue'),
     uploader: () => import('./components/uploader/index.vue'),
+    form: () => import('./components/form/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null

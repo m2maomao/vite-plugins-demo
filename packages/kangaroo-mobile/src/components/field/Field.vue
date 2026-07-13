@@ -26,6 +26,11 @@
       </slot>
     </template>
 
+    <!-- input slot：自定义输入内容（Switch/Checkbox/Rate 等） -->
+    <template v-if="hasInputSlot" #input>
+      <slot name="input" />
+    </template>
+
     <!-- 按钮（如发送验证码） → 只有有内容时才渲染 -->
     <template v-if="hasButtonSlot" #button>
       <slot name="button" />
@@ -101,6 +106,7 @@ const props = withDefaults(
 const slots = useSlots()
 const hasLeftIconSlot = computed(() => !!slots['left-icon'])
 const hasRightIconSlot = computed(() => !!slots['right-icon'])
+const hasInputSlot = computed(() => !!slots['input'])
 const hasButtonSlot = computed(() => !!slots['button'])
 
 defineEmits<{
