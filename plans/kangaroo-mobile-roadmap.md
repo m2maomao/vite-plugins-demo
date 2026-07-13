@@ -1,7 +1,7 @@
 # Kangaroo Mobile — Vue 3 移动端组件库开发路线图
 
 > **定位**: 基于 Vant 4 二次封装的 Vue 3 移动端组件库，统一设计风格，提供开箱即用的业务组件
-> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup 组件
+> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker 组件
 
 ---
 
@@ -28,6 +28,7 @@
 | `YhmForm` 组件 | ✅ | 基于 Vant Form，支持表单校验/提交/验证规则 |
 | `YhmPicker` 组件 | ✅ | 基于 Vant Picker，支持单列/多列/级联/自定义字段名 |
 | `YhmPopup` 组件 | ✅ | 基于 Vant Popup，支持 v-model:show + 位置/圆角/关闭图标 |
+| `YhmTimePicker` 组件 | ✅ | 基于 Vant TimePicker，支持时/分/秒选择、时间范围、过滤/格式化 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
