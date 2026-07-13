@@ -33,6 +33,7 @@
 | `YhmCalendar` 组件 | ✅ | 基于 Vant Calendar，支持单选/多选/区间、自定义颜色/范围/文案 |
 | `YhmSearch` 组件 | ✅ | 基于 Vant Search，支持 v-model、事件监听、自定义按钮/背景 |
 | `YhmToast` 组件 | ✅ | 基于 Vant Toast，提供 showToast/showSuccessToast/showFailToast/showLoadingToast 函数 + 组件模式 |
+| `YhmDialog` 组件 | ✅ | 基于 Vant Dialog，提供 showDialog/showConfirmDialog 函数 + 组件模式，支持圆角按钮/异步关闭 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
@@ -713,7 +714,7 @@ export function useImagePreview() {
 | 🥇 20 | **Area** 地区选择 | 省市区选择 | ✅ 已完成 |
 | 🥇 21 | **Calendar** 日历 | 日期选择 | ✅ 已完成 |
 | 🥇 22 | **Toast** 轻提示 | 操作反馈基础组件 | ✅ 已完成 |
-| 🥇 23 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ⏳ |
+| 🥇 23 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ✅ 已完成 |
 | 🥈 24 | **Popup** 弹出层 | 底部弹窗、筛选面板 | ✅ 已完成 |
 | 🥈 25 | **ActionSheet** 动作面板 | 操作菜单选择 | ⏳ |
 | 🥈 26 | **Steps** 步骤条 | 流程引导、多步表单 | ⏳ |

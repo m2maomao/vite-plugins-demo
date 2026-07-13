@@ -47,6 +47,7 @@ const demoComponent = computed(() => {
     calendar: () => import('./components/calendar/index.vue'),
     search: () => import('./components/search/index.vue'),
     toast: () => import('./components/toast/index.vue'),
+    dialog: () => import('./components/dialog/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
