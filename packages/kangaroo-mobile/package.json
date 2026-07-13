@@ -26,6 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "@iconify/vue": "^5.0.1",
+    "@vant/area-data": "^2.1.0",
     "vant": "^4.10.0"
   },
   "peerDependencies": {

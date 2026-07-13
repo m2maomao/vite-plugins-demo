@@ -85,6 +85,7 @@ const componentGroups: ComponentGroup[] = [
       { key: 'field', name: 'YhmField', desc: '输入框' },
       { key: 'picker', name: 'YhmPicker', desc: '选择器' },
       { key: 'time-picker', name: 'YhmTimePicker', desc: '时间选择' },
+      { key: 'area', name: 'YhmArea', desc: '地区选择' },
       { key: 'switch', name: 'YhmSwitch', desc: '开关' },
       { key: 'search', name: 'YhmSearch', desc: '搜索' },
       { key: 'checkbox', name: 'YhmCheckbox', desc: '复选框' },

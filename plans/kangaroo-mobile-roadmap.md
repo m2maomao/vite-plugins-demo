@@ -29,11 +29,12 @@
 | `YhmPicker` 组件 | ✅ | 基于 Vant Picker，支持单列/多列/级联/自定义字段名 |
 | `YhmPopup` 组件 | ✅ | 基于 Vant Popup，支持 v-model:show + 位置/圆角/关闭图标 |
 | `YhmTimePicker` 组件 | ✅ | 基于 Vant TimePicker，支持时/分/秒选择、时间范围、过滤/格式化 |
+| `YhmArea` 组件 | ✅ | 基于 Vant Area，支持省市区三级联动、v-model、自定义列数/占位符 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
 | 库构建输出 | ✅ | ES + CJS 双格式构建 |
-| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider） |
+| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker） |
 
 ---
 
@@ -729,8 +730,9 @@ export function useImagePreview() {
 | 🥇 16 | **Form** 表单 | 表单容器，依赖以上子组件 | ✅ 已完成 |
 | 🥇 17 | **Search** 搜索 | 列表搜索、筛选场景核心 | ⏳ |
 | 🥇 18 | **Picker** 选择器 | 表单选择场景（地区/时间/选项） | ✅ 已完成 |
-| 🥇 19 | **DateTimePicker** 日期时间选择 | 时间日期选择 | ⏳ |
-| 🥇 20 | **Area** 地区选择 | 省市区选择 | ⏳ |
+| 🥇 19 | **TimePicker** 时间选择 | 时分秒时间选择 | ✅ 已完成 |
+| 🥇 20 | **DateTimePicker** 日期时间选择 | 日期时间选择 | ⏳ |
+| 🥇 21 | **Area** 地区选择 | 省市区选择 | ✅ 已完成 |
 | 🥇 21 | **Calendar** 日历 | 日期选择 | ⏳ |
 | 🥇 22 | **Toast** 轻提示 | 操作反馈基础组件 | ⏳ |
 | 🥇 23 | **Dialog** 对话框 | 确认弹窗、提示弹窗 | ⏳ |
