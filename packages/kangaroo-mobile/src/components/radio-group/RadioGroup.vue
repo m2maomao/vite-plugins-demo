@@ -2,6 +2,7 @@
   <VanRadioGroup
     v-bind="groupProps as any"
     :class="['yhm-radio-group', ($attrs.class as string)]"
+    :style="$attrs.style as any"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)"

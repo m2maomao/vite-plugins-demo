@@ -5,25 +5,20 @@
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)"
   >
-    <template v-if="hasIconSlot" #icon="slotProps">
-      <slot name="icon" v-bind="slotProps" />
+    <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
+      <slot :name="slotName" v-bind="slotProps" />
     </template>
-    <slot v-if="hasDefaultSlot" />
   </VanCheckbox>
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Checkbox as VanCheckbox } from 'vant'
 import type { CheckboxInstance } from 'vant'
 
 defineOptions({
   name: 'YhmCheckbox',
 })
-
-const slots = useSlots()
-const hasIconSlot = computed(() => !!slots.icon)
-const hasDefaultSlot = computed(() => !!slots.default)
 
 const vanCheckboxRef = ref<CheckboxInstance>()
 

@@ -3,24 +3,19 @@
     v-bind="mergedProps as any"
     @update:model-value="$emit('update:modelValue', $event)"
   >
-    <template v-if="hasIconSlot" #icon="slotProps">
-      <slot name="icon" v-bind="slotProps" />
+    <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
+      <slot :name="slotName" v-bind="slotProps" />
     </template>
-    <slot v-if="hasDefaultSlot" />
   </VanRadio>
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 import { Radio as VanRadio } from 'vant'
 
 defineOptions({
   name: 'YhmRadio',
 })
-
-const slots = useSlots()
-const hasIconSlot = computed(() => !!slots.icon)
-const hasDefaultSlot = computed(() => !!slots.default)
 
 const props = withDefaults(
   defineProps<{
