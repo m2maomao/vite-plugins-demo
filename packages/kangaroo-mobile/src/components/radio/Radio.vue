@@ -1,15 +1,12 @@
 <template>
   <VanRadio
-    ref="vanRadioRef"
-    v-bind="radioProps as any"
-    :class="['yhm-radio', customClass]"
-    :model-value="modelValue"
+    v-bind="mergedProps as any"
     @update:model-value="$emit('update:modelValue', $event)"
   >
     <template v-if="hasIconSlot" #icon="slotProps">
       <slot name="icon" v-bind="slotProps" />
     </template>
-    <slot />
+    <slot v-if="hasDefaultSlot" />
   </VanRadio>
 </template>
 
@@ -19,11 +16,11 @@ import { Radio as VanRadio } from 'vant'
 
 defineOptions({
   name: 'YhmRadio',
-  inheritAttrs: false,
 })
 
 const slots = useSlots()
 const hasIconSlot = computed(() => !!slots.icon)
+const hasDefaultSlot = computed(() => !!slots.default)
 
 const props = withDefaults(
   defineProps<{
@@ -35,7 +32,6 @@ const props = withDefaults(
     checkedColor?: string
     labelPosition?: 'left' | 'right'
     labelDisabled?: boolean
-    customClass?: string
   }>(),
   {
     disabled: false,
@@ -46,7 +42,7 @@ defineEmits<{
   (e: 'update:modelValue', value: unknown): void
 }>()
 
-const radioProps = computed(() => {
+const mergedProps = computed(() => {
   const result: Record<string, unknown> = {}
   const keys: (keyof typeof props)[] = [
     'name', 'disabled', 'shape', 'iconSize', 'checkedColor',
@@ -57,6 +53,9 @@ const radioProps = computed(() => {
     if (val !== undefined) {
       result[key] = val
     }
+  }
+  if (props.modelValue !== undefined) {
+    result['modelValue'] = props.modelValue
   }
   return result
 })

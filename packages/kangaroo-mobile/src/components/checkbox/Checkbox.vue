@@ -2,15 +2,13 @@
   <VanCheckbox
     ref="vanCheckboxRef"
     v-bind="checkboxProps as any"
-    :class="['yhm-checkbox', customClass]"
-    :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)"
   >
     <template v-if="hasIconSlot" #icon="slotProps">
       <slot name="icon" v-bind="slotProps" />
     </template>
-    <slot />
+    <slot v-if="hasDefaultSlot" />
   </VanCheckbox>
 </template>
 
@@ -21,11 +19,11 @@ import type { CheckboxInstance } from 'vant'
 
 defineOptions({
   name: 'YhmCheckbox',
-  inheritAttrs: false,
 })
 
 const slots = useSlots()
 const hasIconSlot = computed(() => !!slots.icon)
+const hasDefaultSlot = computed(() => !!slots.default)
 
 const vanCheckboxRef = ref<CheckboxInstance>()
 
@@ -45,7 +43,6 @@ const props = withDefaults(
     labelDisabled?: boolean
     bindGroup?: boolean
     indeterminate?: boolean | null
-    customClass?: string
   }>(),
   {
     disabled: false,
@@ -69,6 +66,9 @@ const checkboxProps = computed(() => {
     if (val !== undefined) {
       result[key] = val
     }
+  }
+  if (props.modelValue !== undefined) {
+    result['modelValue'] = props.modelValue
   }
   return result
 })
