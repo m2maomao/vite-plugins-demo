@@ -1,7 +1,7 @@
 # Kangaroo Mobile — Vue 3 移动端组件库开发路线图
 
 > **定位**: 基于 Vant 4 二次封装的 Vue 3 移动端组件库，统一设计风格，提供开箱即用的业务组件
-> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker / Area / Calendar / Search 组件
+> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker / Area / Calendar / Search / Toast / Dialog / ActionSheet / Steps / Tabs / Card / Loading / Empty / Skeleton / Badge / Collapse / ImagePreview / BackTop / Divider 组件
 
 ---
 
@@ -680,17 +680,8 @@ export function useImagePreview() {
 - 基于 Vant [`Skeleton`](C:/Users/maoma/Develop/Personal/vant/packages/vant/src/skeleton)
 - 列表/卡片/自定义骨架预设
 
-#### 6.3 `YhmResult` — 结果页 (自定义)
-- **Vant 没有的组件**
-- success / error / warning / info 四种状态
-- 自定义操作按钮
-
-#### 6.4 `YhmException` — 异常页 (自定义)
-- **Vant 没有的组件**
-- 403 / 404 / 500 页面
-- 返回首页按钮
-
 ---
+
 
 ## 五、组件封装优先级（按重要程度排序）
 
@@ -730,10 +721,8 @@ export function useImagePreview() {
 | 🥈 32 | **Badge** 徽标 | 消息/通知角标 | ✅ 已完成 |
 | 🥈 33 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ✅ 已完成 |
 | 🥈 34 | **ImagePreview** 图片预览 | 图片放大查看 | ✅ 已完成 |
-| 🥈 35 | **BackTop** 回到顶部 | 长列表快速回到顶部 | ⏳ |
-| 🥈 36 | **Divider** 分割线 | 内容分组、视觉分隔 | ⏳ |
-| 🥉 37 | **Result** 结果页 | 操作结果反馈 | ⏳ |
-| 🥉 38 | **Exception** 异常页 | 403 / 404 / 500 | ⏳ |
+| 🥈 35 | **BackTop** 回到顶部 | 长列表快速回到顶部 | ✅ 已完成 |
+| 🥈 36 | **Divider** 分割线 | 内容分组、视觉分隔 | ✅ 已完成 |
 
 ---
 
