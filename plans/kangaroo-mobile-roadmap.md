@@ -37,6 +37,7 @@
 | `YhmActionSheet` 组件 | ✅ | 基于 Vant ActionSheet，支持选项列表/图标/取消按钮/描述/状态/自定义面板 |
 | `YhmSteps` + `YhmStep` | ✅ | 基于 Vant Steps/Step，支持水平/垂直步骤条、自定义图标/颜色 |
 | `YhmTabs` + `YhmTab` | ✅ | 基于 Vant Tabs/Tab，支持 line/card 风格、粘性/动画/滑动/滚动导航/异步切换 |
+| `YhmCard` 组件 | ✅ | 基于 Vant Card，支持商品卡片展示、价格/标签/营销信息/自定义内容 |
 | 主题变量占位 | ✅ | `theme/variables.less` 和 `theme/index.less` |
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
@@ -722,7 +723,7 @@ export function useImagePreview() {
 | 🥈 25 | **ActionSheet** 动作面板 | 操作菜单选择 | ✅ 已完成 |
 | 🥈 26 | **Steps** 步骤条 | 流程引导、多步表单 | ✅ 已完成 |
 | 🥈 27 | **Tabs** 标签页 | 内容分类切换 | ✅ 已完成 |
-| 🥈 28 | **Card** 卡片 | 商品/内容卡片展示 | ⏳ |
+| 🥈 28 | **Card** 卡片 | 商品/内容卡片展示 | ✅ 已完成 |
 | 🥈 29 | **Loading** 加载中 | 页面/按钮加载状态 | ⏳ |
 | 🥈 30 | **Empty** 空状态 | 列表无数据占位 | ⏳ |
 | 🥈 31 | **Skeleton** 骨架屏 | 页面加载过渡 | ⏳ |

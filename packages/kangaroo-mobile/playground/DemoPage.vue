@@ -51,6 +51,7 @@ const demoComponent = computed(() => {
     'action-sheet': () => import('./components/action-sheet/index.vue'),
     steps: () => import('./components/steps/index.vue'),
     tabs: () => import('./components/tabs/index.vue'),
+    card: () => import('./components/card/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
