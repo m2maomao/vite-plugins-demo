@@ -59,6 +59,7 @@ const demoComponent = computed(() => {
     collapse: () => import('./components/collapse/index.vue'),
     'image-preview': () => import('./components/image-preview/index.vue'),
     'back-top': () => import('./components/back-top/index.vue'),
+    divider: () => import('./components/divider/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
