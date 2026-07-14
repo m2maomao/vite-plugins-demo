@@ -52,6 +52,7 @@ const demoComponent = computed(() => {
     steps: () => import('./components/steps/index.vue'),
     tabs: () => import('./components/tabs/index.vue'),
     card: () => import('./components/card/index.vue'),
+    loading: () => import('./components/loading/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
