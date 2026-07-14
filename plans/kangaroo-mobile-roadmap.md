@@ -729,7 +729,7 @@ export function useImagePreview() {
 | 🥈 31 | **Skeleton** 骨架屏 | 页面加载过渡 | ✅ 已完成 |
 | 🥈 32 | **Badge** 徽标 | 消息/通知角标 | ✅ 已完成 |
 | 🥈 33 | **Collapse** 折叠面板 | 帮助 FAQ、表单分组展示 | ✅ 已完成 |
-| 🥈 34 | **ImagePreview** 图片预览 | 图片放大查看 | ⏳ |
+| 🥈 34 | **ImagePreview** 图片预览 | 图片放大查看 | ✅ 已完成 |
 | 🥈 35 | **BackTop** 回到顶部 | 长列表快速回到顶部 | ⏳ |
 | 🥈 36 | **Divider** 分割线 | 内容分组、视觉分隔 | ⏳ |
 | 🥉 37 | **Result** 结果页 | 操作结果反馈 | ⏳ |
