@@ -55,6 +55,7 @@ const demoComponent = computed(() => {
     loading: () => import('./components/loading/index.vue'),
     empty: () => import('./components/empty/index.vue'),
     skeleton: () => import('./components/skeleton/index.vue'),
+    badge: () => import('./components/badge/index.vue'),
   }
   const loader = modules[key]
   return loader ? defineAsyncComponent(loader) : null
