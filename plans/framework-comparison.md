@@ -15,7 +15,7 @@
 | 404 页面 | ✅ | 内置模板 |
 | 代码注入 | ✅ | setup-plugin 自动生成启动代码 |
 | 配置管理 | ✅ | config-plugin + 虚拟模块 |
-| 状态管理 | ❌ 未集成 | 可按需安装 pinia |
+| 状态管理 | ❌ 未集成 | 可按需安装 pinia | 进行中
 | 脚手架 CLI | ✅ | `create-deer-mobile` |
 | Tailwind CSS | ✅ | v4 集成 |
 | `@vueuse/core` | ✅ | useStorage 响应式存储 |
