@@ -15,24 +15,33 @@
 | 404 页面 | ✅ | 内置模板 |
 | 代码注入 | ✅ | setup-plugin 自动生成启动代码 |
 | 配置管理 | ✅ | config-plugin + 虚拟模块 |
-| 状态管理 | ❌ 未集成 | 可按需安装 pinia | 进行中test
+| **状态管理** | ✅ **已集成** | **pinia 3.x，`useUserStore` 开箱即用** |
 | 脚手架 CLI | ✅ | `create-deer-mobile` |
 | Tailwind CSS | ✅ | v4 集成 |
 | `@vueuse/core` | ✅ | useStorage 响应式存储 |
 | ESLint | ✅ | 0 error 0 warning |
+
+### `kangaroo-mobile` UI 组件库
+
+| 模块 | 状态 | 说明 |
+|------|------|------|
+| **图标系统** | ✅ 已完成 | Iconify + Vant 兜底 + 本地 deer 自定义图标，`YhmIcon` 统一入口 |
+| **国际化 i18n** | ✅ 已完成 | Vant Locale 封装，`setLocale` / `createTranslate` / `i18nPlugin` |
+| **主题系统** | ✅ 已完成 | 品牌色 CSS 变量 + Vant 变量覆盖 + 暗黑模式 |
+| **组件库** | ✅ 已完成 | 45+ 组件全部基于 Vant 4 二次封装 |
+| **Playground** | ✅ 已完成 | 组件 Demo 演示页面 |
 
 ## 缺失功能 ❌
 
 | 优先级 | 功能 | 说明 |
 |--------|------|------|
 | P1 | **移动端适配** | rem/vw 转换，viewport 适配 |
-| P1 | **国际化 i18n** | vue-i18n 集成 |
-| P2 | **主题系统** | dark/light 模式切换 |
+| P1 | **国际化 i18n（框架层）** | `deer-mobile` 集成 vue-i18n 管理业务文案，联动 `kangaroo-mobile` 的 `setLocale()` |
+| P2 | **主题系统（框架层）** | `deer-mobile` 提供运行时主题切换能力 |
 | P2 | **单元测试** | vitest 测试框架 |
 | P3 | **全局 Loading** | 路由切换加载动画 |
 | P3 | **PWA** | 离线访问 |
 | P3 | **CI/CD** | 自动发布 |
-| P3 | **图标系统** | iconify / SVG 图标集成 |
 | P3 | **业务状态码** | 统一错误码枚举 + 拦截处理 |
 | P3 | **Mock 数据** | 内置 mock 接口能力 |
 | P3 | **环境变量封装** | `.env` 文件管理封装 |
@@ -40,4 +49,3 @@
 | P3 | **Prettier** | 代码格式化 |
 | P3 | **模板选择** | CLI 创建时选 TS/JS |
 | P3 | **文档站点** | API 文档 |
-| P4 | **组件库** | 类似 Vant 的 UI 组件 |
