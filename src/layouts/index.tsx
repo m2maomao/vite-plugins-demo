@@ -8,7 +8,9 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const token = useStorage('token', '');
-    const showNav = computed(() => !(appConfig.noNavPages || []).includes(route.path));
+    const showNav = computed(() => {
+      return !(appConfig.noNavPages || []).includes(route.path);
+    });
 
     const handleLogout = () => {
       token.value = '';

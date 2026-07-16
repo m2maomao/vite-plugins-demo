@@ -8,7 +8,8 @@ const BUILTIN_PAGES: Record<string, string> = {
   login: 'virtual:builtin/login',
   '404': 'virtual:builtin/404',
   loading: 'virtual:builtin/loading',
-  error: 'virtual:builtin/error'
+  error: 'virtual:builtin/error',
+  'pinia-demo': 'virtual:builtin/pinia-demo'
 }
 
 export default function builtinPlugin(): Plugin {

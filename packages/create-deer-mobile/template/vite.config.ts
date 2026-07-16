@@ -7,7 +7,8 @@ import {
   apiPlugin,
   builtinPlugin,
   authPlugin,
-  scanPagesPlugin
+  scanPagesPlugin,
+  piniaPlugin
 } from 'deer-mobile';
 
 export default defineConfig({
@@ -29,7 +30,7 @@ export default defineConfig({
         }
       ]
     }),
-    configPlugin({ title: 'PROJECT_NAME' }),
+    configPlugin({ title: 'PROJECT_NAME' }, [piniaPlugin]),
     setupPlugin(),
     apiPlugin(),
     builtinPlugin(),

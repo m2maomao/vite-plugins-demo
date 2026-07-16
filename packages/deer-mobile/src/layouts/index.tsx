@@ -1,19 +1,19 @@
 import { defineComponent, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStorage } from '@vueuse/core';
 import { appConfig } from 'virtual:app-config';
+import { useUserStore } from 'deer-mobile/stores';
 
 export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const token = useStorage('token', '');
+    const userStore = useUserStore();
     const showNav = computed(() => {
       return !(appConfig.noNavPages || []).includes(route.path);
     });
 
     const handleLogout = () => {
-      token.value = '';
+      userStore.logout();
       router.push('/login');
     }
 

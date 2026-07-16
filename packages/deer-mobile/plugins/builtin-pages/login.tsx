@@ -1,15 +1,15 @@
 import { defineComponent, ref, h } from 'vue';
-import { useStorage } from '@vueuse/core';
 import { useApi } from 'deer-mobile/composables';
 import { useRouter } from 'vue-router';
+import { useUserStore } from 'deer-mobile/stores';
 
 export default defineComponent({
   setup() {
     const { user } = useApi();
     const router = useRouter();
+    const userStore = useUserStore();
     const username = ref('');
     const password = ref('');
-    const token = useStorage('token', '');
     const loading = ref(false);
 
     const handleLogin = async () => {
@@ -21,7 +21,7 @@ export default defineComponent({
           password: password.value
         });
         if (res.code === 0) {
-          token.value = res.data.token;
+          userStore.setToken(res.data.token);
           router.push('/');
         }
       } catch (error) {

@@ -12,6 +12,7 @@ import path from "path";
 import tailwindcss from '@tailwindcss/vite';
 import builtinPlugin from './plugins/builtin-plugin';
 import authPlugin from './plugins/auth-plugin';
+import piniaPlugin from './plugins/pinia-plugin';
 
 // 定义一个框架插件
 const pageStatsPlugin = {
@@ -48,6 +49,10 @@ export default defineConfig({
           file: 'virtual:builtin/login'
         },
         {
+          path: '/pinia-demo',
+          file: 'virtual:builtin/pinia-demo',
+        },
+        {
           path: '/:pathMatch(.*)*',
           file: 'virtual:builtin/404',
         }
@@ -68,7 +73,7 @@ export default defineConfig({
         darkMode: true,
       },
       layout: 'top'
-    }, [pageStatsPlugin, apiPluginRuntime]),
+    }, [pageStatsPlugin, apiPluginRuntime, piniaPlugin]),
     setupPlugin(),
     apiPlugin(),
     builtinPlugin(),

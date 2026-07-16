@@ -26,6 +26,7 @@
     "@tailwindcss/vite": "^4.3.1",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.18.1",
+    "deer-mobile": "workspace:*",
     "esbuild": "^0.28.1",
     "fast-glob": "^3.3.3",
     "kangaroo-mobile": "workspace:*",
