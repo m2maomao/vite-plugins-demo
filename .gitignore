@@ -1,3 +1,11 @@
 node_modules
 test-project
 .DS_Store
+dist
+
+# build artifacts
+packages/deer-mobile/index.js
+
+# editor
+*.swp
+*.swo

@@ -6,10 +6,6 @@
     "lib": ["ES2023", "DOM"],
     "types": ["vite/client", "vue/jsx"],
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -28,6 +24,5 @@
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment"
-  },
-  "include": ["src", "plugins"],
+  }
 }

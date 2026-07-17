@@ -237,7 +237,8 @@ var BUILTIN_PAGES = {
   login: "virtual:builtin/login",
   "404": "virtual:builtin/404",
   loading: "virtual:builtin/loading",
-  error: "virtual:builtin/error"
+  error: "virtual:builtin/error",
+  "pinia-demo": "virtual:builtin/pinia-demo"
 };
 function builtinPlugin() {
   return {
@@ -274,13 +275,17 @@ function authPlugin() {
       if (id.includes("virtual:setup-app")) {
         return {
           code: code.replace(
+            `import { createApp, h, ref } from 'vue';`,
+            `import { createApp, h, ref } from 'vue';
+import { useUserStore } from 'deer-mobile/stores';`
+          ).replace(
             "app.use(router);",
             `
-              // \u8DEF\u7531\u6536\u5165\uFF1A\u672A\u767B\u5F55\u8DF3\u8F6C\u767B\u5F55\u9875
+              // \u8DEF\u7531\u5B88\u536B\uFF1A\u672A\u767B\u5F55\u8DF3\u8F6C\u767B\u5F55\u9875
               router.beforeEach((to) => {
-                const token = localStorage.getItem('token')
+                const userStore = useUserStore()
                 const noAuthPages = ['/login', '/404']
-                if (!token && !noAuthPages.includes(to.path)) {
+                if (!userStore.token && !noAuthPages.includes(to.path)) {
                   return '/login'
                 }
               })
@@ -293,11 +298,27 @@ function authPlugin() {
     }
   };
 }
+
+// plugins/pinia-plugin.ts
+var piniaPlugin = {
+  name: "pinia",
+  onImport: () => [
+    `import { createPinia } from 'pinia'`,
+    `import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'`
+  ].join("\n"),
+  onRuntime: () => [
+    `const pinia = createPinia()`,
+    `pinia.use(piniaPluginPersistedstate)`,
+    `app.use(pinia)`
+  ].join("\n")
+};
+var pinia_plugin_default = piniaPlugin;
 export {
   apiPlugin,
   authPlugin,
   builtinPlugin,
   configPlugin,
+  pinia_plugin_default as piniaPlugin,
   scanPagesPlugin,
   setupPlugin
 };

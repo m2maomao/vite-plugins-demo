@@ -1,18 +1,20 @@
 import { defineConfig } from "vite";
 import VueJsx from '@vitejs/plugin-vue-jsx';
+import path from "path";
+import tailwindcss from '@tailwindcss/vite';
+import {
+  scanPagesPlugin,
+  configPlugin,
+  setupPlugin,
+  apiPlugin,
+  builtinPlugin,
+  authPlugin,
+  piniaPlugin,
+} from 'deer-mobile';
 import helloPlugin from "./plugins/hello-plugin";
 import timestampPlugin from "./plugins/timestamp-plugin";
 import greetingPlugin from "./plugins/greeting-plugin";
 import loggerPlugin from './plugins/logger-plugin';
-import scanPagesPlugin from './plugins/scan-pages-plugin';
-import configPlugin from "./plugins/config-plugin";
-import setupPlugin from "./plugins/setup-plugin";
-import apiPlugin from './plugins/api-plugin';
-import path from "path";
-import tailwindcss from '@tailwindcss/vite';
-import builtinPlugin from './plugins/builtin-plugin';
-import authPlugin from './plugins/auth-plugin';
-import piniaPlugin from './plugins/pinia-plugin';
 
 // 定义一个框架插件
 const pageStatsPlugin = {
@@ -27,7 +29,7 @@ const pageStatsPlugin = {
 const apiPluginRuntime = {
   name: 'api-runtime',
   onImport: () => `import { api } from 'virtual:api'`,
-  onRuntime: () => `app.config.globalProperties.$api = api`,  
+  onRuntime: () => `app.config.globalProperties.$api = api`,
 }
 
 export default defineConfig({

@@ -4,34 +4,19 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "server": "npx tsx server/index.ts",
+    "dev": "pnpm --filter example dev",
+    "build": "pnpm --filter example build",
+    "preview": "pnpm --filter example preview",
+    "server": "pnpm --filter example run server",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "@types/express": "^5.0.6",
     "@types/node": "^26.0.1",
-    "@vitejs/plugin-vue-jsx": "^5.1.6",
     "eslint": "^9.39.4",
-    "express": "^5.2.1",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.1",
     "vite": "^8.1.0"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.1",
-    "@vueuse/core": "^14.3.0",
-    "axios": "^1.18.1",
-    "deer-mobile": "workspace:*",
-    "esbuild": "^0.28.1",
-    "fast-glob": "^3.3.3",
-    "kangaroo-mobile": "workspace:*",
-    "tailwindcss": "^4.3.1",
-    "vue": "^3.5.39",
-    "vue-router": "^4.6.4"
   }
 }
