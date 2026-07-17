@@ -2,6 +2,7 @@ node_modules
 test-project
 .DS_Store
 dist
+.turbo
 
 # build artifacts
 packages/deer-mobile/index.js
