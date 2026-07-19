@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanCell from 'vant/es/cell'
-import { showDialog, showConfirmDialog } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import VanCell from 'vant/es/cell';
+import { showDialog, showConfirmDialog } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -23,44 +23,45 @@ const t = useTranslate({
     alert2: 'Alert without title',
     confirm: 'Confirm dialog',
     content1: 'The frequency of people swearing during code reading is the only measure of code quality.',
-    content2: 'Life is far more than just spinning and busy to the limit, and human experiences are much broader and richer than this.',
+    content2:
+      'Life is far more than just spinning and busy to the limit, and human experiences are much broader and richer than this.',
     content3: 'If the solution is ugly, then there must be a better solution, but it has not been discovered yet.',
     beforeClose: 'Before Close',
     roundButton: 'Round Button Style',
     useComponent: 'Use Dialog Component',
   },
-})
+});
 
-const show = ref(false)
-const image = 'https://fastly.jsdelivr.net/npm/@vant/assets/apple-3.jpeg'
+const show = ref(false);
+const image = 'https://fastly.jsdelivr.net/npm/@vant/assets/apple-3.jpeg';
 
 const onClickAlert = () => {
-  showDialog({ title: t('title'), message: t('content1') })
-}
+  showDialog({ title: t('title'), message: t('content1') });
+};
 
 const onClickAlert2 = () => {
-  showDialog({ message: t('content2') })
-}
+  showDialog({ message: t('content2') });
+};
 
 const onClickRound = () => {
-  showDialog({ theme: 'round-button', title: t('title'), message: t('content1') })
-}
+  showDialog({ theme: 'round-button', title: t('title'), message: t('content1') });
+};
 
 const onClickRound2 = () => {
-  showDialog({ theme: 'round-button', message: t('content2') })
-}
+  showDialog({ theme: 'round-button', message: t('content2') });
+};
 
 const onClickConfirm = () => {
-  showConfirmDialog({ title: t('title'), message: t('content3') })
-}
+  showConfirmDialog({ title: t('title'), message: t('content3') });
+};
 
 const onClickBeforeClose = () => {
   const beforeClose = (action: string) =>
     new Promise<boolean>((resolve) => {
-      setTimeout(() => resolve(action === 'confirm'), 1000)
-    })
-  showConfirmDialog({ title: t('title'), message: t('content3'), beforeClose })
-}
+      setTimeout(() => resolve(action === 'confirm'), 1000);
+    });
+  showConfirmDialog({ title: t('title'), message: t('content3'), beforeClose });
+};
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import Steps from './Steps.vue'
+import Steps from './Steps.vue';
 
-export const YhmSteps = Steps
-export default Steps
+export const YhmSteps = Steps;
+export default Steps;

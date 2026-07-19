@@ -28,7 +28,7 @@ export default function greetingPlugin(): Plugin {
           }
         `;
       }
-      return null
-    }
-  }  
+      return null;
+    },
+  };
 }

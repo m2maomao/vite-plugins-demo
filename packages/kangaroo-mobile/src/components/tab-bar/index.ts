@@ -1,4 +1,4 @@
-import YhmTabBar from './TabBar.vue'
+import YhmTabBar from './TabBar.vue';
 
-export { YhmTabBar }
-export default YhmTabBar
+export { YhmTabBar };
+export default YhmTabBar;

@@ -1,8 +1,5 @@
 <template>
-  <VanEmpty
-    v-if="$slots.default"
-    v-bind="emptyProps as any"
-  >
+  <VanEmpty v-if="$slots.default" v-bind="emptyProps as any">
     <slot />
     <template v-if="$slots.image" #image>
       <slot name="image" />
@@ -11,10 +8,7 @@
       <slot name="description" />
     </template>
   </VanEmpty>
-  <VanEmpty
-    v-else
-    v-bind="emptyProps as any"
-  >
+  <VanEmpty v-else v-bind="emptyProps as any">
     <template v-if="$slots.image" #image>
       <slot name="image" />
     </template>
@@ -25,28 +19,28 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Empty as VanEmpty } from 'vant'
+import { computed } from 'vue';
+import { Empty as VanEmpty } from 'vant';
 
 defineOptions({
   name: 'YhmEmpty',
-})
+});
 
 const props = defineProps<{
-  image?: string
-  imageSize?: number | string | [number, number]
-  description?: string
-}>()
+  image?: string;
+  imageSize?: number | string | [number, number];
+  description?: string;
+}>();
 
 const emptyProps = computed(() => {
-  const result: Record<string, unknown> = {}
-  const keys: (keyof typeof props)[] = ['image', 'imageSize', 'description']
+  const result: Record<string, unknown> = {};
+  const keys: (keyof typeof props)[] = ['image', 'imageSize', 'description'];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

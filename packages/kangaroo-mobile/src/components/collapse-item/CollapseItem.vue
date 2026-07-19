@@ -9,8 +9,7 @@
     :disabled="disabled"
     :readonly="readonly"
     :is-link="isLink"
-    :lazy-render="lazyRender"
-  >
+    :lazy-render="lazyRender">
     <slot />
     <template v-if="$slots.icon" #icon>
       <slot name="icon" />
@@ -31,45 +30,52 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { CollapseItem as VanCollapseItem } from 'vant'
+import { computed } from 'vue';
+import { CollapseItem as VanCollapseItem } from 'vant';
 
 defineOptions({
   name: 'YhmCollapseItem',
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    name?: number | string
-    title?: string
-    value?: string | number
-    label?: string
-    icon?: string
-    disabled?: boolean
-    readonly?: boolean
-    isLink?: boolean
-    lazyRender?: boolean
+    name?: number | string;
+    title?: string;
+    value?: string | number;
+    label?: string;
+    icon?: string;
+    disabled?: boolean;
+    readonly?: boolean;
+    isLink?: boolean;
+    lazyRender?: boolean;
   }>(),
   {
     disabled: false,
     readonly: false,
     isLink: true,
     lazyRender: true,
-  }
-)
+  },
+);
 
 const collapseItemProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = [
-    'name', 'title', 'value', 'label', 'icon',
-    'disabled', 'readonly', 'isLink', 'lazyRender',
-  ]
+    'name',
+    'title',
+    'value',
+    'label',
+    'icon',
+    'disabled',
+    'readonly',
+    'isLink',
+    'lazyRender',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

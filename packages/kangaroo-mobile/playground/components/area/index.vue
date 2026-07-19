@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useTranslate } from '@/locale/useTranslate'
-import { getLocale } from '@/locale'
-import { areaList } from '@vant/area-data'
-import { areaListEn } from './area-en'
+import { ref, computed } from 'vue';
+import { useTranslate } from '@/locale/useTranslate';
+import { getLocale } from '@/locale';
+import { areaList } from '@vant/area-data';
+import { areaListEn } from './area-en';
 
 const t = useTranslate({
   'zh-CN': {
@@ -16,13 +16,13 @@ const t = useTranslate({
     title3: 'Columns Number',
     title4: 'Columns Placeholder',
   },
-})
+});
 
-const value = ref('330302')
-const currentAreaList = computed(() => getLocale() === 'zh-CN' ? areaList : areaListEn)
-const cnPlaceholders = ['省份', '城市', '区县']
-const enPlaceholders = ['Province', 'City', 'County']
-const currentPlaceholders = computed(() => getLocale() === 'zh-CN' ? cnPlaceholders : enPlaceholders)
+const value = ref('330302');
+const currentAreaList = computed(() => (getLocale() === 'zh-CN' ? areaList : areaListEn));
+const cnPlaceholders = ['省份', '城市', '区县'];
+const enPlaceholders = ['Province', 'City', 'County'];
+const currentPlaceholders = computed(() => (getLocale() === 'zh-CN' ? cnPlaceholders : enPlaceholders));
 </script>
 
 <template>
@@ -40,11 +40,7 @@ const currentPlaceholders = computed(() => getLocale() === 'zh-CN' ? cnPlacehold
     </demo-block>
 
     <demo-block card :title="t('title4')">
-      <yhm-area
-        :title="t('title')"
-        :area-list="currentAreaList"
-        :columns-placeholder="currentPlaceholders"
-      />
+      <yhm-area :title="t('title')" :area-list="currentAreaList" :columns-placeholder="currentPlaceholders" />
     </demo-block>
   </div>
 </template>

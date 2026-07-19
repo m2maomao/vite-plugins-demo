@@ -1,4 +1,4 @@
-import YhmTag from './Tag.vue'
+import YhmTag from './Tag.vue';
 
-export { YhmTag }
-export default YhmTag
+export { YhmTag };
+export default YhmTag;

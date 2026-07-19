@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanPopup from 'vant/es/popup'
-import VanDatePicker from 'vant/es/date-picker'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import VanPopup from 'vant/es/popup';
+import VanDatePicker from 'vant/es/date-picker';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -13,19 +13,21 @@ const t = useTranslate({
     label: 'Date Picker',
     placeholder: 'Select time',
   },
-})
+});
 
-const result = ref('')
-const pickerValue = ref<string[]>([])
-const showPicker = ref(false)
+const result = ref('');
+const pickerValue = ref<string[]>([]);
+const showPicker = ref(false);
 
 const onConfirm = ({ selectedValues }: any) => {
-  result.value = selectedValues.join('/')
-  pickerValue.value = selectedValues as string[]
-  showPicker.value = false
-}
+  result.value = selectedValues.join('/');
+  pickerValue.value = selectedValues as string[];
+  showPicker.value = false;
+};
 
-const onCancel = () => { showPicker.value = false }
+const onCancel = () => {
+  showPicker.value = false;
+};
 </script>
 
 <template>
@@ -36,19 +38,8 @@ const onCancel = () => { showPicker.value = false }
     name="datePicker"
     :label="t('label')"
     :placeholder="t('placeholder')"
-    @click="showPicker = true"
-  />
-  <van-popup
-    v-model:show="showPicker"
-    destroy-on-close
-    round
-    position="bottom"
-    teleport="body"
-  >
-    <van-date-picker
-      :model-value="pickerValue"
-      @confirm="onConfirm"
-      @cancel="onCancel"
-    />
+    @click="showPicker = true" />
+  <van-popup v-model:show="showPicker" destroy-on-close round position="bottom" teleport="body">
+    <van-date-picker :model-value="pickerValue" @confirm="onConfirm" @cancel="onCancel" />
   </van-popup>
 </template>

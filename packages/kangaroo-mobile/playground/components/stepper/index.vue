@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanCell from 'vant/es/cell'
-import { closeToast, showLoadingToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import VanCell from 'vant/es/cell';
+import { closeToast, showLoadingToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -29,28 +29,28 @@ const t = useTranslate({
     beforeChange: 'Before Change',
     roundTheme: 'Round Theme',
   },
-})
+});
 
-const stepper1 = ref(1)
-const stepper2 = ref(1)
-const stepper3 = ref(1)
-const stepper4 = ref(1)
-const stepper5 = ref(1)
-const stepper6 = ref(1)
-const stepper7 = ref(1)
-const stepper8 = ref(1)
-const stepperRound = ref(1)
-const disabledInput = ref(1)
+const stepper1 = ref(1);
+const stepper2 = ref(1);
+const stepper3 = ref(1);
+const stepper4 = ref(1);
+const stepper5 = ref(1);
+const stepper6 = ref(1);
+const stepper7 = ref(1);
+const stepper8 = ref(1);
+const stepperRound = ref(1);
+const disabledInput = ref(1);
 
 const beforeChange = () => {
-  showLoadingToast({ forbidClick: true })
+  showLoadingToast({ forbidClick: true });
   return new Promise<boolean>((resolve) => {
     setTimeout(() => {
-      closeToast()
-      resolve(true)
-    }, 500)
-  })
-}
+      closeToast();
+      resolve(true);
+    }, 500);
+  });
+};
 </script>
 
 <template>
@@ -111,12 +111,7 @@ const beforeChange = () => {
 
     <van-cell center :title="t('roundTheme')">
       <template #value>
-        <yhm-stepper
-          v-model="stepperRound"
-          theme="round"
-          button-size="22"
-          disable-input
-        />
+        <yhm-stepper v-model="stepperRound" theme="round" button-size="22" disable-input />
       </template>
     </van-cell>
   </demo-block>

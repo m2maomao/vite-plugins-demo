@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { setLocale, addGlobalMessages } from '@/locale'
+import { setLocale, addGlobalMessages } from '@/locale';
 
 addGlobalMessages({
   'zh-CN': {
@@ -63,7 +63,7 @@ addGlobalMessages({
     center: '中央',
     right: '右',
   },
-})
+});
 
-setLocale('zh-CN')
+setLocale('zh-CN');
 </script>

@@ -1,4 +1,4 @@
-import YhmTabbarItem from './TabbarItem.vue'
+import YhmTabbarItem from './TabbarItem.vue';
 
-export { YhmTabbarItem }
-export default YhmTabbarItem
+export { YhmTabbarItem };
+export default YhmTabbarItem;

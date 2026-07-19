@@ -12,16 +12,16 @@ app.get('/api/routes', (req, res) => {
       {
         path: '/actiity',
         name: 'BING搜索',
-        redirect: 'http://bing.com'
+        redirect: 'http://bing.com',
       },
       {
         path: '/docs',
         name: 'vite文档',
-        redirect: 'https://vite.dev'
-      }
-    ]
-  })
-})
+        redirect: 'https://vite.dev',
+      },
+    ],
+  });
+});
 
 app.get('/api/user/:id', (req, res) => {
   const { id } = req.params;
@@ -32,9 +32,9 @@ app.get('/api/user/:id', (req, res) => {
       name: '张三',
       email: 'zhangsan@example.com',
       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + id,
-    }
-  })
-})
+    },
+  });
+});
 
 app.post('/api/user/login', (req, res) => {
   const { username } = req.body;
@@ -42,11 +42,11 @@ app.post('/api/user/login', (req, res) => {
     code: 0,
     data: {
       token: 'mock-token-' + Date.now(),
-      user: { id: 1, name: username || '用户'}
-    }
-  })
-})
+      user: { id: 1, name: username || '用户' },
+    },
+  });
+});
 
 app.listen(PORT, () => {
-  console.log(`📡 Mock API Server running at http://localhost:${PORT}`)
-})
+  console.log(`📡 Mock API Server running at http://localhost:${PORT}`);
+});

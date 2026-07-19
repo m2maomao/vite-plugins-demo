@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -28,19 +28,19 @@ const t = useTranslate({
     changeEvent: 'Change Event',
     toastContent: 'current value',
   },
-})
+});
 
-const value1 = ref(3)
-const value2 = ref(3)
-const value3 = ref(3)
-const value4 = ref(2.5)
-const value5 = ref(4)
-const value6 = ref(3)
-const value7 = ref(3.3)
-const value8 = ref(2)
-const value9 = ref(3)
+const value1 = ref(3);
+const value2 = ref(3);
+const value3 = ref(3);
+const value4 = ref(2.5);
+const value5 = ref(4);
+const value6 = ref(3);
+const value7 = ref(3.3);
+const value8 = ref(2);
+const value9 = ref(3);
 
-const onChange = (value: number) => showToast(`${t('toastContent')}：${value}`)
+const onChange = (value: number) => showToast(`${t('toastContent')}：${value}`);
 </script>
 
 <template>
@@ -54,13 +54,7 @@ const onChange = (value: number) => showToast(`${t('toastContent')}：${value}`)
     </demo-block>
 
     <demo-block :title="t('customStyle')">
-      <yhm-rate
-        v-model="value3"
-        :size="25"
-        color="#ffd21e"
-        void-icon="star"
-        void-color="#eee"
-      />
+      <yhm-rate v-model="value3" :size="25" color="#ffd21e" void-icon="star" void-color="#eee" />
     </demo-block>
 
     <demo-block :title="t('halfStar')">

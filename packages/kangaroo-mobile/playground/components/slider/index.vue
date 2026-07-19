@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -24,19 +24,19 @@ const t = useTranslate({
     customStyle: 'Custom Style',
     customButton: 'Custom Button',
   },
-})
+});
 
-const value1 = ref(50)
-const value2 = ref<[number, number]>([20, 60])
-const value3 = ref(0)
-const value4 = ref(50)
-const value5 = ref(50)
-const value6 = ref(50)
-const value7 = ref(50)
-const value8 = ref(50)
-const value9 = ref<[number, number]>([20, 60])
+const value1 = ref(50);
+const value2 = ref<[number, number]>([20, 60]);
+const value3 = ref(0);
+const value4 = ref(50);
+const value5 = ref(50);
+const value6 = ref(50);
+const value7 = ref(50);
+const value8 = ref(50);
+const value9 = ref<[number, number]>([20, 60]);
 
-const onChange = (value: string) => showToast(t('text') + value)
+const onChange = (value: string) => showToast(t('text') + value);
 </script>
 
 <template>
@@ -62,12 +62,7 @@ const onChange = (value: string) => showToast(t('text') + value)
     </demo-block>
 
     <demo-block :title="t('customStyle')">
-      <yhm-slider
-        v-model="value6"
-        bar-height="4px"
-        active-color="#ee0a24"
-        @change="onChange"
-      />
+      <yhm-slider v-model="value6" bar-height="4px" active-color="#ee0a24" @change="onChange" />
     </demo-block>
 
     <demo-block :title="t('customButton')">
@@ -81,13 +76,7 @@ const onChange = (value: string) => showToast(t('text') + value)
     <demo-block :title="t('vertical')">
       <div :style="{ height: '150px', paddingLeft: '30px' }">
         <yhm-slider v-model="value8" vertical @change="onChange" />
-        <yhm-slider
-          v-model="value9"
-          range
-          vertical
-          style="margin-left: 100px"
-          @change="onChange"
-        />
+        <yhm-slider v-model="value9" range vertical style="margin-left: 100px" @change="onChange" />
       </div>
     </demo-block>
   </div>

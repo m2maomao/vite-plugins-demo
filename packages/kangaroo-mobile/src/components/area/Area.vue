@@ -5,8 +5,7 @@
     @update:model-value="$emit('update:modelValue', $event)"
     @confirm="$emit('confirm', $event)"
     @cancel="$emit('cancel', $event)"
-    @change="$emit('change', $event)"
-  >
+    @change="$emit('change', $event)">
     <template v-if="$slots['title']" #title>
       <slot name="title" />
     </template>
@@ -29,36 +28,36 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Area as VanArea } from 'vant'
+import { computed } from 'vue';
+import { Area as VanArea } from 'vant';
 
 defineOptions({
   name: 'YhmArea',
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: string
+    modelValue?: string;
     /** 省市区数据 */
-    areaList?: Record<string, any>
+    areaList?: Record<string, any>;
     /** 显示列数 */
-    columnsNum?: number | string
+    columnsNum?: number | string;
     /** 列占位提示文字 */
-    columnsPlaceholder?: string[]
+    columnsPlaceholder?: string[];
     /** 标题 */
-    title?: string
+    title?: string;
     /** 加载中 */
-    loading?: boolean
+    loading?: boolean;
     /** 只读 */
-    readonly?: boolean
+    readonly?: boolean;
     /** 选项高度 */
-    optionHeight?: number | string
+    optionHeight?: number | string;
     /** 可见选项个数 */
-    visibleOptionNum?: number | string
+    visibleOptionNum?: number | string;
     /** 取消按钮文字 */
-    cancelButtonText?: string
+    cancelButtonText?: string;
     /** 确认按钮文字 */
-    confirmButtonText?: string
+    confirmButtonText?: string;
   }>(),
   {
     loading: false,
@@ -69,30 +68,36 @@ const props = withDefaults(
     visibleOptionNum: 6,
     cancelButtonText: '取消',
     confirmButtonText: '确认',
-  }
-)
+  },
+);
 
 defineEmits<{
-  (e: 'update:modelValue', value: string): void
-  (e: 'confirm', value: any): void
-  (e: 'cancel', value: any): void
-  (e: 'change', value: any): void
-}>()
+  (e: 'update:modelValue', value: string): void;
+  (e: 'confirm', value: any): void;
+  (e: 'cancel', value: any): void;
+  (e: 'change', value: any): void;
+}>();
 
 const areaProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = [
-    'areaList', 'columnsNum', 'columnsPlaceholder',
-    'title', 'loading', 'readonly',
-    'optionHeight', 'visibleOptionNum',
-    'cancelButtonText', 'confirmButtonText',
-  ]
+    'areaList',
+    'columnsNum',
+    'columnsPlaceholder',
+    'title',
+    'loading',
+    'readonly',
+    'optionHeight',
+    'visibleOptionNum',
+    'cancelButtonText',
+    'confirmButtonText',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

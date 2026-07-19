@@ -1,1 +1,14 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+/*
+ * 🔔 如果你在项目中手动使用 deer-mobile（不通过 create-deer-mobile 脚手架）：
+ *
+ * Tailwind CSS v4 默认不会扫描 node_modules 中的类名。
+ * 为了让 deer-mobile 内置页面（如登录页）的 Tailwind 样式生效，
+ * 请在项目的入口 CSS 中添加 @source 指令：
+ *
+ *   @import 'tailwindcss';
+ *   @source "../node_modules/deer-mobile";
+ *
+ * 通过 npx create-deer-mobile 创建的项目已自动包含此配置，无需额外操作。
+ */

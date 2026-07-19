@@ -73,10 +73,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
+import { ref } from 'vue';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -124,23 +124,23 @@ const t = useTranslate({
     custom: 'カスタム',
     new: '新着',
   },
-})
+});
 
-const active = ref(0)
-const active2 = ref(0)
-const active3 = ref(0)
-const active4 = ref(0)
-const active5 = ref(0)
-const activeName = ref('home')
+const active = ref(0);
+const active2 = ref(0);
+const active3 = ref(0);
+const active4 = ref(0);
+const active5 = ref(0);
+const activeName = ref('home');
 
 const icon = {
   active: cdnURL('user-active.png'),
   inactive: cdnURL('user-inactive.png'),
-}
+};
 
 const onChange = (index: number | string) => {
-  showToast(`${t('tab')} ${index}`)
-}
+  showToast(`${t('tab')} ${index}`);
+};
 </script>
 
 <style lang="less">
@@ -150,5 +150,4 @@ const onChange = (index: number | string) => {
     padding-bottom: 0;
   }
 }
-
 </style>

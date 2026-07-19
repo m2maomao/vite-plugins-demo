@@ -6,6 +6,5 @@
  *     `https://fastly.jsdelivr.net/npm/@vant/assets/${path}`;
  */
 
-/** 生成 Vant CDN 资源地址 */  
-export const cdnURL = (path: string) =>
-  `https://fastly.jsdelivr.net/npm/@vant/assets/${path}`
+/** 生成 Vant CDN 资源地址 */
+export const cdnURL = (path: string) => `https://fastly.jsdelivr.net/npm/@vant/assets/${path}`;

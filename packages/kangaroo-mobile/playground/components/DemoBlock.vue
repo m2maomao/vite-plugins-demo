@@ -12,9 +12,9 @@
 
 <script setup lang="ts">
 defineProps<{
-  title?: string
-  card?: boolean
-}>()
+  title?: string;
+  card?: boolean;
+}>();
 </script>
 
 <style lang="less">

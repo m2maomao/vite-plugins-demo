@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { useTranslate } from '@/locale/useTranslate'
+import { useTranslate } from '@/locale/useTranslate';
 
-defineProps<{ switchMode: string }>()
+defineProps<{ switchMode: string }>();
 
 const t = useTranslate({
   'zh-CN': { calendar: '日历', tiledDisplay: '平铺展示' },
   'en-US': { calendar: 'Calendar', tiledDisplay: 'Tiled display' },
-})
+});
 
-const minDate = new Date(2012, 0, 10)
-const maxDate = new Date(2013, 2, 20)
+const minDate = new Date(2012, 0, 10);
+const maxDate = new Date(2013, 2, 20);
 </script>
 
 <template>
@@ -22,7 +22,6 @@ const maxDate = new Date(2013, 2, 20)
       :max-date="maxDate"
       :default-date="minDate"
       :switch-mode="switchMode"
-      :style="{ height: '500px' }"
-    />
+      :style="{ height: '500px' }" />
   </demo-block>
 </template>

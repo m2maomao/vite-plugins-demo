@@ -10,12 +10,12 @@ interface AppConfig {
   theme: {
     primaryColor: string;
     darkMode: boolean;
-  }
+  };
   layout: 'side' | 'top' | 'mix';
   noNavPages: string[];
   request: {
     baseURL: string;
-  }
+  };
 }
 
 // 2、默认配置
@@ -32,8 +32,8 @@ const DEFAULT_CONFIG: AppConfig = {
   noNavPages: ['/login', '/404'],
   request: {
     baseURL: '/api',
-  }
-}
+  },
+};
 
 // 3、插件选项类型（用户传参用，都是可选的）
 type ConfigPluginOptions = Partial<AppConfig>;
@@ -46,15 +46,15 @@ const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID;
 
 export default function configPlugin(
   options: ConfigPluginOptions = {},
-  frameworkPlugins: FrameworkPlugin[] = []
+  frameworkPlugins: FrameworkPlugin[] = [],
 ): Plugin {
   // 保存到共享状态
   setFrameworkPlugins(frameworkPlugins);
   // 合并用户配置和默认配置
   const mergedConfig: AppConfig = {
     ...DEFAULT_CONFIG,
-    ...options
-  }
+    ...options,
+  };
   return {
     name: 'config-plugin',
     // 新增：config 钩子，可以修改 Vite 配置
@@ -63,20 +63,20 @@ export default function configPlugin(
       // console.log('🔌 框架插件：', frameworkPlugins.map(p => p.name))
       return {
         base: mergedConfig.base,
-      }
+      };
     },
     // 新增：处理 import 'virtual:app-config'
     resolveId(id) {
       if (id === VIRTUAL_MODULE_ID) {
-        return RESOLVED_VIRTUAL_MODULE_ID
+        return RESOLVED_VIRTUAL_MODULE_ID;
       }
     },
     load(id) {
       if (id === RESOLVED_VIRTUAL_MODULE_ID) {
-        return `export const appConfig = ${JSON.stringify(mergedConfig)}`
+        return `export const appConfig = ${JSON.stringify(mergedConfig)}`;
       }
-    }
-  }
+    },
+  };
 }
 
 export interface FrameworkPlugin {

@@ -1,4 +1,4 @@
-import YhmRadio from './Radio.vue'
+import YhmRadio from './Radio.vue';
 
-export { YhmRadio }
-export default YhmRadio
+export { YhmRadio };
+export default YhmRadio;

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanButton from 'vant/es/button'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
-import type { UploaderFileListItem } from 'vant'
+import { ref } from 'vue';
+import VanButton from 'vant/es/button';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
+import type { UploaderFileListItem } from 'vant';
 
 const t = useTranslate({
   'zh-CN': {
@@ -47,32 +47,29 @@ const t = useTranslate({
     customPreviewImage: 'Custom single preview image',
     reupload: 'Enable Reupload',
   },
-})
+});
 
-const fileList = ref([
-  { url: cdnURL('leaf.jpeg') },
-  { url: cdnURL('tree.jpeg') },
-])
+const fileList = ref([{ url: cdnURL('leaf.jpeg') }, { url: cdnURL('tree.jpeg') }]);
 
-const fileList2 = ref([{ url: cdnURL('sand.jpeg') }])
+const fileList2 = ref([{ url: cdnURL('sand.jpeg') }]);
 
-const fileList3 = ref([])
+const fileList3 = ref([]);
 
-const fileList4 = ref([{ url: cdnURL('sand.jpeg') }])
+const fileList4 = ref([{ url: cdnURL('sand.jpeg') }]);
 
 const fileList5 = ref<UploaderFileListItem[]>([
   {
     url: cdnURL('sand.jpeg'),
     deletable: true,
     beforeDelete: () => {
-      showToast(t('deleteMessage'))
+      showToast(t('deleteMessage'));
     },
   },
   {
     url: cdnURL('tree.jpeg'),
     imageFit: 'contain',
   },
-])
+]);
 
 const statusFileList = ref<UploaderFileListItem[]>([
   {
@@ -85,43 +82,41 @@ const statusFileList = ref<UploaderFileListItem[]>([
     status: 'failed',
     message: t('failed'),
   },
-])
+]);
 
 const previewCoverFiles = ref<UploaderFileListItem[]>([
   {
     url: cdnURL('leaf.jpeg'),
     file: { name: t('imageName') } as File,
   },
-])
+]);
 
-const previewSizeFiles = ref<UploaderFileListItem[]>([
-  { url: cdnURL('leaf.jpeg') },
-])
+const previewSizeFiles = ref<UploaderFileListItem[]>([{ url: cdnURL('leaf.jpeg') }]);
 
 const beforeRead = (file: File | File[]) => {
-  if (Array.isArray(file)) return true
+  if (Array.isArray(file)) return true;
   if (file.type !== 'image/jpeg') {
-    showToast(t('invalidType'))
-    return false
+    showToast(t('invalidType'));
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 const afterReadFailed = (item: UploaderFileListItem | UploaderFileListItem[]) => {
-  const items = Array.isArray(item) ? item : [item]
+  const items = Array.isArray(item) ? item : [item];
   items.forEach((i) => {
-    i.status = 'uploading'
-    i.message = t('uploading')
+    i.status = 'uploading';
+    i.message = t('uploading');
     setTimeout(() => {
-      i.status = 'failed'
-      i.message = t('failed')
-    }, 1000)
-  })
-}
+      i.status = 'failed';
+      i.message = t('failed');
+    }, 1000);
+  });
+};
 
-const onOversize = () => showToast(t('overSizeTip'))
+const onOversize = () => showToast(t('overSizeTip'));
 
-const fileList6 = ref([{ url: cdnURL('leaf.jpeg') }])
+const fileList6 = ref([{ url: cdnURL('leaf.jpeg') }]);
 </script>
 
 <template>
@@ -143,12 +138,7 @@ const fileList6 = ref([{ url: cdnURL('leaf.jpeg') }])
     </demo-block>
 
     <demo-block :title="t('maxSize')">
-      <yhm-uploader
-        v-model="fileList4"
-        multiple
-        :max-size="500 * 1024"
-        @oversize="onOversize"
-      />
+      <yhm-uploader v-model="fileList4" multiple :max-size="500 * 1024" @oversize="onOversize" />
     </demo-block>
 
     <demo-block :title="t('customUpload')">

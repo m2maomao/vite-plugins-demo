@@ -8,12 +8,12 @@ import {
   builtinPlugin,
   authPlugin,
   scanPagesPlugin,
-  piniaPlugin
+  piniaPlugin,
 } from 'deer-mobile';
 
 export default defineConfig({
   optimizeDeps: {
-    include: ['deer-mobile']
+    include: ['deer-mobile'],
   },
   plugins: [
     tailwindcss(),
@@ -22,22 +22,22 @@ export default defineConfig({
       pluginRoutes: [
         {
           path: '/login',
-          file: 'virtual:builtin/login'
+          file: 'virtual:builtin/login',
         },
         {
           path: '/:pathMatch(.*)*',
           file: 'virtual:builtin/404',
-        }
-      ]
+        },
+      ],
     }),
     configPlugin({ title: 'PROJECT_NAME' }, [piniaPlugin]),
     setupPlugin(),
     apiPlugin(),
     builtinPlugin(),
-    authPlugin()
+    authPlugin(),
   ],
   server: {
     open: true,
-    proxy: { '/api': 'http://localhost:3001' }
+    proxy: { '/api': 'http://localhost:3001' },
   },
-})
+});

@@ -19,28 +19,14 @@
   <VanTabbar
     v-bind="tabbarProps"
     @change="emit('change', $event)"
-    @update:model-value="emit('update:modelValue', $event)"
-  >
+    @update:model-value="emit('update:modelValue', $event)">
     <!-- ===== 声明式模式：items 数组 ===== -->
     <template v-if="items.length">
-      <VanTabbarItem
-        v-for="item in items"
-        :key="item.name"
-        v-bind="getItemProps(item)"
-        @click="handleItemClick(item)"
-      >
+      <VanTabbarItem v-for="item in items" :key="item.name" v-bind="getItemProps(item)" @click="handleItemClick(item)">
         <!-- icon 插槽：active/inactive 双态图标 -->
         <template #icon="{ active }">
-          <YhmIcon
-            v-if="active && item.activeIcon"
-            :name="item.activeIcon"
-            :size="item.iconSize ?? iconSize"
-          />
-          <YhmIcon
-            v-else-if="item.icon"
-            :name="item.icon"
-            :size="item.iconSize ?? iconSize"
-          />
+          <YhmIcon v-if="active && item.activeIcon" :name="item.activeIcon" :size="item.iconSize ?? iconSize" />
+          <YhmIcon v-else-if="item.icon" :name="item.icon" :size="item.iconSize ?? iconSize" />
         </template>
         <!-- 标题插槽 -->
         <slot :name="`title-${item.name}`">
@@ -55,11 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue'
-import { Tabbar as VanTabbar, TabbarItem as VanTabbarItem } from 'vant'
-import { TABBAR_KEY } from 'vant/es/tabbar/Tabbar'
-import type { Numeric } from 'vant/es/utils'
-import YhmIcon from '../icon/icon.vue'
+import { computed, provide } from 'vue';
+import { Tabbar as VanTabbar, TabbarItem as VanTabbarItem } from 'vant';
+import { TABBAR_KEY } from 'vant/es/tabbar/Tabbar';
+import type { Numeric } from 'vant/es/utils';
+import YhmIcon from '../icon/icon.vue';
 
 /*
   =========================
@@ -67,13 +53,13 @@ import YhmIcon from '../icon/icon.vue'
   =========================
 */
 function pickDefined<T extends Record<string, unknown>>(obj: T): Partial<T> {
-  const result: Partial<T> = {}
+  const result: Partial<T> = {};
   for (const key in obj) {
     if (obj[key] !== undefined) {
-      result[key] = obj[key]
+      result[key] = obj[key];
     }
   }
-  return result
+  return result;
 }
 
 /*
@@ -82,38 +68,38 @@ function pickDefined<T extends Record<string, unknown>>(obj: T): Partial<T> {
   =========================
 */
 export interface TabItem {
-  name: string | number
-  label?: string
-  icon?: string
-  activeIcon?: string
-  iconSize?: string | number
-  to?: string | Record<string, unknown>
-  url?: string
-  replace?: boolean
-  badge?: string | number
-  dot?: boolean
-  badgeProps?: Record<string, unknown>
+  name: string | number;
+  label?: string;
+  icon?: string;
+  activeIcon?: string;
+  iconSize?: string | number;
+  to?: string | Record<string, unknown>;
+  url?: string;
+  replace?: boolean;
+  badge?: string | number;
+  dot?: boolean;
+  badgeProps?: Record<string, unknown>;
 }
 
 defineOptions({
   name: 'YhmTabBar',
   inheritAttrs: false,
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: string | number
-    items?: TabItem[]
-    route?: boolean
-    fixed?: boolean
-    border?: boolean
-    zIndex?: string | number
-    placeholder?: boolean
-    activeColor?: string
-    inactiveColor?: string
-    beforeChange?: (active: string | number) => boolean | Promise<boolean>
-    safeAreaInsetBottom?: boolean | null
-    iconSize?: string | number
+    modelValue?: string | number;
+    items?: TabItem[];
+    route?: boolean;
+    fixed?: boolean;
+    border?: boolean;
+    zIndex?: string | number;
+    placeholder?: boolean;
+    activeColor?: string;
+    inactiveColor?: string;
+    beforeChange?: (active: string | number) => boolean | Promise<boolean>;
+    safeAreaInsetBottom?: boolean | null;
+    iconSize?: string | number;
   }>(),
   {
     modelValue: 0,
@@ -124,14 +110,14 @@ const props = withDefaults(
     placeholder: true,
     iconSize: 20,
     safeAreaInsetBottom: null,
-  }
-)
+  },
+);
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | number): void
-  (e: 'change', value: string | number): void
-  (e: 'item-click', item: TabItem): void
-}>()
+  (e: 'update:modelValue', value: string | number): void;
+  (e: 'change', value: string | number): void;
+  (e: 'item-click', item: TabItem): void;
+}>();
 
 /*
   =========================
@@ -147,11 +133,11 @@ const emit = defineEmits<{
 provide(TABBAR_KEY, {
   props,
   setActive: (active: Numeric, afterChange: () => void) => {
-    emit('update:modelValue', active as any)
-    emit('change', active as any)
-    afterChange()
+    emit('update:modelValue', active as any);
+    emit('change', active as any);
+    afterChange();
   },
-} as any)
+} as any);
 
 /*
   =========================
@@ -159,13 +145,9 @@ provide(TABBAR_KEY, {
   =========================
 */
 const tabbarProps = computed(() => {
-  const {
-    items,
-    iconSize,
-    ...rest
-  } = props
-  return pickDefined(rest as Record<string, unknown>)
-})
+  const { items, iconSize, ...rest } = props;
+  return pickDefined(rest as Record<string, unknown>);
+});
 
 function getItemProps(item: TabItem): Record<string, unknown> {
   return pickDefined({
@@ -176,12 +158,12 @@ function getItemProps(item: TabItem): Record<string, unknown> {
     dot: item.dot,
     badge: item.badge,
     badgeProps: item.badgeProps,
-  })
+  });
 }
 
 const handleItemClick = (item: TabItem) => {
-  emit('item-click', item)
-}
+  emit('item-click', item);
+};
 </script>
 
 <style lang="less" scoped>

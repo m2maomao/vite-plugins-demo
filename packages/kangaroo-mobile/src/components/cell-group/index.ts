@@ -1,4 +1,4 @@
-import YhmCellGroup from './CellGroup.vue'
+import YhmCellGroup from './CellGroup.vue';
 
-export { YhmCellGroup }
-export default YhmCellGroup
+export { YhmCellGroup };
+export default YhmCellGroup;

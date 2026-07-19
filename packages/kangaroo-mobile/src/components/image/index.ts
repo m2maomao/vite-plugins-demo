@@ -1,4 +1,4 @@
-import YhmImage from './Image.vue'
+import YhmImage from './Image.vue';
 
-export { YhmImage }
-export default YhmImage
+export { YhmImage };
+export default YhmImage;

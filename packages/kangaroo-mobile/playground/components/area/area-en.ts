@@ -58,4 +58,4 @@ export const areaListEn = {
     810308: 'Tuen Mun',
     810309: 'Yuen Long',
   },
-}
+};

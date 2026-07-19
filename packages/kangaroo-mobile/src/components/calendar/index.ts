@@ -1,4 +1,4 @@
-import Calendar from './Calendar.vue'
+import Calendar from './Calendar.vue';
 
-export const YhmCalendar = Calendar
-export default Calendar
+export const YhmCalendar = Calendar;
+export default Calendar;

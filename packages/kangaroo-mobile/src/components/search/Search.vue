@@ -10,8 +10,7 @@
     @blur="$emit('blur', $event)"
     @click-input="$emit('clickInput', $event)"
     @click-left-icon="$emit('clickLeftIcon')"
-    @click-right-icon="$emit('clickRightIcon')"
-  >
+    @click-right-icon="$emit('clickRightIcon')">
     <template v-if="$slots['left']" #left>
       <slot name="left" />
     </template>
@@ -31,44 +30,44 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Search as VanSearch } from 'vant'
+import { computed } from 'vue';
+import { Search as VanSearch } from 'vant';
 
 defineOptions({
   name: 'YhmSearch',
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: string
+    modelValue?: string;
     /** 搜索框左侧文本 */
-    label?: string
+    label?: string;
     /** 搜索框形状 */
-    shape?: 'square' | 'round'
+    shape?: 'square' | 'round';
     /** 左侧图标 */
-    leftIcon?: string
+    leftIcon?: string;
     /** 是否启用清除按钮 */
-    clearable?: boolean
+    clearable?: boolean;
     /** 右侧按钮文字 */
-    actionText?: string
+    actionText?: string;
     /** 搜索框背景色 */
-    background?: string
+    background?: string;
     /** 是否显示右侧按钮 */
-    showAction?: boolean
+    showAction?: boolean;
     /** 占位符 */
-    placeholder?: string
+    placeholder?: string;
     /** 是否禁用 */
-    disabled?: boolean
+    disabled?: boolean;
     /** 最大长度 */
-    maxlength?: number | string
+    maxlength?: number | string;
     /** 输入框内容对齐 */
-    inputAlign?: string
+    inputAlign?: string;
     /** 只读 */
-    readonly?: boolean
+    readonly?: boolean;
     /** 是否显示错误 */
-    error?: boolean
+    error?: boolean;
     /** 错误提示 */
-    errorMessage?: string
+    errorMessage?: string;
   }>(),
   {
     shape: 'square',
@@ -78,35 +77,45 @@ const props = withDefaults(
     disabled: false,
     readonly: false,
     error: false,
-  }
-)
+  },
+);
 
 defineEmits<{
-  (e: 'update:modelValue', value: string): void
-  (e: 'search', value: string): void
-  (e: 'cancel'): void
-  (e: 'clear', event: MouseEvent): void
-  (e: 'focus', event: FocusEvent): void
-  (e: 'blur', event: FocusEvent): void
-  (e: 'clickInput', event: MouseEvent): void
-  (e: 'clickLeftIcon'): void
-  (e: 'clickRightIcon'): void
-}>()
+  (e: 'update:modelValue', value: string): void;
+  (e: 'search', value: string): void;
+  (e: 'cancel'): void;
+  (e: 'clear', event: MouseEvent): void;
+  (e: 'focus', event: FocusEvent): void;
+  (e: 'blur', event: FocusEvent): void;
+  (e: 'clickInput', event: MouseEvent): void;
+  (e: 'clickLeftIcon'): void;
+  (e: 'clickRightIcon'): void;
+}>();
 
 const searchProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = [
-    'label', 'shape', 'leftIcon', 'clearable',
-    'actionText', 'background', 'showAction',
-    'placeholder', 'disabled', 'maxlength',
-    'inputAlign', 'readonly', 'error', 'errorMessage',
-  ]
+    'label',
+    'shape',
+    'leftIcon',
+    'clearable',
+    'actionText',
+    'background',
+    'showAction',
+    'placeholder',
+    'disabled',
+    'maxlength',
+    'inputAlign',
+    'readonly',
+    'error',
+    'errorMessage',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

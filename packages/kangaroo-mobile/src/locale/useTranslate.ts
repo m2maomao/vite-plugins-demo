@@ -15,23 +15,23 @@
  * ```
  */
 
-import { setLocale, getLocale, createTranslate } from './index'
-import type { Translate } from './index'
+import { setLocale, getLocale, createTranslate } from './index';
+import type { Translate } from './index';
 
-let demoUid = 0
+let demoUid = 0;
 
 export function useTranslate(i18n: Record<string, Record<string, string>>): Translate {
-  const demoName = `demo-i18n-${demoUid++}`
-  const prevLang = getLocale()
+  const demoName = `demo-i18n-${demoUid++}`;
+  const prevLang = getLocale();
 
   Object.keys(i18n).forEach((lang) => {
     setLocale(lang as any, {
       [demoName]: i18n[lang],
-    })
-  })
+    });
+  });
 
   // 恢复用户当前选择的语言
-  setLocale(prevLang)
+  setLocale(prevLang);
 
-  return createTranslate(demoName)
+  return createTranslate(demoName);
 }

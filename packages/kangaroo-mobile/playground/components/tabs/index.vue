@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanIcon from 'vant/es/icon'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
-import Shrink from './Shrink.vue'
+import { ref } from 'vue';
+import VanIcon from 'vant/es/icon';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
+import Shrink from './Shrink.vue';
 
 const t = useTranslate({
   'zh-CN': {
@@ -36,40 +36,40 @@ const t = useTranslate({
     matchByName: 'Match By Name',
     beforeChange: 'Before Change',
   },
-})
+});
 
-const active1 = ref(0)
-const active2 = ref(0)
-const active3 = ref(0)
-const active4 = ref(0)
-const active5 = ref(0)
-const active6 = ref(0)
-const active7 = ref(0)
-const active8 = ref(0)
-const active9 = ref(0)
-const active10 = ref(0)
-const active11 = ref(0)
-const activeName = ref('b')
+const active1 = ref(0);
+const active2 = ref(0);
+const active3 = ref(0);
+const active4 = ref(0);
+const active5 = ref(0);
+const active6 = ref(0);
+const active7 = ref(0);
+const active8 = ref(0);
+const active9 = ref(0);
+const active10 = ref(0);
+const active11 = ref(0);
+const activeName = ref('b');
 
-const tabs = [1, 2, 3, 4]
+const tabs = [1, 2, 3, 4];
 
-const onClickTab = ({ title }: any) => { showToast(title) }
+const onClickTab = ({ title }: any) => {
+  showToast(title);
+};
 
 const beforeChange = (name: number) => {
-  if (name === 1) return false
+  if (name === 1) return false;
   return new Promise<boolean>((resolve) => {
-    setTimeout(() => resolve(name !== 3), 1000)
-  })
-}
+    setTimeout(() => resolve(name !== 3), 1000);
+  });
+};
 </script>
 
 <template>
   <div class="demo-tab">
     <demo-block :title="t('basicUsage')">
       <yhm-tabs v-model:active="active1">
-        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
@@ -83,9 +83,7 @@ const beforeChange = (name: number) => {
 
     <demo-block :title="t('title2')">
       <yhm-tabs v-model:active="active2">
-        <yhm-tab v-for="index in 8" :title="t('tab') + index" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab v-for="index in 8" :title="t('tab') + index" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
@@ -99,25 +97,19 @@ const beforeChange = (name: number) => {
 
     <demo-block :title="t('title4')">
       <yhm-tabs v-model:active="active4" type="card">
-        <yhm-tab v-for="index in 3" :title="t('tab') + index" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab v-for="index in 3" :title="t('tab') + index" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
     <demo-block :title="t('title5')">
       <yhm-tabs v-model:active="active5" @click-tab="onClickTab">
-        <yhm-tab v-for="index in 2" :title="t('tab') + index" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab v-for="index in 2" :title="t('tab') + index" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
     <demo-block :title="t('title6')">
       <yhm-tabs v-model:active="active6" sticky>
-        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
@@ -126,7 +118,10 @@ const beforeChange = (name: number) => {
     <demo-block :title="t('title7')">
       <yhm-tabs v-model:active="active7">
         <yhm-tab v-for="index in 2" :key="index">
-          <template #title><VanIcon name="more-o" />{{ t('tab') }}</template>
+          <template #title>
+            <VanIcon name="more-o" />
+            {{ t('tab') }}
+          </template>
           {{ t('content') }} {{ index }}
         </yhm-tab>
       </yhm-tabs>
@@ -134,33 +129,25 @@ const beforeChange = (name: number) => {
 
     <demo-block :title="t('title8')">
       <yhm-tabs v-model:active="active8" animated>
-        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
     <demo-block :title="t('title9')">
       <yhm-tabs v-model:active="active9" swipeable>
-        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab :title="t('tab') + index" v-for="index in tabs" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
     <demo-block :title="t('title10')">
       <yhm-tabs v-model:active="active10" scrollspy sticky>
-        <yhm-tab :title="t('tab') + index" v-for="index in 8" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab :title="t('tab') + index" v-for="index in 8" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
 
     <demo-block :title="t('beforeChange')">
       <yhm-tabs v-model:active="active11" :before-change="beforeChange">
-        <yhm-tab :title="t('tab') + index" v-for="index in 4" :key="index">
-          {{ t('content') }} {{ index }}
-        </yhm-tab>
+        <yhm-tab :title="t('tab') + index" v-for="index in 4" :key="index">{{ t('content') }} {{ index }}</yhm-tab>
       </yhm-tabs>
     </demo-block>
   </div>

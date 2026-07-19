@@ -1,4 +1,4 @@
-import CollapseItem from './CollapseItem.vue'
+import CollapseItem from './CollapseItem.vue';
 
-export const YhmCollapseItem = CollapseItem
-export default CollapseItem
+export const YhmCollapseItem = CollapseItem;
+export default CollapseItem;

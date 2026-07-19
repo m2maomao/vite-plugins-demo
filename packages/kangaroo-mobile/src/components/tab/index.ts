@@ -1,4 +1,4 @@
-import Tab from './Tab.vue'
+import Tab from './Tab.vue';
 
-export const YhmTab = Tab
-export default Tab
+export const YhmTab = Tab;
+export default Tab;

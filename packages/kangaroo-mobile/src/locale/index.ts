@@ -8,23 +8,23 @@
 // 4. 为未来 deer-mobile 集成预留 setLocale() 接口
 // ============================================
 
-import { Locale } from 'vant'
-import zhCN from 'vant/es/locale/lang/zh-CN'
-import enUS from 'vant/es/locale/lang/en-US'
-import jaJP from 'vant/es/locale/lang/ja-JP'
+import { Locale } from 'vant';
+import zhCN from 'vant/es/locale/lang/zh-CN';
+import enUS from 'vant/es/locale/lang/en-US';
+import jaJP from 'vant/es/locale/lang/ja-JP';
 
 // -------------------------------------------
 // 类型定义
 // -------------------------------------------
 
 /** 支持的语言列表 */
-export type LocaleLang = 'zh-CN' | 'en-US' | 'ja-JP'
+export type LocaleLang = 'zh-CN' | 'en-US' | 'ja-JP';
 
 /** 命名空间文案映射: { namespace: { key: value } } */
-export type LocaleMessages = Record<string, Record<string, string>>
+export type LocaleMessages = Record<string, Record<string, string>>;
 
 /** 翻译函数 */
-export type Translate = (path: string) => string
+export type Translate = (path: string) => string;
 
 // -------------------------------------------
 // 内部状态
@@ -35,7 +35,7 @@ const vantMessages: Record<string, Record<string, any>> = {
   'zh-CN': zhCN,
   'en-US': enUS,
   'ja-JP': jaJP,
-}
+};
 
 /**
  * kangaroo-mobile 自定义组件文案
@@ -50,12 +50,12 @@ const vantMessages: Record<string, Record<string, any>> = {
  *   }
  * }
  */
-const customMessages: Record<string, LocaleMessages> = {}
+const customMessages: Record<string, LocaleMessages> = {};
 
 /** 全局通用文案（如 basicUsage、disabled 等），供所有 demo 共享 */
-const globalMessages: Record<string, Record<string, string>> = {}
+const globalMessages: Record<string, Record<string, string>> = {};
 
-let currentLang: LocaleLang = 'zh-CN'
+let currentLang: LocaleLang = 'zh-CN';
 
 // -------------------------------------------
 // 核心 API
@@ -80,16 +80,16 @@ let currentLang: LocaleLang = 'zh-CN'
  */
 export function createTranslate(namespace: string): Translate {
   return (path: string) => {
-    const nsMessages = customMessages[currentLang]?.[namespace]
+    const nsMessages = customMessages[currentLang]?.[namespace];
     return (
-      nsMessages?.[path]
-      ?? globalMessages[currentLang]?.[path]
+      nsMessages?.[path] ??
+      globalMessages[currentLang]?.[path] ??
       // 当前语言没有翻译时，尝试 en-US 作为兜底
-      ?? customMessages['en-US']?.[namespace]?.[path]
-      ?? globalMessages['en-US']?.[path]
-      ?? path
-    )
-  }
+      customMessages['en-US']?.[namespace]?.[path] ??
+      globalMessages['en-US']?.[path] ??
+      path
+    );
+  };
 }
 
 /**
@@ -112,12 +112,12 @@ export function createTranslate(namespace: string): Translate {
  * ```
  */
 export function setLocale(lang: LocaleLang, messages?: LocaleMessages) {
-  currentLang = lang
+  currentLang = lang;
 
   // 1. 同步 Vant 内置组件的文案（Calendar / Pagination / Search 等）
-  const vantMsg = vantMessages[lang]
+  const vantMsg = vantMessages[lang];
   if (vantMsg) {
-    Locale.use(lang, vantMsg)
+    Locale.use(lang, vantMsg);
   }
 
   // 2. 注册 kangaroo-mobile 自定义组件文案
@@ -125,11 +125,11 @@ export function setLocale(lang: LocaleLang, messages?: LocaleMessages) {
     customMessages[lang] = {
       ...(customMessages[lang] || {}),
       ...messages,
-    }
+    };
   }
 
   // 3. 通知内部监听者
-  localeChangeCallbacks.forEach(cb => cb(lang))
+  localeChangeCallbacks.forEach((cb) => cb(lang));
 }
 
 /**
@@ -149,19 +149,19 @@ export function addGlobalMessages(messages: Record<string, Record<string, string
     globalMessages[lang] = {
       ...(globalMessages[lang] || {}),
       ...messages[lang],
-    }
-  })
+    };
+  });
 }
 
 export function getLocale(): LocaleLang {
-  return currentLang
+  return currentLang;
 }
 
 // -------------------------------------------
 // 语言变更监听（供内部组件使用）
 // -------------------------------------------
 
-const localeChangeCallbacks: Array<(lang: LocaleLang) => void> = []
+const localeChangeCallbacks: Array<(lang: LocaleLang) => void> = [];
 
 /**
  * 监听语言变化（供 kangaroo-mobile 内部组件响应式使用）
@@ -176,7 +176,7 @@ const localeChangeCallbacks: Array<(lang: LocaleLang) => void> = []
  * ```
  */
 export function onLocaleChange(cb: (lang: LocaleLang) => void) {
-  localeChangeCallbacks.push(cb)
+  localeChangeCallbacks.push(cb);
 }
 
 // -------------------------------------------
@@ -200,27 +200,27 @@ export function onLocaleChange(cb: (lang: LocaleLang) => void) {
  * app.mount('#app')
  * ```
  */
-export const I18N_KEY = Symbol('kangaroo-i18n')
+export const I18N_KEY = Symbol('kangaroo-i18n');
 
 export const i18nPlugin = {
   install(
     app: any,
     options?: {
-      locale?: LocaleLang
-      messages?: LocaleMessages
-    }
+      locale?: LocaleLang;
+      messages?: LocaleMessages;
+    },
   ) {
-    const lang = options?.locale || 'zh-CN'
-    setLocale(lang, options?.messages)
+    const lang = options?.locale || 'zh-CN';
+    setLocale(lang, options?.messages);
 
     // 通过 provide 注入翻译函数
     app.provide(I18N_KEY, (path: string) => {
-      const parts = path.split('.')
+      const parts = path.split('.');
       if (parts.length === 2) {
-        const [ns, key] = parts
-        return createTranslate(ns)(key)
+        const [ns, key] = parts;
+        return createTranslate(ns)(key);
       }
-      return path
-    })
+      return path;
+    });
   },
-}
+};

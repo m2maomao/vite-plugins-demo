@@ -17,11 +17,7 @@
     </demo-block>
 
     <demo-block :title="t('customColor')">
-      <yhm-switch
-        v-model="checked3"
-        active-color="#ee0a24"
-        inactive-color="#dcdee0"
-      />
+      <yhm-switch v-model="checked3" active-color="#ee0a24" inactive-color="#dcdee0" />
     </demo-block>
 
     <demo-block :title="t('customNode')">
@@ -49,9 +45,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Icon as VanIcon, showConfirmDialog } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import { Icon as VanIcon, showConfirmDialog } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -80,22 +76,22 @@ const t = useTranslate({
     confirm: 'Confirm',
     message: 'Are you sure to switch?',
   },
-})
+});
 
-const checked = ref(true)
-const checked2 = ref(true)
-const checked3 = ref(true)
-const checked4 = ref(true)
-const checked5 = ref(true)
+const checked = ref(true);
+const checked2 = ref(true);
+const checked3 = ref(true);
+const checked4 = ref(true);
+const checked5 = ref(true);
 
 const onUpdateValue = (val: boolean) => {
   showConfirmDialog({
     title: t('title'),
     message: t('message'),
   }).then(() => {
-    checked4.value = val
-  })
-}
+    checked4.value = val;
+  });
+};
 </script>
 
 <style lang="less">

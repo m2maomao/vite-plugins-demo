@@ -3,26 +3,18 @@
     v-bind="vanFieldProps as any"
     :model-value="modelValue"
     :class="['yhm-field', customClass]"
-    @update:model-value="$emit('update:modelValue', $event)"
-  >
+    @update:model-value="$emit('update:modelValue', $event)">
     <!-- 左侧图标：只有有内容时才渲染，不占用多余宽度 -->
     <template v-if="leftIcon || hasLeftIconSlot" #left-icon>
       <slot name="left-icon">
-        <YhmIcon
-          :name="leftIcon!"
-          :size="iconSize"
-          class="yhm-field__left-icon"
-        />
+        <YhmIcon :name="leftIcon!" :size="iconSize" class="yhm-field__left-icon" />
       </slot>
     </template>
 
     <!-- 右侧图标：只有有内容时才渲染 -->
     <template v-if="rightIcon || hasRightIconSlot" #right-icon>
       <slot name="right-icon">
-        <YhmIcon
-          :name="rightIcon!"
-          :size="iconSize"
-        />
+        <YhmIcon :name="rightIcon!" :size="iconSize" />
       </slot>
     </template>
 
@@ -44,49 +36,49 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots, useAttrs } from 'vue'
-import { Field as VanField } from 'vant'
-import YhmIcon from '../icon/icon.vue'
+import { computed, useSlots, useAttrs } from 'vue';
+import { Field as VanField } from 'vant';
+import YhmIcon from '../icon/icon.vue';
 
 defineOptions({
   name: 'YhmField',
   inheritAttrs: false,
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: string | number
-    label?: string
-    placeholder?: string
-    type?: string
-    name?: string
-    leftIcon?: string
-    rightIcon?: string
-    clearable?: boolean
-    clearIcon?: string
-    disabled?: boolean
-    readonly?: boolean
-    maxlength?: string | number
-    max?: number
-    min?: number
-    autofocus?: boolean
-    required?: boolean | 'auto'
-    center?: boolean
-    border?: boolean
-    isLink?: boolean
-    error?: boolean
-    errorMessage?: string
-    labelAlign?: string
-    inputAlign?: string
-    labelWidth?: string | number
-    iconSize?: string | number
-    customClass?: string
-    colon?: boolean
-    showWordLimit?: boolean
-    rows?: string | number
-    autosize?: boolean | { maxHeight?: number; minHeight?: number }
-    rules?: unknown[]
-    placeholderStyle?: string
+    modelValue?: string | number;
+    label?: string;
+    placeholder?: string;
+    type?: string;
+    name?: string;
+    leftIcon?: string;
+    rightIcon?: string;
+    clearable?: boolean;
+    clearIcon?: string;
+    disabled?: boolean;
+    readonly?: boolean;
+    maxlength?: string | number;
+    max?: number;
+    min?: number;
+    autofocus?: boolean;
+    required?: boolean | 'auto';
+    center?: boolean;
+    border?: boolean;
+    isLink?: boolean;
+    error?: boolean;
+    errorMessage?: string;
+    labelAlign?: string;
+    inputAlign?: string;
+    labelWidth?: string | number;
+    iconSize?: string | number;
+    customClass?: string;
+    colon?: boolean;
+    showWordLimit?: boolean;
+    rows?: string | number;
+    autosize?: boolean | { maxHeight?: number; minHeight?: number };
+    rules?: unknown[];
+    placeholderStyle?: string;
   }>(),
   {
     modelValue: '',
@@ -100,47 +92,69 @@ const props = withDefaults(
     error: false,
     colon: false,
     showWordLimit: false,
-  }
-)
+  },
+);
 
-const slots = useSlots()
-const hasLeftIconSlot = computed(() => !!slots['left-icon'])
-const hasRightIconSlot = computed(() => !!slots['right-icon'])
-const hasInputSlot = computed(() => !!slots['input'])
-const hasButtonSlot = computed(() => !!slots['button'])
+const slots = useSlots();
+const hasLeftIconSlot = computed(() => !!slots['left-icon']);
+const hasRightIconSlot = computed(() => !!slots['right-icon']);
+const hasInputSlot = computed(() => !!slots['input']);
+const hasButtonSlot = computed(() => !!slots['button']);
 
 defineEmits<{
-  (e: 'update:modelValue', value: string | number): void
-  (e: 'focus', event: FocusEvent): void
-  (e: 'blur', event: FocusEvent): void
-  (e: 'click-input', event: MouseEvent): void
-  (e: 'click-left-icon'): void
-  (e: 'click-right-icon'): void
-  (e: 'clear'): void
-}>()
+  (e: 'update:modelValue', value: string | number): void;
+  (e: 'focus', event: FocusEvent): void;
+  (e: 'blur', event: FocusEvent): void;
+  (e: 'click-input', event: MouseEvent): void;
+  (e: 'click-left-icon'): void;
+  (e: 'click-right-icon'): void;
+  (e: 'clear'): void;
+}>();
 
-const attrs = useAttrs()
+const attrs = useAttrs();
 
 /** 合并已知 props + $attrs（透传事件如 @click） */
 const vanFieldProps = computed(() => {
-  const result: Record<string, unknown> = { ...attrs }
+  const result: Record<string, unknown> = { ...attrs };
   const keys: (keyof typeof props)[] = [
-    'label', 'placeholder', 'type', 'name',
-    'leftIcon', 'rightIcon', 'clearable', 'clearIcon',
-    'disabled', 'readonly', 'maxlength', 'max', 'min',
-    'autofocus', 'required', 'center', 'border', 'isLink',
-    'error', 'errorMessage', 'labelAlign', 'inputAlign',
-    'labelWidth', 'colon', 'showWordLimit', 'rows', 'autosize',
-    'rules', 'placeholderStyle',
-  ]
+    'label',
+    'placeholder',
+    'type',
+    'name',
+    'leftIcon',
+    'rightIcon',
+    'clearable',
+    'clearIcon',
+    'disabled',
+    'readonly',
+    'maxlength',
+    'max',
+    'min',
+    'autofocus',
+    'required',
+    'center',
+    'border',
+    'isLink',
+    'error',
+    'errorMessage',
+    'labelAlign',
+    'inputAlign',
+    'labelWidth',
+    'colon',
+    'showWordLimit',
+    'rows',
+    'autosize',
+    'rules',
+    'placeholderStyle',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>
 
 <style lang="less" scoped>

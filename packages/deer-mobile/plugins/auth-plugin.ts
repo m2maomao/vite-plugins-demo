@@ -11,7 +11,7 @@ export default function authPlugin(): Plugin {
           code: code
             .replace(
               `import { createApp, h, ref } from 'vue';`,
-              `import { createApp, h, ref } from 'vue';\nimport { useUserStore } from 'deer-mobile/stores';`
+              `import { createApp, h, ref } from 'vue';\nimport { useUserStore } from 'deer-mobile/stores';`,
             )
             .replace(
               'app.use(router);',
@@ -25,11 +25,11 @@ export default function authPlugin(): Plugin {
                 }
               })
               app.use(router);
-            `
+            `,
             ),
           map: null,
-        }
+        };
       }
-    }
-  }
+    },
+  };
 }

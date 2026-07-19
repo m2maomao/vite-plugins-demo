@@ -1,4 +1,4 @@
-import YhmField from './Field.vue'
+import YhmField from './Field.vue';
 
-export { YhmField }
-export default YhmField
+export { YhmField };
+export default YhmField;

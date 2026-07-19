@@ -55,21 +55,12 @@
     <demo-block :title="t('customColor')">
       <yhm-button color="#7232dd" :text="t('pure')" />
       <yhm-button plain color="#7232dd" :text="t('pure')" />
-      <yhm-button
-        color="linear-gradient(to right, #ff6034, #ee0a24)"
-        :text="t('gradient')"
-      />
+      <yhm-button color="linear-gradient(to right, #ff6034, #ee0a24)" :text="t('gradient')" />
     </demo-block>
 
     <demo-block :title="t('animatedButton')">
       <yhm-button type="danger" round>
-        <van-swipe
-          vertical
-          class="notice-swipe"
-          :autoplay="2000"
-          :touchable="false"
-          :show-indicators="false"
-        >
+        <van-swipe vertical class="notice-swipe" :autoplay="2000" :touchable="false" :show-indicators="false">
           <van-swipe-item>{{ t('doTask') }}</van-swipe-item>
           <van-swipe-item>{{ t('lottery') }}</van-swipe-item>
         </van-swipe>
@@ -79,8 +70,8 @@
 </template>
 
 <script setup lang="ts">
-import { Swipe as VanSwipe, SwipeItem as VanSwipeItem } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { Swipe as VanSwipe, SwipeItem as VanSwipeItem } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -176,7 +167,7 @@ const t = useTranslate({
     customColor: 'カスタム色',
     pure: '単色',
   },
-})
+});
 </script>
 
 <style lang="less">

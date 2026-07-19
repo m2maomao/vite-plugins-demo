@@ -29,7 +29,7 @@ export default function loggerPlugin(options: LoggerPluginOptions = {}): Plugin 
       }
     },
     buildEnd() {
-      console.log(`${prefix} 构建完成！共处理了 ${config ? '若干' : '未知'}个文件`)
-    }
-  }
+      console.log(`${prefix} 构建完成！共处理了 ${config ? '若干' : '未知'}个文件`);
+    },
+  };
 }

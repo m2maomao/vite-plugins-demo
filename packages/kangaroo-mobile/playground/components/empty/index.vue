@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import VanTabs from 'vant/es/tabs'
-import VanTab from 'vant/es/tab'
-import VanButton from 'vant/es/button'
-import { ref } from 'vue'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
+import VanTabs from 'vant/es/tabs';
+import VanTab from 'vant/es/tab';
+import VanButton from 'vant/es/button';
+import { ref } from 'vue';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -27,9 +27,9 @@ const t = useTranslate({
     customImage: 'Custom Image',
     bottomContent: 'Bottom Content',
   },
-})
+});
 
-const active = ref('error')
+const active = ref('error');
 </script>
 
 <template>
@@ -56,11 +56,7 @@ const active = ref('error')
   </demo-block>
 
   <demo-block :title="t('customImage')">
-    <yhm-empty
-      :image="cdnURL('custom-empty-image.png')"
-      :image-size="80"
-      :description="t('description')"
-    />
+    <yhm-empty :image="cdnURL('custom-empty-image.png')" :image-size="80" :description="t('description')" />
   </demo-block>
 
   <demo-block :title="t('bottomContent')">

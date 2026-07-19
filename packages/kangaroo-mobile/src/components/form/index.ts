@@ -1,4 +1,4 @@
-import YhmForm from './Form.vue'
+import YhmForm from './Form.vue';
 
-export { YhmForm }
-export default YhmForm
+export { YhmForm };
+export default YhmForm;

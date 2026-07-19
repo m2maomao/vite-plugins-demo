@@ -10,8 +10,8 @@ const BUILTIN_PAGES: Record<string, string> = {
   '404': 'virtual:builtin/404',
   loading: 'virtual:builtin/loading',
   error: 'virtual:builtin/error',
-  'pinia-demo': 'virtual:builtin/pinia-demo'
-}
+  'pinia-demo': 'virtual:builtin/pinia-demo',
+};
 
 export default function builtinPlugin(): Plugin {
   return {
@@ -36,10 +36,10 @@ export default function builtinPlugin(): Plugin {
             loader: 'tsx',
             jsxFactory: 'h',
             jsxFragment: 'Fragment',
-          })
+          });
           return result.code;
         }
       }
-    }
-  }
+    },
+  };
 }

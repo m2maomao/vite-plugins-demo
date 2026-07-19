@@ -23,10 +23,7 @@
        - 禁止直接使用 van-icon
   -->
 
-  <VanNavBar
-    v-bind="navBarProps"
-    @click-left="handleClickLeft"
-  >
+  <VanNavBar v-bind="navBarProps" @click-left="handleClickLeft">
     <!-- ===== 左侧区域 ===== -->
     <template #left>
       <!--
@@ -35,11 +32,7 @@
         2. 默认 UI：图标 + 文字
       -->
       <slot name="left">
-        <YhmIcon
-          v-if="finalLeftIcon"
-          :name="finalLeftIcon"
-          :size="iconSize"
-        />
+        <YhmIcon v-if="finalLeftIcon" :name="finalLeftIcon" :size="iconSize" />
         <span v-if="leftText" class="yhm-nav-bar__text">
           {{ leftText }}
         </span>
@@ -70,26 +63,19 @@
         👉 声明了却不渲染 = API 欺骗（Bad Smell）
       -->
       <slot name="right">
-        <span
-          v-if="rightText"
-          class="yhm-nav-bar__right-text"
-        >
+        <span v-if="rightText" class="yhm-nav-bar__right-text">
           {{ rightText }}
         </span>
-        <YhmIcon
-          v-if="rightIcon"
-          :name="rightIcon"
-          :size="iconSize"
-        />
+        <YhmIcon v-if="rightIcon" :name="rightIcon" :size="iconSize" />
       </slot>
     </template>
   </VanNavBar>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { NavBar as VanNavBar } from 'vant'
-import YhmIcon from '../icon/icon.vue'
+import { computed } from 'vue';
+import { NavBar as VanNavBar } from 'vant';
+import YhmIcon from '../icon/icon.vue';
 
 /*
   =========================
@@ -101,7 +87,7 @@ import YhmIcon from '../icon/icon.vue'
 defineOptions({
   name: 'YhmNavBar',
   inheritAttrs: false,
-})
+});
 
 /*
   =========================
@@ -122,49 +108,49 @@ defineOptions({
 const props = withDefaults(
   defineProps<{
     /** 标题文本 */
-    title?: string
+    title?: string;
 
     /** 左侧图标（业务名，如 "back" / "home"） */
-    leftIcon?: string
+    leftIcon?: string;
 
     /** 左侧文字（与图标共存） */
-    leftText?: string
+    leftText?: string;
 
     /**
      * 是否显示返回箭头
      * @default false
      * @description 快捷写法，等价于 leftIcon="back"
      */
-    showBack?: boolean
+    showBack?: boolean;
 
     /** 右侧文字 */
-    rightText?: string
+    rightText?: string;
 
     /** 右侧图标（业务名） */
-    rightIcon?: string
+    rightIcon?: string;
 
     /** 图标统一尺寸 */
-    iconSize?: string | number
+    iconSize?: string | number;
 
     /** 是否固定在顶部 */
-    fixed?: boolean
+    fixed?: boolean;
 
     /** 是否适配顶部安全区（刘海屏） */
-    safeAreaInsetTop?: boolean
+    safeAreaInsetTop?: boolean;
 
     /** 是否禁用左侧按钮 */
-    leftDisabled?: boolean
+    leftDisabled?: boolean;
 
     /** 是否禁用右侧按钮 */
-    rightDisabled?: boolean
+    rightDisabled?: boolean;
   }>(),
   {
     showBack: false,
     fixed: false,
     safeAreaInsetTop: true,
     iconSize: 18,
-  }
-)
+  },
+);
 
 /*
   =========================
@@ -176,9 +162,9 @@ const props = withDefaults(
   3. 业务通过 @click-left 自行决定行为
 */
 const emit = defineEmits<{
-  (e: 'click-left'): void
-  (e: 'click-right'): void
-}>()
+  (e: 'click-left'): void;
+  (e: 'click-right'): void;
+}>();
 
 /*
   =========================
@@ -192,9 +178,9 @@ const emit = defineEmits<{
  * 保证 API 简洁
  */
 const finalLeftIcon = computed(() => {
-  if (props.showBack) return 'back'
-  return props.leftIcon
-})
+  if (props.showBack) return 'back';
+  return props.leftIcon;
+});
 
 /**
  * 透传给 Vant NavBar 的 Props
@@ -205,20 +191,14 @@ const finalLeftIcon = computed(() => {
  * - 避免 unknown prop warning
  */
 const navBarProps = computed(() => {
-  const {
-    leftIcon,
-    rightIcon,
-    showBack,
-    title,
-    ...rest
-  } = props
+  const { leftIcon, rightIcon, showBack, title, ...rest } = props;
 
   return {
     ...rest,
     // Vant 的 leftArrow 由我们精确控制
     leftArrow: !!finalLeftIcon.value,
-  }
-})
+  };
+});
 
 /*
   =========================
@@ -227,8 +207,8 @@ const navBarProps = computed(() => {
 */
 
 const handleClickLeft = () => {
-  emit('click-left')
-}
+  emit('click-left');
+};
 </script>
 
 <style lang="less" scoped>

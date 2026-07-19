@@ -1,4 +1,4 @@
-import Area from './Area.vue'
+import Area from './Area.vue';
 
-export const YhmArea = Area
-export default Area
+export const YhmArea = Area;
+export default Area;

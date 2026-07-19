@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { Tag as VanTag } from 'vant'
+import { Tag as VanTag } from 'vant';
 
 defineOptions({
   name: 'YhmTag',
-})
+});
 </script>

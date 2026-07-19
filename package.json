@@ -9,13 +9,36 @@
     "build": "turbo run build",
     "preview": "pnpm --filter example preview",
     "server": "pnpm --filter example run server",
-    "lint": "turbo run lint",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:style": "stylelint \"**/*.{css,less,vue}\"",
+    "lint:style:fix": "stylelint \"**/*.{css,less,vue}\" --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,less,html}": [
+      "prettier --write",
+      "stylelint --fix"
+    ]
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@types/node": "^26.0.1",
     "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.1.0",
+    "postcss-html": "^1.8.1",
+    "postcss-less": "^6.0.0",
+    "prettier": "^3.9.5",
+    "stylelint": "^17.14.0",
+    "stylelint-config-standard": "^40.0.0",
     "turbo": "^2.10.5",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.1",

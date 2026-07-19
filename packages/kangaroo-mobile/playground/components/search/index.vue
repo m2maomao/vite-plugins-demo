@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -24,18 +24,18 @@ const t = useTranslate({
     customButton: 'Custom Action Button',
     listenToEvents: 'Listen to Events',
   },
-})
+});
 
-const value1 = ref('')
-const value2 = ref('')
-const value3 = ref('')
-const value4 = ref('')
-const value5 = ref('')
-const value6 = ref('')
+const value1 = ref('');
+const value2 = ref('');
+const value3 = ref('');
+const value4 = ref('');
+const value5 = ref('');
+const value6 = ref('');
 
-const onSearch = (val: string) => showToast(val)
-const onCancel = () => showToast(t('cancel'))
-const onClickButton = () => showToast(value6.value)
+const onSearch = (val: string) => showToast(val);
+const onCancel = () => showToast(t('cancel'));
+const onClickButton = () => showToast(value6.value);
 </script>
 
 <template>
@@ -51,17 +51,12 @@ const onClickButton = () => showToast(value6.value)
           :placeholder="t('placeholder')"
           show-action
           @search="onSearch"
-          @cancel="onCancel"
-        />
+          @cancel="onCancel" />
       </form>
     </demo-block>
 
     <demo-block :title="t('inputAlign')">
-      <yhm-search
-        v-model="value4"
-        :placeholder="t('placeholder')"
-        input-align="center"
-      />
+      <yhm-search v-model="value4" :placeholder="t('placeholder')" input-align="center" />
     </demo-block>
 
     <demo-block :title="t('disabled')">
@@ -69,22 +64,11 @@ const onClickButton = () => showToast(value6.value)
     </demo-block>
 
     <demo-block :title="t('background')">
-      <yhm-search
-        v-model="value2"
-        :placeholder="t('placeholder')"
-        shape="round"
-        background="#4fc08d"
-      />
+      <yhm-search v-model="value2" :placeholder="t('placeholder')" shape="round" background="#4fc08d" />
     </demo-block>
 
     <demo-block :title="t('customButton')">
-      <yhm-search
-        v-model="value6"
-        show-action
-        :label="t('label')"
-        :placeholder="t('placeholder')"
-        @search="onSearch"
-      >
+      <yhm-search v-model="value6" show-action :label="t('label')" :placeholder="t('placeholder')" @search="onSearch">
         <template #action>
           <div @click="onClickButton">{{ t('search') }}</div>
         </template>

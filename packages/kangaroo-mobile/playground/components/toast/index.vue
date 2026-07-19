@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanCell from 'vant/es/cell'
-import VanImage from 'vant/es/image'
-import { showToast, showLoadingToast, showSuccessToast, showFailToast, closeToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import VanCell from 'vant/es/cell';
+import VanImage from 'vant/es/image';
+import { showToast, showLoadingToast, showSuccessToast, showFailToast, closeToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -48,39 +48,48 @@ const t = useTranslate({
     breakAll: 'Break All',
     breakWord: 'Break Word',
   },
-})
+});
 
 const showLoadingToastWithType = (loadingType?: string) => {
-  showLoadingToast({ forbidClick: true, message: t('loading'), loadingType })
-}
+  showLoadingToast({ forbidClick: true, message: t('loading'), loadingType });
+};
 
-const showTopToast = () => { showToast({ message: t('positionTop'), position: 'top' }) }
-const showBottomToast = () => { showToast({ message: t('positionBottom'), position: 'bottom' }) }
-const showIconToast = () => { showToast({ message: t('customIcon'), icon: 'like-o' }) }
+const showTopToast = () => {
+  showToast({ message: t('positionTop'), position: 'top' });
+};
+const showBottomToast = () => {
+  showToast({ message: t('positionBottom'), position: 'bottom' });
+};
+const showIconToast = () => {
+  showToast({ message: t('customIcon'), icon: 'like-o' });
+};
 const showImageToast = () => {
-  showToast({ message: t('customImage'), icon: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png' })
-}
+  showToast({
+    message: t('customImage'),
+    icon: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
+  });
+};
 
 const showCustomToast = () => {
-  const toast = showLoadingToast({ duration: 0, forbidClick: true, message: `${3}s` })
-  let second = 3
+  const toast = showLoadingToast({ duration: 0, forbidClick: true, message: `${3}s` });
+  let second = 3;
   const timer = setInterval(() => {
-    second--
+    second--;
     if (second) {
-      toast.message = `${second}s`
+      toast.message = `${second}s`;
     } else {
-      clearInterval(timer)
-      closeToast()
+      clearInterval(timer);
+      closeToast();
     }
-  }, 1000)
-}
+  }, 1000);
+};
 
 const showWordBreakToast = (wordBreak: string) => {
-  showToast({ message: 'This message will contain a incomprehensibilities long word.', wordBreak })
-}
+  showToast({ message: 'This message will contain a incomprehensibilities long word.', wordBreak });
+};
 
-const show = ref(false)
-const image = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
+const show = ref(false);
+const image = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg';
 </script>
 
 <template>

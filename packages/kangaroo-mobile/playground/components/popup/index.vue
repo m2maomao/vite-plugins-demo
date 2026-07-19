@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanCell from 'vant/es/cell'
-import VanGrid from 'vant/es/grid'
-import VanGridItem from 'vant/es/grid-item'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import VanCell from 'vant/es/cell';
+import VanGrid from 'vant/es/grid';
+import VanGridItem from 'vant/es/grid-item';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -43,21 +43,21 @@ const t = useTranslate({
     clickEvents: 'Listen To Click Events',
     displayEvents: 'Listen To Display Events',
   },
-})
+});
 
-const showBasic = ref(false)
-const showTop = ref(false)
-const showBottom = ref(false)
-const showLeft = ref(false)
-const showRight = ref(false)
-const showCloseIcon = ref(false)
-const showRoundCornerBottom = ref(false)
-const showRoundCornerCenter = ref(false)
-const showGetContainer = ref(false)
-const showCustomCloseIcon = ref(false)
-const showCustomIconPosition = ref(false)
-const showClickEvents = ref(false)
-const showDisplayEvents = ref(false)
+const showBasic = ref(false);
+const showTop = ref(false);
+const showBottom = ref(false);
+const showLeft = ref(false);
+const showRight = ref(false);
+const showCloseIcon = ref(false);
+const showRoundCornerBottom = ref(false);
+const showRoundCornerCenter = ref(false);
+const showGetContainer = ref(false);
+const showCustomCloseIcon = ref(false);
+const showCustomIconPosition = ref(false);
+const showClickEvents = ref(false);
+const showDisplayEvents = ref(false);
 </script>
 
 <template>
@@ -89,8 +89,18 @@ const showDisplayEvents = ref(false)
       <van-cell :title="t('customIconPosition')" is-link @click="showCustomIconPosition = true" />
 
       <yhm-popup v-model:show="showCloseIcon" closeable position="bottom" :style="{ height: '30%' }" />
-      <yhm-popup v-model:show="showCustomCloseIcon" closeable close-icon="close" position="bottom" :style="{ height: '30%' }" />
-      <yhm-popup v-model:show="showCustomIconPosition" closeable close-icon-position="top-left" position="bottom" :style="{ height: '30%' }" />
+      <yhm-popup
+        v-model:show="showCustomCloseIcon"
+        closeable
+        close-icon="close"
+        position="bottom"
+        :style="{ height: '30%' }" />
+      <yhm-popup
+        v-model:show="showCustomIconPosition"
+        closeable
+        close-icon-position="top-left"
+        position="bottom"
+        :style="{ height: '30%' }" />
     </demo-block>
 
     <demo-block card :title="t('roundCorner')">
@@ -109,8 +119,7 @@ const showDisplayEvents = ref(false)
         :style="{ height: '30%' }"
         closeable
         @click-overlay="showToast('click-overlay')"
-        @click-close-icon="showToast('click-close-icon')"
-      />
+        @click-close-icon="showToast('click-close-icon')" />
 
       <van-cell :title="t('displayEvents')" is-link @click="showDisplayEvents = true" />
       <yhm-popup
@@ -120,8 +129,7 @@ const showDisplayEvents = ref(false)
         @open="showToast('open')"
         @opened="showToast('opened')"
         @close="showToast('close')"
-        @closed="showToast('closed')"
-      />
+        @closed="showToast('closed')" />
     </demo-block>
 
     <demo-block card :title="t('teleport')">

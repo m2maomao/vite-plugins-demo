@@ -1,4 +1,4 @@
-import YhmCell from './Cell.vue'
+import YhmCell from './Cell.vue';
 
-export { YhmCell }
-export default YhmCell
+export { YhmCell };
+export default YhmCell;

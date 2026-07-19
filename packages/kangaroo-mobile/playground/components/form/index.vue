@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanButton from 'vant/es/button'
-import VanCellGroup from 'vant/es/cell-group'
-import { closeToast, showLoadingToast } from 'vant'
-import FieldTypePicker from './FieldTypePicker.vue'
-import FieldTypeTimePicker from './FieldTypeTimePicker.vue'
-import FieldTypeArea from './FieldTypeArea.vue'
-import FieldTypeCalendar from './FieldTypeCalendar.vue'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
+import { ref } from 'vue';
+import VanButton from 'vant/es/button';
+import VanCellGroup from 'vant/es/cell-group';
+import { closeToast, showLoadingToast } from 'vant';
+import FieldTypePicker from './FieldTypePicker.vue';
+import FieldTypeTimePicker from './FieldTypeTimePicker.vue';
+import FieldTypeArea from './FieldTypeArea.vue';
+import FieldTypeCalendar from './FieldTypeCalendar.vue';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
 
 // ========== BasicUsage ==========
 const t1 = useTranslate({
@@ -26,10 +26,10 @@ const t1 = useTranslate({
     requireUsername: 'Username is required',
     requirePassword: 'Password is required',
   },
-})
+});
 
-const username = ref('')
-const password = ref('')
+const username = ref('');
+const password = ref('');
 
 // ========== ValidateRules ==========
 const t2 = useTranslate({
@@ -55,32 +55,32 @@ const t2 = useTranslate({
     asyncValidator: 'Use async validator',
     validatorMessage: 'Use validator to return message',
   },
-})
+});
 
-const value1 = ref('')
-const value2 = ref('')
-const value3 = ref('abc')
-const value4 = ref('')
-const pattern = /\d{6}/
+const value1 = ref('');
+const value2 = ref('');
+const value3 = ref('abc');
+const value4 = ref('');
+const pattern = /\d{6}/;
 
-const validator = (val: string) => /1\d{10}/.test(val)
+const validator = (val: string) => /1\d{10}/.test(val);
 
 const asyncValidator = (val: string) =>
   new Promise<boolean>((resolve) => {
-    showLoadingToast(t2('validating'))
+    showLoadingToast(t2('validating'));
     setTimeout(() => {
-      closeToast()
-      resolve(val === '1234')
-    }, 1000)
-  })
+      closeToast();
+      resolve(val === '1234');
+    }, 1000);
+  });
 
 const onSubmit = (values: Record<string, string>) => {
-  console.log('submit', values)
-}
+  console.log('submit', values);
+};
 
 const onFailed = (errorInfo: any) => {
-  console.log('failed', errorInfo)
-}
+  console.log('failed', errorInfo);
+};
 
 // ========== FieldType ==========
 const t3 = useTranslate({
@@ -108,16 +108,16 @@ const t3 = useTranslate({
     slider: 'Slider',
     uploader: 'Uploader',
   },
-})
+});
 
-const rate = ref(3)
-const radio = ref('1')
-const slider = ref(50)
-const stepper = ref(1)
-const uploader = ref([{ url: cdnURL('leaf.jpeg') }])
-const checkbox = ref(false)
-const checkboxGroup = ref([])
-const switchChecked = ref(false)
+const rate = ref(3);
+const radio = ref('1');
+const slider = ref(50);
+const stepper = ref(1);
+const uploader = ref([{ url: cdnURL('leaf.jpeg') }]);
+const checkbox = ref(false);
+const checkboxGroup = ref([]);
+const switchChecked = ref(false);
 </script>
 
 <template>
@@ -131,16 +131,14 @@ const switchChecked = ref(false)
             name="username"
             :label="t1('username')"
             :rules="[{ required: true, message: t1('requireUsername') }]"
-            :placeholder="t1('username')"
-          />
+            :placeholder="t1('username')" />
           <yhm-field
             v-model="password"
             type="password"
             name="password"
             :label="t1('password')"
             :rules="[{ required: true, message: t1('requirePassword') }]"
-            :placeholder="t1('password')"
-          />
+            :placeholder="t1('password')" />
         </van-cell-group>
         <div style="margin: 16px 16px 0">
           <VanButton round block type="primary" native-type="submit">
@@ -159,29 +157,25 @@ const switchChecked = ref(false)
             name="pattern"
             :label="t2('label')"
             :rules="[{ pattern, message: t2('message') }]"
-            :placeholder="t2('pattern')"
-          />
+            :placeholder="t2('pattern')" />
           <yhm-field
             v-model="value2"
             name="validator"
             :label="t2('label')"
             :rules="[{ validator, message: t2('message') }]"
-            :placeholder="t2('validator')"
-          />
+            :placeholder="t2('validator')" />
           <yhm-field
             v-model="value3"
             name="validatorMessage"
             :label="t2('label')"
             :rules="[{ validator: (val: string) => `${val} 不合法，请重新输入` }]"
-            :placeholder="t2('validatorMessage')"
-          />
+            :placeholder="t2('validatorMessage')" />
           <yhm-field
             v-model="value4"
             name="asyncValidator"
             :label="t2('label')"
             :rules="[{ validator: asyncValidator, message: t2('message') }]"
-            :placeholder="t2('asyncValidator')"
-          />
+            :placeholder="t2('asyncValidator')" />
         </van-cell-group>
         <div style="margin: 16px 16px 0">
           <VanButton round block type="primary" native-type="submit">
@@ -210,12 +204,8 @@ const switchChecked = ref(false)
           <yhm-field name="checkboxGroup" :label="t3('checkboxGroup')">
             <template #input>
               <yhm-checkbox-group v-model="checkboxGroup" direction="horizontal">
-                <yhm-checkbox name="1" shape="square">
-                  {{ t3('checkbox') }} 1
-                </yhm-checkbox>
-                <yhm-checkbox name="2" shape="square">
-                  {{ t3('checkbox') }} 2
-                </yhm-checkbox>
+                <yhm-checkbox name="1" shape="square">{{ t3('checkbox') }} 1</yhm-checkbox>
+                <yhm-checkbox name="2" shape="square">{{ t3('checkbox') }} 2</yhm-checkbox>
               </yhm-checkbox-group>
             </template>
           </yhm-field>
@@ -269,5 +259,4 @@ const switchChecked = ref(false)
   </div>
 </template>
 
-<style lang="less">
-</style>
+<style lang="less"></style>

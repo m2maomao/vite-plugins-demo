@@ -1,4 +1,4 @@
-import YhmRadioGroup from './RadioGroup.vue'
+import YhmRadioGroup from './RadioGroup.vue';
 
-export { YhmRadioGroup }
-export default YhmRadioGroup
+export { YhmRadioGroup };
+export default YhmRadioGroup;

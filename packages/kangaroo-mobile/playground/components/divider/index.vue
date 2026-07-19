@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTranslate } from '@/locale/useTranslate'
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -18,7 +18,7 @@ const t = useTranslate({
     customStyle: 'Custom Style',
     vertical: 'Vertical',
   },
-})
+});
 </script>
 
 <template>

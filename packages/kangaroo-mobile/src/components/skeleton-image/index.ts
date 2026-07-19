@@ -1,4 +1,4 @@
-import SkeletonImage from './SkeletonImage.vue'
+import SkeletonImage from './SkeletonImage.vue';
 
-export const YhmSkeletonImage = SkeletonImage
-export default SkeletonImage
+export const YhmSkeletonImage = SkeletonImage;
+export default SkeletonImage;

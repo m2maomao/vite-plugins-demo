@@ -1,4 +1,4 @@
-import Search from './Search.vue'
+import Search from './Search.vue';
 
-export const YhmSearch = Search
-export default Search
+export const YhmSearch = Search;
+export default Search;

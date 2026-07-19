@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import VanCell from 'vant/es/cell'
-import VanCellGroup from 'vant/es/cell-group'
-import VanButton from 'vant/es/button'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
+import { ref, reactive } from 'vue';
+import VanCell from 'vant/es/cell';
+import VanCellGroup from 'vant/es/cell-group';
+import VanButton from 'vant/es/button';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -41,7 +41,7 @@ const t = useTranslate({
     disableLabel: 'Disable label click',
     indeterminate: 'indeterminate',
   },
-})
+});
 
 const state = reactive({
   checkbox1: true,
@@ -60,40 +60,40 @@ const state = reactive({
   result4: ['a', 'b', 'd'],
   checkAllResult: [],
   horizontalResult: [],
-})
+});
 
-const list = ['a', 'b', 'c', 'd']
-const activeIcon = cdnURL('user-active.png')
-const inactiveIcon = cdnURL('user-inactive.png')
+const list = ['a', 'b', 'c', 'd'];
+const activeIcon = cdnURL('user-active.png');
+const inactiveIcon = cdnURL('user-inactive.png');
 
-const checkboxRefs: Record<number, any> = {}
+const checkboxRefs: Record<number, any> = {};
 const setCheckboxRef = (index: number) => (el: any) => {
-  if (el) checkboxRefs[index] = el
-}
+  if (el) checkboxRefs[index] = el;
+};
 const toggle = (index: number) => {
-  checkboxRefs[index]?.toggle()
-}
+  checkboxRefs[index]?.toggle();
+};
 
-const group = ref<any>(null)
+const group = ref<any>(null);
 
 const checkAll = () => {
-  group.value?.toggleAll(true)
-}
+  group.value?.toggleAll(true);
+};
 
 const toggleAll = () => {
-  group.value?.toggleAll()
-}
+  group.value?.toggleAll();
+};
 
 const checkAllChange = (val: boolean) => {
-  state.result4 = val ? list : []
-  state.isIndeterminate = false
-}
+  state.result4 = val ? list : [];
+  state.isIndeterminate = false;
+};
 
 const checkedResultChange = (value: string[]) => {
-  const checkedCount = value.length
-  state.isCheckAll = checkedCount === list.length
-  state.isIndeterminate = checkedCount > 0 && checkedCount < list.length
-}
+  const checkedCount = value.length;
+  state.isCheckAll = checkedCount === list.length;
+  state.isIndeterminate = checkedCount > 0 && checkedCount < list.length;
+};
 </script>
 
 <template>
@@ -198,8 +198,7 @@ const checkedResultChange = (value: string[]) => {
             clickable
             :key="index"
             :title="`${t('checkbox')} ${item}`"
-            @click="toggle(index)"
-          >
+            @click="toggle(index)">
             <template #right-icon>
               <yhm-checkbox :ref="setCheckboxRef(index)" :name="item" @click.stop />
             </template>
@@ -209,18 +208,12 @@ const checkedResultChange = (value: string[]) => {
     </demo-block>
 
     <demo-block :title="t('indeterminate')">
-      <yhm-checkbox
-        v-model="state.isCheckAll"
-        :indeterminate="state.isIndeterminate"
-        @change="checkAllChange"
-      >
+      <yhm-checkbox v-model="state.isCheckAll" :indeterminate="state.isIndeterminate" @change="checkAllChange">
         {{ t('checkAll') }}
       </yhm-checkbox>
       <div class="divider" />
       <yhm-checkbox-group v-model="state.result4" @change="checkedResultChange">
-        <yhm-checkbox v-for="item in list" :key="item" :name="item">
-          {{ t('checkbox') }} {{ item }}
-        </yhm-checkbox>
+        <yhm-checkbox v-for="item in list" :key="item" :name="item">{{ t('checkbox') }} {{ item }}</yhm-checkbox>
       </yhm-checkbox-group>
     </demo-block>
   </div>

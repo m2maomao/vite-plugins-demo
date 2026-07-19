@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanIcon from 'vant/es/icon'
-import VanButton from 'vant/es/button'
-import { useTranslate } from '@/locale/useTranslate'
-import type { CollapseInstance } from 'vant'
+import { ref } from 'vue';
+import VanIcon from 'vant/es/icon';
+import VanButton from 'vant/es/button';
+import { useTranslate } from '@/locale/useTranslate';
+import type { CollapseInstance } from 'vant';
 
 const t = useTranslate({
   'zh-CN': {
@@ -28,18 +28,22 @@ const t = useTranslate({
     openAll: 'Open All',
     inverse: 'Toggle All',
   },
-})
+});
 
-const active1 = ref([0])
-const active2 = ref(0)
-const active3 = ref([])
-const active4 = ref([])
-const active5 = ref(['1'])
+const active1 = ref([0]);
+const active2 = ref(0);
+const active3 = ref([]);
+const active4 = ref([]);
+const active5 = ref(['1']);
 
-const collapse = ref<CollapseInstance>()
+const collapse = ref<CollapseInstance>();
 
-const openAll = () => { collapse.value?.toggleAll?.(true) }
-const toggleAll = () => { collapse.value?.toggleAll?.() }
+const openAll = () => {
+  collapse.value?.toggleAll?.(true);
+};
+const toggleAll = () => {
+  collapse.value?.toggleAll?.();
+};
 </script>
 
 <template>
@@ -71,7 +75,10 @@ const toggleAll = () => { collapse.value?.toggleAll?.() }
     <demo-block :title="t('titleSlot')">
       <yhm-collapse v-model="active4">
         <yhm-collapse-item>
-          <template #title>{{ t('title') + 1 }}<VanIcon name="question-o" /></template>
+          <template #title>
+            {{ t('title') + 1 }}
+            <VanIcon name="question-o" />
+          </template>
           {{ t('text1') }}
         </yhm-collapse-item>
         <yhm-collapse-item :title="t('title') + 2" :value="t('content')" icon="shop-o">

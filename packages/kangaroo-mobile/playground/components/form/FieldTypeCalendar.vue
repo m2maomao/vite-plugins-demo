@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -11,16 +11,16 @@ const t = useTranslate({
     calendar: 'Calendar',
     placeholder: 'Select date',
   },
-})
+});
 
-const result = ref('')
-const showCalendar = ref(false)
+const result = ref('');
+const showCalendar = ref(false);
 
-const formatDate = (date: Date) => `${date.getMonth() + 1}/${date.getDate()}`
+const formatDate = (date: Date) => `${date.getMonth() + 1}/${date.getDate()}`;
 const onConfirm = (date: Date) => {
-  result.value = formatDate(date)
-  showCalendar.value = false
-}
+  result.value = formatDate(date);
+  showCalendar.value = false;
+};
 </script>
 
 <template>
@@ -31,12 +31,6 @@ const onConfirm = (date: Date) => {
     name="calendar"
     :label="t('calendar')"
     :placeholder="t('placeholder')"
-    @click="showCalendar = true"
-  />
-  <yhm-calendar
-    v-model:show="showCalendar"
-    round
-    teleport="body"
-    @confirm="onConfirm"
-  />
+    @click="showCalendar = true" />
+  <yhm-calendar v-model:show="showCalendar" round teleport="body" @confirm="onConfirm" />
 </template>

@@ -12,8 +12,7 @@
     :lazy-load="lazyLoad"
     :currency="currency"
     :thumb-link="thumbLink"
-    @click-thumb="$emit('clickThumb', $event)"
-  >
+    @click-thumb="$emit('clickThumb', $event)">
     <template v-if="$slots.title" #title>
       <slot name="title" />
     </template>
@@ -51,50 +50,59 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Card as VanCard } from 'vant'
+import { computed } from 'vue';
+import { Card as VanCard } from 'vant';
 
 defineOptions({
   name: 'YhmCard',
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    num?: number | string
-    price?: number | string
-    desc?: string
-    title?: string
-    thumb?: string
-    tag?: string
-    originPrice?: number | string
-    centered?: boolean
-    lazyLoad?: boolean
-    currency?: string
-    thumbLink?: string
+    num?: number | string;
+    price?: number | string;
+    desc?: string;
+    title?: string;
+    thumb?: string;
+    tag?: string;
+    originPrice?: number | string;
+    centered?: boolean;
+    lazyLoad?: boolean;
+    currency?: string;
+    thumbLink?: string;
   }>(),
   {
     currency: '¥',
     centered: false,
     lazyLoad: false,
-  }
-)
+  },
+);
 
 defineEmits<{
-  (e: 'clickThumb', event: MouseEvent): void
-}>()
+  (e: 'clickThumb', event: MouseEvent): void;
+}>();
 
 const cardProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = [
-    'num', 'price', 'desc', 'title', 'thumb', 'tag',
-    'originPrice', 'centered', 'lazyLoad', 'currency', 'thumbLink',
-  ]
+    'num',
+    'price',
+    'desc',
+    'title',
+    'thumb',
+    'tag',
+    'originPrice',
+    'centered',
+    'lazyLoad',
+    'currency',
+    'thumbLink',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

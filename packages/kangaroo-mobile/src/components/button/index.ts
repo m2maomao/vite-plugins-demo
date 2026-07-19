@@ -1,4 +1,4 @@
-import YhmButton from './Button.vue'
+import YhmButton from './Button.vue';
 
-export { YhmButton }
-export default YhmButton
+export { YhmButton };
+export default YhmButton;

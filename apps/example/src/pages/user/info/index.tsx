@@ -1,7 +1,7 @@
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   setup() {
-    return () => <div>用户信息</div>
-  }
-})
+    return () => <div>用户信息</div>;
+  },
+});

@@ -15,7 +15,12 @@
           <yhm-field v-model="phone" type="tel" :label="t('phone')" :placeholder="t('phonePlaceholder')" />
           <yhm-field v-model="digit" type="digit" :label="t('digit')" :placeholder="t('digitPlaceholder')" />
           <yhm-field v-model="number" type="number" :label="t('number')" :placeholder="t('numberPlaceholder')" />
-          <yhm-field v-model="password" type="password" :label="t('password')" :placeholder="t('passwordPlaceholder')" autocomplete="off" />
+          <yhm-field
+            v-model="password"
+            type="password"
+            :label="t('password')"
+            :placeholder="t('passwordPlaceholder')"
+            autocomplete="off" />
         </van-form>
       </yhm-cell-group>
     </demo-block>
@@ -29,7 +34,12 @@
 
     <demo-block :title="t('showIcon')">
       <yhm-cell-group inset>
-        <yhm-field v-model="icon1" :label="t('text')" left-icon="smile-o" right-icon="warning-o" :placeholder="t('showIcon')" />
+        <yhm-field
+          v-model="icon1"
+          :label="t('text')"
+          left-icon="smile-o"
+          right-icon="warning-o"
+          :placeholder="t('showIcon')" />
         <yhm-field v-model="icon2" clearable :label="t('text')" left-icon="music-o" :placeholder="t('showClearIcon')" />
       </yhm-cell-group>
     </demo-block>
@@ -44,8 +54,16 @@
     <demo-block :title="t('autoRequired')">
       <yhm-cell-group inset>
         <van-form required="auto">
-          <van-field v-model="autoName" :rules="[{ required: true }]" :label="t('username')" :placeholder="t('usernamePlaceholder')" />
-          <van-field v-model="autoPhone" :rules="[{ required: false }]" :label="t('phone')" :placeholder="t('phonePlaceholder')" />
+          <van-field
+            v-model="autoName"
+            :rules="[{ required: true }]"
+            :label="t('username')"
+            :placeholder="t('usernamePlaceholder')" />
+          <van-field
+            v-model="autoPhone"
+            :rules="[{ required: false }]"
+            :label="t('phone')"
+            :placeholder="t('phonePlaceholder')" />
         </van-form>
       </yhm-cell-group>
     </demo-block>
@@ -53,7 +71,11 @@
     <demo-block :title="t('errorInfo')">
       <yhm-cell-group inset>
         <yhm-field v-model="errName" error :label="t('username')" :placeholder="t('usernamePlaceholder')" />
-        <yhm-field v-model="errPhone" :label="t('phone')" :placeholder="t('phonePlaceholder')" :error-message="t('phoneError')" />
+        <yhm-field
+          v-model="errPhone"
+          :label="t('phone')"
+          :placeholder="t('phonePlaceholder')"
+          :error-message="t('phoneError')" />
       </yhm-cell-group>
     </demo-block>
 
@@ -70,19 +92,38 @@
     <demo-block :title="t('formatValue')">
       <yhm-cell-group inset>
         <yhm-field v-model="format1" :label="t('text')" :formatter="formatter" :placeholder="t('formatOnChange')" />
-        <yhm-field v-model="format2" :label="t('text')" :formatter="formatter" format-trigger="onBlur" :placeholder="t('formatOnBlur')" />
+        <yhm-field
+          v-model="format2"
+          :label="t('text')"
+          :formatter="formatter"
+          format-trigger="onBlur"
+          :placeholder="t('formatOnBlur')" />
       </yhm-cell-group>
     </demo-block>
 
     <demo-block :title="t('autosize')">
       <yhm-cell-group inset>
-        <yhm-field v-model="autoSizeVal" autosize rows="1" type="textarea" :label="t('message')" :placeholder="t('messagePlaceholder')" />
+        <yhm-field
+          v-model="autoSizeVal"
+          autosize
+          rows="1"
+          type="textarea"
+          :label="t('message')"
+          :placeholder="t('messagePlaceholder')" />
       </yhm-cell-group>
     </demo-block>
 
     <demo-block :title="t('showWordLimit')">
       <yhm-cell-group inset>
-        <yhm-field v-model="wordLimitVal" autosize show-word-limit rows="2" type="textarea" maxlength="50" :label="t('message')" :placeholder="t('messagePlaceholder')" />
+        <yhm-field
+          v-model="wordLimitVal"
+          autosize
+          show-word-limit
+          rows="2"
+          type="textarea"
+          maxlength="50"
+          :label="t('message')"
+          :placeholder="t('messagePlaceholder')" />
       </yhm-cell-group>
     </demo-block>
 
@@ -104,9 +145,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Form as VanForm, Field as VanField } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import { Form as VanForm, Field as VanField } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -241,31 +282,31 @@ const t = useTranslate({
     phoneError: '電話番号エラー',
     sendSms: '送信',
   },
-})
+});
 
-const text1 = ref('')
-const text2 = ref('')
-const phone = ref('')
-const digit = ref('')
-const number = ref('')
-const password = ref('')
-const icon1 = ref('')
-const icon2 = ref('123')
-const reqName = ref('')
-const reqPhone = ref('123')
-const autoName = ref('')
-const autoPhone = ref('123')
-const errName = ref('')
-const errPhone = ref('123')
-const sms = ref('')
-const format1 = ref('')
-const format2 = ref('')
-const autoSizeVal = ref('')
-const wordLimitVal = ref('')
-const alignText = ref('')
-const labelAlignVal = ref('')
+const text1 = ref('');
+const text2 = ref('');
+const phone = ref('');
+const digit = ref('');
+const number = ref('');
+const password = ref('');
+const icon1 = ref('');
+const icon2 = ref('123');
+const reqName = ref('');
+const reqPhone = ref('123');
+const autoName = ref('');
+const autoPhone = ref('123');
+const errName = ref('');
+const errPhone = ref('123');
+const sms = ref('');
+const format1 = ref('');
+const format2 = ref('');
+const autoSizeVal = ref('');
+const wordLimitVal = ref('');
+const alignText = ref('');
+const labelAlignVal = ref('');
 
-const formatter = (value: string) => value.replace(/\d/g, '')
+const formatter = (value: string) => value.replace(/\d/g, '');
 </script>
 
 <style lang="less">

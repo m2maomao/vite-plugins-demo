@@ -10,27 +10,17 @@
           v-for="lang in languages"
           :key="lang.value"
           :class="['locale-btn', { active: currentLang === lang.value }]"
-          @click="switchLang(lang.value)"
-        >
+          @click="switchLang(lang.value)">
           {{ lang.label }}
         </button>
       </div>
     </header>
 
     <div class="home-body">
-      <div
-        v-for="group in componentGroups"
-        :key="group.title"
-        class="home-group"
-      >
+      <div v-for="group in componentGroups" :key="group.title" class="home-group">
         <div class="home-group__title">{{ group.title }}</div>
         <div class="home-group__list">
-          <router-link
-            v-for="item in group.items"
-            :key="item.key"
-            :to="`/${item.key}`"
-            class="home-item"
-          >
+          <router-link v-for="item in group.items" :key="item.key" :to="`/${item.key}`" class="home-item">
             <span class="home-item__name">{{ item.name }}</span>
             <span class="home-item__desc">{{ item.desc }}</span>
             <yhm-icon name="chevron-right" size="14" class="home-item__arrow" />
@@ -42,28 +32,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { setLocale, getLocale } from '@/locale'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { setLocale, getLocale } from '@/locale';
 
-const router = useRouter()
-const currentLang = ref(getLocale())
+const router = useRouter();
+const currentLang = ref(getLocale());
 
 const languages = [
   { label: '中文', value: 'zh-CN' as const },
   { label: 'English', value: 'en-US' as const },
   { label: '日本語', value: 'ja-JP' as const },
-]
+];
 
 interface GroupItem {
-  key: string
-  name: string
-  desc: string
+  key: string;
+  name: string;
+  desc: string;
 }
 
 interface ComponentGroup {
-  title: string
-  items: GroupItem[]
+  title: string;
+  items: GroupItem[];
 }
 
 const componentGroups: ComponentGroup[] = [
@@ -135,19 +125,22 @@ const componentGroups: ComponentGroup[] = [
       { key: 'exception', name: 'YhmException', desc: '异常页' },
     ],
   },
-]
+];
 
 function toComponentName(key: string | null): string {
-  if (!key) return ''
-  return 'Yhm-' + key
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('-')
+  if (!key) return '';
+  return (
+    'Yhm-' +
+    key
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join('-')
+  );
 }
 
 function switchLang(lang: 'zh-CN' | 'en-US' | 'ja-JP') {
-  setLocale(lang)
-  currentLang.value = getLocale()
+  setLocale(lang);
+  currentLang.value = getLocale();
 }
 </script>
 

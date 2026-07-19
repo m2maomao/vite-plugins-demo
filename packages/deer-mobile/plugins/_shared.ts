@@ -9,5 +9,4 @@ export function setFrameworkPlugins(p: FrameworkPlugin[]) {
 
 export function getFrameworkPlugins(): FrameworkPlugin[] {
   return plugins;
-  
 }

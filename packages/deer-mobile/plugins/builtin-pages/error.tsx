@@ -13,6 +13,6 @@ export default defineComponent({
         <p class="text-4xl text-red-400">⚠️</p>
         <p class="text-gray-500 mt-4">{props.message}</p>
       </div>
-    )
-  }
-})
+    );
+  },
+});

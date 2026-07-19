@@ -1,4 +1,4 @@
-import Skeleton from './Skeleton.vue'
+import Skeleton from './Skeleton.vue';
 
-export const YhmSkeleton = Skeleton
-export default Skeleton
+export const YhmSkeleton = Skeleton;
+export default Skeleton;

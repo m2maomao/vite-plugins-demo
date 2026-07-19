@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import VanRow from 'vant/es/row'
-import VanCol from 'vant/es/col'
-import VanLoading from 'vant/es/loading'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
+import VanRow from 'vant/es/row';
+import VanCol from 'vant/es/col';
+import VanLoading from 'vant/es/loading';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -28,12 +28,12 @@ const t = useTranslate({
     customTip: 'Custom Tip',
     loadFail: 'Load failed',
   },
-})
+});
 
-const image = cdnURL('cat.jpeg')
-const fits = ['contain', 'cover', 'fill', 'none', 'scale-down'] as const
-const positions1 = ['left', 'center', 'right'] as const
-const positions2 = ['top', 'center', 'bottom'] as const
+const image = cdnURL('cat.jpeg');
+const fits = ['contain', 'cover', 'fill', 'none', 'scale-down'] as const;
+const positions1 = ['left', 'center', 'right'] as const;
+const positions2 = ['top', 'center', 'bottom'] as const;
 </script>
 
 <template>
@@ -56,24 +56,12 @@ const positions2 = ['top', 'center', 'bottom'] as const
     <demo-block :title="t('position')">
       <van-row gutter="20">
         <van-col v-for="pos in positions1" span="8" :key="pos">
-          <yhm-image
-            :position="pos"
-            width="100%"
-            height="27vw"
-            fit="cover"
-            :src="image"
-          />
+          <yhm-image :position="pos" width="100%" height="27vw" fit="cover" :src="image" />
           <div class="text">cover</div>
           <div class="text">{{ pos }}</div>
         </van-col>
         <van-col v-for="pos in positions2" span="8" :key="pos">
-          <yhm-image
-            :position="pos"
-            width="100%"
-            height="27vw"
-            fit="contain"
-            :src="image"
-          />
+          <yhm-image :position="pos" width="100%" height="27vw" fit="contain" :src="image" />
           <div class="text">contain</div>
           <div class="text">{{ pos }}</div>
         </van-col>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanCell from 'vant/es/cell'
-import { showImagePreview } from 'vant'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
-import { getLocale } from '@/locale'
-import { cdnURL } from '../../site'
+import { ref } from 'vue';
+import VanCell from 'vant/es/cell';
+import { showImagePreview } from 'vant';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
+import { getLocale } from '@/locale';
+import { cdnURL } from '../../site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -30,41 +30,42 @@ const t = useTranslate({
     useComponent: 'Use ImagePreview Component',
     useImageSlot: 'Use image slot',
   },
-})
+});
 
-const images = [
-  cdnURL('apple-1.jpeg'),
-  cdnURL('apple-2.jpeg'),
-  cdnURL('apple-3.jpeg'),
-  cdnURL('apple-4.jpeg'),
-]
+const images = [cdnURL('apple-1.jpeg'), cdnURL('apple-2.jpeg'), cdnURL('apple-3.jpeg'), cdnURL('apple-4.jpeg')];
 
 const imagesSlot = [
   'https://www.w3school.com.cn/i/movie.ogg',
   'https://www.w3school.com.cn/i/movie.ogg',
   'https://www.w3school.com.cn/i/movie.ogg',
   'https://www.w3school.com.cn/i/movie.ogg',
-]
+];
 
-const show = ref(false)
-const index = ref(0)
-const showSlot = ref(false)
+const show = ref(false);
+const index = ref(0);
+const showSlot = ref(false);
 
-const onClose = () => showToast(t('closed'))
+const onClose = () => showToast(t('closed'));
 
 const beforeClose = () =>
   new Promise<boolean>((resolve) => {
-    setTimeout(() => { resolve(true) }, 1000)
-  })
+    setTimeout(() => {
+      resolve(true);
+    }, 1000);
+  });
 
-const onChange = (newIndex: number) => { index.value = newIndex }
+const onChange = (newIndex: number) => {
+  index.value = newIndex;
+};
 
 const showFunctionCall = (options: Record<string, any> = {}) => {
-  const instance = showImagePreview({ images, ...options })
+  const instance = showImagePreview({ images, ...options });
   if (options.beforeClose) {
-    setTimeout(() => { instance?.close() }, 2000)
+    setTimeout(() => {
+      instance?.close();
+    }, 2000);
   }
-}
+};
 </script>
 
 <template>
@@ -91,11 +92,7 @@ const showFunctionCall = (options: Record<string, any> = {}) => {
 
   <demo-block card :title="t('useImageSlot')">
     <van-cell is-link :title="t('useImageSlot')" @click="showSlot = true" />
-    <yhm-image-preview
-      v-model:show="showSlot"
-      :images="imagesSlot"
-      :close-on-click-image="false"
-    >
+    <yhm-image-preview v-model:show="showSlot" :images="imagesSlot" :close-on-click-image="false">
       <template #image="{ src }">
         <video style="width: 100%" controls>
           <source :src="src" />

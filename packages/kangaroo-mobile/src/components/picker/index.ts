@@ -1,4 +1,4 @@
-import YhmPicker from './Picker.vue'
+import YhmPicker from './Picker.vue';
 
-export { YhmPicker }
-export default YhmPicker
+export { YhmPicker };
+export default YhmPicker;

@@ -30,9 +30,7 @@ export default defineComponent({
           </p>
           <p class="mb-2">
             <span class="font-bold">Token：</span>
-            <code class="text-sm bg-gray-200 px-2 py-1 rounded break-all">
-              {userStore.token || '(空)'}
-            </code>
+            <code class="text-sm bg-gray-200 px-2 py-1 rounded break-all">{userStore.token || '(空)'}</code>
           </p>
         </div>
 
@@ -43,13 +41,12 @@ export default defineComponent({
             <input
               placeholder="输入 token..."
               value={inputToken.value}
-              onInput={(e: Event) => inputToken.value = (e.target as HTMLInputElement).value}
+              onInput={(e: Event) => (inputToken.value = (e.target as HTMLInputElement).value)}
               class="flex-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
             />
             <button
               onClick={handleSetToken}
-              class="px-4 py-2 bg-purple-600 text-white rounded cursor-pointer hover:bg-purple-700"
-            >
+              class="px-4 py-2 bg-purple-600 text-white rounded cursor-pointer hover:bg-purple-700">
               设置
             </button>
           </div>
@@ -58,11 +55,10 @@ export default defineComponent({
         {/* 退出登录 */}
         <button
           onClick={handleLogout}
-          class="w-full py-2 bg-red-500 text-white rounded cursor-pointer hover:bg-red-600"
-        >
+          class="w-full py-2 bg-red-500 text-white rounded cursor-pointer hover:bg-red-600">
           退出登录
         </button>
       </div>
     );
-  }
+  },
 });

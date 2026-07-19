@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanCell from 'vant/es/cell'
-import VanCellGroup from 'vant/es/cell-group'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
+import { ref } from 'vue';
+import VanCell from 'vant/es/cell';
+import VanCellGroup from 'vant/es/cell-group';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -32,21 +32,21 @@ const t = useTranslate({
     customIconSize: 'Custom Icon Size',
     disableLabel: 'Disable label click',
   },
-})
+});
 
-const radio1 = ref('1')
-const radio2 = ref('2')
-const radio3 = ref('1')
-const radio4 = ref('1')
-const radio5 = ref('1')
-const radioLabel = ref('1')
-const radioSquare = ref('1')
-const radioDot = ref('1')
-const radioIconSize = ref('1')
-const radioHorizontal = ref('1')
-const radioLeftLabel = ref('1')
-const activeIcon = cdnURL('user-active.png')
-const inactiveIcon = cdnURL('user-inactive.png')
+const radio1 = ref('1');
+const radio2 = ref('2');
+const radio3 = ref('1');
+const radio4 = ref('1');
+const radio5 = ref('1');
+const radioLabel = ref('1');
+const radioSquare = ref('1');
+const radioDot = ref('1');
+const radioIconSize = ref('1');
+const radioHorizontal = ref('1');
+const radioLeftLabel = ref('1');
+const activeIcon = cdnURL('user-active.png');
+const inactiveIcon = cdnURL('user-inactive.png');
 </script>
 
 <template>
@@ -59,11 +59,7 @@ const inactiveIcon = cdnURL('user-inactive.png')
     </demo-block>
 
     <demo-block :title="t('horizontal')">
-      <yhm-radio-group
-        v-model="radioHorizontal"
-        class="demo-radio-group"
-        direction="horizontal"
-      >
+      <yhm-radio-group v-model="radioHorizontal" class="demo-radio-group" direction="horizontal">
         <yhm-radio name="1">{{ t('radio') }} 1</yhm-radio>
         <yhm-radio name="2">{{ t('radio') }} 2</yhm-radio>
       </yhm-radio-group>
@@ -81,12 +77,7 @@ const inactiveIcon = cdnURL('user-inactive.png')
         <yhm-radio name="1">{{ t('radio') }} 1</yhm-radio>
         <yhm-radio name="2">{{ t('radio') }} 2</yhm-radio>
       </yhm-radio-group>
-      <yhm-radio-group
-        v-model="radioDot"
-        class="demo-radio-group"
-        shape="dot"
-        style="margin-top: 20px"
-      >
+      <yhm-radio-group v-model="radioDot" class="demo-radio-group" shape="dot" style="margin-top: 20px">
         <yhm-radio name="1">{{ t('radio') }} 1</yhm-radio>
         <yhm-radio name="2">{{ t('radio') }} 2</yhm-radio>
       </yhm-radio-group>
@@ -94,12 +85,8 @@ const inactiveIcon = cdnURL('user-inactive.png')
 
     <demo-block :title="t('customColor')">
       <yhm-radio-group v-model="radio3" class="demo-radio-group">
-        <yhm-radio name="1" checked-color="#ee0a24">
-          {{ t('radio') }} 1
-        </yhm-radio>
-        <yhm-radio name="2" checked-color="#ee0a24">
-          {{ t('radio') }} 2
-        </yhm-radio>
+        <yhm-radio name="1" checked-color="#ee0a24">{{ t('radio') }} 1</yhm-radio>
+        <yhm-radio name="2" checked-color="#ee0a24">{{ t('radio') }} 2</yhm-radio>
       </yhm-radio-group>
     </demo-block>
 

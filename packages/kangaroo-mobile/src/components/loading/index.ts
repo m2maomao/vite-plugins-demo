@@ -1,4 +1,4 @@
-import Loading from './Loading.vue'
+import Loading from './Loading.vue';
 
-export const YhmLoading = Loading
-export default Loading
+export const YhmLoading = Loading;
+export default Loading;

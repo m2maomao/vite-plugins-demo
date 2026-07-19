@@ -1,4 +1,4 @@
-import SkeletonParagraph from './SkeletonParagraph.vue'
+import SkeletonParagraph from './SkeletonParagraph.vue';
 
-export const YhmSkeletonParagraph = SkeletonParagraph
-export default SkeletonParagraph
+export const YhmSkeletonParagraph = SkeletonParagraph;
+export default SkeletonParagraph;

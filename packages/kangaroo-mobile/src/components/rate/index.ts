@@ -1,4 +1,4 @@
-import YhmRate from './Rate.vue'
+import YhmRate from './Rate.vue';
 
-export { YhmRate }
-export default YhmRate
+export { YhmRate };
+export default YhmRate;

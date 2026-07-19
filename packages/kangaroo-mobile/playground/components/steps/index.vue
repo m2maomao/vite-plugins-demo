@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanButton from 'vant/es/button'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import VanButton from 'vant/es/button';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -30,13 +30,13 @@ const t = useTranslate({
     status3: '【City】Status3',
     customStyle: 'Custom Style',
   },
-})
+});
 
-const active = ref(1)
+const active = ref(1);
 
 const nextStep = () => {
-  active.value = ++active.value % 4
-}
+  active.value = ++active.value % 4;
+};
 </script>
 
 <template>
@@ -53,12 +53,7 @@ const nextStep = () => {
     </demo-block>
 
     <demo-block :title="t('customStyle')">
-      <yhm-steps
-        :active="active"
-        active-icon="success"
-        inactive-icon="arrow"
-        active-color="#07c160"
-      >
+      <yhm-steps :active="active" active-icon="success" inactive-icon="arrow" active-color="#07c160">
         <yhm-step>{{ t('step1') }}</yhm-step>
         <yhm-step>{{ t('step2') }}</yhm-step>
         <yhm-step>{{ t('step3') }}</yhm-step>
@@ -91,7 +86,8 @@ const nextStep = () => {
     margin: var(--van-padding-md) 0 0 var(--van-padding-md);
   }
 
-  p, h3 {
+  p,
+  h3 {
     font-weight: normal;
     font-size: inherit;
     margin: 0;

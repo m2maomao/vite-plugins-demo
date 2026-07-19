@@ -1,4 +1,4 @@
-import Empty from './Empty.vue'
+import Empty from './Empty.vue';
 
-export const YhmEmpty = Empty
-export default Empty
+export const YhmEmpty = Empty;
+export default Empty;

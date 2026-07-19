@@ -18,7 +18,7 @@ export default defineComponent({
       try {
         const res = await user.login({
           username: username.value,
-          password: password.value
+          password: password.value,
         });
         if (res.code === 0) {
           userStore.setToken(res.data.token);
@@ -29,7 +29,7 @@ export default defineComponent({
       } finally {
         loading.value = false;
       }
-    }
+    };
 
     return () => (
       <div className="max-w-sm mx-auto mt-20 p-6 border border-gray-200 rounded-lg">
@@ -38,7 +38,10 @@ export default defineComponent({
           <input
             placeholder="用户名"
             value={username.value}
-            onInput={(e: Event) => { const target = e.target as HTMLInputElement; username.value = target.value; }}
+            onInput={(e: Event) => {
+              const target = e.target as HTMLInputElement;
+              username.value = target.value;
+            }}
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
           />
         </div>
@@ -47,18 +50,20 @@ export default defineComponent({
             placeholder="密码"
             type="password"
             value={password.value}
-            onInput={(e: Event) => { const target = e.target as HTMLInputElement; password.value = target.value; }}
+            onInput={(e: Event) => {
+              const target = e.target as HTMLInputElement;
+              password.value = target.value;
+            }}
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
           />
         </div>
         <button
           onClick={handleLogin}
           disabled={loading.value}
-          className="w-full py-2 bg-purple-600 text-white rounded cursor-pointer hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
+          className="w-full py-2 bg-purple-600 text-white rounded cursor-pointer hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed">
           {loading.value ? '登录中...' : '登录'}
         </button>
       </div>
-    )
-  }
-})
+    );
+  },
+});

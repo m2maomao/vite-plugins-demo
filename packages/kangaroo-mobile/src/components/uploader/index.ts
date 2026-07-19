@@ -1,4 +1,4 @@
-import YhmUploader from './Uploader.vue'
+import YhmUploader from './Uploader.vue';
 
-export { YhmUploader }
-export default YhmUploader
+export { YhmUploader };
+export default YhmUploader;

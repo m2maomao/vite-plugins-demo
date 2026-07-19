@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite';
 import VueJsx from '@vitejs/plugin-vue-jsx';
-import path from "path";
+import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import {
   scanPagesPlugin,
@@ -11,9 +11,9 @@ import {
   authPlugin,
   piniaPlugin,
 } from 'deer-mobile';
-import helloPlugin from "./plugins/hello-plugin";
-import timestampPlugin from "./plugins/timestamp-plugin";
-import greetingPlugin from "./plugins/greeting-plugin";
+import helloPlugin from './plugins/hello-plugin';
+import timestampPlugin from './plugins/timestamp-plugin';
+import greetingPlugin from './plugins/greeting-plugin';
 import loggerPlugin from './plugins/logger-plugin';
 
 // 定义一个框架插件
@@ -23,14 +23,14 @@ const pageStatsPlugin = {
     router.afterEach((to) => {
       console.log('📊 访问：', to.path)
     })
-  `
-}
+  `,
+};
 
 const apiPluginRuntime = {
   name: 'api-runtime',
   onImport: () => `import { api } from 'virtual:api'`,
   onRuntime: () => `app.config.globalProperties.$api = api`,
-}
+};
 
 export default defineConfig({
   plugins: [
@@ -40,15 +40,15 @@ export default defineConfig({
       pluginRoutes: [
         {
           path: '/test-route',
-          file: '/src/pages/about.tsx'
+          file: '/src/pages/about.tsx',
         },
         {
           path: '/old-home',
-          redirect: '/'
+          redirect: '/',
         },
         {
           path: '/login',
-          file: 'virtual:builtin/login'
+          file: 'virtual:builtin/login',
         },
         {
           path: '/pinia-demo',
@@ -57,8 +57,8 @@ export default defineConfig({
         {
           path: '/:pathMatch(.*)*',
           file: 'virtual:builtin/404',
-        }
-      ]
+        },
+      ],
     }),
     helloPlugin(),
     timestampPlugin(),
@@ -67,15 +67,18 @@ export default defineConfig({
       prefix: '📚',
       showFileList: true,
     }),
-    configPlugin({
-      title: '111',
-      author: 'michael',
-      theme: {
-        primaryColor: 'red',
-        darkMode: true,
+    configPlugin(
+      {
+        title: '111',
+        author: 'michael',
+        theme: {
+          primaryColor: 'red',
+          darkMode: true,
+        },
+        layout: 'top',
       },
-      layout: 'top'
-    }, [pageStatsPlugin, apiPluginRuntime, piniaPlugin]),
+      [pageStatsPlugin, apiPluginRuntime, piniaPlugin],
+    ),
     setupPlugin(),
     apiPlugin(),
     builtinPlugin(),
@@ -88,7 +91,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3001'
-    }
-  }
-})
+      '/api': 'http://localhost:3001',
+    },
+  },
+});

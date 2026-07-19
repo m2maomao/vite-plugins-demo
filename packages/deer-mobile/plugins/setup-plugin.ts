@@ -21,14 +21,14 @@ export default function setupPlugin(): Plugin {
       if (id === RESOLVED_VIRTUAL_MODULE_ID) {
         // 分开收集 import 和 runtime
         const moduleImports = frameworkPlugins
-          .filter(p => p.onImport)
-          .map(p => p.onImport!())
+          .filter((p) => p.onImport)
+          .map((p) => p.onImport!())
           .join('\n');
 
         // 收集插件注入的运行时代码
         const runtimeCodes = frameworkPlugins
-          .filter(p => p.onRuntime)
-          .map(p => p.onRuntime!())
+          .filter((p) => p.onRuntime)
+          .map((p) => p.onRuntime!())
           .join('\n');
 
         return `
@@ -76,7 +76,7 @@ export default function setupPlugin(): Plugin {
             app.mount('#app');
           }
           setupApp();
-        `
+        `;
       }
     },
 
@@ -88,9 +88,9 @@ export default function setupPlugin(): Plugin {
           return {
             code: `import '${VIRTUAL_MODULE_ID}';\n${code}`,
             map: null,
-          }
+          };
         }
       }
-    }
-  }
+    },
+  };
 }

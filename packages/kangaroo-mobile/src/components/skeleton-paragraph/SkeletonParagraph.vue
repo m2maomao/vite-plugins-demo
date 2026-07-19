@@ -1,25 +1,22 @@
 <template>
-  <VanSkeletonParagraph
-    :row-width="rowWidth"
-    :round="round"
-  />
+  <VanSkeletonParagraph :row-width="rowWidth" :round="round" />
 </template>
 
 <script setup lang="ts">
-import { SkeletonParagraph as VanSkeletonParagraph } from 'vant'
+import { SkeletonParagraph as VanSkeletonParagraph } from 'vant';
 
 defineOptions({
   name: 'YhmSkeletonParagraph',
-})
+});
 
 withDefaults(
   defineProps<{
-    rowWidth?: number | string
-    round?: boolean
+    rowWidth?: number | string;
+    round?: boolean;
   }>(),
   {
     rowWidth: '100%',
     round: false,
-  }
-)
+  },
+);
 </script>

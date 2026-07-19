@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanSwitch from 'vant/es/switch'
-import { useTranslate } from '@/locale/useTranslate'
-import { cdnURL } from '../../site'
+import { ref } from 'vue';
+import VanSwitch from 'vant/es/switch';
+import { useTranslate } from '@/locale/useTranslate';
+import { cdnURL } from '../../site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -19,9 +19,9 @@ const t = useTranslate({
     desc: 'Vant is a set of Mobile UI Components built on Vue.',
     customContent: 'Custom Content',
   },
-})
+});
 
-const show = ref(false)
+const show = ref(false);
 </script>
 
 <template>

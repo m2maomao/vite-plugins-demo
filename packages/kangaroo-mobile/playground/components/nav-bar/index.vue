@@ -5,28 +5,15 @@
     </demo-block>
 
     <demo-block :title="t('showBack')">
-      <yhm-nav-bar
-        :title="t('title')"
-        :left-text="t('back')"
-        show-back
-      />
+      <yhm-nav-bar :title="t('title')" :left-text="t('back')" show-back />
     </demo-block>
 
     <demo-block :title="t('rightButton')">
-      <yhm-nav-bar
-        :title="t('title')"
-        :left-text="t('back')"
-        :right-text="t('button')"
-        show-back
-      />
+      <yhm-nav-bar :title="t('title')" :left-text="t('back')" :right-text="t('button')" show-back />
     </demo-block>
 
     <demo-block :title="t('useSlot')">
-      <yhm-nav-bar
-        :title="t('title')"
-        :left-text="t('back')"
-        show-back
-      >
+      <yhm-nav-bar :title="t('title')" :left-text="t('back')" show-back>
         <template #right>
           <yhm-icon name="search" size="18" />
         </template>
@@ -40,14 +27,13 @@
         :right-text="t('button')"
         show-back
         left-disabled
-        right-disabled
-      />
+        right-disabled />
     </demo-block>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useTranslate } from '@/locale/useTranslate'
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -77,5 +63,5 @@ const t = useTranslate({
     useSlot: 'スロット使用',
     disableButton: '無効化ボタン',
   },
-})
+});
 </script>

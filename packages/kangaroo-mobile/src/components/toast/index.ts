@@ -1,7 +1,7 @@
-import Toast from './Toast.vue'
+import Toast from './Toast.vue';
 
-export const YhmToast = Toast
-export default Toast
+export const YhmToast = Toast;
+export default Toast;
 
 export {
   showToast,
@@ -12,4 +12,4 @@ export {
   allowMultipleToast,
   setToastDefaultOptions,
   resetToastDefaultOptions,
-} from 'vant'
+} from 'vant';

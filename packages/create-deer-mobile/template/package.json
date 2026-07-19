@@ -7,7 +7,24 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "server": "npx tsx server/index.ts"
+    "server": "npx tsx server/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:style": "stylelint \"**/*.{css,less,vue}\"",
+    "lint:style:fix": "stylelint \"**/*.{css,less,vue}\" --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,less,html}": [
+      "prettier --write",
+      "stylelint --fix"
+    ]
   },
   "dependencies": {
     "deer-mobile": "^0.1.31",
@@ -25,6 +42,17 @@
     "@tailwindcss/vite": "^4.3.1",
     "express": "^5.2.1",
     "@types/express": "^5.0.6",
-    "@types/node": "^26.0.1"
+    "@types/node": "^26.0.1",
+    "eslint": "^9.0.0",
+    "@eslint/js": "^9.0.0",
+    "typescript-eslint": "^8.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "prettier": "^3.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^17.0.0",
+    "stylelint": "^17.0.0",
+    "stylelint-config-standard": "^40.0.0",
+    "postcss-html": "^1.0.0",
+    "postcss-less": "^6.0.0"
   }
 }

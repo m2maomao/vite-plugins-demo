@@ -1,4 +1,4 @@
-import YhmCheckboxGroup from './CheckboxGroup.vue'
+import YhmCheckboxGroup from './CheckboxGroup.vue';
 
-export { YhmCheckboxGroup }
-export default YhmCheckboxGroup
+export { YhmCheckboxGroup };
+export default YhmCheckboxGroup;

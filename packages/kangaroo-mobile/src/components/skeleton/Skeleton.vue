@@ -10,8 +10,7 @@
     :avatar-size="avatarSize"
     :avatar-shape="avatarShape"
     :animate="animate"
-    :row-width="rowWidth"
-  >
+    :row-width="rowWidth">
     <slot />
     <template v-if="$slots.template" #template>
       <slot name="template" />
@@ -20,25 +19,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Skeleton as VanSkeleton } from 'vant'
+import { computed } from 'vue';
+import { Skeleton as VanSkeleton } from 'vant';
 
 defineOptions({
   name: 'YhmSkeleton',
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    loading?: boolean
-    title?: boolean
-    avatar?: boolean
-    row?: number | string
-    round?: boolean
-    titleWidth?: number | string
-    avatarSize?: number | string
-    avatarShape?: 'round' | 'square'
-    animate?: boolean
-    rowWidth?: number | string | (number | string)[]
+    loading?: boolean;
+    title?: boolean;
+    avatar?: boolean;
+    row?: number | string;
+    round?: boolean;
+    titleWidth?: number | string;
+    avatarSize?: number | string;
+    avatarShape?: 'round' | 'square';
+    animate?: boolean;
+    rowWidth?: number | string | (number | string)[];
   }>(),
   {
     loading: true,
@@ -48,21 +47,29 @@ const props = withDefaults(
     round: false,
     animate: true,
     avatarShape: 'round',
-  }
-)
+  },
+);
 
 const skeletonProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = [
-    'loading', 'title', 'avatar', 'row', 'round',
-    'titleWidth', 'avatarSize', 'avatarShape', 'animate', 'rowWidth',
-  ]
+    'loading',
+    'title',
+    'avatar',
+    'row',
+    'round',
+    'titleWidth',
+    'avatarSize',
+    'avatarShape',
+    'animate',
+    'rowWidth',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

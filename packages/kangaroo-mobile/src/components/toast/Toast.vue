@@ -1,9 +1,5 @@
 <template>
-  <VanToast
-    v-bind="toastProps as any"
-    :show="show"
-    @update:show="$emit('update:show', $event)"
-  >
+  <VanToast v-bind="toastProps as any" :show="show" @update:show="$emit('update:show', $event)">
     <template v-if="$slots['message']" #message>
       <slot name="message" />
     </template>
@@ -11,42 +7,42 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Toast as VanToast } from 'vant'
+import { computed } from 'vue';
+import { Toast as VanToast } from 'vant';
 
 defineOptions({
   name: 'YhmToast',
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    show?: boolean
+    show?: boolean;
     /** 提示类型 */
-    type?: 'loading' | 'success' | 'fail' | 'html' | 'text'
+    type?: 'loading' | 'success' | 'fail' | 'html' | 'text';
     /** 提示文案 */
-    message?: string
+    message?: string;
     /** 展示时长(ms)，0 表示不消失 */
-    duration?: number
+    duration?: number;
     /** 是否禁止点击背景 */
-    forbidClick?: boolean
+    forbidClick?: boolean;
     /** 是否显示关闭按钮 */
-    closeable?: boolean
+    closeable?: boolean;
     /** 自定义图标 */
-    icon?: string
+    icon?: string;
     /** 图标大小 */
-    iconSize?: number | string
+    iconSize?: number | string;
     /** 位置 */
-    position?: 'top' | 'bottom' | 'middle'
+    position?: 'top' | 'bottom' | 'middle';
     /** 过渡动画 */
-    transition?: string
+    transition?: string;
     /** 是否留白 */
-    wordBreak?: string
+    wordBreak?: string;
     /** 是否允许重复展示 */
-    allowHtml?: boolean
+    allowHtml?: boolean;
     /** 是否锁定滚动 */
-    lockScroll?: boolean
+    lockScroll?: boolean;
     /** 加载图标类型 */
-    loadingType?: string
+    loadingType?: string;
   }>(),
   {
     type: 'text',
@@ -56,26 +52,36 @@ const props = withDefaults(
     position: 'middle',
     allowHtml: false,
     lockScroll: false,
-  }
-)
+  },
+);
 
 defineEmits<{
-  (e: 'update:show', value: boolean): void
-}>()
+  (e: 'update:show', value: boolean): void;
+}>();
 
 const toastProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = [
-    'type', 'message', 'duration', 'forbidClick', 'closeable',
-    'icon', 'iconSize', 'position', 'transition', 'wordBreak',
-    'allowHtml', 'lockScroll', 'loadingType',
-  ]
+    'type',
+    'message',
+    'duration',
+    'forbidClick',
+    'closeable',
+    'icon',
+    'iconSize',
+    'position',
+    'transition',
+    'wordBreak',
+    'allowHtml',
+    'lockScroll',
+    'loadingType',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

@@ -1,4 +1,4 @@
-import YhmSwitch from './Switch.vue'
+import YhmSwitch from './Switch.vue';
 
-export { YhmSwitch }
-export default YhmSwitch
+export { YhmSwitch };
+export default YhmSwitch;

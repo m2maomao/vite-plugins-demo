@@ -5,8 +5,7 @@
     @update:model-value="$emit('update:modelValue', $event)"
     @confirm="$emit('confirm', $event)"
     @cancel="$emit('cancel', $event)"
-    @change="$emit('change', $event)"
-  >
+    @change="$emit('change', $event)">
     <template v-if="$slots['title']" #title>
       <slot name="title" />
     </template>
@@ -26,56 +25,56 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { TimePicker as VanTimePicker } from 'vant'
+import { computed } from 'vue';
+import { TimePicker as VanTimePicker } from 'vant';
 
 defineOptions({
   name: 'YhmTimePicker',
-})
+});
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: string[]
+    modelValue?: string[];
     /** 列类型 */
-    columnsType?: ('hour' | 'minute' | 'second')[]
+    columnsType?: ('hour' | 'minute' | 'second')[];
     /** 标题 */
-    title?: string
+    title?: string;
     /** 加载中 */
-    loading?: boolean
+    loading?: boolean;
     /** 只读 */
-    readonly?: boolean
+    readonly?: boolean;
     /** 显示顶部栏 */
-    showToolbar?: boolean
+    showToolbar?: boolean;
     /** 顶部栏位置 */
-    toolbarPosition?: 'top' | 'bottom'
+    toolbarPosition?: 'top' | 'bottom';
     /** 取消按钮文字 */
-    cancelButtonText?: string
+    cancelButtonText?: string;
     /** 确认按钮文字 */
-    confirmButtonText?: string
+    confirmButtonText?: string;
     /** 选项高度 */
-    optionHeight?: number | string
+    optionHeight?: number | string;
     /** 可见选项个数 */
-    visibleOptionNum?: number | string
+    visibleOptionNum?: number | string;
     /** 最小小时 */
-    minHour?: number | string
+    minHour?: number | string;
     /** 最大小时 */
-    maxHour?: number | string
+    maxHour?: number | string;
     /** 最小分钟 */
-    minMinute?: number | string
+    minMinute?: number | string;
     /** 最大分钟 */
-    maxMinute?: number | string
+    maxMinute?: number | string;
     /** 最小秒 */
-    minSecond?: number | string
+    minSecond?: number | string;
     /** 最大秒 */
-    maxSecond?: number | string
+    maxSecond?: number | string;
     /** 最小时间（整体时间范围） */
-    minTime?: string
+    minTime?: string;
     /** 最大时间（整体时间范围） */
-    maxTime?: string
+    maxTime?: string;
     /** 过滤函数 */
-    filter?: (type: string, options: any[], values: string[]) => any[]
+    filter?: (type: string, options: any[], values: string[]) => any[];
     /** 格式化函数 */
-    formatter?: (type: string, option: any) => any
+    formatter?: (type: string, option: any) => any;
   }>(),
   {
     loading: false,
@@ -93,32 +92,46 @@ const props = withDefaults(
     maxMinute: 59,
     minSecond: 0,
     maxSecond: 59,
-  }
-)
+  },
+);
 
 defineEmits<{
-  (e: 'update:modelValue', value: string[]): void
-  (e: 'confirm', value: any): void
-  (e: 'cancel', value: any): void
-  (e: 'change', value: any): void
-}>()
+  (e: 'update:modelValue', value: string[]): void;
+  (e: 'confirm', value: any): void;
+  (e: 'cancel', value: any): void;
+  (e: 'change', value: any): void;
+}>();
 
 const timePickerProps = computed(() => {
-  const result: Record<string, unknown> = {}
+  const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = [
-    'columnsType', 'title', 'loading', 'readonly', 'showToolbar',
-    'toolbarPosition', 'cancelButtonText', 'confirmButtonText',
-    'optionHeight', 'visibleOptionNum',
-    'minHour', 'maxHour', 'minMinute', 'maxMinute',
-    'minSecond', 'maxSecond', 'minTime', 'maxTime',
-    'filter', 'formatter',
-  ]
+    'columnsType',
+    'title',
+    'loading',
+    'readonly',
+    'showToolbar',
+    'toolbarPosition',
+    'cancelButtonText',
+    'confirmButtonText',
+    'optionHeight',
+    'visibleOptionNum',
+    'minHour',
+    'maxHour',
+    'minMinute',
+    'maxMinute',
+    'minSecond',
+    'maxSecond',
+    'minTime',
+    'maxTime',
+    'filter',
+    'formatter',
+  ];
   for (const key of keys) {
-    const val = props[key]
+    const val = props[key];
     if (val !== undefined) {
-      result[key] = val
+      result[key] = val;
     }
   }
-  return result
-})
+  return result;
+});
 </script>

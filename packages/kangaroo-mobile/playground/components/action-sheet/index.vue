@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import VanCell from 'vant/es/cell'
-import { showToast } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref, computed } from 'vue';
+import VanCell from 'vant/es/cell';
+import { showToast } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -53,50 +53,46 @@ const t = useTranslate({
     disabledOption: '無効オプション',
     showDescription: '説明を表示',
   },
-})
+});
 
-const showBasic = ref(false)
-const showIcon = ref(false)
-const showCancel = ref(false)
-const showTitle = ref(false)
-const showStatus = ref(false)
-const showDescription = ref(false)
+const showBasic = ref(false);
+const showIcon = ref(false);
+const showCancel = ref(false);
+const showTitle = ref(false);
+const showStatus = ref(false);
+const showDescription = ref(false);
 
-const simpleActions = computed(() => [
-  { name: t('option1') },
-  { name: t('option2') },
-  { name: t('option3') },
-])
+const simpleActions = computed(() => [{ name: t('option1') }, { name: t('option2') }, { name: t('option3') }]);
 
 const iconActions = computed(() => [
   { name: t('option1'), icon: 'cart-o' },
   { name: t('option2'), icon: 'shop-o' },
   { name: t('option3'), icon: 'star-o' },
-])
+]);
 
 const statusActions = computed(() => [
   { name: t('coloredOption'), color: '#ee0a24' },
   { name: t('disabledOption'), disabled: true },
   { loading: true },
-])
+]);
 
 const actionsWithDescription = computed(() => [
   { name: t('option1') },
   { name: t('option2') },
   { name: t('option3'), subname: t('subname') },
-])
+]);
 
 const onSelect = (item: any) => {
-  showBasic.value = false
-  showToast(item.name)
-}
+  showBasic.value = false;
+  showToast(item.name);
+};
 
 const onSelectIcon = (item: any) => {
-  showIcon.value = false
-  showToast(item.name)
-}
+  showIcon.value = false;
+  showToast(item.name);
+};
 
-const onCancel = () => showToast(t('cancel'))
+const onCancel = () => showToast(t('cancel'));
 </script>
 
 <template>
@@ -116,40 +112,29 @@ const onCancel = () => showToast(t('cancel'))
       <van-cell is-link :title="t('customPanel')" @click="showTitle = true" />
     </demo-block>
 
-    <yhm-action-sheet
-      v-model:show="showBasic"
-      :actions="simpleActions"
-      @select="onSelect"
-    />
+    <yhm-action-sheet v-model:show="showBasic" :actions="simpleActions" @select="onSelect" />
 
-    <yhm-action-sheet
-      v-model:show="showIcon"
-      :actions="iconActions"
-      @select="onSelectIcon"
-    />
+    <yhm-action-sheet v-model:show="showIcon" :actions="iconActions" @select="onSelectIcon" />
 
     <yhm-action-sheet
       v-model:show="showCancel"
       :actions="simpleActions"
       close-on-click-action
       :cancel-text="t('cancel')"
-      @cancel="onCancel"
-    />
+      @cancel="onCancel" />
 
     <yhm-action-sheet
       v-model:show="showDescription"
       :actions="actionsWithDescription"
       close-on-click-action
       :cancel-text="t('cancel')"
-      :description="t('description')"
-    />
+      :description="t('description')" />
 
     <yhm-action-sheet
       v-model:show="showStatus"
       close-on-click-action
       :actions="statusActions"
-      :cancel-text="t('cancel')"
-    />
+      :cancel-text="t('cancel')" />
 
     <yhm-action-sheet v-model:show="showTitle" :title="t('title')">
       <div class="demo-action-sheet-content">{{ t('content') }}</div>

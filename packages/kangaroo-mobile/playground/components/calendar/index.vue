@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import VanCell from 'vant/es/cell'
-import { useTranslate } from '@/locale/useTranslate'
-import SwitchModeField from './SwitchModeField.vue'
-import TiledDisplay from './TiledDisplay.vue'
+import { reactive, ref } from 'vue';
+import VanCell from 'vant/es/cell';
+import { useTranslate } from '@/locale/useTranslate';
+import SwitchModeField from './SwitchModeField.vue';
+import TiledDisplay from './TiledDisplay.vue';
 
 const t = useTranslate({
   'zh-CN': {
@@ -48,7 +48,7 @@ const t = useTranslate({
     confirmDisabledText: 'Select End Time',
     firstDayOfWeek: 'Custom First Day Of Week',
   },
-})
+});
 
 const state = reactive<Record<string, any>>({
   date: {
@@ -77,100 +77,100 @@ const state = reactive<Record<string, any>>({
   confirmText: undefined,
   confirmDisabledText: undefined,
   firstDayOfWeek: 0,
-})
+});
 
-const switchMode = ref('none')
+const switchMode = ref('none');
 
 const resetSettings = () => {
-  state.round = true
-  state.color = undefined
-  state.minDate = undefined
-  state.maxDate = undefined
-  state.maxRange = undefined
-  state.position = undefined
-  state.formatter = undefined
-  state.showConfirm = true
-  state.confirmText = undefined
-  state.confirmDisabledText = undefined
-  state.firstDayOfWeek = 0
-}
+  state.round = true;
+  state.color = undefined;
+  state.minDate = undefined;
+  state.maxDate = undefined;
+  state.maxRange = undefined;
+  state.position = undefined;
+  state.formatter = undefined;
+  state.showConfirm = true;
+  state.confirmText = undefined;
+  state.confirmDisabledText = undefined;
+  state.firstDayOfWeek = 0;
+};
 
 const dayFormatter = (day: any) => {
-  if (!day.date) return day
-  const month = day.date.getMonth() + 1
-  const date = day.date.getDate()
+  if (!day.date) return day;
+  const month = day.date.getMonth() + 1;
+  const date = day.date.getDate();
   if (month === 5) {
-    if (date === 1) day.topInfo = t('laborDay')
-    else if (date === 4) day.topInfo = t('youthDay')
-    else if (date === 11) day.text = t('today')
+    if (date === 1) day.topInfo = t('laborDay');
+    else if (date === 4) day.topInfo = t('youthDay');
+    else if (date === 11) day.text = t('today');
   }
-  if (day.type === 'start') day.bottomInfo = t('in')
-  else if (day.type === 'end') day.bottomInfo = t('out')
-  return day
-}
+  if (day.type === 'start') day.bottomInfo = t('in');
+  else if (day.type === 'end') day.bottomInfo = t('out');
+  return day;
+};
 
 const show = (type: string, id: string) => {
-  resetSettings()
-  state.id = id
-  state.type = type
-  state.showCalendar = true
+  resetSettings();
+  state.id = id;
+  state.type = type;
+  state.showCalendar = true;
   switch (id) {
     case 'quickSelect1':
     case 'quickSelect2':
-      state.showConfirm = false
-      break
+      state.showConfirm = false;
+      break;
     case 'customColor':
-      state.color = '#ee0a24'
-      break
+      state.color = '#ee0a24';
+      break;
     case 'customConfirm':
-      state.confirmText = t('confirmText')
-      state.confirmDisabledText = t('confirmDisabledText')
-      break
+      state.confirmText = t('confirmText');
+      state.confirmDisabledText = t('confirmDisabledText');
+      break;
     case 'customRange':
-      state.minDate = new Date(2010, 0, 1)
-      state.maxDate = new Date(2010, 0, 31)
-      break
+      state.minDate = new Date(2010, 0, 1);
+      state.maxDate = new Date(2010, 0, 31);
+      break;
     case 'customDayText':
-      state.minDate = new Date(2010, 4, 1)
-      state.maxDate = new Date(2010, 4, 31)
-      state.formatter = dayFormatter
-      break
+      state.minDate = new Date(2010, 4, 1);
+      state.maxDate = new Date(2010, 4, 31);
+      state.formatter = dayFormatter;
+      break;
     case 'customPosition':
-      state.round = false
-      state.position = 'right'
-      break
+      state.round = false;
+      state.position = 'right';
+      break;
     case 'maxRange':
-      state.maxRange = 3
-      break
+      state.maxRange = 3;
+      break;
     case 'firstDayOfWeek':
-      state.firstDayOfWeek = 1
-      break
+      state.firstDayOfWeek = 1;
+      break;
   }
-}
+};
 
 const formatDate = (date: Date) => {
-  if (date) return `${date.getMonth() + 1}/${date.getDate()}`
-}
+  if (date) return `${date.getMonth() + 1}/${date.getDate()}`;
+};
 const formatFullDate = (date: Date) => {
-  if (date) return `${date.getFullYear()}/${formatDate(date)}`
-}
+  if (date) return `${date.getFullYear()}/${formatDate(date)}`;
+};
 const formatMultiple = (dates: Date[]) => {
   if (dates.length) {
-    const lang = document.documentElement.lang || navigator.language
-    return lang === 'zh-CN' ? `选择了 ${dates.length} 个日期` : `${dates.length} dates selected`
+    const lang = document.documentElement.lang || navigator.language;
+    return lang === 'zh-CN' ? `选择了 ${dates.length} 个日期` : `${dates.length} dates selected`;
   }
-}
+};
 const formatRange = (dateRange: Date[]) => {
   if (dateRange.length) {
-    const [start, end] = dateRange
-    return `${formatDate(start)} - ${formatDate(end)}`
+    const [start, end] = dateRange;
+    return `${formatDate(start)} - ${formatDate(end)}`;
   }
-}
+};
 
 const onConfirm = (date: Date | Date[]) => {
-  state.showCalendar = false
-  state.date[state.id] = date
-}
+  state.showCalendar = false;
+  state.date[state.id] = date;
+};
 </script>
 
 <template>
@@ -182,20 +182,17 @@ const onConfirm = (date: Date | Date[]) => {
         is-link
         :title="t('selectSingle')"
         :value="formatFullDate(state.date.selectSingle)"
-        @click="show('single', 'selectSingle')"
-      />
+        @click="show('single', 'selectSingle')" />
       <van-cell
         is-link
         :title="t('selectMultiple')"
         :value="formatMultiple(state.date.selectMultiple)"
-        @click="show('multiple', 'selectMultiple')"
-      />
+        @click="show('multiple', 'selectMultiple')" />
       <van-cell
         is-link
         :title="t('selectRange')"
         :value="formatRange(state.date.selectRange)"
-        @click="show('range', 'selectRange')"
-      />
+        @click="show('range', 'selectRange')" />
     </demo-block>
 
     <demo-block card :title="t('quickSelect')">
@@ -203,14 +200,12 @@ const onConfirm = (date: Date | Date[]) => {
         is-link
         :title="t('selectSingle')"
         :value="formatFullDate(state.date.quickSelect1)"
-        @click="show('single', 'quickSelect1')"
-      />
+        @click="show('single', 'quickSelect1')" />
       <van-cell
         is-link
         :title="t('selectRange')"
         :value="formatRange(state.date.quickSelect2)"
-        @click="show('range', 'quickSelect2')"
-      />
+        @click="show('range', 'quickSelect2')" />
     </demo-block>
 
     <demo-block card :title="t('customCalendar')">
@@ -218,43 +213,33 @@ const onConfirm = (date: Date | Date[]) => {
         is-link
         :title="t('customColor')"
         :value="formatRange(state.date.customColor)"
-        @click="show('range', 'customColor')"
-      />
+        @click="show('range', 'customColor')" />
       <van-cell
         is-link
         :title="t('customRange')"
         :value="formatFullDate(state.date.customRange)"
-        @click="show('single', 'customRange')"
-      />
+        @click="show('single', 'customRange')" />
       <van-cell
         is-link
         :title="t('customConfirm')"
         :value="formatRange(state.date.customConfirm)"
-        @click="show('range', 'customConfirm')"
-      />
+        @click="show('range', 'customConfirm')" />
       <van-cell
         is-link
         :title="t('customDayText')"
         :value="formatRange(state.date.customDayText)"
-        @click="show('range', 'customDayText')"
-      />
+        @click="show('range', 'customDayText')" />
       <van-cell
         is-link
         :title="t('customPosition')"
         :value="formatFullDate(state.date.customPosition)"
-        @click="show('single', 'customPosition')"
-      />
+        @click="show('single', 'customPosition')" />
       <van-cell
         is-link
         :title="t('maxRange')"
         :value="formatRange(state.date.maxRange)"
-        @click="show('range', 'maxRange')"
-      />
-      <van-cell
-        is-link
-        :title="t('firstDayOfWeek')"
-        @click="show('single', 'firstDayOfWeek')"
-      />
+        @click="show('range', 'maxRange')" />
+      <van-cell is-link :title="t('firstDayOfWeek')" @click="show('single', 'firstDayOfWeek')" />
     </demo-block>
 
     <TiledDisplay :switch-mode="switchMode" />
@@ -274,8 +259,7 @@ const onConfirm = (date: Date | Date[]) => {
       :confirm-text="state.confirmText"
       :first-day-of-week="state.firstDayOfWeek"
       :confirm-disabled-text="state.confirmDisabledText"
-      @confirm="onConfirm"
-    />
+      @confirm="onConfirm" />
   </div>
 </template>
 

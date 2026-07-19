@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import VanIcon from 'vant/es/icon'
-import { useTranslate } from '@/locale/useTranslate'
+import VanIcon from 'vant/es/icon';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -23,7 +23,7 @@ const t = useTranslate({
     customIcon: 'Custom Icon',
     loading: 'Loading...',
   },
-})
+});
 </script>
 
 <template>

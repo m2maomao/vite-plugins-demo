@@ -14,9 +14,9 @@
 </template>
 
 <script setup lang="ts">
-import { Step as VanStep } from 'vant'
+import { Step as VanStep } from 'vant';
 
 defineOptions({
   name: 'YhmStep',
-})
+});
 </script>

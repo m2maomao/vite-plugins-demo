@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useTranslate } from '@/locale/useTranslate'
-import { showToast } from 'vant'
-import type { TimePickerColumnType } from 'vant'
+import { ref } from 'vue';
+import { useTranslate } from '@/locale/useTranslate';
+import { showToast } from 'vant';
+import type { TimePickerColumnType } from 'vant';
 
 const t = useTranslate({
   'zh-CN': {
@@ -23,52 +23,50 @@ const t = useTranslate({
     optionsFormatter: 'Options Formatter',
     advancedUsage: 'Advanced Usage',
   },
-})
+});
 
-const baseTime = ref(['12', '00'])
-const secondTime = ref(['12', '00', '00'])
-const rangeTime = ref(['12', '35'])
-const filterTime = ref(['12', '00'])
-const formatterTime = ref(['12', '00'])
-const hourMinuteTime = ref(['12', '00', '00'])
+const baseTime = ref(['12', '00']);
+const secondTime = ref(['12', '00', '00']);
+const rangeTime = ref(['12', '35']);
+const filterTime = ref(['12', '00']);
+const formatterTime = ref(['12', '00']);
+const hourMinuteTime = ref(['12', '00', '00']);
 
-const columnsType: TimePickerColumnType[] = ['hour', 'minute', 'second']
+const columnsType: TimePickerColumnType[] = ['hour', 'minute', 'second'];
 
 const filter = (type: string, options: any[]) => {
   if (type === 'minute') {
-    return options.filter((option: any) => Number(option.value) % 10 === 0)
+    return options.filter((option: any) => Number(option.value) % 10 === 0);
   }
-  return options
-}
+  return options;
+};
 
 const timeFilter = (type: string, options: any[], values: string[]) => {
-  const hour = +values[0]
+  const hour = +values[0];
   if (type === 'hour') {
-    return options.filter(
-      (option: any) => Number(option.value) >= 8 && Number(option.value) <= 18,
-    )
+    return options.filter((option: any) => Number(option.value) >= 8 && Number(option.value) <= 18);
   }
   if (type === 'minute') {
-    options = options.filter((option: any) => Number(option.value) % 10 === 0)
+    options = options.filter((option: any) => Number(option.value) % 10 === 0);
     if (hour === 8) {
-      return options.filter((option: any) => Number(option.value) >= 40)
+      return options.filter((option: any) => Number(option.value) >= 40);
     }
     if (hour === 18) {
-      return options.filter((option: any) => Number(option.value) <= 20)
+      return options.filter((option: any) => Number(option.value) <= 20);
     }
   }
-  return options
-}
+  return options;
+};
 
 const formatter = (type: string, option: any) => {
   if (type === 'hour') {
-    option.text += '时'
+    option.text += '时';
   }
   if (type === 'minute') {
-    option.text += '分'
+    option.text += '分';
   }
-  return option
-}
+  return option;
+};
 </script>
 
 <template>
@@ -78,11 +76,7 @@ const formatter = (type: string, option: any) => {
     </demo-block>
 
     <demo-block card :title="t('columnsType')">
-      <yhm-time-picker
-        v-model="secondTime"
-        :title="t('chooseTime')"
-        :columns-type="columnsType"
-      />
+      <yhm-time-picker v-model="secondTime" :title="t('chooseTime')" :columns-type="columnsType" />
     </demo-block>
 
     <demo-block card :title="t('timeRange')">
@@ -92,8 +86,7 @@ const formatter = (type: string, option: any) => {
         :min-hour="10"
         :max-hour="20"
         :min-minute="30"
-        :max-minute="40"
-      />
+        :max-minute="40" />
     </demo-block>
 
     <demo-block card :title="t('overallTimeRange')">
@@ -102,24 +95,15 @@ const formatter = (type: string, option: any) => {
         :title="t('chooseTime')"
         :columns-type="['hour', 'minute', 'second']"
         min-time="09:40:10"
-        max-time="20:20:50"
-      />
+        max-time="20:20:50" />
     </demo-block>
 
     <demo-block card :title="t('optionsFormatter')">
-      <yhm-time-picker
-        v-model="formatterTime"
-        :title="t('chooseTime')"
-        :formatter="formatter"
-      />
+      <yhm-time-picker v-model="formatterTime" :title="t('chooseTime')" :formatter="formatter" />
     </demo-block>
 
     <demo-block card :title="t('optionsFilter')">
-      <yhm-time-picker
-        v-model="filterTime"
-        :title="t('chooseTime')"
-        :filter="filter"
-      />
+      <yhm-time-picker v-model="filterTime" :title="t('chooseTime')" :filter="filter" />
     </demo-block>
 
     <demo-block card :title="t('advancedUsage')">

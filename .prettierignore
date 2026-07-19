@@ -1,0 +1,25 @@
+# 构建输出
+dist/
+*.js
+*.cjs
+*.mjs
+
+# 依赖
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# 文档
+*.md
+*.mdx
+
+# 配置
+turbo.json
+tsconfig.json
+
+# 其他
+coverage/
+.git/
+.husky/
+.history/

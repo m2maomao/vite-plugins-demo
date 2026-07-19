@@ -1,4 +1,4 @@
-import YhmStepper from './Stepper.vue'
+import YhmStepper from './Stepper.vue';
 
-export { YhmStepper }
-export default YhmStepper
+export { YhmStepper };
+export default YhmStepper;

@@ -1,6 +1,6 @@
-import ImagePreview from './ImagePreview.vue'
+import ImagePreview from './ImagePreview.vue';
 
-export const YhmImagePreview = ImagePreview
-export default ImagePreview
+export const YhmImagePreview = ImagePreview;
+export default ImagePreview;
 
-export { showImagePreview } from 'vant'
+export { showImagePreview } from 'vant';

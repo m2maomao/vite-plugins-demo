@@ -36,11 +36,11 @@ export const VANT_FALLBACK_ICONS = new Set([
   'minus',
   'plus',
   'back-top',
-])
+]);
 
 /**
  * 判断是否是 Vant 兜底图标
  */
 export function isVantFallback(name: string): boolean {
-  return VANT_FALLBACK_ICONS.has(name)
+  return VANT_FALLBACK_ICONS.has(name);
 }

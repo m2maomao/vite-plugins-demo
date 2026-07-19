@@ -13,10 +13,7 @@ export default defineConfig({
       autoInstall: false,
       // 自定义图标集合（设计师SVG）
       customCollections: {
-        deer: FileSystemIconLoader(
-          'src/assets/icons',
-          (svg) => optimizeSvg(svg)
-        ),
+        deer: FileSystemIconLoader('src/assets/icons', (svg) => optimizeSvg(svg)),
       },
     }),
   ],
@@ -24,7 +21,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../src'),
-    }
+    },
   },
 
   optimizeDeps: {
@@ -36,7 +33,7 @@ export default defineConfig({
       entry: 'src/index.ts',
       name: 'KangarooMobile',
       fileName: 'kangaroo-mobile',
-      formats: ['es', 'cjs']
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
       external: ['vue'],
@@ -47,7 +44,7 @@ export default defineConfig({
       },
     },
   },
-})
+});
 
 // SVG 预处理函数
 function optimizeSvg(svg: string): string {
@@ -72,20 +69,20 @@ function optimizeSvg(svg: string): string {
       'convertTransform',
       'collapseGroups',
     ],
-  })
+  });
 
   // 兜底处理
   const cleaned = result.data.replace(/<svg([^>]*)>/, (_, attrs) => {
     attrs = attrs
-        .replace(/\sstyle="[^"]*"/g, '')
-        .replace(/\sfill="[^"]*"/g, '')
-        .replace(/\sstroke="[^"]*"/g, '')
+      .replace(/\sstyle="[^"]*"/g, '')
+      .replace(/\sfill="[^"]*"/g, '')
+      .replace(/\sstroke="[^"]*"/g, '');
 
-    if (!attrs.includes('fill=')) attrs += ' fill="currentColor"'
-    if (!attrs.includes('stroke=')) attrs += ' stroke="currentColor"'
+    if (!attrs.includes('fill=')) attrs += ' fill="currentColor"';
+    if (!attrs.includes('stroke=')) attrs += ' stroke="currentColor"';
 
-    return `<svg${attrs}>`
-  })
+    return `<svg${attrs}>`;
+  });
 
-  return cleaned
+  return cleaned;
 }

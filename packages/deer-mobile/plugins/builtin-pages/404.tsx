@@ -10,11 +10,10 @@ export default defineComponent({
         <p class="text-gray-500 mt-4">页面未找到</p>
         <button
           class="mt-6 px-4 py-2 bg-purple-600 text-white rounded cursor-pointer hover:bg-purple-700"
-          onClick={() => router.push('/')}
-        >
+          onClick={() => router.push('/')}>
           返回首页
         </button>
       </div>
-    )
-  }
-})
+    );
+  },
+});

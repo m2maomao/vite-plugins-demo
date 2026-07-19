@@ -6,15 +6,11 @@ import type { FrameworkPlugin } from './config-plugin';
  */
 const piniaPlugin: FrameworkPlugin = {
   name: 'pinia',
-  onImport: () => [
-    `import { createPinia } from 'pinia'`,
-    `import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'`,
-  ].join('\n'),
-  onRuntime: () => [
-    `const pinia = createPinia()`,
-    `pinia.use(piniaPluginPersistedstate)`,
-    `app.use(pinia)`,
-  ].join('\n'),
+  onImport: () =>
+    [`import { createPinia } from 'pinia'`, `import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'`].join(
+      '\n',
+    ),
+  onRuntime: () => [`const pinia = createPinia()`, `pinia.use(piniaPluginPersistedstate)`, `app.use(pinia)`].join('\n'),
 };
 
 export default piniaPlugin;

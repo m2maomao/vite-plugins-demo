@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VanTabs from 'vant/es/tabs'
-import VanTab from 'vant/es/tab'
-import VanCell from 'vant/es/cell'
-import { useTranslate } from '@/locale/useTranslate'
+import { ref } from 'vue';
+import VanTabs from 'vant/es/tabs';
+import VanTab from 'vant/es/tab';
+import VanCell from 'vant/es/cell';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -20,11 +20,11 @@ const t = useTranslate({
     immediateScroll: 'Immediate Scroll',
     setScrollTarget: 'Set Scroll Target',
   },
-})
+});
 
-const activeTab = ref(0)
-const list = [...Array(50).keys()]
-const targetEl = ref<HTMLElement>()
+const activeTab = ref(0);
+const list = [...Array(50).keys()];
+const targetEl = ref<HTMLElement>();
 </script>
 
 <template>

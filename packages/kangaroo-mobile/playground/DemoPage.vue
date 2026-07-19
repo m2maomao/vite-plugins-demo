@@ -6,23 +6,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, defineAsyncComponent } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
 const componentName = computed(() => {
-  const key = route.path.replace('/', '')
-  if (!key) return ''
-  return 'Yhm-' + key
-    .split('-')
-    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('-')
-})
+  const key = route.path.replace('/', '');
+  if (!key) return '';
+  return (
+    'Yhm-' +
+    key
+      .split('-')
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join('-')
+  );
+});
 
 const demoComponent = computed(() => {
-  const key = route.path.replace('/', '')
+  const key = route.path.replace('/', '');
   // Map route names to demo component modules
   const modules: Record<string, any> = {
     icon: () => import('./components/icon/index.vue'),
@@ -60,12 +63,12 @@ const demoComponent = computed(() => {
     'image-preview': () => import('./components/image-preview/index.vue'),
     'back-top': () => import('./components/back-top/index.vue'),
     divider: () => import('./components/divider/index.vue'),
-  }
-  const loader = modules[key]
-  return loader ? defineAsyncComponent(loader) : null
-})
+  };
+  const loader = modules[key];
+  return loader ? defineAsyncComponent(loader) : null;
+});
 
 const goHome = () => {
-  router.push('/')
-}
+  router.push('/');
+};
 </script>

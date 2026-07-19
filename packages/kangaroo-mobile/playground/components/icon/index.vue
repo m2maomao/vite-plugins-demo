@@ -52,20 +52,24 @@
         <yhm-icon name="cart" size="24" />
       </div>
       <div class="demo-icon-desc">
-        <code>back</code> → <code>vant:arrow-left</code> &nbsp;
-        <code>search</code> → <code>vant:search</code> &nbsp;
-        <code>chevron-right</code> → <code>vant:arrow</code>
+        <code>back</code>
+        →
+        <code>vant:arrow-left</code>
+        &nbsp;
+        <code>search</code>
+        →
+        <code>vant:search</code>
+        &nbsp;
+        <code>chevron-right</code>
+        →
+        <code>vant:arrow</code>
       </div>
     </demo-block>
 
     <!-- Vant 兜底图标 -->
     <demo-block :title="t('vantFallback')">
       <div class="demo-icon-grid">
-        <div
-          v-for="icon in vantIcons"
-          :key="icon"
-          class="demo-icon-item"
-        >
+        <div v-for="icon in vantIcons" :key="icon" class="demo-icon-item">
           <yhm-icon :name="icon" size="28" />
           <span class="demo-icon-label">{{ icon }}</span>
         </div>
@@ -75,11 +79,7 @@
     <!-- Iconify 图标展示 -->
     <demo-block :title="t('iconifyIcons')">
       <div class="demo-icon-grid">
-        <div
-          v-for="icon in iconifyIcons"
-          :key="icon"
-          class="demo-icon-item"
-        >
+        <div v-for="icon in iconifyIcons" :key="icon" class="demo-icon-item">
           <yhm-icon :name="icon" size="28" />
           <span class="demo-icon-label">{{ icon.replace('mdi:', '') }}</span>
         </div>
@@ -92,16 +92,27 @@
         <yhm-icon name="deer" size="48" color="#1677ff" />
       </div>
       <div class="demo-icon-desc">
-        通过 <code>icon-map.ts</code> 映射业务名 <code>deer</code>，<br>
-        SVG 源文件位于 <code>src/assets/icons/mingcute--deer-line.svg</code>，<br>
-        <code>icon.vue</code> 组件通过 <code>unplugin-icons</code> 虚拟模块直接导入为 Vue 组件渲染。
+        通过
+        <code>icon-map.ts</code>
+        映射业务名
+        <code>deer</code>
+        ，
+        <br />
+        SVG 源文件位于
+        <code>src/assets/icons/mingcute--deer-line.svg</code>
+        ，
+        <br />
+        <code>icon.vue</code>
+        组件通过
+        <code>unplugin-icons</code>
+        虚拟模块直接导入为 Vue 组件渲染。
       </div>
     </demo-block>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useTranslate } from '@/locale/useTranslate'
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -131,7 +142,7 @@ const t = useTranslate({
     iconifyIcons: 'Iconify アイコン',
     customIcon: 'カスタムアイコン',
   },
-})
+});
 
 const vantIcons = [
   'home-o',
@@ -148,7 +159,7 @@ const vantIcons = [
   'success',
   'fail',
   'plus',
-]
+];
 
 const iconifyIcons = [
   'mdi:home',
@@ -181,7 +192,7 @@ const iconifyIcons = [
   'mdi:clock-outline',
   'mdi:cloud-upload',
   'mdi:refresh',
-]
+];
 </script>
 
 <style lang="less">

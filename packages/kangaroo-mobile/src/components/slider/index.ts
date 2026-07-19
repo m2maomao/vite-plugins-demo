@@ -1,4 +1,4 @@
-import YhmSlider from './Slider.vue'
+import YhmSlider from './Slider.vue';
 
-export { YhmSlider }
-export default YhmSlider
+export { YhmSlider };
+export default YhmSlider;

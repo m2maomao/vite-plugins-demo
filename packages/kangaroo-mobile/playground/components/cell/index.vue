@@ -16,12 +16,7 @@
 
     <demo-block :title="t('largeSize')">
       <yhm-cell :title="t('cell')" :value="t('content')" size="large" />
-      <yhm-cell
-        :title="t('cell')"
-        :value="t('content')"
-        size="large"
-        :label="t('desc')"
-      />
+      <yhm-cell :title="t('cell')" :value="t('content')" size="large" :label="t('desc')" />
     </demo-block>
 
     <demo-block :title="t('showIcon')">
@@ -31,20 +26,11 @@
     <demo-block :title="t('showArrow')">
       <yhm-cell :title="t('cell')" is-link />
       <yhm-cell :title="t('cell')" is-link :value="t('content')" />
-      <yhm-cell
-        :title="t('cell')"
-        is-link
-        arrow-direction="down"
-        :value="t('content')"
-      />
+      <yhm-cell :title="t('cell')" is-link arrow-direction="down" :value="t('content')" />
     </demo-block>
 
     <demo-block :title="t('router')">
-      <yhm-cell
-        :title="t('urlRoute')"
-        is-link
-        url="https://github.com/vant-ui/vant"
-      />
+      <yhm-cell :title="t('urlRoute')" is-link url="https://github.com/vant-ui/vant" />
       <yhm-cell :title="t('vueRoute')" is-link to="index" />
     </demo-block>
 
@@ -74,19 +60,14 @@
     </demo-block>
 
     <demo-block :title="t('verticalCenter')">
-      <yhm-cell
-        center
-        :title="t('cell')"
-        :value="t('content')"
-        :label="t('desc')"
-      />
+      <yhm-cell center :title="t('cell')" :value="t('content')" :label="t('desc')" />
     </demo-block>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Cell as VanCell } from 'vant'
-import { useTranslate } from '@/locale/useTranslate'
+import { Cell as VanCell } from 'vant';
+import { useTranslate } from '@/locale/useTranslate';
 
 const t = useTranslate({
   'zh-CN': {
@@ -143,7 +124,7 @@ const t = useTranslate({
     group: 'グループ',
     tag: 'タグ',
   },
-})
+});
 </script>
 
 <style lang="less">

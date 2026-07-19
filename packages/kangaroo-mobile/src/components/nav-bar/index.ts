@@ -1,4 +1,4 @@
-import YhmNavBar from './NavBar.vue'
+import YhmNavBar from './NavBar.vue';
 
-export { YhmNavBar }
-export default YhmNavBar
+export { YhmNavBar };
+export default YhmNavBar;
