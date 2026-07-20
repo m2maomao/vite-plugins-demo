@@ -7,7 +7,7 @@ app.use(express.json()); // 解析JSON body
 // 模拟接口：返回动态路由表
 app.get('/api/routes', (req, res) => {
   res.json({
-    code: 0,
+    status: 1,
     data: [
       {
         path: '/actiity',
@@ -26,7 +26,7 @@ app.get('/api/routes', (req, res) => {
 app.get('/api/user/:id', (req, res) => {
   const { id } = req.params;
   res.json({
-    code: 0,
+    status: 1,
     data: {
       id: Number(id),
       name: '张三',
@@ -39,7 +39,7 @@ app.get('/api/user/:id', (req, res) => {
 app.post('/api/user/login', (req, res) => {
   const { username } = req.body;
   res.json({
-    code: 0,
+    status: 1,
     data: {
       token: 'mock-token-' + Date.now(),
       user: { id: 1, name: username || '用户' },

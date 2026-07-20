@@ -4,13 +4,15 @@ declare namespace JSX {
   }
 }
 
-// SM4 加解密包（私有仓库，可选依赖）
-declare module '@business/plugin-sm4' {
-  interface SM4UtilInstance {
-    secretKey: string;
-    encryptData_ECB(data: string): string;
-    decryptData_ECB(data: string): string;
+// sm-crypto — 国密 SM4 加解密（公有包，可选依赖）
+declare module 'sm-crypto' {
+  interface SM4Config {
+    mode?: 'ecb' | 'cbc';
+    iv?: string;
+    padding?: 'pkcs7' | 'none';
   }
-  const SM4Util: new () => SM4UtilInstance;
-  export default SM4Util;
+  export const sm4: {
+    encrypt(data: string | Buffer, key: string, config?: SM4Config): string;
+    decrypt(data: string | Buffer, key: string, config?: SM4Config): string;
+  };
 }

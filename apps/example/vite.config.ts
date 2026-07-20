@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
@@ -35,6 +36,7 @@ const apiPluginRuntime = {
 export default defineConfig({
   plugins: [
     tailwindcss(),
+    Vue(),
     VueJsx(),
     scanPagesPlugin({
       pluginRoutes: [

@@ -45,10 +45,6 @@ export interface HttpClientOptions {
   getToken?: () => string | null;
   /** 自定义设置 Token 的函数，默认写入 localStorage */
   setToken?: (token: string) => void;
-  /** 是否启用 SM4 请求/响应加解密，默认 false */
-  enableSM4?: boolean;
-  /** SM4 密钥，启用加解密时必须提供 */
-  sm4Key?: string;
 }
 
 // ============================================
@@ -97,8 +93,6 @@ class HttpClient {
       setToken:
         options.setToken ??
         ((token: string) => localStorage.setItem(this.options?.tokenKey ?? DEFAULT_TOKEN_KEY, token)),
-      enableSM4: options.enableSM4 ?? false,
-      sm4Key: options.sm4Key ?? '',
     };
 
     this.instance = axios.create({
@@ -146,7 +140,7 @@ class HttpClient {
         }
 
         // 4. SM4 加密请求体（异步懒加载）
-        // 注意：启用 SM4 时请确保已安装 @business/plugin-sm4
+        // 注意：启用 SM4 时需要在 appConfig 中配置 sm4Key，并安装 sm-crypto
         if (config.data && this.sm4EncryptAsync) {
           // 异步执行，不影响请求流程
           this.sm4EncryptAsync(config.data).then((encrypted) => {
@@ -272,31 +266,29 @@ class HttpClient {
   }
 
   // ============================================
-  // SM4 加解密
+  // SM4 加解密（使用 sm-crypto，通过 appConfig 配置密钥）
   // ============================================
 
   private async sm4EncryptAsync(data: unknown): Promise<unknown> {
-    if (!this.options.enableSM4 || !this.options.sm4Key || !data) return data;
+    const key = appConfig.sm4Key;
+    if (!key || !data) return data;
     try {
-      const { default: SM4Util } = await import('@business/plugin-sm4');
-      const sm4 = new SM4Util();
-      sm4.secretKey = this.options.sm4Key;
+      const { sm4 } = await import('sm-crypto');
       const jsonStr = typeof data === 'string' ? data : JSON.stringify(data);
-      return { data: sm4.encryptData_ECB(jsonStr) };
+      return { data: sm4.encrypt(jsonStr, key) };
     } catch {
       return data;
     }
   }
 
   private async sm4DecryptAsync(data: unknown): Promise<unknown> {
-    if (!this.options.enableSM4 || !this.options.sm4Key || !data) return data;
+    const key = appConfig.sm4Key;
+    if (!key || !data) return data;
     try {
-      const { default: SM4Util } = await import('@business/plugin-sm4');
-      const sm4 = new SM4Util();
-      sm4.secretKey = this.options.sm4Key;
+      const { sm4 } = await import('sm-crypto');
       const encrypted = (data as Record<string, unknown>)?.data as string;
       if (!encrypted) return data;
-      const decrypted = sm4.decryptData_ECB(encrypted);
+      const decrypted = sm4.decrypt(encrypted, key);
       return JSON.parse(decrypted);
     } catch {
       return data;

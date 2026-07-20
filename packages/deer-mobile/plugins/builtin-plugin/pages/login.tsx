@@ -20,7 +20,7 @@ export default defineComponent({
           username: username.value,
           password: password.value,
         });
-        if (res.code === 0) {
+        if (res?.data?.token) {
           userStore.setToken(res.data.token);
           router.push('/');
         }

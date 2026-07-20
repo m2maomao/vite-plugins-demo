@@ -16,6 +16,8 @@ interface AppConfig {
   request: {
     baseURL: string;
   };
+  /** SM4 加密密钥（hex 格式，32 位十六进制字符串），不配置则不启用加解密 */
+  sm4Key?: string;
 }
 
 // 2、默认配置

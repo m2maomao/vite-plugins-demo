@@ -33,6 +33,12 @@ declare module 'virtual:app-config' {
     request: {
       baseURL: string;
     };
+    /**
+     * SM4 加密密钥（hex 格式，32 位十六进制字符串）
+     * 不配置则不启用请求/响应加解密
+     * PC 端可使用同一密钥配合 sm-crypto 做加解密
+     */
+    sm4Key?: string;
   };
 }
 
