@@ -7,7 +7,7 @@ function getFrameworkPlugins() {
   return plugins;
 }
 
-// plugins/config-plugin.ts
+// plugins/config-plugin/index.ts
 var DEFAULT_CONFIG = {
   title: "My App",
   description: "A Vite-powered app",
@@ -53,7 +53,7 @@ function configPlugin(options = {}, frameworkPlugins = []) {
   };
 }
 
-// plugins/setup-plugin.ts
+// plugins/setup-plugin/index.ts
 var VIRTUAL_MODULE_ID2 = "virtual:setup-app";
 var RESOLVED_VIRTUAL_MODULE_ID2 = "\0" + VIRTUAL_MODULE_ID2;
 function setupPlugin() {
@@ -137,7 +137,7 @@ ${code}`,
   };
 }
 
-// plugins/scan-pages-plugin.ts
+// plugins/scan-pages-plugin/index.ts
 import fg from "fast-glob";
 var VIRTUAL_MODULE_ID3 = "virtual:routes";
 var RESOLVED_ID = `\0` + VIRTUAL_MODULE_ID3;
@@ -187,7 +187,7 @@ function scanPagesPlugin(options = {}) {
   };
 }
 
-// plugins/api-plugin.ts
+// plugins/api-plugin/index.ts
 import fg2 from "fast-glob";
 var VIRTUAL_MODULE_ID4 = "virtual:api";
 var RESOLVED_VIRTUAL_MODULE_ID3 = "\0" + VIRTUAL_MODULE_ID4;
@@ -232,7 +232,7 @@ function apiPlugin() {
   };
 }
 
-// plugins/builtin-plugin.ts
+// plugins/builtin-plugin/index.ts
 import { transform } from "esbuild";
 import fs from "fs";
 import path from "path";
@@ -257,7 +257,7 @@ function builtinPlugin() {
       for (const [name, virtualId] of Object.entries(BUILTIN_PAGES)) {
         if (rawId === virtualId) {
           const currentDir = path.dirname(fileURLToPath(import.meta.url));
-          const filePath = path.resolve(currentDir, `plugins/builtin-pages/${name}.tsx`);
+          const filePath = path.resolve(currentDir, `plugins/builtin-plugin/pages/${name}.tsx`);
           const code = fs.readFileSync(filePath, "utf-8");
           const result = await transform(code, {
             loader: "tsx",
@@ -271,7 +271,7 @@ function builtinPlugin() {
   };
 }
 
-// plugins/auth-plugin.ts
+// plugins/auth-plugin/index.ts
 function authPlugin() {
   return {
     name: "auth-plugin",
@@ -303,7 +303,7 @@ import { useUserStore } from 'deer-mobile/stores';`
   };
 }
 
-// plugins/pinia-plugin.ts
+// plugins/pinia-plugin/index.ts
 var piniaPlugin = {
   name: "pinia",
   onImport: () => [`import { createPinia } from 'pinia'`, `import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'`].join(
