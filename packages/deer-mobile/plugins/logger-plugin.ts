@@ -23,11 +23,7 @@ export default function loggerPlugin(options: LoggerPluginOptions = {}): Plugin 
       console.log(`${prefix} 命令模式: ${config.command}`);
     },
 
-    transform(code, id) {
-      if (showFileList && id.includes('/src/')) {
-        console.log(`${prefix} 文件: ${id.replace(process.cwd(), '')}`);
-      }
-    },
+    transform(code, id) {},
     buildEnd() {
       console.log(`${prefix} 构建完成！共处理了 ${config ? '若干' : '未知'}个文件`);
     },

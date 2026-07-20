@@ -71,11 +71,15 @@ function setupPlugin() {
         const moduleImports = frameworkPlugins.filter((p) => p.onImport).map((p) => p.onImport()).join("\n");
         const runtimeCodes = frameworkPlugins.filter((p) => p.onRuntime).map((p) => p.onRuntime()).join("\n");
         return `
-          ${moduleImports} // \u653E\u6A21\u5757\u9876\u90E8
+          ${moduleImports} // 放模块顶部
           import { createApp, h, ref } from 'vue';
           import { createRouter, createWebHistory, RouterView, useRouter } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
           import Layout from 'deer-mobile/layouts';
+          import { setupFlexible } from 'deer-mobile/utils';
+
+          // 移动端 rem 适配（按设计稿 375px 等比缩放）
+          setupFlexible();
 
           async function setupApp() {
             let serverRoutes = [];
@@ -84,15 +88,15 @@ function setupPlugin() {
               const result = await response.json();
               serverRoutes = result.data || [];
             } catch (e) {
-              console.warn('\u26A0\uFE0F \u670D\u52A1\u7AEF\u672A\u542F\u52A8\uFF0C\u8DF3\u8FC7\u8FDC\u7A0B\u8DEF\u7531');
+              console.warn('⚠️ 服务端未启动，跳过远程路由');
             }
             
             const routeMap = new Map();
             staticRoutes.forEach(r => routeMap.set(r.path, {...r, source: 'static'}));
             serverRoutes.forEach(r => routeMap.set(r.path, {...r, source: 'server'}));
-            // console.log('\u{1F4C3} \u9759\u6001\u8DEF\u7531\uFF1A', staticRoutes);
-            // console.log('\u{1F310} \u670D\u52A1\u5668\u8DEF\u7531\uFF1A', serverRoutes);
-            // console.log('\u{1F4CD} \u5408\u5E76\u540E\u8DEF\u7531\uFF1A', Array.from(routeMap.values()));
+            // console.log('📃 静态路由：', staticRoutes);
+            // console.log('🌐 服务器路由：', serverRoutes);
+            // console.log('📍 合并后路由：', Array.from(routeMap.values()));
             const router = createRouter({
               history: createWebHistory(),
               routes: Array.from(routeMap.values()),
@@ -108,7 +112,7 @@ function setupPlugin() {
             }
             const app = createApp(App);
 
-            // \u6267\u884C\u63D2\u4EF6\u6CE8\u5165\u7684\u8FD0\u884C\u65F6\u4EE3\u7801(\u5148\u6CE8\u518C $api)
+            // 执行插件注入的运行时代码(先注册 $api)
             ${runtimeCodes}
 
             app.use(router);
@@ -281,7 +285,7 @@ import { useUserStore } from 'deer-mobile/stores';`
           ).replace(
             "app.use(router);",
             `
-              // \u8DEF\u7531\u5B88\u536B\uFF1A\u672A\u767B\u5F55\u8DF3\u8F6C\u767B\u5F55\u9875
+              // 路由守卫：未登录跳转登录页
               router.beforeEach((to) => {
                 const userStore = useUserStore()
                 const noAuthPages = ['/login', '/404']
@@ -302,15 +306,10 @@ import { useUserStore } from 'deer-mobile/stores';`
 // plugins/pinia-plugin.ts
 var piniaPlugin = {
   name: "pinia",
-  onImport: () => [
-    `import { createPinia } from 'pinia'`,
-    `import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'`
-  ].join("\n"),
-  onRuntime: () => [
-    `const pinia = createPinia()`,
-    `pinia.use(piniaPluginPersistedstate)`,
-    `app.use(pinia)`
-  ].join("\n")
+  onImport: () => [`import { createPinia } from 'pinia'`, `import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'`].join(
+    "\n"
+  ),
+  onRuntime: () => [`const pinia = createPinia()`, `pinia.use(piniaPluginPersistedstate)`, `app.use(pinia)`].join("\n")
 };
 var pinia_plugin_default = piniaPlugin;
 export {

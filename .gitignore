@@ -3,6 +3,8 @@ test-project
 .DS_Store
 dist
 .turbo
+package-lock.json
+yarn.lock
 
 # build artifacts
 packages/deer-mobile/index.js

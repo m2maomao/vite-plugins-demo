@@ -19,15 +19,9 @@ export default function loggerPlugin(options: LoggerPluginOptions = {}): Plugin 
     // configResolved在 Vite 配置完全解析后调用
     configResolved(resolvedConfig) {
       config = resolvedConfig;
-      console.log(`${prefix} 项目根目录: ${config.root}`);
-      console.log(`${prefix} 命令模式: ${config.command}`);
     },
 
-    transform(code, id) {
-      if (showFileList && id.includes('/src/')) {
-        console.log(`${prefix} 文件: ${id.replace(process.cwd(), '')}`);
-      }
-    },
+    transform(code, id) {},
     buildEnd() {
       console.log(`${prefix} 构建完成！共处理了 ${config ? '若干' : '未知'}个文件`);
     },

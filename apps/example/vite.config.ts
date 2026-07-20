@@ -21,7 +21,7 @@ const pageStatsPlugin = {
   name: 'page-stats',
   onRuntime: () => `
     router.afterEach((to) => {
-      console.log('📊 访问：', to.path)
+      // console.log('📊 访问：', to.path)
     })
   `,
 };
@@ -90,6 +90,7 @@ export default defineConfig({
     },
   },
   server: {
+    open: true,
     proxy: {
       '/api': 'http://localhost:3001',
     },

@@ -37,6 +37,10 @@ export default function setupPlugin(): Plugin {
           import { createRouter, createWebHistory, RouterView, useRouter } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
           import Layout from 'deer-mobile/layouts';
+          import { setupFlexible } from 'deer-mobile/utils';
+
+          // 移动端 rem 适配（按设计稿 375px 等比缩放）
+          setupFlexible();
 
           async function setupApp() {
             let serverRoutes = [];

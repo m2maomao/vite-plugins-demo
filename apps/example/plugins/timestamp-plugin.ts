@@ -9,10 +9,8 @@ export default function timestampPlugin(): Plugin {
       // 只处理 src 目录下的 .ts 文件
       if (id.includes('/src') && (id.endsWith('.ts') || id.endsWith('.js'))) {
         const now = new Date().toLocaleString();
-        console.log(`处理文件: ${id.replace(process.cwd(), '')}`);
 
         return {
-          code: `console.log('📅 这个文件构建于: ${now}');\n${code}`,
           map: null, // 不生成sourcemap
         };
       }
