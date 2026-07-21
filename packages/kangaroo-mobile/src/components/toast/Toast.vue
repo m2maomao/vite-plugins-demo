@@ -1,5 +1,5 @@
 <template>
-  <VanToast v-bind="toastProps as any" :show="show" @update:show="$emit('update:show', $event)">
+  <VanToast v-bind="toastProps" :show="show" @update:show="$emit('update:show', $event)">
     <template v-if="$slots['message']" #message>
       <slot name="message" />
     </template>
@@ -82,6 +82,6 @@ const toastProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

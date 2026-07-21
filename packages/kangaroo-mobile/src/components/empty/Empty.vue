@@ -1,5 +1,5 @@
 <template>
-  <VanEmpty v-if="$slots.default" v-bind="emptyProps as any">
+  <VanEmpty v-if="$slots.default" v-bind="emptyProps">
     <slot />
     <template v-if="$slots.image" #image>
       <slot name="image" />
@@ -8,7 +8,7 @@
       <slot name="description" />
     </template>
   </VanEmpty>
-  <VanEmpty v-else v-bind="emptyProps as any">
+  <VanEmpty v-else v-bind="emptyProps">
     <template v-if="$slots.image" #image>
       <slot name="image" />
     </template>
@@ -41,6 +41,6 @@ const emptyProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

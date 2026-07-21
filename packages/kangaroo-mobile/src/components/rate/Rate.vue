@@ -1,6 +1,6 @@
 <template>
   <VanRate
-    v-bind="rateProps as any"
+    v-bind="rateProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)" />
@@ -71,6 +71,6 @@ const rateProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

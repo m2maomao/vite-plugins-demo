@@ -1,6 +1,6 @@
 <template>
   <VanPicker
-    v-bind="pickerProps as any"
+    v-bind="pickerProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @confirm="$emit('confirm', $event)"
@@ -95,6 +95,6 @@ const pickerProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

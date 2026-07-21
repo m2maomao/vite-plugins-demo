@@ -1,7 +1,7 @@
 <template>
   <VanCheckbox
     ref="vanCheckboxRef"
-    v-bind="checkboxProps as any"
+    v-bind="checkboxProps"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)">
     <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
@@ -71,6 +71,6 @@ const checkboxProps = computed(() => {
   if (props.modelValue !== undefined) {
     result['modelValue'] = props.modelValue;
   }
-  return result;
+  return result as any;
 });
 </script>

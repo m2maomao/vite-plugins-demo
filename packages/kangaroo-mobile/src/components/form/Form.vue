@@ -1,5 +1,5 @@
 <template>
-  <VanForm v-bind="formProps as any" @submit="$emit('submit', $event)" @failed="$emit('failed', $event)">
+  <VanForm v-bind="formProps" @submit="$emit('submit', $event)" @failed="$emit('failed', $event)">
     <slot />
   </VanForm>
 </template>
@@ -69,6 +69,6 @@ const formProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

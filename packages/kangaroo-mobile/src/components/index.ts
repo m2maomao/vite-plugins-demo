@@ -24,8 +24,16 @@ export { YhmTimePicker } from './time-picker';
 export { YhmArea } from './area';
 export { YhmCalendar } from './calendar';
 export { YhmSearch } from './search';
-export { YhmToast } from './toast';
-export { YhmDialog } from './dialog';
+export {
+  YhmToast,
+  showToast,
+  closeToast,
+  showLoadingToast,
+  showSuccessToast,
+  showFailToast,
+  allowMultipleToast,
+} from './toast';
+export { YhmDialog, showDialog, closeDialog, showConfirmDialog } from './dialog';
 export { YhmActionSheet } from './action-sheet';
 export { YhmSteps } from './steps';
 export { YhmStep } from './step';

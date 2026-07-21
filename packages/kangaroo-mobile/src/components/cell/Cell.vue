@@ -1,5 +1,5 @@
 <template>
-  <VanCell v-bind="vanCellProps as any" :class="['yhm-cell', customClass]">
+  <VanCell v-bind="vanCellProps" :class="['yhm-cell', customClass]">
     <template #right-icon>
       <span v-if="isLink || hasRightIconSlot" class="van-cell__right-icon yhm-cell__right-wrapper">
         <slot name="right-icon">
@@ -80,7 +80,7 @@ const vanCellProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>
 

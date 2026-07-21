@@ -1,7 +1,7 @@
 <template>
   <VanBadge
     v-if="$slots.default"
-    v-bind="badgeProps as any"
+    v-bind="badgeProps"
     :dot="dot"
     :content="content"
     :max="max"
@@ -17,7 +17,7 @@
   </VanBadge>
   <VanBadge
     v-else
-    v-bind="badgeProps as any"
+    v-bind="badgeProps"
     :dot="dot"
     :content="content"
     :max="max"
@@ -68,6 +68,6 @@ const badgeProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

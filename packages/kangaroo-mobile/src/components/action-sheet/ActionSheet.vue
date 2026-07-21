@@ -1,6 +1,6 @@
 <template>
   <VanActionSheet
-    v-bind="actionSheetProps as any"
+    v-bind="actionSheetProps"
     :show="show"
     @update:show="$emit('update:show', $event)"
     @select="$emit('select', $event)"
@@ -88,6 +88,6 @@ const actionSheetProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

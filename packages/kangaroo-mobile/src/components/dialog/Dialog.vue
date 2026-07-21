@@ -1,6 +1,6 @@
 <template>
   <VanDialog
-    v-bind="dialogProps as any"
+    v-bind="dialogProps"
     :show="show"
     @update:show="$emit('update:show', $event)"
     @confirm="$emit('confirm')"
@@ -112,6 +112,6 @@ const dialogProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

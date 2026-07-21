@@ -1,7 +1,7 @@
 <template>
   <VanLoading
     v-if="text || $slots.icon"
-    v-bind="loadingProps as any"
+    v-bind="loadingProps"
     :size="size"
     :type="type"
     :color="color"
@@ -15,7 +15,7 @@
   </VanLoading>
   <VanLoading
     v-else
-    v-bind="loadingProps as any"
+    v-bind="loadingProps"
     :size="size"
     :type="type"
     :color="color"
@@ -57,6 +57,6 @@ const loadingProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

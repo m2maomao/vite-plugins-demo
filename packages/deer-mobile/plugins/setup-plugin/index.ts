@@ -33,6 +33,7 @@ export default function setupPlugin(): Plugin {
 
         return `
           ${moduleImports} // 放模块顶部
+          import 'deer-mobile/style.css';
           import { createApp, h, ref } from 'vue';
           import { createRouter, createWebHistory, RouterView, useRouter } from 'vue-router';
           import { routes as staticRoutes } from 'virtual:routes';
@@ -46,10 +47,17 @@ export default function setupPlugin(): Plugin {
             let serverRoutes = [];
             try {
               const response = await fetch('/api/routes');
+              if (!response.ok) throw new Error('HTTP ' + response.status);
               const result = await response.json();
               serverRoutes = result.data || [];
             } catch (e) {
               console.warn('⚠️ 服务端未启动，跳过远程路由');
+              try {
+                const { showToast } = await import('kangaroo-mobile');
+                showToast('无法连接后端服务，部分功能不可用');
+              } catch (toastErr) {
+                console.warn('[Toast] 显示失败:', toastErr);
+              }
             }
             
             const routeMap = new Map();

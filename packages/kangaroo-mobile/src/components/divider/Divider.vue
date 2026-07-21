@@ -1,6 +1,6 @@
 <template>
   <VanDivider
-    v-bind="dividerProps as any"
+    v-bind="dividerProps"
     :dashed="dashed"
     :hairline="hairline"
     :vertical="vertical"
@@ -41,6 +41,6 @@ const dividerProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

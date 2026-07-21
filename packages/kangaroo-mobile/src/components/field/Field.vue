@@ -1,6 +1,6 @@
 <template>
   <VanField
-    v-bind="vanFieldProps as any"
+    v-bind="vanFieldProps"
     :model-value="modelValue"
     :class="['yhm-field', customClass]"
     @update:model-value="$emit('update:modelValue', $event)">
@@ -153,7 +153,7 @@ const vanFieldProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>
 

@@ -12,3 +12,69 @@
  *
  * 通过 npx create-deer-mobile 创建的项目已自动包含此配置，无需额外操作。
  */
+
+/* Vant Toast — 基础样式（不依赖 Vant CSS，避免全局污染） */
+.van-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  max-width: 80%;
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+/* Vant Dialog — 基础样式 */
+.van-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  width: 280px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.van-dialog__content {
+  padding: 24px 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.van-dialog__footer {
+  display: flex;
+  border-top: 1px solid #eee;
+}
+
+.van-dialog__confirm {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: #1989fa;
+  cursor: pointer;
+}
+
+.van-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9997;
+}

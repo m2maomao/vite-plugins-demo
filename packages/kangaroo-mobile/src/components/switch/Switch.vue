@@ -1,6 +1,6 @@
 <template>
   <VanSwitch
-    v-bind="switchProps as any"
+    v-bind="switchProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)">
@@ -58,6 +58,6 @@ const switchProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

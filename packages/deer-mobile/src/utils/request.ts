@@ -236,16 +236,40 @@ class HttpClient {
   }
 
   // ============================================
-  // 默认处理器
+  // 默认处理器（使用 kangaroo-mobile 的 Toast/Dialog）
   // ============================================
 
+  /** Toast 节流：防止短时间大量弹窗 */
+  private lastToastTime = 0;
+
+  private async showToast(message: string): Promise<void> {
+    const now = Date.now();
+    if (now - this.lastToastTime < 3000) return;
+    this.lastToastTime = now;
+    try {
+      const mod: any = await import('kangaroo-mobile');
+      mod.showToast?.(message);
+    } catch {
+      console.warn('[HttpClient]', message);
+    }
+  }
+
+  private async showDialog(message: string): Promise<void> {
+    try {
+      const mod: any = await import('kangaroo-mobile');
+      await mod.showDialog?.({ message, showCancelButton: false });
+    } catch {
+      console.warn('[HttpClient]', message);
+    }
+  }
+
   private defaultErrorHandler(message: string, _status?: number) {
-    console.error(`[HttpClient] ${message}`);
+    this.showToast(message);
   }
 
   private defaultLoginTimeoutHandler(_status: number) {
     this.options.setToken('');
-    console.warn('[HttpClient] 登录超时，请重新登录');
+    this.showDialog('登录已过期，请重新登录');
   }
 
   private defaultTokenRefreshHandler(newToken: string) {
@@ -304,42 +328,40 @@ class HttpClient {
     return this.instance;
   }
 
-  /** 更新配置（运行时可用） */
-  setOptions(options: Partial<HttpClientOptions>) {
-    Object.assign(this.options, options);
+  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.get(url, config);
   }
 
-  // ---- HTTP 方法 ----
-
-  get<T>(url: string, params?: Record<string, unknown>, config?: AxiosRequestConfig) {
-    return this.instance.get<T>(url, { params, ...config });
+  post<T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.post(url, data, config);
   }
 
-  post<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return this.instance.post<T>(url, data, config);
+  put<T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.put(url, data, config);
   }
 
-  put<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return this.instance.put<T>(url, data, config);
+  delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.delete(url, config);
   }
 
-  delete<T>(url: string, params?: unknown, config?: AxiosRequestConfig) {
-    return this.instance.delete<T>(url, { params, ...config });
-  }
-
-  /** 表单提交（Content-Type: application/x-www-form-urlencoded） */
-  formData<T>(url: string, data?: Record<string, unknown>) {
-    return this.instance.post<T>(url, data, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  formData<T = any>(url: string, data?: Record<string, unknown>) {
+    const formData = new FormData();
+    if (data) {
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value as string | Blob);
+      });
+    }
+    return this.instance.post<T>(url, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
   }
 }
 
 // ============================================
-// 导出
+// 单例导出
 // ============================================
 
-/** 默认实例（使用 appConfig 配置） */
-export const http = new HttpClient();
+const http = new HttpClient();
 
+export { http, HttpClient };
 export default HttpClient;

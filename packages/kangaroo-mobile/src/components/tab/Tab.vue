@@ -1,6 +1,6 @@
 <template>
   <VanTab
-    v-bind="tabProps as any"
+    v-bind="tabProps"
     :title="title"
     :name="name"
     :disabled="disabled"
@@ -48,6 +48,6 @@ const tabProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

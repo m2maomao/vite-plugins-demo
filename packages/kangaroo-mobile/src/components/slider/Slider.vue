@@ -1,6 +1,6 @@
 <template>
   <VanSlider
-    v-bind="sliderProps as any"
+    v-bind="sliderProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)"
@@ -72,6 +72,6 @@ const sliderProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

@@ -36,10 +36,11 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', 'vant', '@iconify/vue', '@vant/area-data'],
       output: {
         globals: {
           vue: 'Vue',
+          vant: 'vant',
         },
       },
     },

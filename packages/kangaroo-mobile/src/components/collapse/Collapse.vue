@@ -1,7 +1,7 @@
 <template>
   <VanCollapse
     ref="vanCollapseRef"
-    v-bind="collapseProps as any"
+    v-bind="collapseProps"
     :model-value="modelValue"
     :accordion="accordion"
     :border="border"
@@ -54,6 +54,6 @@ const collapseProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

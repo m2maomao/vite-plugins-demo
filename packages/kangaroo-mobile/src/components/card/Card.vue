@@ -1,6 +1,6 @@
 <template>
   <VanCard
-    v-bind="cardProps as any"
+    v-bind="cardProps"
     :num="num"
     :price="price"
     :desc="desc"
@@ -103,6 +103,6 @@ const cardProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

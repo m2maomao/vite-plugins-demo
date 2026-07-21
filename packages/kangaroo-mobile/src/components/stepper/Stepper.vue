@@ -1,6 +1,6 @@
 <template>
   <VanStepper
-    v-bind="stepperProps as any"
+    v-bind="stepperProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)"
@@ -96,6 +96,6 @@ const stepperProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

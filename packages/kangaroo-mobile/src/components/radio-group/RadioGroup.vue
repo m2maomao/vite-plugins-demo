@@ -1,8 +1,8 @@
 <template>
   <VanRadioGroup
-    v-bind="groupProps as any"
-    :class="['yhm-radio-group', $attrs.class as string]"
-    :style="$attrs.style as any"
+    v-bind="groupProps"
+    :class="mergedClass"
+    :style="mergedStyle"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)">
@@ -40,6 +40,9 @@ defineEmits<{
   (e: 'change', value: unknown): void;
 }>();
 
+const mergedClass = computed(() => ['yhm-radio-group', $attrs.class as string]);
+const mergedStyle = computed(() => $attrs.style as any);
+
 const groupProps = computed(() => {
   const result: Record<string, unknown> = {};
   const keys: (keyof typeof props)[] = ['disabled', 'iconSize', 'direction', 'checkedColor', 'shape'];
@@ -49,6 +52,6 @@ const groupProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

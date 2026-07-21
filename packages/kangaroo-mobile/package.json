@@ -4,8 +4,15 @@
   "description": "A Vue 3 mobile framework inspired by Umi",
   "type": "module",
   "main": "dist/kangaroo-mobile.cjs.js",
-  "module": "dist/kangaroo-mobile.es.js",
+  "module": "dist/kangaroo-mobile.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/kangaroo-mobile.js"
+    },
+    "./style.css": "./dist/kangaroo-mobile.css"
+  },
   "files": [
     "dist",
     "src/theme",
@@ -40,6 +47,8 @@
     "svgo": "^4.0.1",
     "unplugin-icons": "^23.0.1",
     "unplugin-vue": "^7.2.0",
-    "vite": "^8.1.0"
+    "vite": "^8.1.0",
+    "vue-router": "^4.0.0",
+    "pinia": "^3.0.0"
   }
 }

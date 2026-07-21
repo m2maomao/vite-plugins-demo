@@ -1,6 +1,6 @@
 <template>
   <VanCollapseItem
-    v-bind="collapseItemProps as any"
+    v-bind="collapseItemProps"
     :name="name"
     :title="title"
     :value="value"
@@ -76,6 +76,6 @@ const collapseItemProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

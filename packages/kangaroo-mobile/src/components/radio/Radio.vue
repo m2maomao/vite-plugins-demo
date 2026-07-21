@@ -1,5 +1,5 @@
 <template>
-  <VanRadio v-bind="mergedProps as any" @update:model-value="$emit('update:modelValue', $event)">
+  <VanRadio v-bind="mergedProps" @update:model-value="$emit('update:modelValue', $event)">
     <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
       <slot :name="slotName" v-bind="slotProps" />
     </template>
@@ -54,6 +54,6 @@ const mergedProps = computed(() => {
   if (props.modelValue !== undefined) {
     result['modelValue'] = props.modelValue;
   }
-  return result;
+  return result as any;
 });
 </script>

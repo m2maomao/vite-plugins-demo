@@ -1,6 +1,6 @@
 <template>
   <VanSearch
-    v-bind="searchProps as any"
+    v-bind="searchProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @search="$emit('search', $event)"
@@ -116,6 +116,6 @@ const searchProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

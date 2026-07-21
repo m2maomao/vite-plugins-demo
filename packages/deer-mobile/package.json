@@ -8,12 +8,30 @@
     "publish:dev": "pnpm build && npm version patch && npm publish --registry http://localhost:4873"
   },
   "exports": {
-    ".": "./index.js",
-    "./composables": "./src/composables/useApi.ts",
-    "./utils": "./src/utils/index.ts",
-    "./layouts": "./src/layouts/index.tsx",
-    "./stores": "./src/stores/index.ts",
-    "./style.css": "./src/style.css"
+    ".": {
+      "development": "./src/index.ts",
+      "default": "./index.js"
+    },
+    "./composables": {
+      "development": "./src/composables/useApi.ts",
+      "default": "./dist/composables/useApi.js"
+    },
+    "./utils": {
+      "development": "./src/utils/index.ts",
+      "default": "./dist/utils/index.js"
+    },
+    "./layouts": {
+      "development": "./src/layouts/index.tsx",
+      "default": "./dist/layouts/index.js"
+    },
+    "./stores": {
+      "development": "./src/stores/index.ts",
+      "default": "./dist/stores/index.js"
+    },
+    "./style.css": {
+      "development": "./src/style.css",
+      "default": "./dist/style.css"
+    }
   },
   "dependencies": {
     "fast-glob": "^3.3.3",

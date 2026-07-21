@@ -1,6 +1,6 @@
 <template>
   <VanUploader
-    v-bind="uploaderProps as any"
+    v-bind="uploaderProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @change="$emit('change', $event)"
@@ -102,6 +102,6 @@ const uploaderProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

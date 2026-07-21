@@ -1,6 +1,6 @@
 <template>
   <VanImage
-    v-bind="imageProps as any"
+    v-bind="imageProps"
     :class="['yhm-image', customClass]"
     @click="$emit('click', $event)"
     @load="$emit('load', $event)"
@@ -89,7 +89,7 @@ const imageProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <VanImagePreview
-    v-bind="imagePreviewProps as any"
+    v-bind="imagePreviewProps"
     :show="show"
     :images="images"
     :loop="loop"
@@ -131,6 +131,6 @@ const imagePreviewProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

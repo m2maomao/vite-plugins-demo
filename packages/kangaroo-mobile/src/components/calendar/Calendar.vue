@@ -1,6 +1,6 @@
 <template>
   <VanCalendar
-    v-bind="calendarProps as any"
+    v-bind="calendarProps"
     :show="show"
     @update:show="$emit('update:show', $event)"
     @confirm="$emit('confirm', $event)"
@@ -140,6 +140,6 @@ const calendarProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

@@ -1,6 +1,6 @@
 <template>
   <VanPopup
-    v-bind="popupProps as any"
+    v-bind="popupProps"
     :show="show"
     @update:show="$emit('update:show', $event)"
     @open="$emit('open')"
@@ -95,6 +95,6 @@ const popupProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

@@ -1,6 +1,6 @@
 <template>
   <VanBackTop
-    v-bind="backTopProps as any"
+    v-bind="backTopProps"
     :right="right"
     :bottom="bottom"
     :z-index="zIndex"
@@ -51,6 +51,6 @@ const backTopProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

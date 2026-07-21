@@ -1,5 +1,5 @@
 <template>
-  <VanSteps v-bind="stepsProps as any" :active="active" @click-step="$emit('clickStep', $event)">
+  <VanSteps v-bind="stepsProps" :active="active" @click-step="$emit('clickStep', $event)">
     <slot />
   </VanSteps>
 </template>
@@ -51,6 +51,6 @@ const stepsProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

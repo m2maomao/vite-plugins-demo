@@ -1,6 +1,6 @@
 <template>
   <VanTabs
-    v-bind="tabsProps as any"
+    v-bind="tabsProps"
     :active="active"
     @update:active="$emit('update:active', $event)"
     @change="$emit('change', $event)"
@@ -99,6 +99,6 @@ const tabsProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

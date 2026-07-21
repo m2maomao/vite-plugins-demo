@@ -1,6 +1,6 @@
 <template>
   <VanTimePicker
-    v-bind="timePickerProps as any"
+    v-bind="timePickerProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @confirm="$emit('confirm', $event)"
@@ -132,6 +132,6 @@ const timePickerProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

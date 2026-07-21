@@ -1,6 +1,6 @@
 <template>
   <VanSkeleton
-    v-bind="skeletonProps as any"
+    v-bind="skeletonProps"
     :loading="loading"
     :title="title"
     :avatar="avatar"
@@ -70,6 +70,6 @@ const skeletonProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

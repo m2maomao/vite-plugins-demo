@@ -1,6 +1,6 @@
 <template>
   <VanArea
-    v-bind="areaProps as any"
+    v-bind="areaProps"
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
     @confirm="$emit('confirm', $event)"
@@ -98,6 +98,6 @@ const areaProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>

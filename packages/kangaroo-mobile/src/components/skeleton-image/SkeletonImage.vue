@@ -1,5 +1,5 @@
 <template>
-  <VanSkeletonImage v-bind="skeletonImageProps as any" :image-size="imageSize" :image-shape="imageShape" />
+  <VanSkeletonImage v-bind="skeletonImageProps" :image-size="imageSize" :image-shape="imageShape" />
 </template>
 
 <script setup lang="ts">
@@ -29,6 +29,6 @@ const skeletonImageProps = computed(() => {
       result[key] = val;
     }
   }
-  return result;
+  return result as any;
 });
 </script>
