@@ -37,6 +37,7 @@ export default defineConfig({
     authPlugin(),
   ],
   server: {
+    host: true, // 监听所有网络接口，允许通过 127.0.0.1 和局域网 IP 访问
     open: true,
     proxy: { '/api': 'http://localhost:3001' },
   },
