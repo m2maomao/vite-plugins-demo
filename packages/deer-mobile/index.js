@@ -320,11 +320,50 @@ var piniaPlugin = {
   onRuntime: () => [`const pinia = createPinia()`, `pinia.use(piniaPluginPersistedstate)`, `app.use(pinia)`].join("\n")
 };
 var pinia_plugin_default = piniaPlugin;
+
+// plugins/i18n-plugin/index.ts
+var i18nPlugin = {
+  name: "i18n",
+  onImport: () => [
+    `import { createI18n } from 'vue-i18n'`,
+    `import { watch } from 'vue'`,
+    `import { setLocale } from 'kangaroo-mobile'`,
+    `import { appConfig } from 'virtual:app-config'`
+  ].join("\n"),
+  onRuntime: () => {
+    return [
+      `// i18n: 仅在配置了翻译文案时启用`,
+      `if (appConfig.i18n?.messages) {`,
+      `  const i18n = createI18n({`,
+      `    locale: appConfig.i18n?.locale ?? 'zh-CN',`,
+      `    fallbackLocale: appConfig.i18n?.fallbackLocale ?? 'zh-CN',`,
+      `    messages: appConfig.i18n?.messages ?? {},`,
+      `    legacy: false,`,
+      `  })`,
+      ``,
+      `  app.use(i18n)`,
+      ``,
+      `  // 监听语言切换，同步 kangaroo-mobile 的 UI 组件文案`,
+      `  if (i18n.global.locale) {`,
+      `    watch(`,
+      `      () => i18n.global.locale.value,`,
+      `      (newLang) => {`,
+      `        if (newLang) setLocale(newLang)`,
+      `      },`,
+      `      { immediate: true },`,
+      `    )`,
+      `  }`,
+      `}`
+    ].join("\n");
+  }
+};
+var i18n_plugin_default = i18nPlugin;
 export {
   apiPlugin,
   authPlugin,
   builtinPlugin,
   configPlugin,
+  i18n_plugin_default as i18nPlugin,
   pinia_plugin_default as piniaPlugin,
   scanPagesPlugin,
   setupPlugin

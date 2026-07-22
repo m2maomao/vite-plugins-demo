@@ -18,6 +18,15 @@ interface AppConfig {
   };
   /** SM4 加密密钥（hex 格式，32 位十六进制字符串），不配置则不启用加解密 */
   sm4Key?: string;
+  /** 国际化 i18n 配置 */
+  i18n?: {
+    /** 默认语言，如 'zh-CN' */
+    locale: string;
+    /** 回退语言 */
+    fallbackLocale?: string;
+    /** vue-i18n 格式的翻译文案 */
+    messages?: Record<string, Record<string, Record<string, string>>>;
+  };
 }
 
 // 2、默认配置

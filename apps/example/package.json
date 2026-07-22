@@ -10,19 +10,20 @@
     "server": "npx tsx server/index.ts"
   },
   "dependencies": {
-    "vue": "^3.5.39",
-    "vue-router": "^4.6.4",
+    "@tailwindcss/vite": "^4.3.1",
+    "@vueuse/core": "^14.3.0",
+    "axios": "^1.18.1",
+    "deer-mobile": "workspace:*",
+    "esbuild": "^0.28.1",
+    "fast-glob": "^3.3.3",
+    "kangaroo-mobile": "workspace:*",
     "pinia": "^3.0.0",
     "pinia-plugin-persistedstate": "^4.7.1",
-    "axios": "^1.18.1",
-    "@vueuse/core": "^14.3.0",
-    "deer-mobile": "workspace:*",
-    "kangaroo-mobile": "workspace:*",
     "sm-crypto": "^0.4.0",
-    "@tailwindcss/vite": "^4.3.1",
     "tailwindcss": "^4.3.1",
-    "esbuild": "^0.28.1",
-    "fast-glob": "^3.3.3"
+    "vue": "^3.5.39",
+    "vue-i18n": "^11.4.7",
+    "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",

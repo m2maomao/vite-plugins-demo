@@ -32,7 +32,8 @@
 | 模块 | 状态 | 说明 |
 |------|------|------|
 | **图标系统** | ✅ 已完成 | Iconify + Vant 兜底 + 本地 deer 自定义图标，`YhmIcon` 统一入口 |
-| **国际化 i18n** | ✅ 已完成 | Vant Locale 封装，`setLocale` / `createTranslate` / `i18nPlugin` |
+| **国际化 i18n（UI 层）** | ✅ 已完成 | Vant Locale 封装，`setLocale` / `createTranslate` / `i18nPlugin` |
+| **国际化 i18n（框架层）** | ✅ **已完成** | **vue-i18n 集成，`i18nPlugin` FrameworkPlugin，语言切换自动同步 kangaroo-mobile** |
 | **主题系统** | ✅ 已完成 | 品牌色 CSS 变量 + Vant 变量覆盖 + 暗黑模式 |
 | **组件库** | ✅ 已完成 | 45+ 组件全部基于 Vant 4 二次封装 |
 | **Playground** | ✅ 已完成 | 组件 Demo 演示页面 |
@@ -43,7 +44,6 @@
 
 | 优先级 | 功能 | 说明 |
 |--------|------|------|
-| **P1** | **国际化 i18n（框架层）** | `deer-mobile` 集成 vue-i18n 管理业务文案，联动 `kangaroo-mobile` 的 `setLocale()` |
 | P2 | **主题系统（框架层）** | 运行时主题切换能力（config-plugin 已有 `theme` 配置字段但未实现运行时切换） |
 | P2 | **单元测试** | vitest 测试框架 |
 | P3 | 全局 Loading | 路由切换加载动画 |

@@ -6,4 +6,5 @@ export { default as apiPlugin } from './plugins/api-plugin';
 export { default as builtinPlugin } from './plugins/builtin-plugin';
 export { default as authPlugin } from './plugins/auth-plugin';
 export { default as piniaPlugin } from './plugins/pinia-plugin';
+export { default as i18nPlugin } from './plugins/i18n-plugin';
 export type { FrameworkPlugin } from './plugins/config-plugin';

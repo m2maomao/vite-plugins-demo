@@ -11,6 +11,7 @@ import {
   builtinPlugin,
   authPlugin,
   piniaPlugin,
+  i18nPlugin,
 } from 'deer-mobile';
 import helloPlugin from './plugins/hello-plugin';
 import timestampPlugin from './plugins/timestamp-plugin';
@@ -78,8 +79,19 @@ export default defineConfig({
           darkMode: true,
         },
         layout: 'top',
+        i18n: {
+          locale: 'zh-CN',
+          messages: {
+            'zh-CN': {
+              message: { hello: '你好' },
+            },
+            'en-US': {
+              message: { hello: 'Hello' },
+            },
+          },
+        },
       },
-      [pageStatsPlugin, apiPluginRuntime, piniaPlugin],
+      [pageStatsPlugin, apiPluginRuntime, piniaPlugin, i18nPlugin],
     ),
     setupPlugin(),
     apiPlugin(),

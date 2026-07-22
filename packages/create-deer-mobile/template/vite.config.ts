@@ -9,6 +9,7 @@ import {
   authPlugin,
   scanPagesPlugin,
   piniaPlugin,
+  i18nPlugin,
 } from 'deer-mobile';
 
 export default defineConfig({
@@ -30,7 +31,23 @@ export default defineConfig({
         },
       ],
     }),
-    configPlugin({ title: 'PROJECT_NAME' }, [piniaPlugin]),
+    configPlugin(
+      {
+        title: 'PROJECT_NAME',
+        i18n: {
+          locale: 'zh-CN',
+          messages: {
+            'zh-CN': {
+              message: { hello: '你好' },
+            },
+            'en-US': {
+              message: { hello: 'Hello' },
+            },
+          },
+        },
+      },
+      [piniaPlugin, i18nPlugin],
+    ),
     setupPlugin(),
     apiPlugin(),
     builtinPlugin(),
