@@ -1,4 +1,4 @@
-import type { App } from 'vue';
+import type { App, Component } from 'vue';
 import * as components from './components';
 import './theme/index.less';
 import 'vant/lib/index.css';
@@ -10,7 +10,7 @@ import 'vant/lib/picker/index.css';
 import 'vant/lib/calendar/index.css';
 
 const install = (app: App) => {
-  Object.values(components).forEach((component: any) => {
+  Object.values(components).forEach((component: Component) => {
     if (component.name) {
       app.component(component.name, component);
     }

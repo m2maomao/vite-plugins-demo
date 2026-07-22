@@ -24,5 +24,13 @@
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment"
-  }
+  },
+  "include": [
+    "apps/example/src",
+    "apps/example/plugins",
+    "apps/example/server",
+    "packages/deer-mobile/src",
+    "packages/deer-mobile/plugins",
+    "packages/kangaroo-mobile/src"
+  ]
 }

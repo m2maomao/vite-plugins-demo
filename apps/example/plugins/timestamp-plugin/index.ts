@@ -9,6 +9,7 @@ export default function timestampPlugin(): Plugin {
       // 只处理 src 目录下的 .ts 文件
       if (id.includes('/src') && (id.endsWith('.ts') || id.endsWith('.js'))) {
         const now = new Date().toLocaleString();
+        console.log(`[timestamp] ${id} transformed at ${now}`);
 
         return {
           map: null, // 不生成sourcemap

@@ -27,7 +27,5 @@ export const useUserStore = defineStore(
       logout,
     };
   },
-  {
-    persist: true,
-  } as any,
+  { persist: true },
 );

@@ -16,7 +16,7 @@
  */
 
 import { setLocale, getLocale, createTranslate } from './index';
-import type { Translate } from './index';
+import type { LocaleLang, Translate } from './index';
 
 let demoUid = 0;
 
@@ -25,7 +25,7 @@ export function useTranslate(i18n: Record<string, Record<string, string>>): Tran
   const prevLang = getLocale();
 
   Object.keys(i18n).forEach((lang) => {
-    setLocale(lang as any, {
+    setLocale(lang as LocaleLang, {
       [demoName]: i18n[lang],
     });
   });

@@ -8,6 +8,7 @@
 // 4. 为未来 deer-mobile 集成预留 setLocale() 接口
 // ============================================
 
+import type { App } from 'vue';
 import { Locale } from 'vant';
 import zhCN from 'vant/es/locale/lang/zh-CN';
 import enUS from 'vant/es/locale/lang/en-US';
@@ -30,8 +31,8 @@ export type Translate = (path: string) => string;
 // 内部状态
 // -------------------------------------------
 
-/** Vant 内置语言包映射 */
-const vantMessages: Record<string, Record<string, any>> = {
+/** Vant 内置语言包映射（含嵌套对象，如 vanCalendar: { end, start }） */
+const vantMessages: Record<string, Record<string, unknown>> = {
   'zh-CN': zhCN,
   'en-US': enUS,
   'ja-JP': jaJP,
@@ -203,13 +204,7 @@ export function onLocaleChange(cb: (lang: LocaleLang) => void) {
 export const I18N_KEY = Symbol('kangaroo-i18n');
 
 export const i18nPlugin = {
-  install(
-    app: any,
-    options?: {
-      locale?: LocaleLang;
-      messages?: LocaleMessages;
-    },
-  ) {
+  install(app: App, options?: { locale?: LocaleLang; messages?: LocaleMessages }) {
     const lang = options?.locale || 'zh-CN';
     setLocale(lang, options?.messages);
 

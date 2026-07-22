@@ -242,12 +242,22 @@ class HttpClient {
   /** Toast 节流：防止短时间大量弹窗 */
   private lastToastTime = 0;
 
+  /** kangaroo-mobile 动态导入类型（仅包含 HttpClient 使用的方法） */
+  private async importKangaroo() {
+    type KangarooModule = {
+      showToast?: (message: string) => void;
+      showDialog?: (options: { message: string; showCancelButton: boolean }) => Promise<unknown>;
+    };
+    const mod = (await import('kangaroo-mobile')) as KangarooModule;
+    return mod;
+  }
+
   private async showToast(message: string): Promise<void> {
     const now = Date.now();
     if (now - this.lastToastTime < 3000) return;
     this.lastToastTime = now;
     try {
-      const mod: any = await import('kangaroo-mobile');
+      const mod = await this.importKangaroo();
       mod.showToast?.(message);
     } catch {
       console.warn('[HttpClient]', message);
@@ -256,7 +266,7 @@ class HttpClient {
 
   private async showDialog(message: string): Promise<void> {
     try {
-      const mod: any = await import('kangaroo-mobile');
+      const mod = await this.importKangaroo();
       await mod.showDialog?.({ message, showCancelButton: false });
     } catch {
       console.warn('[HttpClient]', message);
@@ -328,23 +338,23 @@ class HttpClient {
     return this.instance;
   }
 
-  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.get(url, config);
   }
 
-  post<T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+  post<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.post(url, data, config);
   }
 
-  put<T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+  put<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.put(url, data, config);
   }
 
-  delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  delete<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.delete(url, config);
   }
 
-  formData<T = any>(url: string, data?: Record<string, unknown>) {
+  formData<T = unknown>(url: string, data?: Record<string, unknown>) {
     const formData = new FormData();
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
