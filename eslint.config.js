@@ -8,6 +8,10 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     languageOptions: {
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
       globals: {
         process: 'readonly',
         console: 'readonly',
