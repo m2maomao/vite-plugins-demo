@@ -9,9 +9,13 @@
   "exports": {
     ".": {
       "types": "./src/index.ts",
+      "development": "./src/index.ts",
       "default": "./dist/kangaroo-mobile.js"
     },
-    "./style.css": "./dist/kangaroo-mobile.css"
+    "./style.css": {
+      "development": "./src/theme/index.less",
+      "default": "./dist/kangaroo-mobile.css"
+    }
   },
   "files": [
     "dist",

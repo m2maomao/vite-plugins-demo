@@ -1,0 +1,21 @@
+/**
+ * Vant CSS Layer 包裹层
+ *
+ * == 为什么需要这个文件？==
+ *
+ * Tailwind v4 将所有工具类（如 .text-white）放在 @layer utilities 中，
+ * 而 Vant 的 button { color: inherit } CSS reset 是无 layer 的。
+ *
+ * 根据 CSS Cascade Layer 规则：**无 layer 的样式优先级高于任何 @layer 中的样式**。
+ * 这导致 Vant 的 button { color: inherit } 压过了 Tailwind 的 .text-white。
+ *
+ * 解决方案：将 Vant CSS 包裹在 @layer framework 中，
+ * 让 Tailwind 的 utilities 层优先级高于框架层。
+ */
+@import 'vant/lib/index.css' layer(framework);
+@import 'vant/lib/image/index.css' layer(framework);
+@import 'vant/lib/checkbox/index.css' layer(framework);
+@import 'vant/lib/radio/index.css' layer(framework);
+@import 'vant/lib/uploader/index.css' layer(framework);
+@import 'vant/lib/picker/index.css' layer(framework);
+@import 'vant/lib/calendar/index.css' layer(framework);

@@ -5,10 +5,9 @@
   "type": "module",
   "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "dev": "pnpm --filter example dev",
+    "dev": "turbo run dev",
     "build": "turbo run build",
     "preview": "pnpm --filter example preview",
-    "server": "pnpm --filter example run server",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:style": "stylelint \"**/*.{css,less,vue}\"",
@@ -30,6 +29,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@types/node": "^26.0.1",
+    "concurrently": "^10.0.3",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",

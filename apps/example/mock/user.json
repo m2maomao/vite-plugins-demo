@@ -1,0 +1,18 @@
+{
+  "GET /api/user/:id": {
+    "status": 1,
+    "data": {
+      "id": 1,
+      "name": "张三",
+      "email": "zhangsan@example.com",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=1"
+    }
+  },
+  "POST /api/user/login": {
+    "status": 1,
+    "data": {
+      "token": "mock-token-1740000000000",
+      "user": { "id": 1, "name": "用户" }
+    }
+  }
+}

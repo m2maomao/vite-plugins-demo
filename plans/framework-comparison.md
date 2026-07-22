@@ -26,6 +26,7 @@
 | **业务状态码体系** | ✅ **已完成** | **1xx 成功 / 2xx 告警 / 712/205/209 登录超时 / 110/112 Token 失效，`status.ts` 统一管理** |
 | **SM4 加解密** | ✅ **已完成** | **`sm-crypto` optional 依赖，通过 `appConfig.sm4Key` 配置启用** |
 | **Prettier 格式化** | ✅ **已完成** | **模板内置 `.prettierrc` + lint-staged 自动格式化** |
+| **Mock API** | ✅ **已完成** | **内置 `mockPlugin`，支持 `mock/` 目录自动扫描 + `apis` 参数配置，与 Umi 机制一致** |
 
 ### `kangaroo-mobile` UI 组件库
 
@@ -49,7 +50,6 @@
 | P3 | 全局 Loading | 路由切换加载动画 |
 | P3 | PWA | 离线访问 |
 | P3 | CI/CD | 自动发布 |
-| P3 | Mock 数据 | 内置 mock 接口能力 |
 | P3 | 环境变量封装 | `.env` 文件管理封装 |
 | P3 | 构建分析 | 打包体积分析工具 |
 | P3 | 模板选择 | CLI 创建时选 TS/JS |

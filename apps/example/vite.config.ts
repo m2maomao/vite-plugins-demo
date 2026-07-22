@@ -12,6 +12,7 @@ import {
   authPlugin,
   piniaPlugin,
   i18nPlugin,
+  mockPlugin,
 } from 'deer-mobile';
 import helloPlugin from './plugins/hello-plugin';
 import timestampPlugin from './plugins/timestamp-plugin';
@@ -97,6 +98,8 @@ export default defineConfig({
     apiPlugin(),
     builtinPlugin(),
     authPlugin(),
+    // Mock API：默认扫描 mock/ 目录（类似 Umi 的 mock 机制）
+    mockPlugin({ enabled: true }),
   ],
   resolve: {
     alias: {
@@ -106,8 +109,5 @@ export default defineConfig({
   server: {
     host: true, // 监听所有网络接口，允许通过 127.0.0.1 和局域网 IP 访问
     open: true,
-    proxy: {
-      '/api': 'http://localhost:3001',
-    },
   },
 });

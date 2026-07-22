@@ -358,12 +358,109 @@ var i18nPlugin = {
   }
 };
 var i18n_plugin_default = i18nPlugin;
+
+// plugins/mock-plugin/index.ts
+import fs2 from "fs";
+import path2 from "path";
+function mockPlugin(options = {}) {
+  const { enabled = false, dir = "./mock", apis = {} } = options;
+  return {
+    name: "mock-plugin",
+    configureServer(server) {
+      if (!enabled) {
+        console.log("📡 Mock API 已关闭（enabled: false）");
+        return;
+      }
+      const scannedApis = scanMockDir(server.config.root, dir);
+      const mergedApis = { ...scannedApis, ...apis };
+      const routeEntries = parseRouteEntries(mergedApis);
+      if (routeEntries.length === 0) {
+        console.log("📡 Mock API 已启用，但未找到任何 API（mock/ 目录为空）");
+        return;
+      }
+      server.middlewares.use(async (req, res, next) => {
+        if (!req.url?.startsWith("/api/")) return next();
+        const urlPath = req.url.split("?")[0];
+        const method = req.method?.toUpperCase() || "GET";
+        const route = routeEntries.find((r) => r.method === method && matchUrl(r.url, urlPath));
+        if (!route) return next();
+        let body = "";
+        if (method === "POST" || method === "PUT") {
+          req.on("data", (chunk) => {
+            body += chunk.toString();
+          });
+          await new Promise((resolve) => req.on("end", resolve));
+        }
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        try {
+          let responseData;
+          if (route.isHandler) {
+            const handler = route.data;
+            responseData = handler(body ? JSON.parse(body) : {});
+          } else {
+            responseData = route.data;
+          }
+          res.end(JSON.stringify(responseData));
+          console.log(`📡 Mock: ${method} ${urlPath}`);
+        } catch (err) {
+          console.error(`[mock] ${method} ${urlPath} 处理出错:`, err);
+          res.statusCode = 500;
+          res.end(JSON.stringify({ status: 0, message: "Internal mock error" }));
+        }
+      });
+      console.log(`📡 Mock API 已注入 Vite Dev Server（${routeEntries.length} 个路由）`);
+    }
+  };
+}
+function scanMockDir(root, dir) {
+  const mockDir = path2.resolve(root, dir);
+  if (!fs2.existsSync(mockDir)) {
+    return {};
+  }
+  const files = fs2.readdirSync(mockDir).filter((f) => f.endsWith(".json"));
+  if (files.length === 0) {
+    return {};
+  }
+  console.log(`📡 扫描 mock 目录（${mockDir}）：发现 ${files.length} 个文件`);
+  const merged = {};
+  for (const file of files) {
+    const filePath = path2.join(mockDir, file);
+    try {
+      const content = fs2.readFileSync(filePath, "utf-8");
+      const apis = JSON.parse(content);
+      Object.assign(merged, apis);
+      console.log(`   ├── ${file}（${Object.keys(apis).length} 个路由）`);
+    } catch (err) {
+      console.error(`   ├── ${file} 加载失败:`, err);
+    }
+  }
+  return merged;
+}
+function parseRouteEntries(apis) {
+  return Object.entries(apis).map(([key, value]) => {
+    const [method, ...urlParts] = key.split(" ");
+    const url = urlParts.join(" ");
+    return {
+      method: method.toUpperCase(),
+      url,
+      isHandler: typeof value === "function",
+      data: value
+    };
+  });
+}
+function matchUrl(pattern, actual) {
+  if (pattern === actual) return true;
+  const regexStr = pattern.replace(/:[\w]+/g, "[^/]+");
+  const regex = new RegExp(`^${regexStr}$`);
+  return regex.test(actual);
+}
 export {
   apiPlugin,
   authPlugin,
   builtinPlugin,
   configPlugin,
   i18n_plugin_default as i18nPlugin,
+  mockPlugin,
   pinia_plugin_default as piniaPlugin,
   scanPagesPlugin,
   setupPlugin

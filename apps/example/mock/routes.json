@@ -1,0 +1,9 @@
+{
+  "GET /api/routes": {
+    "status": 1,
+    "data": [
+      { "path": "/activity", "name": "BING搜索", "redirect": "http://bing.com" },
+      { "path": "/docs", "name": "vite文档", "redirect": "https://vite.dev" }
+    ]
+  }
+}
