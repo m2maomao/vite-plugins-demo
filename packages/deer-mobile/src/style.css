@@ -1,3 +1,8 @@
+/* 先声明 framework 层（空），确保它优先级低于后声明的 utilities 层 */
+@layer framework {
+}
+
+/* Tailwind v4 — 生成 @layer utilities 等层（声明在 framework 之后，优先级更高） */
 @import 'tailwindcss';
 
 /*

@@ -5,109 +5,71 @@ import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import {
   scanPagesPlugin,
-  configPlugin,
-  setupPlugin,
-  apiPlugin,
   builtinPlugin,
-  authPlugin,
-  piniaPlugin,
-  i18nPlugin,
   mockPlugin,
+  apiPlugin,
+  deer,
+  piniaRuntimePlugin,
+  authRuntimePlugin,
+  i18nRuntimePlugin,
+  apiRuntimePlugin,
 } from 'deer-mobile';
-import helloPlugin from './plugins/hello-plugin';
-import timestampPlugin from './plugins/timestamp-plugin';
-import greetingPlugin from './plugins/greeting-plugin';
-import loggerPlugin from './plugins/logger-plugin';
-
-// 定义一个框架插件
-const pageStatsPlugin = {
-  name: 'page-stats',
-  onRuntime: () => `
-    router.afterEach((to) => {
-      // console.log('📊 访问：', to.path)
-    })
-  `,
-};
-
-const apiPluginRuntime = {
-  name: 'api-runtime',
-  onImport: () => `import { api } from 'virtual:api'`,
-  onRuntime: () => `app.config.globalProperties.$api = api`,
-};
 
 export default defineConfig({
   plugins: [
     tailwindcss(),
     Vue(),
     VueJsx(),
+
     scanPagesPlugin({
       pluginRoutes: [
-        {
-          path: '/test-route',
-          file: '/src/pages/about.tsx',
-        },
-        {
-          path: '/old-home',
-          redirect: '/',
-        },
-        {
-          path: '/login',
-          file: 'virtual:builtin/login',
-        },
-        {
-          path: '/pinia-demo',
-          file: 'virtual:builtin/pinia-demo',
-        },
-        {
-          path: '/:pathMatch(.*)*',
-          file: 'virtual:builtin/404',
-        },
+        { path: '/test-route', file: '/src/pages/about.tsx' },
+        { path: '/old-home', redirect: '/' },
+        { path: '/login', file: 'virtual:builtin/login' },
+        { path: '/pinia-demo', file: 'virtual:builtin/pinia-demo' },
+        { path: '/:pathMatch(.*)*', file: 'virtual:builtin/404' },
       ],
     }),
-    helloPlugin(),
-    timestampPlugin(),
-    greetingPlugin(),
-    loggerPlugin({
-      prefix: '📚',
-      showFileList: true,
-    }),
-    configPlugin(
-      {
+    builtinPlugin(),
+    apiPlugin(),
+    mockPlugin({ enabled: true }),
+
+    deer({
+      config: {
         title: '111',
         author: 'michael',
-        theme: {
-          primaryColor: 'red',
-          darkMode: true,
-        },
+        theme: { primaryColor: 'red', darkMode: true },
         layout: 'top',
         i18n: {
           locale: 'zh-CN',
           messages: {
-            'zh-CN': {
-              message: { hello: '你好' },
-            },
-            'en-US': {
-              message: { hello: 'Hello' },
-            },
+            'zh-CN': { message: { hello: '你好' } },
+            'en-US': { message: { hello: 'Hello' } },
           },
         },
       },
-      [pageStatsPlugin, apiPluginRuntime, piniaPlugin, i18nPlugin],
-    ),
-    setupPlugin(),
-    apiPlugin(),
-    builtinPlugin(),
-    authPlugin(),
-    // Mock API：默认扫描 mock/ 目录（类似 Umi 的 mock 机制）
-    mockPlugin({ enabled: true }),
+      runtimePlugins: [
+        piniaRuntimePlugin,
+        authRuntimePlugin,
+        i18nRuntimePlugin,
+        apiRuntimePlugin,
+        {
+          name: 'page-stats',
+          priority: 20,
+          onRouterCreated: (router) => {
+            router.afterEach((to) => {
+              console.log('📊 访问：', to.path);
+            });
+          },
+        },
+      ],
+    }),
   ],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
+    alias: { '@': path.resolve(__dirname, 'src') },
   },
   server: {
-    host: true, // 监听所有网络接口，允许通过 127.0.0.1 和局域网 IP 访问
+    host: true,
     open: true,
   },
 });

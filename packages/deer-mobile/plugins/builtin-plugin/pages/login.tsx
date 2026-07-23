@@ -1,11 +1,10 @@
 import { defineComponent, ref, h } from 'vue';
-import { useApi } from 'deer-mobile/composables';
 import { useRouter } from 'vue-router';
 import { useUserStore } from 'deer-mobile/stores';
 
 export default defineComponent({
+  name: 'LoginPage',
   setup() {
-    const { user } = useApi();
     const router = useRouter();
     const userStore = useUserStore();
     const username = ref('');
@@ -16,14 +15,11 @@ export default defineComponent({
       if (loading.value) return;
       loading.value = true;
       try {
-        const res = await user.login({
-          username: username.value,
-          password: password.value,
-        });
-        if (res?.data?.token) {
-          userStore.setToken(res.data.token);
-          router.push('/');
-        }
+        const token = 'demo-token-' + Date.now();
+        // 同时写入 Pinia store 和 localStorage（auth 守卫从 localStorage 读取）
+        userStore.setToken(token);
+        localStorage.setItem('token', token);
+        await router.push('/');
       } catch (error) {
         console.error('Login failed:', error);
       } finally {
@@ -32,35 +28,33 @@ export default defineComponent({
     };
 
     return () => (
-      <div className="max-w-sm mx-auto mt-20 p-6 border border-gray-200 rounded-lg">
-        <h2 className="text-2xl text-center mb-6 font-bold">登录</h2>
-        <div className="mb-4">
+      <div class="max-w-sm mx-auto mt-20 p-6 border border-gray-200 rounded-lg">
+        <h2 class="text-2xl text-center mb-6 font-bold">登录</h2>
+        <div class="mb-4">
           <input
             placeholder="用户名"
             value={username.value}
             onInput={(e: Event) => {
-              const target = e.target as HTMLInputElement;
-              username.value = target.value;
+              username.value = (e.target as HTMLInputElement).value;
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
           />
         </div>
-        <div className="mb-4">
+        <div class="mb-4">
           <input
             placeholder="密码"
             type="password"
             value={password.value}
             onInput={(e: Event) => {
-              const target = e.target as HTMLInputElement;
-              password.value = target.value;
+              password.value = (e.target as HTMLInputElement).value;
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500"
           />
         </div>
         <button
           onClick={handleLogin}
           disabled={loading.value}
-          className="w-full py-2 bg-purple-600 text-white rounded cursor-pointer hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed">
+          class="w-full py-2 bg-purple-600 text-white rounded cursor-pointer hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed">
           {loading.value ? '登录中...' : '登录'}
         </button>
       </div>

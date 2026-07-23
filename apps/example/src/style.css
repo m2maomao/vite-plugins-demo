@@ -1,2 +1,6 @@
+/* 先声明 framework 层，确保其优先级低于 utilities */
+@layer framework {
+}
+
 @import 'tailwindcss';
 @source "../../../packages/deer-mobile";

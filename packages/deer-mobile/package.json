@@ -4,33 +4,61 @@
   "type": "module",
   "main": "./index.js",
   "scripts": {
-    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --charset=utf8",
+    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --charset=utf8",
     "publish:dev": "pnpm build && npm version patch && npm publish --registry http://localhost:4873"
   },
   "exports": {
     ".": {
-      "development": "./src/index.ts",
+      "development": "./index.ts",
       "default": "./index.js"
     },
     "./composables": {
       "development": "./src/composables/useApi.ts",
-      "default": "./dist/composables/useApi.js"
+      "default": "./src/composables/useApi.ts"
     },
     "./utils": {
       "development": "./src/utils/index.ts",
-      "default": "./dist/utils/index.js"
+      "default": "./src/utils/index.ts"
     },
     "./layouts": {
       "development": "./src/layouts/index.tsx",
-      "default": "./dist/layouts/index.js"
+      "default": "./src/layouts/index.tsx"
     },
     "./stores": {
       "development": "./src/stores/index.ts",
-      "default": "./dist/stores/index.js"
+      "default": "./src/stores/index.ts"
     },
     "./style.css": {
       "development": "./src/style.css",
-      "default": "./dist/style.css"
+      "default": "./src/style.css"
+    },
+    "./runtime": {
+      "development": "./src/runtime/index.ts",
+      "default": "./src/runtime/index.ts"
+    },
+    "./runtime/pinia": {
+      "development": "./plugins/runtime/pinia-plugin.ts",
+      "default": "./plugins/runtime/pinia-plugin.ts"
+    },
+    "./runtime/auth": {
+      "development": "./plugins/runtime/auth-plugin.ts",
+      "default": "./plugins/runtime/auth-plugin.ts"
+    },
+    "./runtime/i18n": {
+      "development": "./plugins/runtime/i18n-plugin.ts",
+      "default": "./plugins/runtime/i18n-plugin.ts"
+    },
+    "./runtime/api": {
+      "development": "./plugins/runtime/api-plugin.ts",
+      "default": "./plugins/runtime/api-plugin.ts"
+    },
+    "./runtime/layout": {
+      "development": "./plugins/runtime/layout-plugin.ts",
+      "default": "./plugins/runtime/layout-plugin.ts"
+    },
+    "./build": {
+      "development": "./src/build/index.ts",
+      "default": "./src/build/index.ts"
     }
   },
   "dependencies": {

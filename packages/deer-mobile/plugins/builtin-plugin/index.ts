@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// 所有内置页面的映射
 const BUILTIN_PAGES: Record<string, string> = {
   login: 'virtual:builtin/login',
   '404': 'virtual:builtin/404',
@@ -18,19 +17,30 @@ export default function builtinPlugin(): Plugin {
     name: 'builtin-plugin',
 
     resolveId(id) {
-      // 检查是否匹配任意内置页面
       for (const [, virtualId] of Object.entries(BUILTIN_PAGES)) {
         if (id === virtualId) return '\0' + virtualId;
       }
     },
 
     async load(id) {
-      // 去掉 \0 前缀后检查
       const rawId = id.replace(/^\0/, '');
       for (const [name, virtualId] of Object.entries(BUILTIN_PAGES)) {
         if (rawId === virtualId) {
-          const currentDir = path.dirname(fileURLToPath(import.meta.url));
-          const filePath = path.resolve(currentDir, `plugins/builtin-plugin/pages/${name}.tsx`);
+          // import.meta.url 指向: .../deer-mobile/index.js (built) 或 .../deer-mobile/plugins/builtin-plugin/index.ts (source)
+          const modulePath = fileURLToPath(import.meta.url);
+          const deerMobileRoot = modulePath.includes('plugins/builtin-plugin')
+            ? path.resolve(modulePath, '..', '..') // source: .../plugins/builtin-plugin/ → 上2层到 deer-mobile
+            : path.resolve(modulePath, '..'); // built:  .../deer-mobile/ → 上1层到 deer-mobile
+          const pagesDir = path.resolve(deerMobileRoot, 'plugins', 'builtin-plugin', 'pages');
+          const filePath = path.resolve(pagesDir, `${name}.tsx`);
+
+          if (!fs.existsSync(filePath)) {
+            return `export default { template: '<div>Page not found: ${name}</div>' }`;
+          }
+
+          // 告诉 Vite 监听源文件变化，触发 HMR
+          this.addWatchFile(filePath);
+
           const code = fs.readFileSync(filePath, 'utf-8');
           const result = await transform(code, {
             loader: 'tsx',
