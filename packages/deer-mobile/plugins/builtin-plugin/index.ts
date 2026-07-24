@@ -10,6 +10,8 @@ const BUILTIN_PAGE_CODES: Record<string, string> = {
     `import { useRouter } from 'vue-router';`,
     `import { useUserStore } from 'deer-mobile/stores';`,
     ``,
+    `export const routeMeta = { layout: 'blank', auth: false, title: '登录' };`,
+    ``,
     `export default defineComponent({`,
     `  name: 'LoginPage',`,
     `  setup() {`,

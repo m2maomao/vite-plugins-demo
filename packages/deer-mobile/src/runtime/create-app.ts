@@ -21,9 +21,18 @@ export async function createRuntimeApp(options: CreateRuntimeAppOptions) {
   const { pluginManager, routes, appConfig, historyMode = 'web' } = options;
   const ctx = pluginManager.getContext();
 
-  // 1. 创建 Router
+  // 1. 创建 Router（含滚动行为恢复）
   const history = historyMode === 'hash' ? createWebHashHistory(appConfig.base) : createWebHistory(appConfig.base);
-  const router = createRouter({ history, routes });
+  const router = createRouter({
+    history,
+    routes,
+    scrollBehavior(to, _from, savedPosition) {
+      if (savedPosition) return savedPosition;
+      // 支持页面级滚动位置：route.meta.scrollTop
+      if (to.meta?.scrollTop !== undefined) return { top: to.meta.scrollTop as number, left: 0 };
+      return { top: 0, left: 0 };
+    },
+  });
   ctx.router = router;
   perf('router created');
 
