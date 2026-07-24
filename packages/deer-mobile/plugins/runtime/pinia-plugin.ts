@@ -7,16 +7,15 @@
  * 钩子: onAppCreated
  */
 
+import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import type { RuntimePlugin } from '../../src/runtime/types';
 
 const piniaRuntimePlugin: RuntimePlugin = {
   name: 'deer:pinia',
   priority: 0,
 
-  onAppCreated: async (app) => {
-    const { createPinia } = await import('pinia');
-    const piniaPluginPersistedstate = (await import('pinia-plugin-persistedstate')).default;
-
+  onAppCreated: (app) => {
     const pinia = createPinia();
     pinia.use(piniaPluginPersistedstate);
     app.use(pinia);

@@ -8,17 +8,17 @@
  */
 
 import { watch } from 'vue';
+import { createI18n } from 'vue-i18n';
+import { setLocale } from 'kangaroo-mobile';
 import type { RuntimePlugin } from '../../src/runtime/types';
 
 const i18nRuntimePlugin: RuntimePlugin = {
   name: 'deer:i18n',
   priority: 5,
 
-  onAppCreated: async (app, ctx) => {
+  onAppCreated: (app, ctx) => {
     const i18nConfig = ctx.config.i18n;
     if (!i18nConfig?.messages) return;
-
-    const { createI18n } = await import('vue-i18n');
 
     const i18n = createI18n({
       locale: i18nConfig.locale ?? 'zh-CN',
@@ -33,11 +33,9 @@ const i18nRuntimePlugin: RuntimePlugin = {
     ctx.data.set('i18n', i18n);
   },
 
-  onRouterCreated: async (_router, ctx) => {
+  onRouterCreated: (_router, ctx) => {
     const i18n = ctx.data.get('i18n') as { global: { locale: { value: string } } } | undefined;
     if (!i18n?.global?.locale) return;
-
-    const { setLocale } = await import('kangaroo-mobile');
 
     // 监听语言切换，同步 kangaroo-mobile UI 组件文案
     watch(
