@@ -11,6 +11,9 @@
 | 2026-07-24 | **2.4 启动流程** — 从"缺少切面能力"更新为"已实现 12 个生命周期钩子 + 并行 fetch 优化" |
 | 2026-07-24 | **§4/5/8 优先级清单** — 标记已完成的 4 项改进（插件系统、启动性能、errorHandler、类型导出） |
 | 2026-07-24 | **§9 源码速查** — 更新为 v5 文件路径，移除已废弃的 `config-plugin`/`_shared.ts` 引用 |
+| 2026-07-24 | **2.3 路由系统** — 新增路由元数据支持（title/layout/auth/transition），scanPagesPlugin 提取 routeMeta |
+| 2026-07-24 | **P0 全部 4 个 Bug 修复完成** — builtin-plugin 路径、Loading 竞态、SM4 加密、API 类型声明 |
+| 2026-07-24 | **启动性能优化** — Layout 改为静态导入、路由组件改为静态导入、scanPagesPlugin 缓存，`router.isReady()` 从 1950ms 降至 ~20ms |
 
 ---
 
@@ -130,40 +133,31 @@ layouts/
 
 ---
 
-### 2.3 路由系统功能单薄
+### 2.3 路由系统（部分增强 ✅ — 路由元数据支持）
 
 **涉及文件：** [`packages/deer-mobile/plugins/scan-pages-plugin/index.ts`](../packages/deer-mobile/plugins/scan-pages-plugin/index.ts)
 
-只做了最基础的约定式路由扫描（`src/pages/**/*.tsx` → 路由表）。
+**2026-07-24 已实现：**
 
-**缺失能力：**
+| 能力 | 状态 | 实现方式 |
+|------|------|---------|
+| 路由元数据 (title, layout, auth, transition) | ✅ | 页面 `export const routeMeta = { ... }`，scanPagesPlugin 自动提取 |
+| 路由过渡动画 | ✅ | 支持 `fade` / `slide-left` / `slide-right` / `slide-up` |
+| 页面级 auth 控制 | ✅ | `auth: false` 跳过权限检查 |
+| 页面标题自动更新 | ✅ | `document.title` + header 显示 |
+| 代码分割优化 | ✅ | 页面组件从动态 `import()` 改为静态 `import`，消除瀑布延迟 |
+| 路由守卫扩展点 | ✅ | 通过 `onRouterCreated` 多插件注册 |
 
-| 能力 | 现状 | 业界标准 (Umi/Nuxt) |
-|------|------|---------------------|
-| 路由元数据 (title, roles, layout, auth) | ❌ | ✅ |
-| 路由守卫扩展点（允许多插件注册） | ❌ 仅 auth-plugin 硬编码注入 | ✅ |
-| 路由过渡动画 | ❌ | ✅ transition 配置 |
-| 滚动行为恢复 | ❌ | ✅ scrollBehavior |
-| 路由级代码分割优化 | ⚠️ 动态 import 无魔法注释 | ✅ webpackChunkName |
-| TabBar 路由联动 | ❌ | ✅ 自动高亮 |
-| 路由参数校验 | ❌ | - |
-| 嵌套路由（子路由支持） | ❌ | ✅ 目录嵌套对应路由嵌套 |
+**仍缺失：**
 
-**具体代码问题：**
-
-[`scan-pages-plugin/index.ts:57`](../packages/deer-mobile/plugins/scan-pages-plugin/index.ts#57) — 文件路由被插件路由覆盖，但无警告：
-```typescript
-fileRoutes.forEach((r) => routeMap.set(r.path, { ...r, type: 'file' }));
-pluginRoutes.forEach((r) => routeMap.set(r.path, { ...r, type: 'plugin' }));
-// 如果有冲突，用户完全不知情
-```
-
-**建议实现步骤：**
-1. 在页面文件中支持 `export const routeMeta = { ... }` 导出
-2. 新建 `virtual:route-meta` 虚拟模块收集所有元数据
-3. 支持 `layouts/` 多布局文件自动扫描
-4. 路由过渡动画配置（结合 Vue `<Transition>`）
-5. 滚动位置恢复（利用 `router.options.scrollBehavior`）
+| 能力 | 现状 | 优先级 |
+|------|------|--------|
+| 嵌套路由（子路由支持） | ❌ | 🟡 P1 |
+| 滚动行为恢复 | ❌ | 🟡 P1 |
+| 路由参数校验 | ❌ | 🟢 P3 |
+| TabBar 路由联动 | ❌ | 🟡 P1 |
+| 多布局文件自动扫描 | ❌ | 🟡 P1 |
+||||<<<<<<< REPLACE
 
 ---
 
@@ -353,12 +347,13 @@ const filePath = path.resolve(currentDir, `plugins/builtin-plugin/pages/${name}.
 
 | # | 问题 | 文件 | 影响 | 状态 |
 |---|------|------|------|------|
-| 1 | ~~`builtin-plugin` 路径计算错误~~ | ~~[`builtin-plugin/index.ts`](../packages/deer-mobile/plugins/builtin-plugin/index.ts)~~ | ~~安装后内置页面无法加载~~ | ✅ **已修复** — 页面内联为字符串，移除文件系统依赖 |
-| 2 | ~~`HttpClient` Loading 竞态条件~~ | ~~[`request.ts`](../packages/deer-mobile/src/utils/request.ts)~~ | ~~并发请求下 Loading 状态错乱~~ | ✅ **已修复** — 用 `Set` 替代计数器 |
-| 3 | ~~SM4 加密未生效~~ | ~~[`request.ts`](../packages/deer-mobile/src/utils/request.ts)~~ | ~~数据以明文传输~~ | ✅ **已修复** — `async/await` 确保加密后发送 |
-| 4 | ~~`api-plugin` DI 模式无类型声明~~ | ~~[`api-plugin/index.ts`](../packages/deer-mobile/plugins/api-plugin/index.ts)~~ | ~~开发者无类型提示~~ | ✅ **已修复** — 添加 `ApiGet`/`ApiPost` 等类型 |
-| 5 | 无全局错误边界 | 框架入口 | 组件渲染错误导致白屏 | ⚠️ 部分实现（`onError` 钩子已存在） |
+| 1 | ~~`builtin-plugin` 路径计算错误~~ | ~~[`builtin-plugin/index.ts`](../packages/deer-mobile/plugins/builtin-plugin/index.ts)~~ | ~~安装后内置页面无法加载~~ | ✅ **已修复** |
+| 2 | ~~`HttpClient` Loading 竞态条件~~ | ~~[`request.ts`](../packages/deer-mobile/src/utils/request.ts)~~ | ~~并发请求下 Loading 状态错乱~~ | ✅ **已修复** |
+| 3 | ~~SM4 加密未生效~~ | ~~[`request.ts`](../packages/deer-mobile/src/utils/request.ts)~~ | ~~数据以明文传输~~ | ✅ **已修复** |
+| 4 | ~~`api-plugin` DI 模式无类型声明~~ | ~~[`api-plugin/index.ts`](../packages/deer-mobile/plugins/api-plugin/index.ts)~~ | ~~开发者无类型提示~~ | ✅ **已修复** |
+| 5 | ~~启动性能瓶颈（3 项）~~ | ~~多文件~~ | ~~`router.isReady()` 1950ms~~ | ✅ **已修复** — Layout 静态导入、路由静态导入、scanPagesPlugin 缓存 |
 | 6 | 无单元测试 | 整个框架 | 核心模块不可测试 | ❌ 待修复 |
+| 7 | 嵌套布局 / 多布局 | layouts | 页面级布局选择 | ❌ 待修复 |
 
 ---
 
@@ -409,15 +404,18 @@ const filePath = path.resolve(currentDir, `plugins/builtin-plugin/pages/${name}.
 ```mermaid
 flowchart LR
     subgraph Done[✅ 已完成]
-        D1[插件系统重构 v5] --> D2[启动性能优化]
-        D2 --> D3[全局 errorHandler]
-        D3 --> D4[P0 全部 4 个 Bug 修复]
+        D1[插件系统重构 v5]
+        D2[启动性能优化]
+        D3[全局 errorHandler]
+        D4[P0 全部 Bug 修复]
+        D5[路由元数据 + 过渡动画]
+        D6[页面级 auth 控制]
     end
     subgraph P1[P1 — 核心增强]
-        B1[布局系统增强] --> B2[路由元数据]
-        B2 --> B3[路由过渡动画]
-        B1 --> B4[运行时主题]
-        B5[PullRefresh组件] --> B6[List组件]
+        B1[布局系统增强]
+        B2[运行时主题切换]
+        B3[PullRefresh组件]
+        B4[List无限滚动组件]
     end
     subgraph P2[P2 — 生产化]
         C1[单元测试] --> C2[构建分析]
