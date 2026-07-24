@@ -63,6 +63,15 @@ const demoComponent = computed(() => {
     'image-preview': () => import('./components/image-preview/index.vue'),
     'back-top': () => import('./components/back-top/index.vue'),
     divider: () => import('./components/divider/index.vue'),
+    'pull-refresh': () => import('./components/pull-refresh/index.vue'),
+    list: () => import('./components/list/index.vue'),
+    'index-bar': () => import('./components/index-bar/index.vue'),
+    sidebar: () => import('./components/sidebar/index.vue'),
+    'number-keyboard': () => import('./components/number-keyboard/index.vue'),
+    'password-input': () => import('./components/password-input/index.vue'),
+    'count-down': () => import('./components/count-down/index.vue'),
+    watermark: () => import('./components/watermark/index.vue'),
+    'floating-panel': () => import('./components/floating-panel/index.vue'),
   };
   const loader = modules[key];
   return loader ? defineAsyncComponent(loader) : null;

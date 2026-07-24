@@ -79,13 +79,14 @@ const componentGroups: ComponentGroup[] = [
       { key: 'search', name: 'YhmSearch', desc: '搜索' },
       { key: 'calendar', name: 'YhmCalendar', desc: '日历' },
       { key: 'switch', name: 'YhmSwitch', desc: '开关' },
-      { key: 'search', name: 'YhmSearch', desc: '搜索' },
       { key: 'checkbox', name: 'YhmCheckbox', desc: '复选框' },
       { key: 'radio', name: 'YhmRadio', desc: '单选框' },
       { key: 'rate', name: 'YhmRate', desc: '评分' },
       { key: 'slider', name: 'YhmSlider', desc: '滑块' },
       { key: 'uploader', name: 'YhmUploader', desc: '文件上传' },
       { key: 'stepper', name: 'YhmStepper', desc: '步进器' },
+      { key: 'number-keyboard', name: 'YhmNumberKeyboard', desc: '数字键盘' },
+      { key: 'password-input', name: 'YhmPasswordInput', desc: '密码输入' },
     ],
   },
   {
@@ -93,6 +94,8 @@ const componentGroups: ComponentGroup[] = [
     items: [
       { key: 'dialog', name: 'YhmDialog', desc: '弹窗' },
       { key: 'action-sheet', name: 'YhmActionSheet', desc: '动作面板' },
+      { key: 'pull-refresh', name: 'YhmPullRefresh', desc: '下拉刷新' },
+      { key: 'list', name: 'YhmList', desc: '无限滚动列表' },
     ],
   },
   {
@@ -107,6 +110,9 @@ const componentGroups: ComponentGroup[] = [
       { key: 'skeleton', name: 'YhmSkeleton', desc: '骨架屏' },
       { key: 'steps', name: 'YhmSteps', desc: '步骤条' },
       { key: 'tag', name: 'YhmTag', desc: '标签' },
+      { key: 'count-down', name: 'YhmCountDown', desc: '倒计时' },
+      { key: 'watermark', name: 'YhmWatermark', desc: '水印' },
+      { key: 'floating-panel', name: 'YhmFloatingPanel', desc: '浮动面板' },
     ],
   },
   {
@@ -116,6 +122,8 @@ const componentGroups: ComponentGroup[] = [
       { key: 'tab-bar', name: 'YhmTabBar', desc: '标签栏' },
       { key: 'tabs', name: 'YhmTabs', desc: '选项卡' },
       { key: 'back-top', name: 'YhmBackTop', desc: '回到顶部' },
+      { key: 'index-bar', name: 'YhmIndexBar', desc: '索引栏' },
+      { key: 'sidebar', name: 'YhmSidebar', desc: '侧边导航' },
     ],
   },
   {
