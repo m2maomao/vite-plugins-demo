@@ -11,10 +11,11 @@
 | 2026-07-24 | **2.4 启动流程** — 从"缺少切面能力"更新为"已实现 12 个生命周期钩子 + 并行 fetch 优化" |
 | 2026-07-24 | **§4/5/8 优先级清单** — 标记已完成的改进 |
 | 2026-07-24 | **§9 源码速查** — 更新为 v5 文件路径，移除已废弃的 `config-plugin`/`_shared.ts` 引用 |
-| 2026-07-24 | **2.3 路由系统** — 新增路由元数据支持（title/layout/auth/transition），scanPagesPlugin 提取 routeMeta |
-| 2026-07-24 | **P0 全部 4 个 Bug 修复完成** — builtin-plugin 路径、Loading 竞态、SM4 加密、API 类型声明 |
-| 2026-07-24 | **启动性能优化** — Layout 改为静态导入、路由组件改为静态导入、scanPagesPlugin 缓存，`router.isReady()` 从 1950ms 降至 ~20ms |
-| 2026-07-24 | **2.2 布局系统** — 实现多布局支持（LayoutResolver + default-layout + blank-layout），页面级 `route.meta.layout` 选择 |
+| 2026-07-24 | **2.3 路由系统** — 路由元数据支持（title/layout/auth/transition） |
+| 2026-07-24 | **P0 全部 4 个 Bug 修复完成** |
+| 2026-07-24 | **启动性能优化** — `router.isReady()` 1950ms→20ms |
+| 2026-07-24 | **2.2 布局 — 第一批** — LayoutResolver + default/blank + 布局插槽 |
+| 2026-07-24 | **2.2 布局 — 第二批** — KeepAlive+滚动恢复 + TabBar（YhmTabBar）+ **嵌套布局** |
 
 ---
 
@@ -101,50 +102,46 @@ vite-plugins-demo (Monorepo)
 
 ---
 
-### 2.2 布局系统（部分增强 ⚠️ — 已完成 LayoutResolver + default/blank，剩余 4 项待实现）
+### 2.2 布局系统（第二批已完成 ✅ — 布局插槽 + KeepAlive + TabBar，剩余嵌套布局）
 
 **涉及文件：**
 - [`layouts/index.tsx`](../packages/deer-mobile/src/layouts/index.tsx) — LayoutResolver 调度器
-- [`layouts/default-layout.tsx`](../packages/deer-mobile/src/layouts/default-layout.tsx) — 默认布局（header/footer/动画）
-- [`layouts/blank-layout.tsx`](../packages/deer-mobile/src/layouts/blank-layout.tsx) — 空白布局（纯内容）
+- [`layouts/default-layout.tsx`](../packages/deer-mobile/src/layouts/default-layout.tsx) — 默认布局
+- [`layouts/blank-layout.tsx`](../packages/deer-mobile/src/layouts/blank-layout.tsx) — 空白布局
+- [`layouts/tab-bar.tsx`](../packages/deer-mobile/src/layouts/tab-bar.tsx) — TabBar 布局
+- [`runtime/create-app.ts`](../packages/deer-mobile/src/runtime/create-app.ts) — 滚动行为恢复
 
-#### ✅ 2026-07-24 已实现
+#### ✅ 第一批：基础设施
 
-| 能力 | 说明 |
-|------|------|
-| **页面级布局选择** | `routeMeta.layout = 'default'｜'blank'`，通过 LayoutResolver 动态切换 |
-| **布局注册表机制** | [`layouts/index.tsx:8-11`](../packages/deer-mobile/src/layouts/index.tsx#8) 集中管理，新增布局只需注册组件 |
-| **内置两种布局** | default（header+footer+动画）、blank（纯内容，用于登录页） |
-| **布局过渡动画** | `routeMeta.transition` 配合 `<Transition>` 组件 |
-
-#### ❌ 待实现
-
-| 能力 | 说明 | 难度 |
+| 能力 | 说明 | 文件 |
 |------|------|------|
-| **布局插槽** | 页面自定义 header/footer 内容，如 `routeMeta.slots = { header: 'custom' }` | 🟡 中 |
-| **嵌套布局** | `/user/profile` 继承 `/user` 布局，布局文件支持目录嵌套 | 🟡 中 |
-| **布局缓存 / 滚动恢复** | 离开再回来时保持滚动位置 | 🟢 低 |
-| **TabBar 布局** | 底部导航栏与路由联动，类似微信底部 Tab | 🟡 中 |
+| **页面级布局选择** | `routeMeta.layout = 'default'｜'blank'｜'tabs'` | [`layouts/index.tsx`](../packages/deer-mobile/src/layouts/index.tsx) |
+| **布局注册表机制** | 集中管理，新增布局只需注册组件 | [`layouts/index.tsx:16-20`](../packages/deer-mobile/src/layouts/index.tsx#16) |
+| **DefaultLayout** | header+footer+过辀动画 | [`layouts/default-layout.tsx`](../packages/deer-mobile/src/layouts/default-layout.tsx) |
+| **BlankLayout** | 纯内容，无导航栏 | [`layouts/blank-layout.tsx`](../packages/deer-mobile/src/layouts/blank-layout.tsx) |
 
-**架构：**
+#### ✅ 第二批：进阶能力
 
-```
-layouts/
-  index.tsx           ← LayoutResolver（根据 route.meta.layout 分发）
-  default-layout.tsx  ← 默认布局（header + footer + router-view + 动画）
-  blank-layout.tsx    ← 空白布局（仅 router-view，用于登录页）
-```
+| 能力 | 说明 | 文件 |
+|------|------|------|
+| **布局插槽** | 页面自定义 headerLeft / headerRight / headerClass | [`layouts/default-layout.tsx:62-71`](../packages/deer-mobile/src/layouts/default-layout.tsx#62) |
+| **KeepAlive 页面缓存** | `<KeepAlive>` 包裹页面内容，`route.meta.keepAlive=false` 可禁用 | [`layouts/default-layout.tsx:54-56`](../packages/deer-mobile/src/layouts/default-layout.tsx#54) |
+| **滚动恢复** | `scrollBehavior` 支持 savedPosition + 页面级 scrollTop | [`runtime/create-app.ts:30-36`](../packages/deer-mobile/src/runtime/create-app.ts#30) |
+| **TabBar 布局** | 基于 kangaroo-mobile 的 `YhmTabBar`（Vant 4 底层），支持 route 模式、徽标、SafeArea | [`layouts/tab-bar.tsx`](../packages/deer-mobile/src/layouts/tab-bar.tsx) |
 
-**扩展方式：**
-```typescript
-// layouts/index.tsx 注册表
-const LAYOUT_REGISTRY: Record<string, Component> = {
-  default: DefaultLayout,
-  blank: BlankLayout,
-  // 新增布局只需加一行：
-  // tabs: TabsLayout,
-};
-```
+#### ✅ 布局系统已全部实现
+
+| 能力 | 说明 | 文件 |
+|------|------|------|
+| **LayoutResolver** | 支持 `layout` 字符串（单布局）和数组（嵌套链） | [`layouts/index.tsx`](../packages/deer-mobile/src/layouts/index.tsx) |
+| **DefaultLayout** | header + footer + 标题 + 过渡动画 + KeepAlive | [`layouts/default-layout.tsx`](../packages/deer-mobile/src/layouts/default-layout.tsx) |
+| **BlankLayout** | 纯内容，用于登录页 | [`layouts/blank-layout.tsx`](../packages/deer-mobile/src/layouts/blank-layout.tsx) |
+| **TabBar 布局** | 基于 kangaroo-mobile YhmTabBar，支持 route 模式 | [`layouts/tab-bar.tsx`](../packages/deer-mobile/src/layouts/tab-bar.tsx) |
+| **布局插槽** | 页面自定义 headerLeft/headerRight/headerClass | [`layouts/default-layout.tsx`](../packages/deer-mobile/src/layouts/default-layout.tsx) |
+| **KeepAlive 缓存** | `route.meta.keepAlive` 控制页面缓存 | [`layouts/default-layout.tsx`](../packages/deer-mobile/src/layouts/default-layout.tsx) |
+| **滚动恢复** | scrollBehavior + savedPosition | [`runtime/create-app.ts`](../packages/deer-mobile/src/runtime/create-app.ts) |
+| **嵌套布局** | `layout: ['default', 'user']` 链式渲染，递归 slot 传递 | [`layouts/index.tsx`](../packages/deer-mobile/src/layouts/index.tsx) |
+| **UserLayout 示例** | 用户模块子布局（资料/设置 Tab 导航） | [`layouts/user-layout.tsx`](../packages/deer-mobile/src/layouts/user-layout.tsx) |
 
 ---
 
@@ -376,17 +373,17 @@ const filePath = path.resolve(currentDir, `plugins/builtin-plugin/pages/${name}.
 
 | # | 能力 | 说明 | 涉及文件 | 状态 |
 |---|------|------|---------|------|
-| 1 | **插件系统重构** | 完整生命周期钩子 + RuntimePlugin | [`setup-plugin/index.ts`](../packages/deer-mobile/plugins/setup-plugin/index.ts) + [`runtime/types.ts`](../packages/deer-mobile/src/runtime/types.ts) | ✅ **已完成** (v5) |
-| 2 | **布局系统增强** | ~~嵌套布局、页面级布局选择~~ | [`layouts/index.tsx`](../packages/deer-mobile/src/layouts/index.tsx) | ✅ **已完成** (2026-07-24) |
-| 3 | **路由元数据支持** | ~~title/layout/auth/transition~~ | [`scan-pages-plugin/index.ts`](../packages/deer-mobile/plugins/scan-pages-plugin/index.ts) | ✅ **已完成** (2026-07-24) |
-| 4 | **路由过渡动画** | ~~页面切换过渡~~ | 已集成到 default-layout | ✅ **已完成** (2026-07-24) |
-| 5 | **滚动行为恢复** | 离开页面保持滚动位置 | layouts | ❌ 待实现 |
+| 1 | **插件系统重构** | v5 RuntimePlugin + BuildPlugin | [`runtime/types.ts`](../packages/deer-mobile/src/runtime/types.ts) | ✅ 已完成 |
+| 2 | **布局系统增强** | LayoutResolver + 布局插槽 + TabBar + KeepAlive | [`layouts/`](../packages/deer-mobile/src/layouts/) | ✅ 已完成（除嵌套布局） |
+| 3 | **路由元数据支持** | title/layout/auth/transition | [`scan-pages-plugin/index.ts`](../packages/deer-mobile/plugins/scan-pages-plugin/index.ts) | ✅ 已完成 |
+| 4 | **路由过渡动画** | fade/slide-left/slide-right/slide-up | default-layout | ✅ 已完成 |
+| 5 | **滚动行为恢复** | scrollBehavior + savedPosition | [`create-app.ts`](../packages/deer-mobile/src/runtime/create-app.ts) | ✅ 已完成 |
 | 6 | **运行时主题切换** | 动态切换 primaryColor/darkMode | config-plugin + theme | ❌ 待实现 |
 | 7 | **下拉刷新 PullRefresh** | kangaroo-mobile 补充 | 新增组件 | ❌ 待实现 |
 | 8 | **无限滚动 List** | kangaroo-mobile 补充 | 新增组件 | ❌ 待实现 |
-| 9 | **全局 errorHandler** | Vue 错误捕获 + onError 钩子 | [`create-app.ts:59-62`](../packages/deer-mobile/src/runtime/create-app.ts#59) | ✅ **已实现** |
-| 10 | **启动性能优化** | 消除启动阻塞 + 路由静态导入 | [`code-gen.ts`](../packages/deer-mobile/plugins/setup-plugin/code-gen.ts) + [`scan-pages-plugin/index.ts`](../packages/deer-mobile/plugins/scan-pages-plugin/index.ts) | ✅ **已修复** (2026-07-24) |
-| 11 | **P0 Bug 修复** | 4 个 Bug 全部修复 | 多文件 | ✅ **已修复** (2026-07-24) |
+| 9 | **全局 errorHandler** | Vue 错误捕获 + onError 钩子 | [`create-app.ts`](../packages/deer-mobile/src/runtime/create-app.ts) | ✅ 已实现 |
+| 10 | **启动性能优化** | Layout/路由静态导入 + 缓存 | 多文件 | ✅ 已修复 |
+| 11 | **P0 Bug 修复** | 4 个 Bug + 性能 Bug | 多文件 | ✅ 已修复 |
 
 ---
 
@@ -426,13 +423,12 @@ flowchart LR
         D4[P0 全部 Bug 修复]
         D5[路由元数据 + 过渡动画]
         D6[页面级 auth 控制]
-        D7[布局系统增强]
+        D7[布局系统全部功能]
     end
     subgraph P1[P1 — 核心增强]
         B1[运行时主题切换]
         B2[PullRefresh组件]
         B3[List无限滚动组件]
-        B4[滚动行为恢复]
     end
     subgraph P2[P2 — 生产化]
         C1[单元测试] --> C2[构建分析]

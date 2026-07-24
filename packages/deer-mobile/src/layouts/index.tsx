@@ -1,34 +1,48 @@
 import { defineComponent, computed, h } from 'vue';
-import { useRoute } from 'vue-router';
-import type { Component } from 'vue';
+import { useRoute, RouterView } from 'vue-router';
+import type { Component, VNode } from 'vue';
 import DefaultLayout from './default-layout';
 import BlankLayout from './blank-layout';
 import TabBarLayout from './tab-bar';
+import UserLayout from './user-layout';
 
 /**
  * 布局注册表：route.meta.layout → 布局组件
- * 用户可在 routeMeta 中通过 layout 字段选择布局
- *
- * 扩展方式：在此添加新的布局组件即可
- * ```typescript
- * import CustomLayout from './custom-layout';
- * const LAYOUT_REGISTRY = { ..., custom: CustomLayout };
- * ```
+ * 支持单布局（字符串）和嵌套布局（数组）两种模式
  */
 const LAYOUT_REGISTRY: Record<string, Component> = {
   default: DefaultLayout,
   blank: BlankLayout,
   tabs: TabBarLayout,
+  user: UserLayout,
 };
 
 /**
- * 布局解析器 — 根据当前路由的 route.meta.layout 动态选择布局组件
+ * 递归渲染布局链
+ * 将 ['default', 'user'] 渲染为 <DefaultLayout><UserLayout><RouterView /></UserLayout></DefaultLayout>
+ */
+function renderLayoutChain(layouts: Component[], index: number): VNode {
+  if (index >= layouts.length) {
+    // 最内层：渲染 <RouterView>，由 vue-router 解析页面组件
+    return h(RouterView);
+  }
+  const Layout = layouts[index];
+  // 将下一层作为 children 传入，由布局组件通过 ctx.slots.default 接收
+  return h(Layout, null, { default: () => renderLayoutChain(layouts, index + 1) });
+}
+
+/**
+ * 布局解析器 — 支持单布局和嵌套布局链
  *
- * 使用方式（在页面文件中）：
+ * 单布局（字符串）：
  * ```typescript
- * export const routeMeta = { layout: 'blank' }  // 空白布局（登录页）
- * export const routeMeta = { layout: 'default' } // 默认布局（header/footer）
- * export const routeMeta = { layout: 'tabs' }    // TabBar 布局
+ * export const routeMeta = { layout: 'default' }
+ * ```
+ *
+ * 嵌套布局（数组）：
+ * ```typescript
+ * export const routeMeta = { layout: ['default', 'user'] }
+ * // 渲染：<DefaultLayout><UserLayout><RouterView /></UserLayout></DefaultLayout>
  * ```
  */
 export default defineComponent({
@@ -36,11 +50,13 @@ export default defineComponent({
   setup() {
     const route = useRoute();
 
-    const layoutComponent = computed(() => {
-      const layoutName = (route.meta?.layout as string) || 'default';
-      return LAYOUT_REGISTRY[layoutName] || DefaultLayout;
+    const layouts = computed(() => {
+      const layout = route.meta?.layout;
+      // 支持字符串（单布局）和数组（嵌套布局链）
+      const names: string[] = Array.isArray(layout) ? layout : [layout || 'default'];
+      return names.map((name) => LAYOUT_REGISTRY[name] || DefaultLayout);
     });
 
-    return () => h(layoutComponent.value);
+    return () => renderLayoutChain(layouts.value, 0);
   },
 });

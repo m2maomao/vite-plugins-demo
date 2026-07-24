@@ -3,7 +3,7 @@ import { useApi } from '@/composables/useApi';
 
 export const routeMeta = {
   title: '用户资料',
-  layout: 'default',
+  layout: ['default', 'user'],
   auth: true,
   transition: 'slide-left',
 };

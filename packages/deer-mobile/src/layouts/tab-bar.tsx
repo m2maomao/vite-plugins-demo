@@ -50,26 +50,29 @@ export default defineComponent({
     // Tab 列表：优先使用 appConfig 中的配置
     const tabs: TabConfig[] = (appConfig as any).tabs || DEFAULT_TABS;
 
-    return () => (
-      <div class="min-h-screen flex flex-col">
-        {/* 页面内容区域（带 KeepAlive 缓存） */}
-        <main class="flex-1 overflow-auto">
-          <RouterView>
-            {{
-              default: ({ Component }: { Component: any }) => h(KeepAlive, () => h(Component)),
-            }}
-          </RouterView>
-        </main>
+    return (props: any, ctx: any) => {
+      const children = ctx?.slots?.default?.();
+      return (
+        <div class="min-h-screen flex flex-col">
+          {/* 页面内容区域 */}
+          <main class="flex-1 overflow-auto">
+            {children
+              ? children() // 嵌套布局
+              : h(RouterView, null, {
+                  default: ({ Component }: { Component: any }) => h(KeepAlive, () => h(Component)),
+                })}
+          </main>
 
-        {/* 使用 kangaroo-mobile 的 YhmTabBar（基于 Vant 4） */}
-        {h(YhmTabBar, {
-          items: tabs,
-          route: true,
-          fixed: true,
-          placeholder: true,
-          'safe-area-inset-bottom': true,
-        })}
-      </div>
-    );
+          {/* 使用 kangaroo-mobile 的 YhmTabBar（基于 Vant 4） */}
+          {h(YhmTabBar, {
+            items: tabs,
+            route: true,
+            fixed: true,
+            placeholder: true,
+            'safe-area-inset-bottom': true,
+          })}
+        </div>
+      );
+    };
   },
 });
