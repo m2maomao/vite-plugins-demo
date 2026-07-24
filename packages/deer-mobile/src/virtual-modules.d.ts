@@ -51,6 +51,12 @@ declare module 'virtual:app-config' {
   };
 }
 
+declare module 'virtual:layout-registry' {
+  import type { Component } from 'vue';
+
+  export const layoutRegistry: Record<string, Component>;
+}
+
 declare module 'virtual:api' {
   /** API 模块定义：每个 .ts 文件导出的函数签名 */
   type ApiModule<T> = (inject: {

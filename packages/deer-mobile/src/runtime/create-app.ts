@@ -55,6 +55,38 @@ export async function createRuntimeApp(options: CreateRuntimeAppOptions) {
     pluginManager.callHook('onPageLeave', from);
     next();
   });
+
+  // 4b. 路由参数校验守卫：读取 route.meta.params 校验规则
+  router.beforeEach((to) => {
+    const rules = to.meta?.params as
+      Record<string, { type?: string; required?: boolean; min?: number; max?: number; pattern?: string }> | undefined;
+    if (!rules) return;
+
+    for (const [key, rule] of Object.entries(rules)) {
+      const value = to.params[key] as string | undefined;
+
+      if (rule.required && (value === undefined || value === '')) {
+        console.warn(`[Route] 参数 "${key}" 为必填，跳转 404`);
+        return '/404';
+      }
+      if (rule.type === 'number' && value !== undefined && isNaN(Number(value))) {
+        console.warn(`[Route] 参数 "${key}" 应为数字，实际: "${value}"，跳转 404`);
+        return '/404';
+      }
+      if (rule.min !== undefined && value !== undefined && Number(value) < rule.min) {
+        console.warn(`[Route] 参数 "${key}" 最小值 ${rule.min}，实际: ${value}，跳转 404`);
+        return '/404';
+      }
+      if (rule.max !== undefined && value !== undefined && Number(value) > rule.max) {
+        console.warn(`[Route] 参数 "${key}" 最大值 ${rule.max}，实际: ${value}，跳转 404`);
+        return '/404';
+      }
+      if (rule.pattern && value !== undefined && !new RegExp(rule.pattern).test(value)) {
+        console.warn(`[Route] 参数 "${key}" 不匹配规则 ${rule.pattern}，实际: "${value}"，跳转 404`);
+        return '/404';
+      }
+    }
+  });
   router.afterEach((to, from) => {
     pluginManager.callHook('onRouteChange', to, from);
     pluginManager.callHook('onPageEnter', to);

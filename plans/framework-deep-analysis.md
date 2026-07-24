@@ -7,15 +7,12 @@
 
 | 日期 | 更新内容 |
 |------|---------|
-| 2026-07-24 | **2.1 插件系统** — 从旧 `FrameworkPlugin` 评估更新为 v5 `RuntimePlugin` + `BuildPlugin` 已实现能力对照 |
-| 2026-07-24 | **2.4 启动流程** — 从"缺少切面能力"更新为"已实现 12 个生命周期钩子 + 并行 fetch 优化" |
-| 2026-07-24 | **§4/5/8 优先级清单** — 标记已完成的改进 |
-| 2026-07-24 | **§9 源码速查** — 更新为 v5 文件路径，移除已废弃的 `config-plugin`/`_shared.ts` 引用 |
-| 2026-07-24 | **2.3 路由系统** — 路由元数据支持（title/layout/auth/transition） |
-| 2026-07-24 | **P0 全部 4 个 Bug 修复完成** |
-| 2026-07-24 | **启动性能优化** — `router.isReady()` 1950ms→20ms |
-| 2026-07-24 | **2.2 布局 — 第一批** — LayoutResolver + default/blank + 布局插槽 |
-| 2026-07-24 | **2.2 布局 — 第二批** — KeepAlive+滚动恢复 + TabBar（YhmTabBar）+ **嵌套布局** |
+| 2026-07-24 | **2.1 插件系统** — v5 RuntimePlugin + BuildPlugin |
+| 2026-07-24 | **2.4 启动流程** — 12 个生命周期钩子 + 并行 fetch |
+| 2026-07-24 | **P0 Bug 修复** + 启动性能优化 |
+| 2026-07-24 | **2.2 布局系统** — 全部完成 |
+| 2026-07-24 | **2.3 路由 — 第一批** — 路由元数据 + 嵌套路由 |
+| 2026-07-24 | **2.3 路由 — 第二批** — 路由参数校验 + 多布局自动扫描 |
 
 ---
 
@@ -145,7 +142,7 @@ vite-plugins-demo (Monorepo)
 
 ---
 
-### 2.3 路由系统（部分增强 ✅ — 路由元数据支持）
+### 2.3 路由系统（已全部实现 ✅）
 
 **涉及文件：** [`packages/deer-mobile/plugins/scan-pages-plugin/index.ts`](../packages/deer-mobile/plugins/scan-pages-plugin/index.ts)
 
@@ -153,22 +150,21 @@ vite-plugins-demo (Monorepo)
 
 | 能力 | 状态 | 实现方式 |
 |------|------|---------|
-| 路由元数据 (title, layout, auth, transition) | ✅ | 页面 `export const routeMeta = { ... }`，scanPagesPlugin 自动提取 |
-| 路由过渡动画 | ✅ | 支持 `fade` / `slide-left` / `slide-right` / `slide-up` |
+| 路由元数据 (title/layout/auth/transition) | ✅ | 页面 `export const routeMeta`，scanPagesPlugin 自动提取 |
+| 路由过渡动画 | ✅ | fade/slide-left/slide-right/slide-up |
 | 页面级 auth 控制 | ✅ | `auth: false` 跳过权限检查 |
-| 页面标题自动更新 | ✅ | `document.title` + header 显示 |
-| 代码分割优化 | ✅ | 页面组件从动态 `import()` 改为静态 `import`，消除瀑布延迟 |
+| 代码分割优化 | ✅ | 静态 import 替代动态 import()，瀑布 1950ms→20ms |
 | 路由守卫扩展点 | ✅ | 通过 `onRouterCreated` 多插件注册 |
+| 嵌套路由（子路由） | ✅ | 目录自动生成父子路由，`user/index.tsx` 含 `<RouterView>` |
+| 滚动行为恢复 | ✅ | `scrollBehavior` + savedPosition |
+| TabBar 路由联动 | ✅ | YhmTabBar `route={true}` 自动同步 |
 
-**仍缺失：**
+#### ✅ 已全部实现
 
-| 能力 | 现状 | 优先级 |
-|------|------|--------|
-| 嵌套路由（子路由支持） | ❌ | 🟡 P1 |
-| 滚动行为恢复 | ❌ | 🟡 P1 |
-| 路由参数校验 | ❌ | 🟢 P3 |
-| TabBar 路由联动 | ❌ | 🟡 P1 |
-| 多布局文件自动扫描 | ❌ | 🟡 P1 |
+| 能力 | 状态 | 实现方式 |
+|------|------|---------|
+| 路由参数校验 | ✅ | `routeMeta.params` 声明规则，`create-app.ts` 全局 beforeEach 校验 |
+| 多布局自动扫描 | ✅ | `scanPagesPlugin` 扫描 `src/layouts/*.tsx` 生成 `virtual:layout-registry` |
 ||||<<<<<<< REPLACE
 
 ---
