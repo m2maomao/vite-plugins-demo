@@ -19,22 +19,26 @@ const authRuntimePlugin: RuntimePlugin = {
     const noAuthPages: string[] = ctx.config.noNavPages ?? ['/login', '/404'];
 
     router.beforeEach((to) => {
+      // 1. 页面级 auth 控制：auth: false 表示无需登录
+      if (to.meta?.auth === false) return;
+
+      // 2. 检查页面是否在免登录列表中
+      if (noAuthPages.includes(to.path)) return;
+
       try {
         const userStore = useUserStore();
-        if (userStore.token && !noAuthPages.includes(to.path)) {
+        if (userStore.token) {
           return; // 已登录，放行
         }
-        if (!userStore.token && !noAuthPages.includes(to.path)) {
-          return '/login';
-        }
-        return; // 未登录但在免登录页面，放行
+        // 未登录且需要 auth → 跳转登录页
+        return '/login';
       } catch {
         // store 未就绪，降级到 localStorage
       }
 
-      // 降级方案：localStorage
+      // 3. 降级方案：localStorage
       const token = localStorage.getItem('token');
-      if (!token && !noAuthPages.includes(to.path)) {
+      if (!token) {
         return '/login';
       }
     });

@@ -23,13 +23,13 @@ interface PluginImportInfo {
 /** 生成 layout 插件内联代码（必须在使用前注册） */
 function generateLayoutPluginCode(): string {
   return [
-    "import { h, defineAsyncComponent } from 'vue';",
-    "const __deer_layout__ = defineAsyncComponent(() => import('deer-mobile/layouts'));",
+    "import { h } from 'vue';",
+    "import __deer_layoutComponent__ from 'deer-mobile/layouts';",
     'const __deer_layoutPlugin__ = {',
     "  name: 'deer:layout',",
     '  priority: 0,',
     '  rootContainer() {',
-    '    return () => h(__deer_layout__);',
+    '    return () => h(__deer_layoutComponent__);',
     '  },',
     '};',
   ].join('\n');

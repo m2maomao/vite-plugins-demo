@@ -52,9 +52,19 @@ declare module 'virtual:app-config' {
 }
 
 declare module 'virtual:api' {
+  /** API 模块定义：每个 .ts 文件导出的函数签名 */
+  type ApiModule<T> = (inject: {
+    $get: <T = unknown>(url: string, config?: import('axios').AxiosRequestConfig) => Promise<T>;
+    $post: <T = unknown>(url: string, data?: unknown, config?: import('axios').AxiosRequestConfig) => Promise<T>;
+    $put: <T = unknown>(url: string, data?: unknown, config?: import('axios').AxiosRequestConfig) => Promise<T>;
+    $delete: <T = unknown>(url: string, config?: import('axios').AxiosRequestConfig) => Promise<T>;
+  }) => T;
+
   export const api: {
-    [moduleName: string]: {
-      [methodName: string]: (...args: any[]) => Promise<any>;
+    [moduleName: string]: Record<string, (...args: any[]) => Promise<any>>;
+    user: {
+      login: (data: { username: string; password: string }) => Promise<{ status: number; data: { token: string } }>;
+      getProfile: (id: number) => Promise<{ status: number; data: { id: number; name: string; email: string } }>;
     };
   };
 }

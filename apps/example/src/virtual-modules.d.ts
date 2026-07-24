@@ -35,8 +35,10 @@ declare module 'virtual:app-config' {
 
 declare module 'virtual:api' {
   export const api: {
-    [moduleName: string]: {
-      [methodName: string]: (...args: any[]) => Promise<any>;
+    [moduleName: string]: Record<string, (...args: any[]) => Promise<any>>;
+    user: {
+      login: (data: { username: string; password: string }) => Promise<{ status: number; data: { token: string } }>;
+      getProfile: (id: number) => Promise<{ status: number; data: { id: number; name: string; email: string } }>;
     };
   };
 }

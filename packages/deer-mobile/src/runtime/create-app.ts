@@ -15,6 +15,9 @@ export interface CreateRuntimeAppOptions {
 }
 
 export async function createRuntimeApp(options: CreateRuntimeAppOptions) {
+  const perf = (label: string) => console.log(`[Perf] ${label}`, performance.now().toFixed(0));
+  perf('createRuntimeApp start');
+
   const { pluginManager, routes, appConfig, historyMode = 'web' } = options;
   const ctx = pluginManager.getContext();
 
@@ -22,6 +25,7 @@ export async function createRuntimeApp(options: CreateRuntimeAppOptions) {
   const history = historyMode === 'hash' ? createWebHashHistory(appConfig.base) : createWebHistory(appConfig.base);
   const router = createRouter({ history, routes });
   ctx.router = router;
+  perf('router created');
 
   // 2. 使用 composeRootContainer 构建组件树（支持 rootContainer/innerProvider/outerProvider 钩子）
   const renderRoot = pluginManager.composeRootContainer(() => h(RouterView));
@@ -31,9 +35,11 @@ export async function createRuntimeApp(options: CreateRuntimeAppOptions) {
     },
   });
   ctx.app = app;
+  perf('app created');
 
   // 3. onAppCreated 钩子
   await pluginManager.callHook('onAppCreated', app);
+  perf('onAppCreated done');
 
   // 4. 注册路由监听
   router.beforeEach((to, from, next) => {
@@ -47,13 +53,16 @@ export async function createRuntimeApp(options: CreateRuntimeAppOptions) {
 
   // 5. onRouterCreated 钩子
   await pluginManager.callHook('onRouterCreated', router);
+  perf('onRouterCreated done');
 
   // 6. 必须先 app.use(router) 再 router.isReady()
   app.use(router);
   await router.isReady();
+  perf('router.isReady done');
 
   // 7. onRouterReady 钩子
   await pluginManager.callHook('onRouterReady', router);
+  perf('onRouterReady done');
 
   // 8. 错误处理
   app.config.errorHandler = (err: unknown) => {
@@ -64,5 +73,6 @@ export async function createRuntimeApp(options: CreateRuntimeAppOptions) {
   // 9. 挂载
   await pluginManager.callHook('onBeforeMount', app);
   app.mount('#app');
+  perf('app.mount done');
   await pluginManager.callHook('onMounted');
 }

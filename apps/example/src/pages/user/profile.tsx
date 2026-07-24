@@ -1,6 +1,13 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from '@/composables/useApi';
 
+export const routeMeta = {
+  title: '用户资料',
+  layout: 'default',
+  auth: true,
+  transition: 'slide-left',
+};
+
 export default defineComponent({
   setup() {
     const { user } = useApi();

@@ -59,7 +59,8 @@ const DEFAULT_LOADING_DEBOUNCE = 500;
 // 自定义 Axios 配置扩展
 interface CustomAxiosConfig extends InternalAxiosRequestConfig {
   hasToken?: boolean;
-  loading?: boolean;
+  /** 请求唯一 ID（用于 Loading 队列追踪），有值表示该请求参与 Loading 队列 */
+  loading?: string;
   silent?: boolean;
 }
 
@@ -71,9 +72,9 @@ class HttpClient {
   private instance: AxiosInstance;
   private options: Required<HttpClientOptions>;
 
-  // Loading 队列状态
-  private loadingCount = 0;
-  private prevRequestTime = 0;
+  // Loading 队列状态：使用 Set 追踪每个活跃请求，避免计数器竞态
+  private activeRequests = new Set<string>();
+  private requestIdCounter = 0;
 
   constructor(options: HttpClientOptions = {}) {
     this.options = {
@@ -110,7 +111,7 @@ class HttpClient {
 
   private setupInterceptors() {
     this.instance.interceptors.request.use(
-      (config: CustomAxiosConfig) => {
+      async (config: CustomAxiosConfig) => {
         // 1. 动态 BaseURL（支持从外部存储读取）
         const customBaseURL = this.getCustomBaseURL();
         if (customBaseURL) {
@@ -126,26 +127,19 @@ class HttpClient {
           config.hasToken = false;
         }
 
-        // 3. Loading 队列控制
+        // 3. Loading 队列控制（使用 Set 追踪活跃请求，避免竞态）
         if (this.options.enableLoadingQueue) {
-          const now = Date.now();
-          if (!this.prevRequestTime || now - this.prevRequestTime > this.options.loadingDebounce) {
-            this.loadingCount = 0;
-            this.hideLoading();
+          const requestId = `req_${++this.requestIdCounter}`;
+          this.activeRequests.add(requestId);
+          config.loading = requestId;
+          if (this.activeRequests.size === 1) {
+            this.showLoading();
           }
-          this.prevRequestTime = now;
-          this.loadingCount += 1;
-          config.loading = true;
-          this.showLoading();
         }
 
-        // 4. SM4 加密请求体（异步懒加载）
-        // 注意：启用 SM4 时需要在 appConfig 中配置 sm4Key，并安装 sm-crypto
-        if (config.data && this.sm4EncryptAsync) {
-          // 异步执行，不影响请求流程
-          this.sm4EncryptAsync(config.data).then((encrypted) => {
-            config.data = encrypted;
-          });
+        // 4. SM4 加密请求体（await 等待加密完成后再发请求）
+        if (config.data) {
+          config.data = await this.sm4EncryptAsync(config.data);
         }
 
         return config;
@@ -228,10 +222,12 @@ class HttpClient {
   private handleLoadingComplete(response: AxiosResponse) {
     if (!this.options.enableLoadingQueue) return;
 
-    this.loadingCount -= 1;
-    if ((response.config as CustomAxiosConfig)?.loading && this.loadingCount <= 0) {
-      this.loadingCount = 0;
-      this.hideLoading();
+    const requestId = (response.config as CustomAxiosConfig)?.loading;
+    if (requestId) {
+      this.activeRequests.delete(requestId);
+      if (this.activeRequests.size === 0) {
+        this.hideLoading();
+      }
     }
   }
 
