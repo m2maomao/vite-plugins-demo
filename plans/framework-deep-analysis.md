@@ -13,6 +13,8 @@
 | 2026-07-24 | **2.2 布局系统** — 全部完成 |
 | 2026-07-24 | **2.3 路由 — 第一批** — 路由元数据 + 嵌套路由 |
 | 2026-07-24 | **2.3 路由 — 第二批** — 路由参数校验 + 多布局自动扫描 |
+| 2026-07-24 | **3.2 缺失组件** — 9 个 Vant 组件封装 + playground demo 全部完成 |
+| 2026-07-24 | **3.3 Demo 质量整改** — 所有 demo 严格对齐 Vant 官方，slot 条件转发修复，playground CSS normalize 补齐 |
 
 ---
 
@@ -261,17 +263,63 @@ startApp()
 
 ### 3.2 缺失的关键组件（2026-07-24 已全部补充 ✅）
 
-| 组件 | 封装名 | Demo |
-|------|--------|------|
-| **PullRefresh** 下拉刷新 | `YhmPullRefresh` | `playground/components/pull-refresh/` |
-| **List** 无限滚动 | `YhmList` | `playground/components/list/` |
-| **IndexBar** 索引栏 | `YhmIndexBar` | `playground/components/index-bar/` |
-| **Sidebar** 侧边导航 | `YhmSidebar` | `playground/components/sidebar/` |
-| **NumberKeyboard** 数字键盘 | `YhmNumberKeyboard` | `playground/components/number-keyboard/` |
-| **PasswordInput** 密码输入 | `YhmPasswordInput` | `playground/components/password-input/` |
-| **CountDown** 倒计时 | `YhmCountDown` | `playground/components/count-down/` |
-| **WaterMark** 水印 | `YhmWatermark` | `playground/components/watermark/` |
-| **FloatingPanel** 浮动面板 | `YhmFloatingPanel` | `playground/components/floating-panel/` |
+| 组件 | 封装名 | Demo | 状态 |
+|------|--------|------|------|
+| **PullRefresh** 下拉刷新 | `YhmPullRefresh` | `playground/components/pull-refresh/` | ✅ |
+| **List** 无限滚动 | `YhmList` | `playground/components/list/` | ✅ |
+| **IndexBar** 索引栏 | `YhmIndexBar` | `playground/components/index-bar/` | ✅ |
+| **Sidebar** 侧边导航 | `YhmSidebar` | `playground/components/sidebar/` | ✅ |
+| **NumberKeyboard** 数字键盘 | `YhmNumberKeyboard` | `playground/components/number-keyboard/` | ✅ |
+| **PasswordInput** 密码输入 | `YhmPasswordInput` | `playground/components/password-input/` | ✅ |
+| **CountDown** 倒计时 | `YhmCountDown` | `playground/components/count-down/` | ✅ |
+| **WaterMark** 水印 | `YhmWatermark` | `playground/components/watermark/` | ✅ |
+| **FloatingPanel** 浮动面板 | `YhmFloatingPanel` | `playground/components/floating-panel/` | ✅ |
+
+### 3.3 Demo 质量整改（2026-07-24 ✅）
+
+所有 9 个新组件的 playground demo 已严格对齐 Vant 4 官方 demo 源码。
+
+#### 问题：无条件 slot 转发导致 Vant prop text 不显示
+
+**根因**：Vue 3 编译模板时，`<slot />` 即使没有内容投影，也会创建一个 slot wrapper 函数传递给子组件。Vant 内部判断 `slots.default` 是否为 truthy 来决定渲染 slot 还是默认文本。无条件 slot 转发导致 `slots.default` 始终为 truthy，Vant 渲染空 slot 而非 prop text（如 `pullingText`/`loadingText`）。
+
+**修复模式**（适用所有带 default slot 的组件）：
+
+```vue
+<!-- ❌ 错误：始终创建 slot wrapper 函数 -->
+<VanCountDown><slot /></VanCountDown>
+
+<!-- ✅ 正确：条件 false 时完全省略 slot 项 -->
+<VanCountDown>
+  <template v-if="hasDefaultSlot" #default="scope">
+    <slot v-bind="scope" />
+  </template>
+</VanCountDown>
+
+<script setup>
+import { useSlots } from 'vue';
+const slots = useSlots();
+const hasDefaultSlot = !!slots.default;
+</script>
+```
+
+#### 问题：Playground 缺少 CSS Normalize
+
+**根因**：Vant 官方 demo 的 `mobile.css`（由 `normalize.less` + `base.less` + `animation.less` 组成）提供了完整的 CSS reset，包括 `html tap-highlight`、`a/input/button/textarea` 字体继承、焦点 outline 移除、`ol/ul` 列表重置、`h1-h6` 统一 16px 字号等。
+
+**修复**：在 [`playground-vars.less`](../packages/kangaroo-mobile/playground/playground-vars.less) 中添加全部缺失样式。
+
+#### 问题：defineExpose 缺失导致方法调用失败
+
+**根因**：wrapper 组件（如 `YhmCountDown`）没有通过 `defineExpose` 暴露内层 Vant 组件的实例方法（如 `start/pause/reset`），父组件 `ref` 拿到的是 wrapper 实例而非 Vant 实例。
+
+**修复**：使用 `ref` 获取内层 Vant 组件实例，通过 `defineExpose` 代理转发。
+
+#### 问题：Vant 组件导入名不匹配模板名
+
+**根因**：`import { Grid } from 'vant'` 注册为 `Grid`，但模板写 `<van-grid>`，Vue 3 无法匹配。
+
+**修复**：模板中直接使用 `<Grid>` 匹配导入名，或使用 `import { Grid as VanGrid }` 别名。
 
 ---
 
@@ -288,6 +336,8 @@ startApp()
 | 7 | 路由元数据 + 嵌套路由 | ✅ **已完成** |
 | 8 | 布局系统（全部 9 项） | ✅ **已完成** |
 | 9 | 路由参数校验 + 多布局自动扫描 | ✅ **已完成** |
+| 10 | 9 个缺失 Vant 组件封装 | ✅ **已完成** |
+| 11 | Demo 质量整改（对齐官方 + slot 转发 + CSS normalize） | ✅ **已完成** |
 
 ---
 
@@ -296,8 +346,6 @@ startApp()
 | # | 能力 | 说明 | 状态 |
 |---|------|------|------|
 | 1 | **运行时主题切换** | 动态切换 primaryColor/darkMode | ❌ 待实现 |
-| 2 | **PullRefresh 组件** | kangaroo-mobile 补充 | ❌ 待实现 |
-| 3 | **List 无限滚动** | kangaroo-mobile 补充 | ❌ 待实现 |
 
 ---
 
@@ -322,11 +370,11 @@ flowchart LR
         D3[P0 Bug 修复]
         D4[路由系统全部功能]
         D5[布局系统全部功能]
+        D6[9 个缺失 Vant 组件封装]
+        D7[Demo 质量整改 + CSS Normalize]
     end
     subgraph P1[P1 — 核心增强]
         B1[运行时主题切换]
-        B2[PullRefresh 组件]
-        B3[List 无限滚动组件]
     end
     subgraph P2[P2 — 生产化]
         C1[单元测试]

@@ -1,7 +1,7 @@
 # Kangaroo Mobile — Vue 3 移动端组件库开发路线图
 
 > **定位**: 基于 Vant 4 二次封装的 Vue 3 移动端组件库，统一设计风格，提供开箱即用的业务组件
-> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker / Area / Calendar / Search / Toast / Dialog / ActionSheet / Steps / Tabs / Card / Loading / Empty / Skeleton / Badge / Collapse / ImagePreview / BackTop / Divider 组件
+> **当前状态**: 已完成项目骨架 + Icon / NavBar / Button / TabBar / Cell / CellGroup / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker / Area / Calendar / Search / Toast / Dialog / ActionSheet / Steps / Tabs / Card / Loading / Empty / Skeleton / Badge / Collapse / ImagePreview / BackTop / Divider / PullRefresh / List / IndexBar / Sidebar / NumberKeyboard / PasswordInput / CountDown / Watermark / FloatingPanel 组件
 
 ---
 
@@ -42,7 +42,9 @@
 | 类型声明 | ✅ | `.vue` 模块声明 |
 | Vue 插件入口 | ✅ | `install` 函数自动注册所有组件 |
 | 库构建输出 | ✅ | ES + CJS 双格式构建 |
-| Playground 演示 | ✅ | 组件 Demo 页面（Icon / NavBar / Button / TabBar / Cell / Tag / Field / Switch / Image / Stepper / Checkbox / Radio / Rate / Slider / Uploader / Form / Picker / Popup / TimePicker / Area / Calendar / Search） |
+| Playground 演示（新增） | ✅ | 新增 PullRefresh / List / IndexBar / Sidebar / NumberKeyboard / PasswordInput / CountDown / Watermark / FloatingPanel demo 页面 |
+| Playground CSS Normalize | ✅ | `playground-vars.less` 补齐 Vant mobile.css 样式（normalize + h 标签重置 + 动画类） |
+| Slot 条件转发模式 | ✅ | 所有带 default slot 的组件使用 `<template v-if #default>` 模式，避免无条件转发吞掉 Vant prop text |
 
 ---
 
