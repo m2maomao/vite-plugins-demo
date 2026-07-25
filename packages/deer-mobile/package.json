@@ -4,7 +4,7 @@
   "type": "module",
   "main": "./index.js",
   "scripts": {
-    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --charset=utf8",
+    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --external:kangaroo-mobile --external:kangaroo-mobile/* --external:vue --external:vue-router --external:pinia --external:pinia-plugin-persistedstate --external:axios --external:@vueuse/core --external:vue-i18n --external:sm-crypto --external:vite --external:@vitejs/plugin-vue-jsx --external:@tailwindcss/vite --external:vant --external:@vant/* --external:@iconify/vue --charset=utf8",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
