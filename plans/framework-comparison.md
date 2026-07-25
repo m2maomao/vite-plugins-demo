@@ -10,7 +10,7 @@
 
 | 模块 | 状态 | 实现方式 |
 |------|------|---------|
-| **单元测试框架** | ✅ | Vitest 4 + happy-dom + @vue/test-utils，51 tests 覆盖 status / PluginManager / HttpClient |
+| **单元测试框架** | ✅ | Vitest 4 + happy-dom + @vue/test-utils，**71 tests**（deer-mobile 51 + kangaroo-mobile 20）覆盖 status / PluginManager / HttpClient / Badge / CountDown / Tag |
 | **运行时主题切换** | ✅ **P1** | CSS 变量方案：`--yh-primary-color` 实时级联到 Vant 组件；`van-theme-dark` + `dark` class 双模式暗黑；localStorage 持久化；`useTheme()` composable；`themeRuntimePlugin` 从 `appConfig.theme` 初始化 |
 | Vite 构建 | ✅ | Vite 8 + TypeScript 6 + rolldown 生产构建 |
 | **插件系统 v5** | ✅ **已重构** | `deer()` 统一入口，BuildPlugin 8 生命周期 + RuntimePlugin 12 生命周期，替代旧 v4 config-plugin |
@@ -80,7 +80,7 @@
 
 | 优先级 | 功能 | 说明 |
 |--------|------|------|
-| P2 | **组件测试** | @vue/test-utils，覆盖 Vue 组件渲染测试 |
+| P2 | **组件自动化测试** | 34 tests（7 个组件）+ Playwright 视觉回归框架已就绪，持续推进其余 40+ 组件 |
 | P2 | **构建体积分析** | vite-plugin-inspect / rollup-plugin-visualizer |
 | P2 | **CI/CD** | GitHub Actions 自动构建/发布 |
 | P3 | 全局 Loading | 路由切换加载动画 |

@@ -7,6 +7,9 @@ import path from 'path';
 export default defineConfig({
   // ✅ 关键：告诉 Vite，当前目录就是根
   root: __dirname,
+  server: {
+    port: 5174,
+  },
 
   resolve: {
     alias: {
