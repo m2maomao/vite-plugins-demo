@@ -12,6 +12,11 @@
       "persistent": true
     },
     "lint": {},
+    "test": {
+      "dependsOn": [],
+      "inputs": ["src/**", "test/**", "vitest.config.*"],
+      "outputs": []
+    },
     "typecheck": {
       "dependsOn": ["^build"]
     }

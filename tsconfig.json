@@ -31,6 +31,7 @@
     "apps/example/server",
     "packages/deer-mobile/src",
     "packages/deer-mobile/plugins",
-    "packages/kangaroo-mobile/src"
+    "packages/kangaroo-mobile/src",
+    "vitest.workspace.ts"
   ]
 }

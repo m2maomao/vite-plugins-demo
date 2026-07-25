@@ -5,6 +5,9 @@
   "main": "./index.js",
   "scripts": {
     "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --charset=utf8",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
     "publish:dev": "pnpm build && npm version patch && npm publish --registry http://localhost:4873"
   },
   "exports": {

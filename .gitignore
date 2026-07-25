@@ -9,6 +9,9 @@ yarn.lock
 # build artifacts
 packages/deer-mobile/index.js
 
+# test coverage
+coverage/
+
 # editor
 *.swp
 *.swo
