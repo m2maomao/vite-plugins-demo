@@ -77164,7 +77164,8 @@ var BUILTIN_PLUGIN_PATHS = {
   deer_piniaPlugin: "deer-mobile/runtime/pinia",
   deer_i18nPlugin: "deer-mobile/runtime/i18n",
   deer_authPlugin: "deer-mobile/runtime/auth",
-  deer_apiPlugin: "deer-mobile/runtime/api"
+  deer_apiPlugin: "deer-mobile/runtime/api",
+  deer_themePlugin: "deer-mobile/runtime/theme"
 };
 function generateLayoutPluginCode() {
   return [
@@ -90894,6 +90895,24 @@ var apiRuntimePlugin = {
 };
 var api_plugin_default = apiRuntimePlugin;
 
+// plugins/runtime/theme-plugin.ts
+var themeRuntimePlugin = {
+  name: "deer:theme",
+  priority: 0,
+  onAppCreated: (_app, ctx) => {
+    const { theme } = ctx.config;
+    if (theme) {
+      if (theme.primaryColor) {
+        themeManager.setPrimaryColor(theme.primaryColor);
+      }
+      if (theme.darkMode) {
+        themeManager.setDarkMode(true);
+      }
+    }
+  }
+};
+var theme_plugin_default = themeRuntimePlugin;
+
 // src/runtime/plugin-manager.ts
 var PluginManager = class {
   plugins = [];
@@ -93174,7 +93193,8 @@ export {
   i18n_plugin_default as i18nRuntimePlugin,
   mockPlugin,
   pinia_plugin_default as piniaRuntimePlugin,
-  scanPagesPlugin
+  scanPagesPlugin,
+  theme_plugin_default as themeRuntimePlugin
 };
 /*! Bundled license information:
 

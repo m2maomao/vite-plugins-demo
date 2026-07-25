@@ -16,6 +16,7 @@ export { default as piniaRuntimePlugin } from './plugins/runtime/pinia-plugin';
 export { default as i18nRuntimePlugin } from './plugins/runtime/i18n-plugin';
 export { default as authRuntimePlugin } from './plugins/runtime/auth-plugin';
 export { default as apiRuntimePlugin } from './plugins/runtime/api-plugin';
+export { default as themeRuntimePlugin } from './plugins/runtime/theme-plugin';
 
 // ---- 类型导出 ----
 export type { MockPluginOptions, MockApis } from './plugins/mock-plugin';

@@ -15,3 +15,7 @@ export default { install };
 export * from './components';
 export { setLocale, getLocale, createTranslate, onLocaleChange, i18nPlugin, I18N_KEY } from './locale';
 export type { LocaleLang, LocaleMessages, Translate } from './locale';
+
+// ---- 运行时主题 ----
+export { themeManager, useTheme } from './theme/useTheme';
+export type { ThemeConfig, ThemeListener } from './theme/theme-manager';

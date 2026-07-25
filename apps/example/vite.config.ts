@@ -13,6 +13,7 @@ import {
   authRuntimePlugin,
   i18nRuntimePlugin,
   apiRuntimePlugin,
+  themeRuntimePlugin,
 } from 'deer-mobile';
 
 export default defineConfig({
@@ -38,7 +39,7 @@ export default defineConfig({
       config: {
         title: '111',
         author: 'michael',
-        theme: { primaryColor: 'red', darkMode: true },
+        theme: { primaryColor: 'red', darkMode: false },
         layout: 'top',
         i18n: {
           locale: 'zh-CN',
@@ -49,6 +50,7 @@ export default defineConfig({
         },
       },
       runtimePlugins: [
+        themeRuntimePlugin,
         piniaRuntimePlugin,
         authRuntimePlugin,
         i18nRuntimePlugin,

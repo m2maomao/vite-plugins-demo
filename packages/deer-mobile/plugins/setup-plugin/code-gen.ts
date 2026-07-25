@@ -12,6 +12,7 @@ const BUILTIN_PLUGIN_PATHS: Record<string, string> = {
   deer_i18nPlugin: 'deer-mobile/runtime/i18n',
   deer_authPlugin: 'deer-mobile/runtime/auth',
   deer_apiPlugin: 'deer-mobile/runtime/api',
+  deer_themePlugin: 'deer-mobile/runtime/theme',
 };
 
 interface PluginImportInfo {

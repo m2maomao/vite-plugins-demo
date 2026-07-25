@@ -55,6 +55,10 @@
       "development": "./plugins/runtime/api-plugin.ts",
       "default": "./plugins/runtime/api-plugin.ts"
     },
+    "./runtime/theme": {
+      "development": "./plugins/runtime/theme-plugin.ts",
+      "default": "./plugins/runtime/theme-plugin.ts"
+    },
     "./runtime/layout": {
       "development": "./plugins/runtime/layout-plugin.ts",
       "default": "./plugins/runtime/layout-plugin.ts"
