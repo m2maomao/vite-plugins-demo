@@ -22,16 +22,16 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
-    "clean": "pnpm -r --parallel exec rm -rf dist .turbo",
-    "clean:all": "pnpm -r --parallel exec rm -rf dist node_modules .turbo && rm -rf node_modules pnpm-lock.yaml"
+    "clean": "rm -rf .turbo && pnpm -r --parallel exec rm -rf dist",
+    "clean:all": "rm -rf .turbo && pnpm -r --parallel exec rm -rf dist node_modules && rm -rf node_modules pnpm-lock.yaml"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,vue}": [
       "eslint --fix",
-      "prettier --write"
+      "pnpm prettier --write"
     ],
     "*.{json,md,css,less,html}": [
-      "prettier --write",
+      "pnpm prettier --write",
       "stylelint --fix"
     ]
   },
