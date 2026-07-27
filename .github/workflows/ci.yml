@@ -75,5 +75,6 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       # Playwright 自动启动 Vite dev server（配置在 playwright.config.ts webServer）
+      # 使用 --update-snapshots 因为 Linux baseline 需在 CI 上首次生成
       - name: Run Playwright visual tests
-        run: pnpm --filter kangaroo-mobile test:e2e
+        run: pnpm --filter kangaroo-mobile test:e2e:update
