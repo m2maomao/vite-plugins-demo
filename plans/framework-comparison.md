@@ -10,7 +10,8 @@
 
 | 模块 | 状态 | 实现方式 |
 |------|------|---------|
-| **单元测试框架** | ✅ | Vitest 4 + happy-dom + @vue/test-utils，**85 tests**（deer-mobile 51 + kangaroo-mobile 34）覆盖 status / PluginManager / HttpClient / Badge / CountDown / Tag / Button / Cell / Loading |
+| **单元测试框架** | ✅ | Vitest 4 + happy-dom + @vue/test-utils，**192 tests**（deer-mobile 51 + kangaroo-mobile **141**）覆盖 status / PluginManager / HttpClient 及 **48 个 UI 组件单元测试** |
+| **组件测试自动生成** | ✅ **P2** | [`scripts/generate-component-tests.mjs`](../scripts/generate-component-tests.mjs) 批量生成组件测试模板，支持 `vanStub` / 事件 / slot 配置化生成，覆盖 NavBar / Tabs / Dialog / Toast 等 **50 个组件** |
 | **视觉回归测试** | ✅ | Playwright + Chromium，34 个组件全量截图 baseline，检测 UI 像素级差异 |
 | **运行时主题切换** | ✅ **P1** | CSS 变量方案：`--yh-primary-color` 实时级联到 Vant 组件；`van-theme-dark` + `dark` class 双模式暗黑；localStorage 持久化；`useTheme()` composable；`themeRuntimePlugin` 从 `appConfig.theme` 初始化 |
 | Vite 构建 | ✅ | Vite 8 + TypeScript 6 + rolldown 生产构建 |
@@ -83,7 +84,6 @@
 
 | 优先级 | 功能 | 说明 |
 |--------|------|------|
-| P3 | **更多组件单元测试** | 其余 47 个组件的自动化测试持续推进（现有模式可批量复用） |
 | P3 | 全局 Loading | 路由切换加载动画 |
 | P3 | PWA | 离线访问 |
 | P3 | 环境变量封装 | `.env` 文件管理封装 |
@@ -114,6 +114,8 @@
 
 | 功能模块 | 核心文件 | 关键代码 |
 |---------|---------|---------|
+| 组件测试自动生成 | [`scripts/generate-component-tests.mjs`](../scripts/generate-component-tests.mjs) | 批量生成 50 个组件测试模板，配置化 vanStub / 事件 / slot |
+| 组件测试 Stub 共享 | [`kangaroo-mobile/src/components/__tests__/shared-stubs.ts`](../packages/kangaroo-mobile/src/components/__tests__/shared-stubs.ts) | Vant 组件 Stub 统一管理，含 40+ 组件 stub、事件映射、slot 配置 |
 | 框架入口 `deer()` | [`setup-plugin/index.ts`](../packages/deer-mobile/plugins/setup-plugin/index.ts) | 唯一 Vite 插件入口 |
 | BuildPlugin 类型 | [`build/types.ts`](../packages/deer-mobile/src/build/types.ts) | 构建时插件接口 |
 | BuildAPI 实现 | [`setup-plugin/build-api.ts`](../packages/deer-mobile/plugins/setup-plugin/build-api.ts) | modifyConfig / modifyRoutes / addRuntimePlugin |
