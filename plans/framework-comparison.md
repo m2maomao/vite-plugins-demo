@@ -1,6 +1,6 @@
 # Deer Mobile 框架状态与对比
 
-> **最后更新**: 2026-07-25 | 核心框架完成度 ≈ **99%**
+> **最后更新**: 2026-07-27 | 核心框架完成度 ≈ **99%**
 
 ---
 
@@ -49,6 +49,7 @@
 | **54 组件封装** | ✅ | 全部基于 Vant 4 二次封装，原 45 个 + 新增 9 个（PullRefresh / List / IndexBar / Sidebar / NumberKeyboard / PasswordInput / CountDown / Watermark / FloatingPanel） |
 | **Demo 质量整改** | ✅ | 所有 demo 严格对齐 Vant 官方源码，slot 条件转发修复，Playground CSS Normalize 补齐 |
 | **Playground** | ✅ | 组件 Demo 演示页面，含完整 CSS normalize 和动画类 |
+| **构建体积分析** | ✅ **P2** | `rollup-plugin-visualizer` 集成，`vite.analyze.ts` 独立配置，`pnpm build:analyze` 产出 `dist/stats.html` 交互式树图 |
 
 #### 54 组件完整清单
 
@@ -82,7 +83,6 @@
 | 优先级 | 功能 | 说明 |
 |--------|------|------|
 | P3 | **更多组件单元测试** | 其余 47 个组件的自动化测试持续推进（现有模式可批量复用） |
-| P2 | **构建体积分析** | vite-plugin-inspect / rollup-plugin-visualizer |
 | P2 | **CI/CD** | GitHub Actions 自动构建/发布 |
 | P3 | 全局 Loading | 路由切换加载动画 |
 | P3 | PWA | 离线访问 |
@@ -134,3 +134,4 @@
 | Kangaroo 组件入口 | [`kangaroo-mobile/src/index.ts`](../packages/kangaroo-mobile/src/index.ts) | install 注册所有组件 |
 | 组件 Demo | [`kangaroo-mobile/playground/`](../packages/kangaroo-mobile/playground/) | 所有组件 demo 页面 |
 | Playground CSS | [`playground-vars.less`](../packages/kangaroo-mobile/playground/playground-vars.less) | CSS normalize + 动画类 |
+| 构建体积分析 | [`kangaroo-mobile/vite.analyze.ts`](../packages/kangaroo-mobile/vite.analyze.ts) | rollup-plugin-visualizer，`pnpm build:analyze` |

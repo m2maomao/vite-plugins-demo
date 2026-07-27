@@ -34,6 +34,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "vite.config.ts",
+    "vite.analyze.ts",
     "vitest.config.ts",
     "playground/**/*.ts",
     "playground/**/*.vue",
