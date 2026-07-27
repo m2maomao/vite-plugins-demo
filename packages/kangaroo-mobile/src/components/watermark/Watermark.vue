@@ -1,9 +1,16 @@
 <template>
-  <VanWatermark v-bind="vanProps" :class="['yhm-watermark', customClass]" />
+  <VanWatermark v-bind="vanProps" :class="['yhm-watermark', customClass]">
+    <template v-if="hasContentSlot" #content>
+      <slot name="content" />
+    </template>
+  </VanWatermark>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
+
+const slots = useSlots();
+const hasContentSlot = !!slots.content;
 import { Watermark as VanWatermark } from 'vant';
 
 defineOptions({ name: 'YhmWatermark' });

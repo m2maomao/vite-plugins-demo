@@ -60,11 +60,11 @@ import { ref } from 'vue';
 const fullPage = ref(false);
 </script>
 
-<style>
+<style lang="less">
 .demo-watermark-wrapper {
   position: relative;
   height: 150px;
-  background-color: #f7f8fa;
-  padding: 16px;
+  background-color: var(--van-background-2);
+  padding: var(--van-padding-md);
 }
 </style>

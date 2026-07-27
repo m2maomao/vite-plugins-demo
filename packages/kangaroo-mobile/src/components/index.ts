@@ -53,7 +53,7 @@ export { YhmBackTop } from './back-top';
 export { YhmDivider } from './divider';
 export { YhmPullRefresh } from './pull-refresh';
 export { YhmList } from './list';
-export { YhmIndexBar } from './index-bar';
+export { YhmIndexBar, YhmIndexAnchor } from './index-bar';
 export { YhmSidebar } from './sidebar';
 export { YhmNumberKeyboard } from './number-keyboard';
 export { YhmPasswordInput } from './password-input';
