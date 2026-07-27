@@ -69,7 +69,8 @@ const COMPONENT_CONFIGS = [
 
 function generateTestFile(config) {
   const { name, vanStub, props = {}, hasDefaultSlot, namedSlots = [], events = [], needsIconStub } = config;
-  const componentName = name.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');
+  // tab-bar-item → TabbarItem（注意文件名大小写：TabbarItem.vue）
+  const componentName = name === 'tab-bar-item' ? 'TabbarItem' : name.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');
   const hasCustomClass = !NO_CUSTOM_CLASS.has(name);
   const canTestDefaultSlot = hasDefaultSlot && !NO_DEFAULT_SLOT.has(name);
   const componentDisplayName = name.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');

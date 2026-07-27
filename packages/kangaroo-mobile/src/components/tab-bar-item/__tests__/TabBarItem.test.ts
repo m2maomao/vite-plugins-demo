@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import TabBarItem from '../TabBarItem.vue';
+import TabBarItem from '../TabbarItem.vue';
 import { vanStubs } from '../../__tests__/shared-stubs';
 
 describe('TabBarItem', () => {
