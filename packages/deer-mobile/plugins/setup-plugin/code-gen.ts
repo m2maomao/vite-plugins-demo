@@ -2,10 +2,12 @@
  * Deer Mobile — Code Generator
  *
  * 生成 virtual:setup-app 的代码。
+ * 负责组装运行时启动代码，包括插件注册、应用启动、环境变量类型声明等。
  */
 
 import type { CollectedState } from './build-api';
 import type { RuntimePlugin } from '../../src/runtime/types';
+import type { EnvDefinitions } from '../../src/build/types';
 
 const BUILTIN_PLUGIN_PATHS: Record<string, string> = {
   deer_piniaPlugin: 'deer-mobile/runtime/pinia',
@@ -36,11 +38,35 @@ function generateLayoutPluginCode(): string {
   ].join('\n');
 }
 
+/** 生成环境变量类型声明代码（注入到生成的 entry 中，提供 TypeScript 类型提示） */
+function generateEnvDeclaration(envDefs: EnvDefinitions): string {
+  const fields = Object.entries(envDefs)
+    .map(([key, envVar]) => `      ${key}: string;  // from ${envVar}`)
+    .join('\n');
+
+  return [
+    '',
+    '// ============================================',
+    '// 环境变量类型声明（自动生成，请勿手动修改）',
+    '// ============================================',
+    '// 通过 deer({ env: { ... } }) 声明，构建时注入到 appConfig.env',
+    '// 在项目中使用时，TypeScript 会自动推导 appConfig.env 下的字段类型',
+    'declare module "deer-mobile" {',
+    '  interface AppConfig {',
+    '    env: {',
+    fields,
+    '    };',
+    '  }',
+    '}',
+    'export {};',
+  ].join('\n');
+}
+
 export function generateSetupAppCode(
   state: CollectedState,
-  options: { appConfigPath: string; routesPath: string },
+  options: { appConfigPath: string; routesPath: string; envDefs?: EnvDefinitions },
 ): string {
-  const { appConfigPath = 'virtual:app-config', routesPath = 'virtual:routes' } = options;
+  const { appConfigPath = 'virtual:app-config', routesPath = 'virtual:routes', envDefs } = options;
 
   const pluginImports = collectPluginImports(state.runtimePlugins);
 
@@ -85,6 +111,9 @@ export function generateSetupAppCode(
     '// ---- 注册运行时插件 ----',
     'pluginManager.use(__deer_layoutPlugin__);',
     pluginRegistrations,
+    '',
+    '// ---- 环境变量类型声明 ----',
+    envDefs && Object.keys(envDefs).length > 0 ? generateEnvDeclaration(envDefs) : '',
     '',
     '// ---- 入口注入代码 ----',
     entryCodesStr,

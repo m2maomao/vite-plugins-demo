@@ -4,7 +4,7 @@
  * deer() Vite 插件的配置选项类型定义。
  */
 
-import type { BuildPlugin, AppConfig, RouteConfig, GenerateAPI } from '../../src/build/types';
+import type { BuildPlugin, AppConfig, EnvDefinitions, RouteConfig, GenerateAPI } from '../../src/build/types';
 import type { RuntimePlugin } from '../../src/runtime/types';
 import type { MockPluginOptions } from '../mock-plugin';
 
@@ -15,6 +15,24 @@ import type { MockPluginOptions } from '../mock-plugin';
 export interface DeerOptions {
   /** 应用配置（框架配置 + 插件配置） */
   config?: Partial<AppConfig>;
+
+  /** 环境变量声明
+   *
+   *  声明需要暴露到运行时的环境变量。
+   *  Key = 运行时字段名, Value = 环境变量名（如 'VITE_API_URL'）。
+   *
+   *  @example
+   *  env: {
+   *    apiBaseUrl: 'VITE_API_BASE_URL',
+   *    appVersion: 'VITE_APP_VERSION',
+   *  }
+   *
+   *  运行时通过 appConfig.env.apiBaseUrl 访问。
+   */
+  env?: EnvDefinitions;
+
+  /** 是否自动暴露所有 VITE_ 前缀变量到运行时（默认 true） */
+  envFallback?: boolean;
 
   /** 路由配置 */
   routes?: {

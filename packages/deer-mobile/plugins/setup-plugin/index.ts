@@ -8,13 +8,15 @@
  *   3. 生成 virtual:app-config（暴露配置给运行时）
  *   4. 生成 virtual:setup-app（运行时启动代码）
  *   5. 自动注入到 main.ts
+ *   6. 处理环境变量注入（deer() env 选项）
  */
 
 import type { Plugin, ViteDevServer } from 'vite';
+import { loadEnv } from 'vite';
 import { BuildAPIImpl, type CollectedState } from './build-api';
 import { generateSetupAppCode } from './code-gen';
 import type { DeerOptions } from './types';
-import type { BuildPlugin, AppConfig, RouteConfig } from '../../src/build/types';
+import type { BuildPlugin, AppConfig, EnvDefinitions, RouteConfig } from '../../src/build/types';
 
 // ============================================
 // 虚拟模块标识符
@@ -43,6 +45,7 @@ const DEFAULT_CONFIG: AppConfig = {
   request: {
     baseURL: '/api',
   },
+  env: {},
 };
 
 // ============================================
@@ -71,10 +74,14 @@ export default function deer(options: DeerOptions = {}): Plugin {
     registeredPlugins: [],
   };
 
+  // ---- 处理环境变量 ----
+  const env = processEnv(options.env, options.envFallback);
+
   // ---- 合并配置 ----
   let appConfig: AppConfig = {
     ...DEFAULT_CONFIG,
     ...options.config,
+    env: { ...DEFAULT_CONFIG.env, ...env, ...options.config?.env },
     theme: { ...DEFAULT_CONFIG.theme, ...options.config?.theme },
     request: { ...DEFAULT_CONFIG.request, ...options.config?.request },
   };
@@ -139,6 +146,7 @@ export default function deer(options: DeerOptions = {}): Plugin {
         const code = generateSetupAppCode(state, {
           appConfigPath: VIRTUAL_APP_CONFIG,
           routesPath: 'virtual:routes',
+          envDefs: options.env,
         });
         console.log(`[Deer] virtual:setup-app generated (${code.length} chars)`);
         return code;
@@ -290,4 +298,54 @@ function collectBuildPlugins(options: DeerOptions, _api: BuildAPIImpl): BuildPlu
   }
 
   return plugins;
+}
+
+// ============================================
+// processEnv — 读取 .env 并构建运行时环境变量
+// ============================================
+
+/** 驼峰化：VITE_API_BASE_URL → apiBaseUrl */
+function toCamelCase(str: string): string {
+  return str
+    .replace(/^VITE_/, '')
+    .toLowerCase()
+    .replace(/_([a-z])/g, (_, c: string) => c.toUpperCase());
+}
+
+/**
+ * 读取 .env 文件并构建运行时环境变量对象。
+ *
+ * 流程：
+ *  1. 使用 Vite loadEnv 读取 .env / .env.[mode] 等文件
+ *  2. 如果 envFallback=true（默认），自动暴露所有 VITE_ 前缀变量（转驼峰）
+ *  3. 按用户声明的映射表暴露指定变量（可覆盖默认暴露的同名键）
+ */
+function processEnv(definitions?: EnvDefinitions, fallback = true): Record<string, string> {
+  const mode = process.env.NODE_ENV || 'development';
+  // loadEnv(mode, root, prefixes) 会自动加载 .env.[mode]、.env、.env.local
+  // 传 '' 作为 prefixes 可加载所有变量（包括非 VITE_ 前缀）
+  const viteEnv = loadEnv(mode, process.cwd(), '');
+
+  const result: Record<string, string> = {};
+
+  // 1. 自动暴露所有 VITE_ 前缀变量（转驼峰）
+  if (fallback) {
+    for (const [key, value] of Object.entries(viteEnv)) {
+      if (key.startsWith('VITE_') && value !== undefined) {
+        result[toCamelCase(key)] = value;
+      }
+    }
+  }
+
+  // 2. 用户自定义映射（覆盖自动暴露的同名键）
+  if (definitions) {
+    for (const [runtimeKey, envVarName] of Object.entries(definitions)) {
+      const value = viteEnv[envVarName];
+      if (value !== undefined) {
+        result[runtimeKey] = value;
+      }
+    }
+  }
+
+  return result;
 }

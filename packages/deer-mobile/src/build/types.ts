@@ -67,6 +67,9 @@ export interface RouteConfig {
 // AppConfig — 应用配置
 // ============================================
 
+/** 环境变量声明：Key = 运行时字段名, Value = 环境变量名 */
+export type EnvDefinitions = Record<string, string>;
+
 export interface AppConfig {
   title: string;
   description: string;
@@ -91,6 +94,8 @@ export interface AppConfig {
     enabled?: boolean;
     dir?: string;
   };
+  /** 运行时环境变量（由 deer() env 选项声明，构建时自动注入） */
+  env: Record<string, string>;
   /** 插件配置动态扩展 */
   [key: string]: unknown;
 }

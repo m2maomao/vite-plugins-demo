@@ -76608,15 +76608,6 @@ function buildRouteTree(files, pluginRoutes) {
   return root;
 }
 function generateRouteCode(node, pageIndex, imports, isChild) {
-  const collectImports = (n2) => {
-    if (n2.file && !n2.children.some((c2) => c2.isIndex)) {
-      imports.push(`import __page${pageIndex.current} from '${n2.file}'`);
-      pageIndex.current++;
-    }
-    for (const child of n2.children) {
-      collectImports(child);
-    }
-  };
   if (!isChild) {
     const processNode = (n2) => {
       const needsImport = n2.file && // 根路由或没有子路由的普通页面
@@ -76634,7 +76625,7 @@ function generateRouteCode(node, pageIndex, imports, isChild) {
     };
     processNode(node);
   }
-  const genRoute = (n2, useRelativePath) => {
+  const genRoute = (n2, _useRelativePath) => {
     const isParent = n2.isIndex && n2.children.length > 0;
     const hasOwnPage = n2.file && (n2.isIndex || n2.children.length === 0);
     const isLeaf = n2.file && !n2.isIndex && n2.children.length === 0;
@@ -76731,10 +76722,7 @@ function scanPagesPlugin(options = {}) {
   function generateLayoutCode() {
     const layoutFiles = scanLayoutFiles();
     if (layoutFiles.length === 0) return "export const layoutRegistry = {};";
-    const imports = layoutFiles.map((f2, i2) => {
-      const name = f2.replace("src/layouts/", "").replace(/\.tsx$/, "");
-      return `import __layout${i2} from '/${f2}'`;
-    }).join("\n");
+    const imports = layoutFiles.map((f2, i2) => `import __layout${i2} from '/${f2}'`).join("\n");
     const entries = layoutFiles.map((f2, i2) => {
       const name = f2.replace("src/layouts/", "").replace(/\.tsx$/, "");
       return `"${name}": __layout${i2}`;
@@ -77064,6 +77052,9 @@ function matchUrl(pattern, actual) {
   return regex2.test(actual);
 }
 
+// plugins/setup-plugin/index.ts
+import { loadEnv } from "vite";
+
 // plugins/setup-plugin/build-api.ts
 var BuildAPIImpl = class {
   constructor(state, getConfig, getRoutes2) {
@@ -77180,8 +77171,27 @@ function generateLayoutPluginCode() {
     "};"
   ].join("\n");
 }
+function generateEnvDeclaration(envDefs) {
+  const fields = Object.entries(envDefs).map(([key, envVar]) => `      ${key}: string;  // from ${envVar}`).join("\n");
+  return [
+    "",
+    "// ============================================",
+    "// 环境变量类型声明（自动生成，请勿手动修改）",
+    "// ============================================",
+    "// 通过 deer({ env: { ... } }) 声明，构建时注入到 appConfig.env",
+    "// 在项目中使用时，TypeScript 会自动推导 appConfig.env 下的字段类型",
+    'declare module "deer-mobile" {',
+    "  interface AppConfig {",
+    "    env: {",
+    fields,
+    "    };",
+    "  }",
+    "}",
+    "export {};"
+  ].join("\n");
+}
 function generateSetupAppCode(state, options) {
-  const { appConfigPath = "virtual:app-config", routesPath = "virtual:routes" } = options;
+  const { appConfigPath = "virtual:app-config", routesPath = "virtual:routes", envDefs } = options;
   const pluginImports = collectPluginImports(state.runtimePlugins);
   const importStmts = pluginImports.map((i2) => i2.importStmt).filter(Boolean).join("\n");
   const inlineCodes = pluginImports.map((i2) => i2.inlineCode).filter(Boolean).join("\n\n");
@@ -77213,6 +77223,9 @@ function generateSetupAppCode(state, options) {
     "// ---- 注册运行时插件 ----",
     "pluginManager.use(__deer_layoutPlugin__);",
     pluginRegistrations,
+    "",
+    "// ---- 环境变量类型声明 ----",
+    envDefs && Object.keys(envDefs).length > 0 ? generateEnvDeclaration(envDefs) : "",
     "",
     "// ---- 入口注入代码 ----",
     entryCodesStr,
@@ -77323,7 +77336,8 @@ var DEFAULT_CONFIG = {
   noNavPages: ["/login", "/404"],
   request: {
     baseURL: "/api"
-  }
+  },
+  env: {}
 };
 function deer(options = {}) {
   console.log("[Deer] deer() function CALLED");
@@ -77345,9 +77359,11 @@ function deer(options = {}) {
     methods: /* @__PURE__ */ new Map(),
     registeredPlugins: []
   };
+  const env = processEnv(options.env, options.envFallback);
   let appConfig = {
     ...DEFAULT_CONFIG,
     ...options.config,
+    env: { ...DEFAULT_CONFIG.env, ...env, ...options.config?.env },
     theme: { ...DEFAULT_CONFIG.theme, ...options.config?.theme },
     request: { ...DEFAULT_CONFIG.request, ...options.config?.request }
   };
@@ -77400,7 +77416,8 @@ function deer(options = {}) {
       if (id === RESOLVED_SETUP_APP) {
         const code = generateSetupAppCode(state, {
           appConfigPath: VIRTUAL_APP_CONFIG,
-          routesPath: "virtual:routes"
+          routesPath: "virtual:routes",
+          envDefs: options.env
         });
         console.log(`[Deer] virtual:setup-app generated (${code.length} chars)`);
         return code;
@@ -77500,7 +77517,7 @@ ${code}`,
     }
   };
 }
-function collectBuildPlugins(options, api) {
+function collectBuildPlugins(options, _api) {
   const plugins = [];
   if (options.modifyRoutes || options.modifyConfig || options.onGenerate) {
     const anonymousPlugin = (buildApi) => {
@@ -77529,6 +77546,30 @@ function collectBuildPlugins(options, api) {
     plugins.push(...options.buildPlugins);
   }
   return plugins;
+}
+function toCamelCase(str) {
+  return str.replace(/^VITE_/, "").toLowerCase().replace(/_([a-z])/g, (_2, c2) => c2.toUpperCase());
+}
+function processEnv(definitions, fallback = true) {
+  const mode = process.env.NODE_ENV || "development";
+  const viteEnv = loadEnv(mode, process.cwd(), "");
+  const result = {};
+  if (fallback) {
+    for (const [key, value] of Object.entries(viteEnv)) {
+      if (key.startsWith("VITE_") && value !== void 0) {
+        result[toCamelCase(key)] = value;
+      }
+    }
+  }
+  if (definitions) {
+    for (const [runtimeKey, envVarName] of Object.entries(definitions)) {
+      const value = viteEnv[envVarName];
+      if (value !== void 0) {
+        result[runtimeKey] = value;
+      }
+    }
+  }
+  return result;
 }
 
 // ../../node_modules/.pnpm/vue@3.5.39_typescript@6.0.3/node_modules/vue/index.mjs
