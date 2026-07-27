@@ -41,8 +41,13 @@ jobs:
       - name: Lint styles (Stylelint)
         run: pnpm lint:style
 
-      - name: Type check
-        run: pnpm --filter deer-mobile --filter kangaroo-mobile exec -- tsc --noEmit
+      - name: Type check — kangaroo-mobile
+        working-directory: packages/kangaroo-mobile
+        run: npx tsc --noEmit
+
+      - name: Type check — deer-mobile
+        working-directory: packages/deer-mobile
+        run: npx tsc --noEmit
 
       - name: Build
         run: pnpm --filter deer-mobile --filter kangaroo-mobile build
@@ -52,7 +57,6 @@ jobs:
 
   # ---------------------------------------------------------------
   # 视觉回归测试 — 仅在 CI 主流程通过后运行
-  # 需要 playwright 浏览器环境，单独 job 避免影响主流程速度
   # ---------------------------------------------------------------
   visual-test:
     needs: ci
@@ -63,7 +67,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # pnpm 版本自动从 package.json 的 packageManager 字段读取
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
