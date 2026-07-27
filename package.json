@@ -28,10 +28,10 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx,vue}": [
       "eslint --fix",
-      "pnpm prettier --write"
+      "prettier --write"
     ],
     "*.{json,md,css,less,html}": [
-      "pnpm prettier --write",
+      "prettier --write",
       "stylelint --fix"
     ]
   },
@@ -53,7 +53,7 @@
     "lint-staged": "^17.1.0",
     "postcss-html": "^1.8.1",
     "postcss-less": "^6.0.0",
-    "prettier": "^3.9.5",
+    "prettier": "^3.9.6",
     "stylelint": "^17.14.0",
     "stylelint-config-standard": "^40.0.0",
     "turbo": "^2.10.5",
