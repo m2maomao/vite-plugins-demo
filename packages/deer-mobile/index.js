@@ -35115,7 +35115,7 @@ var require_reactivity_cjs_prod = __commonJS({
       return r2 ? r2["__v_isRef"] === true : false;
     }
     // @__NO_SIDE_EFFECTS__
-    function ref6(value) {
+    function ref7(value) {
       return createRef(value, false);
     }
     // @__NO_SIDE_EFFECTS__
@@ -35269,7 +35269,7 @@ var require_reactivity_cjs_prod = __commonJS({
       } else if (shared.isObject(source) && arguments.length > 1) {
         return propertyToRef(source, key, defaultValue);
       } else {
-        return /* @__PURE__ */ ref6(source);
+        return /* @__PURE__ */ ref7(source);
       }
     }
     function propertyToRef(source, key, defaultValue) {
@@ -35575,7 +35575,7 @@ var require_reactivity_cjs_prod = __commonJS({
     exports.reactive = reactive3;
     exports.reactiveReadArray = reactiveReadArray;
     exports.readonly = readonly;
-    exports.ref = ref6;
+    exports.ref = ref7;
     exports.resetTracking = resetTracking;
     exports.shallowReactive = shallowReactive2;
     exports.shallowReadArray = shallowReadArray;
@@ -37041,7 +37041,7 @@ var require_reactivity_cjs = __commonJS({
       return r2 ? r2["__v_isRef"] === true : false;
     }
     // @__NO_SIDE_EFFECTS__
-    function ref6(value) {
+    function ref7(value) {
       return createRef(value, false);
     }
     // @__NO_SIDE_EFFECTS__
@@ -37213,7 +37213,7 @@ var require_reactivity_cjs = __commonJS({
       } else if (shared.isObject(source) && arguments.length > 1) {
         return propertyToRef(source, key, defaultValue);
       } else {
-        return /* @__PURE__ */ ref6(source);
+        return /* @__PURE__ */ ref7(source);
       }
     }
     function propertyToRef(source, key, defaultValue) {
@@ -37547,7 +37547,7 @@ var require_reactivity_cjs = __commonJS({
     exports.reactive = reactive3;
     exports.reactiveReadArray = reactiveReadArray;
     exports.readonly = readonly;
-    exports.ref = ref6;
+    exports.ref = ref7;
     exports.resetTracking = resetTracking;
     exports.shallowReactive = shallowReactive2;
     exports.shallowReadArray = shallowReadArray;
@@ -38785,7 +38785,7 @@ var require_runtime_core_cjs_prod = __commonJS({
       return ret;
     }
     // @__NO_SIDE_EFFECTS__
-    function defineComponent4(options, extraOptions) {
+    function defineComponent5(options, extraOptions) {
       return shared.isFunction(options) ? (
         // #8236: extend call and options.name access are considered side-effects
         // by Rollup, so we have to wrap it in a pure-annotated IIFE.
@@ -38844,7 +38844,7 @@ var require_runtime_core_cjs_prod = __commonJS({
       }
       const refValue = vnode.shapeFlag & 4 ? getComponentPublicInstance(vnode.component) : vnode.el;
       const value = isUnmount ? null : refValue;
-      const { i: owner, r: ref6 } = rawRef;
+      const { i: owner, r: ref7 } = rawRef;
       const oldRef = oldRawRef && oldRawRef.r;
       const refs = owner.refs === shared.EMPTY_OBJ ? owner.refs = {} : owner.refs;
       const setupState = owner.setupState;
@@ -38861,7 +38861,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         }
         return true;
       };
-      if (oldRef != null && oldRef !== ref6) {
+      if (oldRef != null && oldRef !== ref7) {
         invalidatePendingSetRef(oldRawRef);
         if (shared.isString(oldRef)) {
           refs[oldRef] = null;
@@ -38876,33 +38876,33 @@ var require_runtime_core_cjs_prod = __commonJS({
           if (oldRawRefAtom.k) refs[oldRawRefAtom.k] = null;
         }
       }
-      if (shared.isFunction(ref6)) {
+      if (shared.isFunction(ref7)) {
         reactivity.pauseTracking();
         try {
-          callWithErrorHandling(ref6, owner, 12, [value, refs]);
+          callWithErrorHandling(ref7, owner, 12, [value, refs]);
         } finally {
           reactivity.resetTracking();
         }
       } else {
-        const _isString = shared.isString(ref6);
-        const _isRef = reactivity.isRef(ref6);
+        const _isString = shared.isString(ref7);
+        const _isRef = reactivity.isRef(ref7);
         if (_isString || _isRef) {
           const doSet = () => {
             if (rawRef.f) {
-              const existing = _isString ? canSetSetupRef(ref6) ? setupState[ref6] : refs[ref6] : canSetRef() || !rawRef.k ? ref6.value : refs[rawRef.k];
+              const existing = _isString ? canSetSetupRef(ref7) ? setupState[ref7] : refs[ref7] : canSetRef() || !rawRef.k ? ref7.value : refs[rawRef.k];
               if (isUnmount) {
                 shared.isArray(existing) && shared.remove(existing, refValue);
               } else {
                 if (!shared.isArray(existing)) {
                   if (_isString) {
-                    refs[ref6] = [refValue];
-                    if (canSetSetupRef(ref6)) {
-                      setupState[ref6] = refs[ref6];
+                    refs[ref7] = [refValue];
+                    if (canSetSetupRef(ref7)) {
+                      setupState[ref7] = refs[ref7];
                     }
                   } else {
                     const newVal = [refValue];
-                    if (canSetRef(ref6, rawRef.k)) {
-                      ref6.value = newVal;
+                    if (canSetRef(ref7, rawRef.k)) {
+                      ref7.value = newVal;
                     }
                     if (rawRef.k) refs[rawRef.k] = newVal;
                   }
@@ -38911,13 +38911,13 @@ var require_runtime_core_cjs_prod = __commonJS({
                 }
               }
             } else if (_isString) {
-              refs[ref6] = value;
-              if (canSetSetupRef(ref6)) {
-                setupState[ref6] = value;
+              refs[ref7] = value;
+              if (canSetSetupRef(ref7)) {
+                setupState[ref7] = value;
               }
             } else if (_isRef) {
-              if (canSetRef(ref6, rawRef.k)) {
-                ref6.value = value;
+              if (canSetRef(ref7, rawRef.k)) {
+                ref7.value = value;
               }
               if (rawRef.k) refs[rawRef.k] = value;
             } else ;
@@ -38997,7 +38997,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           slotScopeIds,
           isFragmentStart
         );
-        const { type, ref: ref6, shapeFlag, patchFlag } = vnode;
+        const { type, ref: ref7, shapeFlag, patchFlag } = vnode;
         let domType = node.nodeType;
         vnode.el = node;
         if (patchFlag === -2) {
@@ -39144,8 +39144,8 @@ var require_runtime_core_cjs_prod = __commonJS({
               );
             } else ;
         }
-        if (ref6 != null) {
-          setRef(ref6, null, parentSuspense, vnode);
+        if (ref7 != null) {
+          setRef(ref7, null, parentSuspense, vnode);
         }
         return nextNode;
       };
@@ -39619,7 +39619,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           return comp;
         }));
       };
-      return /* @__PURE__ */ defineComponent4({
+      return /* @__PURE__ */ defineComponent5({
         name: "AsyncComponentWrapper",
         __asyncLoader: load,
         __asyncHydrate(el, instance, hydrate) {
@@ -40616,7 +40616,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     }
     function callHook(hook2, instance, type) {
       callWithAsyncErrorHandling(
-        shared.isArray(hook2) ? hook2.map((h7) => h7.bind(instance.proxy)) : hook2.bind(instance.proxy),
+        shared.isArray(hook2) ? hook2.map((h8) => h8.bind(instance.proxy)) : hook2.bind(instance.proxy),
         instance,
         type
       );
@@ -41699,7 +41699,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           optimized = false;
           n2.dynamicChildren = null;
         }
-        const { type, ref: ref6, shapeFlag } = n2;
+        const { type, ref: ref7, shapeFlag } = n2;
         switch (type) {
           case Text2:
             processText(n1, n2, container, anchor);
@@ -41778,9 +41778,9 @@ var require_runtime_core_cjs_prod = __commonJS({
               );
             } else ;
         }
-        if (ref6 != null && parentComponent) {
-          setRef(ref6, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
-        } else if (ref6 == null && n1 && n1.ref != null) {
+        if (ref7 != null && parentComponent) {
+          setRef(ref7, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
+        } else if (ref7 == null && n1 && n1.ref != null) {
           setRef(n1.ref, null, parentSuspense, n1, true);
         }
       };
@@ -42771,7 +42771,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         const {
           type,
           props,
-          ref: ref6,
+          ref: ref7,
           children,
           dynamicChildren,
           shapeFlag,
@@ -42783,9 +42783,9 @@ var require_runtime_core_cjs_prod = __commonJS({
         if (patchFlag === -2) {
           optimized = false;
         }
-        if (ref6 != null) {
+        if (ref7 != null) {
           reactivity.pauseTracking();
-          setRef(ref6, null, parentSuspense, vnode, true);
+          setRef(ref7, null, parentSuspense, vnode, true);
           reactivity.resetTracking();
         }
         if (cacheIndex != null) {
@@ -43724,14 +43724,14 @@ var require_runtime_core_cjs_prod = __commonJS({
     }
     var normalizeKey = ({ key }) => key != null ? key : null;
     var normalizeRef = ({
-      ref: ref6,
+      ref: ref7,
       ref_key,
       ref_for
     }) => {
-      if (typeof ref6 === "number") {
-        ref6 = "" + ref6;
+      if (typeof ref7 === "number") {
+        ref7 = "" + ref7;
       }
-      return ref6 != null ? shared.isString(ref6) || reactivity.isRef(ref6) || shared.isFunction(ref6) ? { i: currentRenderingInstance, r: ref6, k: ref_key, f: !!ref_for } : ref6 : null;
+      return ref7 != null ? shared.isString(ref7) || reactivity.isRef(ref7) || shared.isFunction(ref7) ? { i: currentRenderingInstance, r: ref7, k: ref_key, f: !!ref_for } : ref7 : null;
     };
     function createBaseVNode(type, props = null, children = null, patchFlag = 0, dynamicProps = null, shapeFlag = type === Fragment2 ? 0 : 1, isBlockNode = false, needFullChildrenNormalization = false) {
       const vnode = {
@@ -43842,7 +43842,7 @@ var require_runtime_core_cjs_prod = __commonJS({
       return reactivity.isProxy(props) || isInternalObject(props) ? shared.extend({}, props) : props;
     }
     function cloneVNode(vnode, extraProps, mergeRef = false, cloneTransition = false) {
-      const { props, ref: ref6, patchFlag, children, transition } = vnode;
+      const { props, ref: ref7, patchFlag, children, transition } = vnode;
       const mergedProps = extraProps ? mergeProps(props || {}, extraProps) : props;
       const cloned = {
         __v_isVNode: true,
@@ -43854,8 +43854,8 @@ var require_runtime_core_cjs_prod = __commonJS({
           // #2078 in the case of <component :is="vnode" ref="extra"/>
           // if the vnode itself already has a ref, cloneVNode will need to merge
           // the refs so the single vnode can be set on multiple refs
-          mergeRef && ref6 ? shared.isArray(ref6) ? ref6.concat(normalizeRef(extraProps)) : [ref6, normalizeRef(extraProps)] : normalizeRef(extraProps)
-        ) : ref6,
+          mergeRef && ref7 ? shared.isArray(ref7) ? ref7.concat(normalizeRef(extraProps)) : [ref7, normalizeRef(extraProps)] : normalizeRef(extraProps)
+        ) : ref7,
         scopeId: vnode.scopeId,
         slotScopeIds: vnode.slotScopeIds,
         children,
@@ -44300,7 +44300,7 @@ var require_runtime_core_cjs_prod = __commonJS({
       const c2 = reactivity.computed(getterOrOptions, debugOptions, isInSSRComponentSetup);
       return c2;
     };
-    function h6(type, propsOrChildren, children) {
+    function h7(type, propsOrChildren, children) {
       try {
         setBlockTracking(-1);
         const l2 = arguments.length;
@@ -44444,7 +44444,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     exports.createTextVNode = createTextVNode;
     exports.createVNode = createVNode2;
     exports.defineAsyncComponent = defineAsyncComponent;
-    exports.defineComponent = defineComponent4;
+    exports.defineComponent = defineComponent5;
     exports.defineEmits = defineEmits;
     exports.defineExpose = defineExpose;
     exports.defineModel = defineModel;
@@ -44455,7 +44455,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     exports.getCurrentInstance = getCurrentInstance6;
     exports.getTransitionRawChildren = getTransitionRawChildren;
     exports.guardReactiveProps = guardReactiveProps;
-    exports.h = h6;
+    exports.h = h7;
     exports.handleError = handleError;
     exports.hasInjectionContext = hasInjectionContext2;
     exports.hydrateOnIdle = hydrateOnIdle;
@@ -46206,7 +46206,7 @@ var require_runtime_core_cjs = __commonJS({
       return ret;
     }
     // @__NO_SIDE_EFFECTS__
-    function defineComponent4(options, extraOptions) {
+    function defineComponent5(options, extraOptions) {
       return shared.isFunction(options) ? (
         // #8236: extend call and options.name access are considered side-effects
         // by Rollup, so we have to wrap it in a pure-annotated IIFE.
@@ -46279,7 +46279,7 @@ var require_runtime_core_cjs = __commonJS({
       }
       const refValue = vnode.shapeFlag & 4 ? getComponentPublicInstance(vnode.component) : vnode.el;
       const value = isUnmount ? null : refValue;
-      const { i: owner, r: ref6 } = rawRef;
+      const { i: owner, r: ref7 } = rawRef;
       if (!owner) {
         warn$12(
           `Missing ref owner context. ref cannot be used on hoisted vnodes. A vnode with ref must be created inside the render function.`
@@ -46315,7 +46315,7 @@ var require_runtime_core_cjs = __commonJS({
         }
         return true;
       };
-      if (oldRef != null && oldRef !== ref6) {
+      if (oldRef != null && oldRef !== ref7) {
         invalidatePendingSetRef(oldRawRef);
         if (shared.isString(oldRef)) {
           refs[oldRef] = null;
@@ -46330,33 +46330,33 @@ var require_runtime_core_cjs = __commonJS({
           if (oldRawRefAtom.k) refs[oldRawRefAtom.k] = null;
         }
       }
-      if (shared.isFunction(ref6)) {
+      if (shared.isFunction(ref7)) {
         reactivity.pauseTracking();
         try {
-          callWithErrorHandling(ref6, owner, 12, [value, refs]);
+          callWithErrorHandling(ref7, owner, 12, [value, refs]);
         } finally {
           reactivity.resetTracking();
         }
       } else {
-        const _isString = shared.isString(ref6);
-        const _isRef = reactivity.isRef(ref6);
+        const _isString = shared.isString(ref7);
+        const _isRef = reactivity.isRef(ref7);
         if (_isString || _isRef) {
           const doSet = () => {
             if (rawRef.f) {
-              const existing = _isString ? canSetSetupRef(ref6) ? setupState[ref6] : refs[ref6] : canSetRef(ref6) || !rawRef.k ? ref6.value : refs[rawRef.k];
+              const existing = _isString ? canSetSetupRef(ref7) ? setupState[ref7] : refs[ref7] : canSetRef(ref7) || !rawRef.k ? ref7.value : refs[rawRef.k];
               if (isUnmount) {
                 shared.isArray(existing) && shared.remove(existing, refValue);
               } else {
                 if (!shared.isArray(existing)) {
                   if (_isString) {
-                    refs[ref6] = [refValue];
-                    if (canSetSetupRef(ref6)) {
-                      setupState[ref6] = refs[ref6];
+                    refs[ref7] = [refValue];
+                    if (canSetSetupRef(ref7)) {
+                      setupState[ref7] = refs[ref7];
                     }
                   } else {
                     const newVal = [refValue];
-                    if (canSetRef(ref6, rawRef.k)) {
-                      ref6.value = newVal;
+                    if (canSetRef(ref7, rawRef.k)) {
+                      ref7.value = newVal;
                     }
                     if (rawRef.k) refs[rawRef.k] = newVal;
                   }
@@ -46365,17 +46365,17 @@ var require_runtime_core_cjs = __commonJS({
                 }
               }
             } else if (_isString) {
-              refs[ref6] = value;
-              if (canSetSetupRef(ref6)) {
-                setupState[ref6] = value;
+              refs[ref7] = value;
+              if (canSetSetupRef(ref7)) {
+                setupState[ref7] = value;
               }
             } else if (_isRef) {
-              if (canSetRef(ref6, rawRef.k)) {
-                ref6.value = value;
+              if (canSetRef(ref7, rawRef.k)) {
+                ref7.value = value;
               }
               if (rawRef.k) refs[rawRef.k] = value;
             } else {
-              warn$12("Invalid template ref type:", ref6, `(${typeof ref6})`);
+              warn$12("Invalid template ref type:", ref7, `(${typeof ref7})`);
             }
           };
           if (value) {
@@ -46391,7 +46391,7 @@ var require_runtime_core_cjs = __commonJS({
             doSet();
           }
         } else {
-          warn$12("Invalid template ref type:", ref6, `(${typeof ref6})`);
+          warn$12("Invalid template ref type:", ref7, `(${typeof ref7})`);
         }
       }
     }
@@ -46458,7 +46458,7 @@ var require_runtime_core_cjs = __commonJS({
           slotScopeIds,
           isFragmentStart
         );
-        const { type, ref: ref6, shapeFlag, patchFlag } = vnode;
+        const { type, ref: ref7, shapeFlag, patchFlag } = vnode;
         let domType = node.nodeType;
         vnode.el = node;
         {
@@ -46620,8 +46620,8 @@ var require_runtime_core_cjs = __commonJS({
               warn$12("Invalid HostVNode type:", type, `(${typeof type})`);
             }
         }
-        if (ref6 != null) {
-          setRef(ref6, null, parentSuspense, vnode);
+        if (ref7 != null) {
+          setRef(ref7, null, parentSuspense, vnode);
         }
         return nextNode;
       };
@@ -47249,7 +47249,7 @@ Server rendered element contains fewer child nodes than client vdom.`
           return comp;
         }));
       };
-      return /* @__PURE__ */ defineComponent4({
+      return /* @__PURE__ */ defineComponent5({
         name: "AsyncComponentWrapper",
         __asyncLoader: load,
         __asyncHydrate(el, instance, hydrate) {
@@ -48498,7 +48498,7 @@ If this is a native custom element, make sure to exclude it from component resol
     }
     function callHook(hook2, instance, type) {
       callWithAsyncErrorHandling(
-        shared.isArray(hook2) ? hook2.map((h7) => h7.bind(instance.proxy)) : hook2.bind(instance.proxy),
+        shared.isArray(hook2) ? hook2.map((h8) => h8.bind(instance.proxy)) : hook2.bind(instance.proxy),
         instance,
         type
       );
@@ -49988,7 +49988,7 @@ If you want to remount the same app, move your app creation logic into a factory
           optimized = false;
           n2.dynamicChildren = null;
         }
-        const { type, ref: ref6, shapeFlag } = n2;
+        const { type, ref: ref7, shapeFlag } = n2;
         switch (type) {
           case Text2:
             processText(n1, n2, container, anchor);
@@ -50071,9 +50071,9 @@ If you want to remount the same app, move your app creation logic into a factory
               warn$12("Invalid VNode type:", type, `(${typeof type})`);
             }
         }
-        if (ref6 != null && parentComponent) {
-          setRef(ref6, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
-        } else if (ref6 == null && n1 && n1.ref != null) {
+        if (ref7 != null && parentComponent) {
+          setRef(ref7, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
+        } else if (ref7 == null && n1 && n1.ref != null) {
           setRef(n1.ref, null, parentSuspense, n1, true);
         }
       };
@@ -51177,7 +51177,7 @@ If you want to remount the same app, move your app creation logic into a factory
         const {
           type,
           props,
-          ref: ref6,
+          ref: ref7,
           children,
           dynamicChildren,
           shapeFlag,
@@ -51189,9 +51189,9 @@ If you want to remount the same app, move your app creation logic into a factory
         if (patchFlag === -2) {
           optimized = false;
         }
-        if (ref6 != null) {
+        if (ref7 != null) {
           reactivity.pauseTracking();
-          setRef(ref6, null, parentSuspense, vnode, true);
+          setRef(ref7, null, parentSuspense, vnode, true);
           reactivity.resetTracking();
         }
         if (cacheIndex != null) {
@@ -52193,14 +52193,14 @@ If you want to remount the same app, move your app creation logic into a factory
     };
     var normalizeKey = ({ key }) => key != null ? key : null;
     var normalizeRef = ({
-      ref: ref6,
+      ref: ref7,
       ref_key,
       ref_for
     }) => {
-      if (typeof ref6 === "number") {
-        ref6 = "" + ref6;
+      if (typeof ref7 === "number") {
+        ref7 = "" + ref7;
       }
-      return ref6 != null ? shared.isString(ref6) || reactivity.isRef(ref6) || shared.isFunction(ref6) ? { i: currentRenderingInstance, r: ref6, k: ref_key, f: !!ref_for } : ref6 : null;
+      return ref7 != null ? shared.isString(ref7) || reactivity.isRef(ref7) || shared.isFunction(ref7) ? { i: currentRenderingInstance, r: ref7, k: ref_key, f: !!ref_for } : ref7 : null;
     };
     function createBaseVNode(type, props = null, children = null, patchFlag = 0, dynamicProps = null, shapeFlag = type === Fragment2 ? 0 : 1, isBlockNode = false, needFullChildrenNormalization = false) {
       const vnode = {
@@ -52326,7 +52326,7 @@ Component that was made reactive: `,
       return reactivity.isProxy(props) || isInternalObject(props) ? shared.extend({}, props) : props;
     }
     function cloneVNode(vnode, extraProps, mergeRef = false, cloneTransition = false) {
-      const { props, ref: ref6, patchFlag, children, transition } = vnode;
+      const { props, ref: ref7, patchFlag, children, transition } = vnode;
       const mergedProps = extraProps ? mergeProps(props || {}, extraProps) : props;
       const cloned = {
         __v_isVNode: true,
@@ -52338,8 +52338,8 @@ Component that was made reactive: `,
           // #2078 in the case of <component :is="vnode" ref="extra"/>
           // if the vnode itself already has a ref, cloneVNode will need to merge
           // the refs so the single vnode can be set on multiple refs
-          mergeRef && ref6 ? shared.isArray(ref6) ? ref6.concat(normalizeRef(extraProps)) : [ref6, normalizeRef(extraProps)] : normalizeRef(extraProps)
-        ) : ref6,
+          mergeRef && ref7 ? shared.isArray(ref7) ? ref7.concat(normalizeRef(extraProps)) : [ref7, normalizeRef(extraProps)] : normalizeRef(extraProps)
+        ) : ref7,
         scopeId: vnode.scopeId,
         slotScopeIds: vnode.slotScopeIds,
         children: patchFlag === -1 && shared.isArray(children) ? children.map(deepCloneVNode) : children,
@@ -52935,7 +52935,7 @@ Component that was made reactive: `,
       }
       return c2;
     };
-    function h6(type, propsOrChildren, children) {
+    function h7(type, propsOrChildren, children) {
       try {
         setBlockTracking(-1);
         const l2 = arguments.length;
@@ -53253,7 +53253,7 @@ Component that was made reactive: `,
     exports.createTextVNode = createTextVNode;
     exports.createVNode = createVNode2;
     exports.defineAsyncComponent = defineAsyncComponent;
-    exports.defineComponent = defineComponent4;
+    exports.defineComponent = defineComponent5;
     exports.defineEmits = defineEmits;
     exports.defineExpose = defineExpose;
     exports.defineModel = defineModel;
@@ -53264,7 +53264,7 @@ Component that was made reactive: `,
     exports.getCurrentInstance = getCurrentInstance6;
     exports.getTransitionRawChildren = getTransitionRawChildren;
     exports.guardReactiveProps = guardReactiveProps;
-    exports.h = h6;
+    exports.h = h7;
     exports.handleError = handleError;
     exports.hasInjectionContext = hasInjectionContext2;
     exports.hydrateOnIdle = hydrateOnIdle;
@@ -57615,7 +57615,7 @@ var require_index_cjs = __commonJS({
     function doubleRaf(fn) {
       raf(() => raf(fn));
     }
-    var import_vue11 = require_vue();
+    var import_vue12 = require_vue();
     var isWindow = (val) => val === window;
     var makeDOMRect = (width2, height2) => ({
       top: 0,
@@ -57626,7 +57626,7 @@ var require_index_cjs = __commonJS({
       height: height2
     });
     var useRect = (elementOrRef) => {
-      const element = (0, import_vue11.unref)(elementOrRef);
+      const element = (0, import_vue12.unref)(elementOrRef);
       if (isWindow(element)) {
         const width2 = element.innerWidth;
         const height2 = element.innerHeight;
@@ -57993,13 +57993,13 @@ var require_index_cjs = __commonJS({
       }
       return visibility;
     }
-    var import_vue12 = require_vue();
+    var import_vue122 = require_vue();
     var CUSTOM_FIELD_INJECTION_KEY = /* @__PURE__ */ Symbol("van-field");
     function useCustomFieldValue(customValue) {
-      const field = (0, import_vue12.inject)(CUSTOM_FIELD_INJECTION_KEY, null);
+      const field = (0, import_vue122.inject)(CUSTOM_FIELD_INJECTION_KEY, null);
       if (field && !field.customValue.value) {
         field.customValue.value = customValue;
-        (0, import_vue12.watch)(customValue, () => {
+        (0, import_vue122.watch)(customValue, () => {
           field.resetValidation();
           field.validateWithTrigger("onChange");
         });
@@ -72005,10 +72005,10 @@ var require_vant_cjs = __commonJS({
           }
           return Math.round(distance);
         };
-        const setStatus = (distance, isLoading) => {
+        const setStatus = (distance, isLoading2) => {
           const pullDistance = +(props2.pullDistance || props2.headHeight);
           state.distance = distance;
-          if (isLoading) {
+          if (isLoading2) {
             state.status = "loading";
           } else if (distance === 0) {
             state.status = "normal";
@@ -77171,6 +77171,12 @@ function generateLayoutPluginCode() {
     "};"
   ].join("\n");
 }
+function generateLoadingPluginCode() {
+  return [
+    "import createDeerLoadingPlugin from 'deer-mobile/runtime/loading';",
+    "const __deer_loadingPlugin__ = createDeerLoadingPlugin();"
+  ].join("\n");
+}
 function generateEnvDeclaration(envDefs) {
   const fields = Object.entries(envDefs).map(([key, envVar]) => `      ${key}: string;  // from ${envVar}`).join("\n");
   return [
@@ -77213,6 +77219,7 @@ function generateSetupAppCode(state, options) {
     "",
     "// ---- 框架内置插件 ----",
     generateLayoutPluginCode(),
+    generateLoadingPluginCode(),
     "",
     "// ---- 用户自定义插件 ----",
     inlineCodes,
@@ -77222,6 +77229,7 @@ function generateSetupAppCode(state, options) {
     "",
     "// ---- 注册运行时插件 ----",
     "pluginManager.use(__deer_layoutPlugin__);",
+    "pluginManager.use(__deer_loadingPlugin__);",
     pluginRegistrations,
     "",
     "// ---- 环境变量类型声明 ----",
@@ -80185,38 +80193,38 @@ var StateEditor = class {
   }
 };
 var RefStateEditor = class {
-  set(ref6, value) {
-    if (isRef(ref6)) {
-      ref6.value = value;
+  set(ref7, value) {
+    if (isRef(ref7)) {
+      ref7.value = value;
     } else {
-      if (ref6 instanceof Set && Array.isArray(value)) {
-        ref6.clear();
-        value.forEach((v2) => ref6.add(v2));
+      if (ref7 instanceof Set && Array.isArray(value)) {
+        ref7.clear();
+        value.forEach((v2) => ref7.add(v2));
         return;
       }
       const currentKeys = Object.keys(value);
-      if (ref6 instanceof Map) {
-        const previousKeysSet2 = new Set(ref6.keys());
+      if (ref7 instanceof Map) {
+        const previousKeysSet2 = new Set(ref7.keys());
         currentKeys.forEach((key) => {
-          ref6.set(key, Reflect.get(value, key));
+          ref7.set(key, Reflect.get(value, key));
           previousKeysSet2.delete(key);
         });
-        previousKeysSet2.forEach((key) => ref6.delete(key));
+        previousKeysSet2.forEach((key) => ref7.delete(key));
         return;
       }
-      const previousKeysSet = new Set(Object.keys(ref6));
+      const previousKeysSet = new Set(Object.keys(ref7));
       currentKeys.forEach((key) => {
-        Reflect.set(ref6, key, Reflect.get(value, key));
+        Reflect.set(ref7, key, Reflect.get(value, key));
         previousKeysSet.delete(key);
       });
-      previousKeysSet.forEach((key) => Reflect.deleteProperty(ref6, key));
+      previousKeysSet.forEach((key) => Reflect.deleteProperty(ref7, key));
     }
   }
-  get(ref6) {
-    return isRef(ref6) ? ref6.value : ref6;
+  get(ref7) {
+    return isRef(ref7) ? ref7.value : ref7;
   }
-  isRef(ref6) {
-    return isRef(ref6) || isReactive(ref6);
+  isRef(ref7) {
+    return isRef(ref7) || isReactive(ref7);
   }
 };
 var stateEditor = new StateEditor();
@@ -90866,7 +90874,10 @@ function hr(e2) {
 }
 var $ = new class {
   constructor() {
-    this.listeners = /* @__PURE__ */ new Set(), this.currentTheme = mr() ?? { ...fr }, this.applyTheme(this.currentTheme);
+    this.listeners = /* @__PURE__ */ new Set(), this.initialized = false, this.currentTheme = mr() ?? { ...fr };
+  }
+  ensureInitialized() {
+    this.initialized || (this.initialized = true, typeof document < "u" && this.applyTheme(this.currentTheme));
   }
   applyTheme(e2) {
     let t2 = document.documentElement;
@@ -90876,19 +90887,19 @@ var $ = new class {
     return { ...this.currentTheme };
   }
   setPrimaryColor(e2) {
-    this.currentTheme.primaryColor = e2, this.applyTheme(this.currentTheme);
+    this.ensureInitialized(), this.currentTheme.primaryColor = e2, this.applyTheme(this.currentTheme);
   }
   setDarkMode(e2) {
-    this.currentTheme.darkMode = e2, this.applyTheme(this.currentTheme);
+    this.ensureInitialized(), this.currentTheme.darkMode = e2, this.applyTheme(this.currentTheme);
   }
   toggleDarkMode() {
     this.setDarkMode(!this.currentTheme.darkMode);
   }
   resetTheme() {
-    this.currentTheme = { ...fr }, this.applyTheme(this.currentTheme);
+    this.ensureInitialized(), this.currentTheme = { ...fr }, this.applyTheme(this.currentTheme);
   }
   onThemeChange(e2) {
-    return this.listeners.add(e2), () => this.listeners.delete(e2);
+    return this.ensureInitialized(), this.listeners.add(e2), () => this.listeners.delete(e2);
   }
 }();
 
@@ -91001,6 +91012,125 @@ var themeRuntimePlugin = {
   }
 };
 var theme_plugin_default = themeRuntimePlugin;
+
+// plugins/runtime/loading-plugin.ts
+var isLoading = (0, vue_exports.ref)(false);
+var requestCount = 0;
+var MIN_DISPLAY_TIME = 200;
+var hideTimer = null;
+function showLoading() {
+  requestCount++;
+  if (hideTimer) {
+    clearTimeout(hideTimer);
+    hideTimer = null;
+  }
+  isLoading.value = true;
+}
+function hideLoading() {
+  if (requestCount > 0) requestCount--;
+  if (requestCount <= 0 && !hideTimer) {
+    hideTimer = setTimeout(() => {
+      isLoading.value = false;
+      hideTimer = null;
+    }, MIN_DISPLAY_TIME);
+  }
+}
+function resetLoading() {
+  requestCount = 0;
+  isLoading.value = false;
+  if (hideTimer) {
+    clearTimeout(hideTimer);
+    hideTimer = null;
+  }
+}
+var STYLE_ID = "deer-loading-style";
+function injectStyle(config) {
+  if (document.getElementById(STYLE_ID)) return;
+  const color = config?.color || "var(--yh-primary-color, #1890ff)";
+  const height = config?.height || "3px";
+  const style = document.createElement("style");
+  style.id = STYLE_ID;
+  style.textContent = `
+.deer-loading-bar{
+  position:fixed;top:0;left:0;width:100%;height:${height};z-index:99999;pointer-events:none;
+  transition:opacity .15s ease;
+}
+.deer-loading-bar-inner{
+  height:100%;background:${color};border-radius:0 2px 2px 0;
+  box-shadow:0 0 6px ${color}66;
+  animation:deer-loading-progress 1.5s ease-in-out forwards;
+}
+.deer-loading-bar.exit{opacity:0;transition:opacity .2s ease;}
+.deer-loading-bar.exit .deer-loading-bar-inner{width:100%!important;transition:width .2s ease;}
+@keyframes deer-loading-progress{
+  0%{width:0%}30%{width:30%}60%{width:60%}80%{width:80%}100%{width:95%}
+}
+.deer-loading-fullscreen{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.85);z-index:99999;
+}
+.deer-loading-spinner{
+  width:36px;height:36px;border:3px solid #e8e8e8;border-top-color:${color};
+  border-radius:50%;animation:deer-loading-spin .8s linear infinite;
+}
+@keyframes deer-loading-spin{to{transform:rotate(360deg)}}
+`.trim();
+  document.head.appendChild(style);
+}
+function useLoadingConfig(ctx) {
+  const cfg = ctx.config.loading || {};
+  return {
+    enabled: cfg.enabled !== false,
+    mode: cfg.mode || "top",
+    color: cfg.color || "var(--yh-primary-color, #1890ff)",
+    height: cfg.height || "3px"
+  };
+}
+function createLoadingPlugin() {
+  return {
+    name: "deer:loading",
+    priority: 5,
+    onAppCreated(_app, ctx) {
+      const cfg = useLoadingConfig(ctx);
+      if (!cfg.enabled) return;
+      if (typeof document !== "undefined") {
+        injectStyle(ctx.config.loading);
+      }
+    },
+    onRouterCreated(router, ctx) {
+      const cfg = useLoadingConfig(ctx);
+      if (!cfg.enabled) return;
+      router.beforeEach((_to, _from, next) => {
+        showLoading();
+        next();
+      });
+      router.afterEach(() => {
+        hideLoading();
+      });
+      router.onError(() => {
+        resetLoading();
+      });
+    },
+    outerProvider(container) {
+      const LoadingComponent = (0, vue_exports.defineComponent)({
+        setup() {
+          return () => {
+            if (!isLoading.value) return null;
+            return (0, vue_exports.h)(
+              "div",
+              {
+                class: ["deer-loading-bar"],
+                key: "deer-loading"
+              },
+              (0, vue_exports.h)("div", { class: "deer-loading-bar-inner" })
+            );
+          };
+        }
+      });
+      return (0, vue_exports.h)("div", { style: { position: "relative", minHeight: "100vh" } }, [(0, vue_exports.h)(LoadingComponent), container()]);
+    }
+  };
+}
 
 // src/runtime/plugin-manager.ts
 var PluginManager = class {
@@ -93277,6 +93407,7 @@ export {
   api_plugin_default as apiRuntimePlugin,
   auth_plugin_default as authRuntimePlugin,
   builtinPlugin,
+  createLoadingPlugin,
   createRuntimeApp,
   deer,
   i18n_plugin_default as i18nRuntimePlugin,

@@ -36,6 +36,7 @@
 | 业务状态码体系 | ✅ | 1xx 成功 / 2xx 告警 / 712/205/209 登录超时 / 110/112 Token 失效 |
 | SM4 加解密 | ✅ **已修复** | `sm-crypto` optional 依赖，拦截器 async/await 确保加密完成再发送 |
 | **环境变量封装** | ✅ **P3** | `deer()` 内建 `env` 选项，声明式映射 `.env` → `appConfig.env`，Vite `loadEnv` 自动加载，支持 `VITE_` 自动暴露 + 自定义映射 + 类型声明生成 |
+| **全局 Loading 动画** | ✅ **P3** | 内置 `deer:loading` RuntimePlugin，顶部加载进度条（类 NProgress），`router.beforeEach`/`afterEach` 自动显示/隐藏，200ms 防抖防闪烁，支持 `appConfig.loading` 自定义颜色/高度/模式 |
 | 国际化 i18n（框架层） | ✅ | vue-i18n 集成，`i18nPlugin` RuntimePlugin，语言切换自动同步 kangaroo-mobile |
 | Tailwind CSS | ✅ | v4 集成 |
 | `@vueuse/core` | ✅ | useStorage 响应式存储 |
@@ -85,7 +86,6 @@
 
 | 优先级 | 功能 | 说明 |
 |--------|------|------|
-| P3 | 全局 Loading | 路由切换加载动画 |
 | P3 | PWA | 离线访问 |
 | P3 | 模板选择 | CLI 创建时选 TS/JS |
 | P3 | 文档站点 | API 文档站点 |

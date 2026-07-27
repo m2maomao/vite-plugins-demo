@@ -63,6 +63,10 @@
       "development": "./plugins/runtime/layout-plugin.ts",
       "default": "./plugins/runtime/layout-plugin.ts"
     },
+    "./runtime/loading": {
+      "development": "./plugins/runtime/loading-plugin.ts",
+      "default": "./plugins/runtime/loading-plugin.ts"
+    },
     "./build": {
       "development": "./src/build/index.ts",
       "default": "./src/build/index.ts"

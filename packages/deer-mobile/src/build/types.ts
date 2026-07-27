@@ -94,6 +94,19 @@ export interface AppConfig {
     enabled?: boolean;
     dir?: string;
   };
+  /** 全局路由加载动画配置 */
+  loading?: {
+    /** 是否启用加载动画（默认 true） */
+    enabled?: boolean;
+    /** 加载条颜色（默认使用主题色） */
+    color?: string;
+    /** 加载条高度（默认 3px） */
+    height?: string;
+    /** 加载位置：'top' | 'fullscreen'（默认 'top'） */
+    mode?: 'top' | 'fullscreen';
+    /** 自定义加载组件（Vue 组件对象） */
+    component?: unknown;
+  };
   /** 运行时环境变量（由 deer() env 选项声明，构建时自动注入） */
   env: Record<string, string>;
   /** 插件配置动态扩展 */

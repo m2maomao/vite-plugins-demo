@@ -38,6 +38,14 @@ function generateLayoutPluginCode(): string {
   ].join('\n');
 }
 
+/** 生成 loading 插件内联代码（全局路由切换加载动画，默认启用） */
+function generateLoadingPluginCode(): string {
+  return [
+    "import createDeerLoadingPlugin from 'deer-mobile/runtime/loading';",
+    'const __deer_loadingPlugin__ = createDeerLoadingPlugin();',
+  ].join('\n');
+}
+
 /** 生成环境变量类型声明代码（注入到生成的 entry 中，提供 TypeScript 类型提示） */
 function generateEnvDeclaration(envDefs: EnvDefinitions): string {
   const fields = Object.entries(envDefs)
@@ -101,6 +109,7 @@ export function generateSetupAppCode(
     '',
     '// ---- 框架内置插件 ----',
     generateLayoutPluginCode(),
+    generateLoadingPluginCode(),
     '',
     '// ---- 用户自定义插件 ----',
     inlineCodes,
@@ -110,6 +119,7 @@ export function generateSetupAppCode(
     '',
     '// ---- 注册运行时插件 ----',
     'pluginManager.use(__deer_layoutPlugin__);',
+    'pluginManager.use(__deer_loadingPlugin__);',
     pluginRegistrations,
     '',
     '// ---- 环境变量类型声明 ----',

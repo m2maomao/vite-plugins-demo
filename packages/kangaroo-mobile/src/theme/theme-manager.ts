@@ -63,10 +63,21 @@ function saveThemeToStorage(theme: ThemeConfig): void {
 class ThemeManager {
   private currentTheme: ThemeConfig;
   private listeners = new Set<ThemeListener>();
+  private initialized = false;
 
   constructor() {
     this.currentTheme = loadThemeFromStorage() ?? { ...DEFAULT_THEME };
-    this.applyTheme(this.currentTheme);
+    // 延迟初始化：避免在 Node.js 环境（如 Vite 构建时）因 document 未定义而报错
+    // 实际首次调用公开 API 时才会应用主题到 DOM
+  }
+
+  /** 确保已初始化（仅在浏览器环境执行 DOM 操作） */
+  private ensureInitialized(): void {
+    if (this.initialized) return;
+    this.initialized = true;
+    if (typeof document !== 'undefined') {
+      this.applyTheme(this.currentTheme);
+    }
   }
 
   // ==========================================
@@ -104,12 +115,14 @@ class ThemeManager {
 
   /** 设置主色 */
   setPrimaryColor(color: string): void {
+    this.ensureInitialized();
     this.currentTheme.primaryColor = color;
     this.applyTheme(this.currentTheme);
   }
 
   /** 设置暗黑模式 */
   setDarkMode(enabled: boolean): void {
+    this.ensureInitialized();
     this.currentTheme.darkMode = enabled;
     this.applyTheme(this.currentTheme);
   }
@@ -121,12 +134,14 @@ class ThemeManager {
 
   /** 重置为主题默认值 */
   resetTheme(): void {
+    this.ensureInitialized();
     this.currentTheme = { ...DEFAULT_THEME };
     this.applyTheme(this.currentTheme);
   }
 
   /** 订阅主题变化，返回取消订阅函数 */
   onThemeChange(callback: ThemeListener): () => void {
+    this.ensureInitialized();
     this.listeners.add(callback);
     return () => this.listeners.delete(callback);
   }
