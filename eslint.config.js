@@ -3,7 +3,7 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/node_modules/**', '**/*.d.ts', '**/*.js', '**/*.cjs', '**/*.mjs', '**/create-deer-mobile/template/**', '**/server/index.ts', '**/vitest.config.*', 'vitest.workspace.ts', '**/playwright.config.*', '**/test/visual/**'] },
+  { ignores: ['**/dist/**', '**/node_modules/**', '**/*.d.ts', '**/*.js', '**/*.cjs', '**/*.mjs', '**/create-deer-mobile/template/**', '**/server/index.ts', '**/vitest.config.*', 'vitest.workspace.ts', '**/playwright.config.*', '**/test/visual/**', 'docs/**'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
