@@ -64,6 +64,68 @@ export interface RouteConfig {
 }
 
 // ============================================
+// PWAOptions — PWA 配置选项（vite-plugin-pwa 封装）
+// ============================================
+
+/**
+ * PWA 配置选项。
+ *
+ * 用于 pwa() Vite 插件，封装 vite-plugin-pwa。
+ * 提供 deer-mobile 默认配置 + 开箱即用的离线支持。
+ *
+ * @example
+ * ```ts
+ * pwa({ enabled: true, manifest: { name: 'My App' } })
+ * ```
+ */
+export interface PWAOptions {
+  /** 是否启用 PWA（默认 false） */
+  enabled?: boolean;
+
+  /** 是否自动注册 Service Worker（默认 true：autoUpdate 模式） */
+  registerSW?: boolean;
+
+  /** Web App Manifest 配置 */
+  manifest?: {
+    name?: string;
+    short_name?: string;
+    description?: string;
+    start_url?: string;
+    /** 显示模式（默认 'standalone'） */
+    display?: 'standalone' | 'fullscreen' | 'minimal-ui' | 'browser';
+    /** 屏幕方向 */
+    orientation?: 'portrait' | 'landscape';
+    /** 主题色（默认使用主题色） */
+    theme_color?: string;
+    /** 背景色（默认 '#ffffff'） */
+    background_color?: string;
+    /** 应用图标 */
+    icons?: Array<{ src: string; sizes: string; type: string }>;
+  };
+
+  /** 预缓存文件匹配模式（默认 ['**\/*.{js,css,html,svg,png,ico}']） */
+  globPatterns?: string[];
+
+  /** 运行时缓存策略 */
+  runtimeCaching?: Array<{
+    /** URL 匹配模式 */
+    urlPattern: string | RegExp;
+    /** 缓存策略 */
+    handler: 'NetworkFirst' | 'CacheFirst' | 'StaleWhileRevalidate' | 'NetworkOnly' | 'CacheOnly';
+    /** 缓存选项 */
+    options?: {
+      /** 缓存名称 */
+      cacheName?: string;
+      /** 过期配置 */
+      expiration?: {
+        maxEntries?: number;
+        maxAgeSeconds?: number;
+      };
+    };
+  }>;
+}
+
+// ============================================
 // AppConfig — 应用配置
 // ============================================
 

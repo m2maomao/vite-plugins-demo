@@ -77052,6 +77052,65 @@ function matchUrl(pattern, actual) {
   return regex2.test(actual);
 }
 
+// plugins/pwa-plugin/index.ts
+import { VitePWA } from "vite-plugin-pwa";
+function pwaPlugin(options) {
+  const config = options || { enabled: false };
+  if (!config.enabled) {
+    return [
+      {
+        name: "deer:pwa",
+        apply: "build",
+        enforce: "post"
+      }
+    ];
+  }
+  const manifest = {
+    name: config.manifest?.name || "Deer App",
+    short_name: config.manifest?.short_name || "Deer",
+    description: config.manifest?.description || "Powered by Deer Mobile",
+    theme_color: config.manifest?.theme_color || "#1890ff",
+    background_color: config.manifest?.background_color || "#ffffff",
+    display: config.manifest?.display || "standalone",
+    start_url: config.manifest?.start_url || "/",
+    icons: config.manifest?.icons || [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml" }]
+  };
+  if (config.manifest?.orientation) {
+    manifest.orientation = config.manifest.orientation;
+  }
+  const runtimeCaching = config.runtimeCaching?.map((rc) => ({
+    urlPattern: rc.urlPattern,
+    handler: rc.handler,
+    options: {
+      ...rc.options?.cacheName ? { cacheName: rc.options.cacheName } : {},
+      ...rc.options?.expiration ? {
+        expiration: {
+          maxEntries: rc.options.expiration.maxEntries,
+          maxAgeSeconds: rc.options.expiration.maxAgeSeconds
+        }
+      } : {}
+    }
+  })) || [
+    {
+      urlPattern: /\/api\//,
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "api-cache",
+        expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 }
+      }
+    }
+  ];
+  return VitePWA({
+    registerType: config.registerSW !== false ? "autoUpdate" : "prompt",
+    includeAssets: ["favicon.svg", "icons.svg"],
+    manifest,
+    workbox: {
+      globPatterns: config.globPatterns || ["**/*.{js,css,html,svg,png,ico}"],
+      runtimeCaching
+    }
+  });
+}
+
 // plugins/setup-plugin/index.ts
 import { loadEnv } from "vite";
 
@@ -93413,6 +93472,7 @@ export {
   i18n_plugin_default as i18nRuntimePlugin,
   mockPlugin,
   pinia_plugin_default as piniaRuntimePlugin,
+  pwaPlugin as pwa,
   scanPagesPlugin,
   theme_plugin_default as themeRuntimePlugin
 };

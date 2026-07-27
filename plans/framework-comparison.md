@@ -29,6 +29,7 @@
 | **内置页面** | ✅ **已修复** | login/404/error/loading 内联 `h()` 函数，消除路径依赖 |
 | 代码注入 | ✅ | setup-plugin 自动生成 `virtual:setup-app` 启动代码 |
 | **Mock API** | ✅ | 内置 `mockPlugin`，支持 `mock/` 目录自动扫描 + `apis` 参数配置 |
+| **PWA 离线访问** | ✅ **P3** | [`pwa()`](../packages/deer-mobile/plugins/pwa-plugin/index.ts) Vite 插件封装 `vite-plugin-pwa`，零配置 SW + Manifest + 离线缓存，支持 `NetworkFirst`/`CacheFirst` 策略，`autoUpdate` 自动更新 |
 | 状态管理 | ✅ | pinia 3.x，`useUserStore` 开箱即用，persist 持久化 |
 | 脚手架 CLI | ✅ | `create-deer-mobile` |
 | **启动性能** | ✅ **已优化** | 并行 fetch 远程路由 + 静态 import 替代动态 import()，`router.isReady()` 从 1950ms 降至 ~20ms |
@@ -86,7 +87,6 @@
 
 | 优先级 | 功能 | 说明 |
 |--------|------|------|
-| P3 | PWA | 离线访问 |
 | P3 | 模板选择 | CLI 创建时选 TS/JS |
 | P3 | 文档站点 | API 文档站点 |
 
@@ -116,6 +116,7 @@
 |---------|---------|---------|
 | 组件测试自动生成 | [`scripts/generate-component-tests.mjs`](../scripts/generate-component-tests.mjs) | 批量生成 50 个组件测试模板，配置化 vanStub / 事件 / slot |
 | 组件测试 Stub 共享 | [`kangaroo-mobile/src/components/__tests__/shared-stubs.ts`](../packages/kangaroo-mobile/src/components/__tests__/shared-stubs.ts) | Vant 组件 Stub 统一管理，含 40+ 组件 stub、事件映射、slot 配置 |
+| PWA 离线访问 | [`plugins/pwa-plugin/index.ts`](../packages/deer-mobile/plugins/pwa-plugin/index.ts) | 封装 `vite-plugin-pwa`，零配置 SW + manifest |
 | 框架入口 `deer()` | [`setup-plugin/index.ts`](../packages/deer-mobile/plugins/setup-plugin/index.ts) | 唯一 Vite 插件入口 |
 | BuildPlugin 类型 | [`build/types.ts`](../packages/deer-mobile/src/build/types.ts) | 构建时插件接口 |
 | BuildAPI 实现 | [`setup-plugin/build-api.ts`](../packages/deer-mobile/plugins/setup-plugin/build-api.ts) | modifyConfig / modifyRoutes / addRuntimePlugin |

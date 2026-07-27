@@ -8,6 +8,9 @@ export { default as apiPlugin } from './plugins/api-plugin';
 export { default as builtinPlugin } from './plugins/builtin-plugin';
 export { default as mockPlugin } from './plugins/mock-plugin';
 
+// ---- PWA 插件 ----
+export { default as pwa } from './plugins/pwa-plugin';
+
 // ---- 框架入口（v5）----
 export { default as deer } from './plugins/setup-plugin';
 
