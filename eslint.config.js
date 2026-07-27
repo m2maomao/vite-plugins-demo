@@ -35,5 +35,12 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
+  // deer-mobile JSX 布局/渲染函数中 any 不可避免（Vue JSX slot 类型不完善）
+  {
+    files: ['packages/deer-mobile/src/layouts/*.tsx', 'packages/deer-mobile/plugins/**/*.ts', 'packages/deer-mobile/src/runtime/*.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
   eslintConfigPrettier,
 );

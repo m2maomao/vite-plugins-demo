@@ -6,8 +6,8 @@
  * 提供 RuntimeContext 作为插件间通信和运行时 API 的载体。
  */
 
-import type { App, Component, VNode } from 'vue';
-import type { Router, RouteRecordRaw, RouteRecordNormalized } from 'vue-router';
+import type { App, VNode } from 'vue';
+import type { Router } from 'vue-router';
 import type { AppConfig } from '../build/types';
 import type { RuntimePlugin, RuntimeContext } from './types';
 

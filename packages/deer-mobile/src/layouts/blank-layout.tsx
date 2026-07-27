@@ -1,6 +1,5 @@
 import { defineComponent, h } from 'vue';
 import { RouterView } from 'vue-router';
-import type { VNode } from 'vue';
 
 /**
  * 空白布局 — 仅渲染页面内容，无 header/footer

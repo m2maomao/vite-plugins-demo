@@ -136,18 +136,6 @@ function generateRouteCode(
   imports: string[],
   isChild: boolean,
 ): string {
-  // 收集所有需要 import 的页面
-  const collectImports = (n: RouteNode) => {
-    if (n.file && !n.children.some((c) => c.isIndex)) {
-      // 只在叶子节点或没有子 index 的节点上生成 import
-      imports.push(`import __page${pageIndex.current} from '${n.file}'`);
-      pageIndex.current++;
-    }
-    for (const child of n.children) {
-      collectImports(child);
-    }
-  };
-
   // 第一次调用时收集所有 import
   if (!isChild) {
     // 只从有 file 的节点收集 import
@@ -178,8 +166,7 @@ function generateRouteCode(
   }
 
   // 生成单个路由的记录
-  // useRelativePath = true 表示使用相对路径（作为子路由）
-  const genRoute = (n: RouteNode, useRelativePath: boolean): string => {
+  const genRoute = (n: RouteNode, _useRelativePath: boolean): string => {
     const isParent = n.isIndex && n.children.length > 0;
     const hasOwnPage = n.file && (n.isIndex || n.children.length === 0);
     const isLeaf = n.file && !n.isIndex && n.children.length === 0;
@@ -304,12 +291,7 @@ export default function scanPagesPlugin(options: { pluginRoutes?: RouteConfig[] 
     const layoutFiles = scanLayoutFiles();
     if (layoutFiles.length === 0) return 'export const layoutRegistry = {};';
 
-    const imports = layoutFiles
-      .map((f, i) => {
-        const name = f.replace('src/layouts/', '').replace(/\.tsx$/, '');
-        return `import __layout${i} from '/${f}'`;
-      })
-      .join('\n');
+    const imports = layoutFiles.map((f, i) => `import __layout${i} from '/${f}'`).join('\n');
 
     const entries = layoutFiles
       .map((f, i) => {

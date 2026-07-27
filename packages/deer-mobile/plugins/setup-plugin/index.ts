@@ -11,11 +11,10 @@
  */
 
 import type { Plugin, ViteDevServer } from 'vite';
-import { BuildAPIImpl, GenerateAPIImpl, type CollectedState } from './build-api';
+import { BuildAPIImpl, type CollectedState } from './build-api';
 import { generateSetupAppCode } from './code-gen';
 import type { DeerOptions } from './types';
 import type { BuildPlugin, AppConfig, RouteConfig } from '../../src/build/types';
-import type { RuntimePlugin } from '../../src/runtime/types';
 
 // ============================================
 // 虚拟模块标识符
@@ -255,7 +254,7 @@ export default function deer(options: DeerOptions = {}): Plugin {
 // 收集所有 BuildPlugin
 // ============================================
 
-function collectBuildPlugins(options: DeerOptions, api: BuildAPIImpl): BuildPlugin[] {
+function collectBuildPlugins(options: DeerOptions, _api: BuildAPIImpl): BuildPlugin[] {
   const plugins: BuildPlugin[] = [];
 
   // 1. 将 modifyRoutes/modifyConfig/onGenerate 转为匿名 BuildPlugin
