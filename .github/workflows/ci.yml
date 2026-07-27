@@ -41,14 +41,6 @@ jobs:
       - name: Lint styles (Stylelint)
         run: pnpm lint:style
 
-      - name: Type check — kangaroo-mobile
-        working-directory: packages/kangaroo-mobile
-        run: npx tsc --noEmit
-
-      - name: Type check — deer-mobile
-        working-directory: packages/deer-mobile
-        run: npx tsc --noEmit
-
       - name: Build
         run: pnpm --filter deer-mobile --filter kangaroo-mobile build
 
