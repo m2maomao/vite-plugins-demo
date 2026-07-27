@@ -76570,8 +76570,8 @@ function buildRouteTree(files, pluginRoutes) {
       isIndexOrig: isIndexFile
     });
   }
-  for (const pr of pluginRoutes) {
-    fileConfigs.set(pr.file || pr.path, { config: pr, isIndexOrig: false });
+  for (const pr2 of pluginRoutes) {
+    fileConfigs.set(pr2.file || pr2.path, { config: pr2, isIndexOrig: false });
   }
   for (const [, { config, isIndexOrig }] of fileConfigs) {
     if (!config.file) continue;
@@ -83180,7 +83180,7 @@ This will fail in production.`);
   return useStore;
 }
 
-// ../../node_modules/.pnpm/pinia-plugin-persistedstate@4.7.1_pinia@3.0.4_typescript@6.0.3_vue@3.5.39_typescript@6.0.3__/node_modules/pinia-plugin-persistedstate/dist/index.js
+// ../../node_modules/.pnpm/pinia-plugin-persistedstate_19b36305a4652fdd02ddda74bdf1aaa5/node_modules/pinia-plugin-persistedstate/dist/index.js
 function get(obj, path2) {
   if (obj == null) return void 0;
   let value = obj;
@@ -90088,8 +90088,8 @@ var Icon = (0, vue_exports.defineComponent)((props, { emit }) => {
 
 // ../kangaroo-mobile/dist/kangaroo-mobile.js
 var import_vant = __toESM(require_vant_cjs(), 1);
-var V = /* @__PURE__ */ new Set(/* @__PURE__ */ "coupon-o.balance-o.records.todo-list-o.smile-comment-o.photo.photo-o.photo-fail.back.search.chevron-right.home-o.friends-o.setting-o.location-o.shop-o.smile-o.warning-o.music-o.arrow.arrow-down.arrow-up.arrow-left.cross.success.fail.minus.plus.back-top".split("."));
-var H = {
+var B = /* @__PURE__ */ new Set(/* @__PURE__ */ "coupon-o.balance-o.records.todo-list-o.smile-comment-o.photo.photo-o.photo-fail.back.search.chevron-right.home-o.friends-o.setting-o.location-o.shop-o.smile-o.warning-o.music-o.arrow.arrow-down.arrow-up.arrow-left.cross.success.fail.minus.plus.back-top".split("."));
+var V = {
   back: "vant:arrow-left",
   home: "mdi:home",
   close: "mdi:close",
@@ -90104,19 +90104,19 @@ var H = {
   "chevron-left": "mdi:chevron-left",
   deer: "deer:mingcute--deer-line"
 };
-function rt(e2) {
-  if (H[e2]) return H[e2];
+function st(e2) {
+  if (V[e2]) return V[e2];
   if (e2.startsWith("vant:")) {
     console.warn('[yhm-icon] "vant:" prefix is deprecated.');
     let t2 = e2.replace("vant:", "");
-    return H[t2] ? H[t2] : V.has(t2) ? "" : `mdi:${t2}`;
+    return V[t2] ? V[t2] : B.has(t2) ? "" : `mdi:${t2}`;
   }
-  return V.has(e2) ? "" : e2;
+  return B.has(e2) ? "" : e2;
 }
-function it(e2) {
-  return V.has(e2);
+function ct(e2) {
+  return B.has(e2);
 }
-var at = /* @__PURE__ */ (0, vue_exports.defineComponent)({
+var lt = /* @__PURE__ */ (0, vue_exports.defineComponent)({
   name: "YhmIcon",
   __name: "icon",
   props: {
@@ -90156,11 +90156,11 @@ var at = /* @__PURE__ */ (0, vue_exports.defineComponent)({
     } }, i2 = e2, a2 = (0, vue_exports.computed)(() => {
       let e3 = Number(i2.size);
       return Number.isNaN(e3) ? i2.size : `${e3}px`;
-    }), o2 = (0, vue_exports.computed)(() => rt(i2.name)), s2 = (0, vue_exports.computed)(() => o2.value.startsWith("deer:")), c2 = (0, vue_exports.computed)(() => {
+    }), o2 = (0, vue_exports.computed)(() => st(i2.name)), s2 = (0, vue_exports.computed)(() => o2.value.startsWith("deer:")), c2 = (0, vue_exports.computed)(() => {
       if (!s2.value) return null;
       let e3 = o2.value.replace("deer:", "");
       return r2[e3] || null;
-    }), l2 = (0, vue_exports.computed)(() => o2.value === "" || it(i2.name)), u2 = (0, vue_exports.computed)(() => l2.value || s2.value ? "" : o2.value), f2 = (0, vue_exports.computed)(() => {
+    }), l2 = (0, vue_exports.computed)(() => o2.value === "" || ct(i2.name)), u2 = (0, vue_exports.computed)(() => l2.value || s2.value ? "" : o2.value), f2 = (0, vue_exports.computed)(() => {
       let e3 = {
         back: "arrow-left",
         search: "search",
@@ -90201,41 +90201,41 @@ var at = /* @__PURE__ */ (0, vue_exports.defineComponent)({
     ]));
   }
 });
-var U = (e2, t2) => {
+var H = (e2, t2) => {
   let n2 = e2.__vccOpts || e2;
   for (let [e3, r2] of t2) n2[e3] = r2;
   return n2;
 };
-var W = /* @__PURE__ */ U(at, [["__scopeId", "data-v-712f22c8"]]);
-W.install = (e2) => {
-  e2.component("YhmIcon", W);
+var U = /* @__PURE__ */ H(lt, [["__scopeId", "data-v-712f22c8"]]);
+U.install = (e2) => {
+  e2.component("YhmIcon", U);
 };
-function ut() {
+function mt() {
 }
-var dt = typeof window < "u";
-var G = (e2) => typeof e2 == "object" && !!e2;
-var ft = (e2) => e2 != null;
-var K = (e2) => typeof e2 == "function";
-var pt = (e2) => G(e2) && K(e2.then) && K(e2.catch);
-var mt = () => dt ? /ios|iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) : false;
-function ht(e2, t2) {
+var ht = typeof window < "u";
+var W = (e2) => typeof e2 == "object" && !!e2;
+var gt = (e2) => e2 != null;
+var G = (e2) => typeof e2 == "function";
+var _t = (e2) => W(e2) && G(e2.then) && G(e2.catch);
+var vt = () => ht ? /ios|iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) : false;
+function yt(e2, t2) {
   let n2 = t2.split("."), r2 = e2;
   return n2.forEach((e3) => {
-    r2 = G(r2) ? r2[e3] ?? "" : "";
+    r2 = W(r2) ? r2[e3] ?? "" : "";
   }), r2;
 }
-var gt = [Number, String];
-var _t = {
+var bt = [Number, String];
+var xt = {
   type: Boolean,
   default: true
 };
-var vt = (e2) => ({
-  type: gt,
+var St = (e2) => ({
+  type: bt,
   default: e2
 });
-var yt = typeof window < "u";
-var bt = (e2) => e2 === window;
-var xt = (e2, t2) => ({
+var Ct = typeof window < "u";
+var wt = (e2) => e2 === window;
+var Tt = (e2, t2) => ({
   top: 0,
   left: 0,
   right: e2,
@@ -90243,15 +90243,15 @@ var xt = (e2, t2) => ({
   width: e2,
   height: t2
 });
-var St = (e2) => {
+var Et = (e2) => {
   let t2 = (0, vue_exports.unref)(e2);
-  if (bt(t2)) {
+  if (wt(t2)) {
     let e3 = t2.innerWidth, n2 = t2.innerHeight;
-    return xt(e3, n2);
+    return Tt(e3, n2);
   }
-  return t2?.getBoundingClientRect ? t2.getBoundingClientRect() : xt(0, 0);
+  return t2?.getBoundingClientRect ? t2.getBoundingClientRect() : Tt(0, 0);
 };
-function Ct(e2) {
+function Dt(e2) {
   let t2 = [], n2 = (e3) => {
     Array.isArray(e3) && e3.forEach((e4) => {
       (0, vue_exports.isVNode)(e4) && (t2.push(e4), e4.component?.subTree && (t2.push(e4.component.subTree), n2(e4.component.subTree.children)), e4.children && n2(e4.children));
@@ -90259,24 +90259,24 @@ function Ct(e2) {
   };
   return n2(e2), t2;
 }
-var wt = (e2, t2) => {
+var Ot = (e2, t2) => {
   let n2 = e2.indexOf(t2);
   return n2 === -1 ? e2.findIndex((e3) => t2.key !== void 0 && t2.key !== null && e3.type === t2.type && e3.key === t2.key) : n2;
 };
-function Tt(e2, t2, n2) {
-  let r2 = Ct(e2.subTree.children);
-  n2.sort((e3, t3) => wt(r2, e3.vnode) - wt(r2, t3.vnode));
+function kt(e2, t2, n2) {
+  let r2 = Dt(e2.subTree.children);
+  n2.sort((e3, t3) => Ot(r2, e3.vnode) - Ot(r2, t3.vnode));
   let i2 = n2.map((e3) => e3.proxy);
   t2.sort((e3, t3) => i2.indexOf(e3) - i2.indexOf(t3));
 }
-function Et(e2) {
+function At(e2) {
   let t2 = (0, vue_exports.reactive)([]), n2 = (0, vue_exports.reactive)([]), r2 = (0, vue_exports.getCurrentInstance)();
   return {
     children: t2,
     linkChildren: (i2) => {
       (0, vue_exports.provide)(e2, Object.assign({
         link: (e3) => {
-          e3.proxy && (n2.push(e3), t2.push(e3.proxy), Tt(r2, t2, n2));
+          e3.proxy && (n2.push(e3), t2.push(e3.proxy), kt(r2, t2, n2));
         },
         unlink: (e3) => {
           let r3 = n2.indexOf(e3);
@@ -90288,39 +90288,39 @@ function Et(e2) {
     }
   };
 }
+var K;
 var q;
-var J;
-function Dt() {
-  if (!q && (q = (0, vue_exports.ref)(0), J = (0, vue_exports.ref)(0), yt)) {
+function jt() {
+  if (!K && (K = (0, vue_exports.ref)(0), q = (0, vue_exports.ref)(0), Ct)) {
     let e2 = () => {
-      q.value = window.innerWidth, J.value = window.innerHeight;
+      K.value = window.innerWidth, q.value = window.innerHeight;
     };
     e2(), window.addEventListener("resize", e2, { passive: true }), window.addEventListener("orientationchange", e2, { passive: true });
   }
   return {
-    width: q,
-    height: J
+    width: K,
+    height: q
   };
 }
-mt();
-var { width: Ot, height: kt } = Dt();
-function At(e2) {
+vt();
+var { width: Mt, height: Nt } = jt();
+function Pt(e2) {
   let t2 = {};
   return e2 !== void 0 && (t2.zIndex = +e2), t2;
 }
-var jt = /-(\w)/g;
-var Mt = (e2) => e2.replace(jt, (e3, t2) => t2.toUpperCase());
-var { hasOwnProperty: Nt } = Object.prototype;
-function Pt(e2, t2, n2) {
+var Ft = /-(\w)/g;
+var It = (e2) => e2.replace(Ft, (e3, t2) => t2.toUpperCase());
+var { hasOwnProperty: Lt } = Object.prototype;
+function Rt(e2, t2, n2) {
   let r2 = t2[n2];
-  ft(r2) && (!Nt.call(e2, n2) || !G(r2) ? e2[n2] = r2 : e2[n2] = Ft(Object(e2[n2]), r2));
+  gt(r2) && (!Lt.call(e2, n2) || !W(r2) ? e2[n2] = r2 : e2[n2] = zt(Object(e2[n2]), r2));
 }
-function Ft(e2, t2) {
+function zt(e2, t2) {
   return Object.keys(t2).forEach((n2) => {
-    Pt(e2, t2, n2);
+    Rt(e2, t2, n2);
   }), e2;
 }
-var It = {
+var Bt = {
   name: "姓名",
   tel: "电话",
   save: "保存",
@@ -90385,104 +90385,104 @@ var It = {
   },
   vanAddressList: { add: "新增地址" }
 };
-var Lt = (0, vue_exports.ref)("zh-CN");
-var Rt = (0, vue_exports.reactive)({ "zh-CN": It });
-var zt = {
+var Vt = (0, vue_exports.ref)("zh-CN");
+var Ht = (0, vue_exports.reactive)({ "zh-CN": Bt });
+var Ut = {
   messages() {
-    return Rt[Lt.value];
+    return Ht[Vt.value];
   },
   use(e2, t2) {
-    Lt.value = e2, this.add({ [e2]: t2 });
+    Vt.value = e2, this.add({ [e2]: t2 });
   },
   add(e2 = {}) {
-    Ft(Rt, e2);
+    zt(Ht, e2);
   }
 };
-function Bt(e2) {
-  let t2 = Mt(e2) + ".";
+function Wt(e2) {
+  let t2 = It(e2) + ".";
   return (e3, ...n2) => {
-    let r2 = zt.messages(), i2 = ht(r2, t2 + e3) || ht(r2, e3);
-    return K(i2) ? i2(...n2) : i2;
+    let r2 = Ut.messages(), i2 = yt(r2, t2 + e3) || yt(r2, e3);
+    return G(i2) ? i2(...n2) : i2;
   };
 }
-function Y(e2, t2) {
-  return t2 ? typeof t2 == "string" ? ` ${e2}--${t2}` : Array.isArray(t2) ? t2.reduce((t3, n2) => t3 + Y(e2, n2), "") : Object.keys(t2).reduce((n2, r2) => n2 + (t2[r2] ? Y(e2, r2) : ""), "") : "";
+function J(e2, t2) {
+  return t2 ? typeof t2 == "string" ? ` ${e2}--${t2}` : Array.isArray(t2) ? t2.reduce((t3, n2) => t3 + J(e2, n2), "") : Object.keys(t2).reduce((n2, r2) => n2 + (t2[r2] ? J(e2, r2) : ""), "") : "";
 }
-function Vt(e2) {
-  return (t2, n2) => (t2 && typeof t2 != "string" && (n2 = t2, t2 = ""), t2 = t2 ? `${e2}__${t2}` : e2, `${t2}${Y(t2, n2)}`);
+function Gt(e2) {
+  return (t2, n2) => (t2 && typeof t2 != "string" && (n2 = t2, t2 = ""), t2 = t2 ? `${e2}__${t2}` : e2, `${t2}${J(t2, n2)}`);
 }
-function Ht(e2) {
+function Kt(e2) {
   let t2 = `van-${e2}`;
   return [
     t2,
-    Vt(t2),
-    Bt(t2)
+    Gt(t2),
+    Wt(t2)
   ];
 }
-var X = "van-hairline";
-`${X}`, `${X}`, `${X}`, `${X}`, `${X}`;
-var Ut = `${X}--top-bottom`;
-`${X}`;
-function Wt(e2, { args: t2 = [], done: n2, canceled: r2, error: i2 }) {
+var Y = "van-hairline";
+`${Y}`, `${Y}`, `${Y}`, `${Y}`, `${Y}`;
+var qt = `${Y}--top-bottom`;
+`${Y}`;
+function Jt(e2, { args: t2 = [], done: n2, canceled: r2, error: i2 }) {
   if (e2) {
     let a2 = e2.apply(null, t2);
-    pt(a2) ? a2.then((e3) => {
+    _t(a2) ? a2.then((e3) => {
       e3 ? n2() : r2 && r2();
-    }).catch(i2 || ut) : a2 ? n2() : r2 && r2();
+    }).catch(i2 || mt) : a2 ? n2() : r2 && r2();
   } else n2();
 }
-var Gt = /* @__PURE__ */ Symbol();
-function Kt(e2) {
-  let t2 = (0, vue_exports.inject)(Gt, null);
+var Yt = /* @__PURE__ */ Symbol();
+function Xt(e2) {
+  let t2 = (0, vue_exports.inject)(Yt, null);
   t2 && (0, vue_exports.watch)(t2, (t3) => {
     t3 && e2();
   });
 }
-var qt = (e2, t2) => {
+var Zt = (e2, t2) => {
   let n2 = (0, vue_exports.ref)(), r2 = () => {
-    n2.value = St(e2).height;
+    n2.value = Et(e2).height;
   };
   return (0, vue_exports.onMounted)(() => {
     if ((0, vue_exports.nextTick)(r2), t2) for (let e3 = 1; e3 <= 3; e3++) setTimeout(r2, 100 * e3);
-  }), Kt(() => (0, vue_exports.nextTick)(r2)), (0, vue_exports.watch)([Ot, kt], r2), n2;
+  }), Xt(() => (0, vue_exports.nextTick)(r2)), (0, vue_exports.watch)([Mt, Nt], r2), n2;
 };
-function Jt(e2, t2) {
-  let n2 = qt(e2, true);
+function Qt(e2, t2) {
+  let n2 = Zt(e2, true);
   return (e3) => (0, vue_exports.createVNode)("div", {
     class: t2("placeholder"),
     style: { height: n2.value ? `${n2.value}px` : void 0 }
   }, [e3()]);
 }
-var [Yt, Xt] = Ht("tabbar");
-var Zt = {
+var [$t, en] = Kt("tabbar");
+var tn = {
   route: Boolean,
-  fixed: _t,
-  border: _t,
-  zIndex: gt,
+  fixed: xt,
+  border: xt,
+  zIndex: bt,
   placeholder: Boolean,
   activeColor: String,
   beforeChange: Function,
   inactiveColor: String,
-  modelValue: vt(0),
+  modelValue: St(0),
   safeAreaInsetBottom: {
     type: Boolean,
     default: null
   }
 };
-var Qt = Symbol(Yt);
+var nn = Symbol($t);
 (0, vue_exports.defineComponent)({
-  name: Yt,
-  props: Zt,
+  name: $t,
+  props: tn,
   emits: ["change", "update:modelValue"],
   setup(e2, { emit: t2, slots: n2 }) {
-    let r2 = (0, vue_exports.ref)(), { linkChildren: i2 } = Et(Qt), a2 = Jt(r2, Xt), o2 = () => e2.safeAreaInsetBottom ?? e2.fixed, c2 = () => {
+    let r2 = (0, vue_exports.ref)(), { linkChildren: i2 } = At(nn), a2 = Qt(r2, en), o2 = () => e2.safeAreaInsetBottom ?? e2.fixed, c2 = () => {
       let { fixed: t3, zIndex: i3, border: a3 } = e2;
       return (0, vue_exports.createVNode)("div", {
         ref: r2,
         role: "tablist",
-        style: At(i3),
-        class: [Xt({ fixed: t3 }), {
-          [Ut]: a3,
+        style: Pt(i3),
+        class: [en({ fixed: t3 }), {
+          [qt]: a3,
           "van-safe-area-bottom": o2()
         }]
       }, [n2.default?.call(n2)]);
@@ -90490,7 +90490,7 @@ var Qt = Symbol(Yt);
     return i2({
       props: e2,
       setActive: (n3, r3) => {
-        Wt(e2.beforeChange, {
+        Jt(e2.beforeChange, {
           args: [n3],
           done() {
             t2("update:modelValue", n3), t2("change", n3), r3();
@@ -90500,7 +90500,7 @@ var Qt = Symbol(Yt);
     }), () => e2.fixed && e2.placeholder ? a2(c2) : c2();
   }
 });
-var zn = /* @__PURE__ */ (0, vue_exports.defineComponent)({
+var Wn = /* @__PURE__ */ (0, vue_exports.defineComponent)({
   name: "YhmImagePreview",
   __name: "ImagePreview",
   props: {
@@ -90658,8 +90658,8 @@ var zn = /* @__PURE__ */ (0, vue_exports.defineComponent)({
     ]));
   }
 });
-var Qn = {
-  "zh-CN": It,
+var rr = {
+  "zh-CN": Bt,
   "en-US": {
     name: "Name",
     tel: "Phone",
@@ -90791,17 +90791,65 @@ var Qn = {
     vanAddressList: { add: "住所を追加" }
   }
 };
-var Q = {};
-var $ = "zh-CN";
-function tr(e2, t2) {
-  $ = e2;
-  let n2 = Qn[e2];
-  n2 && import_vant.Locale.use(e2, n2), t2 && (Q[e2] = {
-    ...Q[e2] || {},
+var Z = {};
+var Q = "zh-CN";
+function or(e2, t2) {
+  Q = e2;
+  let n2 = rr[e2];
+  n2 && import_vant.Locale.use(e2, n2), t2 && (Z[e2] = {
+    ...Z[e2] || {},
     ...t2
-  }), rr.forEach((t3) => t3(e2));
+  }), cr.forEach((t3) => t3(e2));
 }
-var rr = [];
+var cr = [];
+var fr = {
+  primaryColor: "#1677ff",
+  darkMode: false
+};
+var pr = "kangaroo-theme";
+function mr() {
+  try {
+    let e2 = localStorage.getItem(pr);
+    if (!e2) return null;
+    let t2 = JSON.parse(e2);
+    return typeof t2.primaryColor == "string" && typeof t2.darkMode == "boolean" ? t2 : null;
+  } catch {
+    return null;
+  }
+}
+function hr(e2) {
+  try {
+    localStorage.setItem(pr, JSON.stringify(e2));
+  } catch {
+  }
+}
+var $ = new class {
+  constructor() {
+    this.listeners = /* @__PURE__ */ new Set(), this.currentTheme = mr() ?? { ...fr }, this.applyTheme(this.currentTheme);
+  }
+  applyTheme(e2) {
+    let t2 = document.documentElement;
+    t2.style.setProperty("--yh-primary-color", e2.primaryColor), t2.classList.toggle("van-theme-dark", e2.darkMode), t2.classList.toggle("dark", e2.darkMode), hr(e2), this.listeners.forEach((t3) => t3(e2));
+  }
+  getTheme() {
+    return { ...this.currentTheme };
+  }
+  setPrimaryColor(e2) {
+    this.currentTheme.primaryColor = e2, this.applyTheme(this.currentTheme);
+  }
+  setDarkMode(e2) {
+    this.currentTheme.darkMode = e2, this.applyTheme(this.currentTheme);
+  }
+  toggleDarkMode() {
+    this.setDarkMode(!this.currentTheme.darkMode);
+  }
+  resetTheme() {
+    this.currentTheme = { ...fr }, this.applyTheme(this.currentTheme);
+  }
+  onThemeChange(e2) {
+    return this.listeners.add(e2), () => this.listeners.delete(e2);
+  }
+}();
 
 // plugins/runtime/i18n-plugin.ts
 var i18nRuntimePlugin = {
@@ -90825,7 +90873,7 @@ var i18nRuntimePlugin = {
     (0, vue_exports.watch)(
       () => i18n.global.locale.value,
       (newLang) => {
-        if (newLang) tr(newLang);
+        if (newLang) or(newLang);
       },
       { immediate: true }
     );
@@ -90903,10 +90951,10 @@ var themeRuntimePlugin = {
     const { theme } = ctx.config;
     if (theme) {
       if (theme.primaryColor) {
-        themeManager.setPrimaryColor(theme.primaryColor);
+        $.setPrimaryColor(theme.primaryColor);
       }
-      if (theme.darkMode) {
-        themeManager.setDarkMode(true);
+      if (theme.darkMode !== void 0) {
+        $.setDarkMode(theme.darkMode);
       }
     }
   }
@@ -92183,9 +92231,9 @@ function tokensToParser(segments, extraOptions) {
   if (!options.strict) pattern += "/?";
   if (options.end) pattern += "$";
   else if (options.strict && !pattern.endsWith("/")) pattern += "(?:/|$)";
-  const re = new RegExp(pattern, options.sensitive ? "" : "i");
+  const re2 = new RegExp(pattern, options.sensitive ? "" : "i");
   function parse3(path2) {
-    const match = path2.match(re);
+    const match = path2.match(re2);
     const params = {};
     if (!match) return null;
     for (let i2 = 1; i2 < match.length; i2++) {
@@ -92217,7 +92265,7 @@ function tokensToParser(segments, extraOptions) {
     return path2 || "/";
   }
   return {
-    re,
+    re: re2,
     score,
     keys,
     parse: parse3,

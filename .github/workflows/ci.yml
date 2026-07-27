@@ -1,0 +1,88 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      matrix:
+        node-version: [22]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting (Prettier)
+        run: pnpm format:check
+
+      - name: Lint (ESLint)
+        run: pnpm lint
+
+      - name: Lint styles (Stylelint)
+        run: pnpm lint:style
+
+      - name: Type check
+        run: pnpm --filter deer-mobile --filter kangaroo-mobile exec -- tsc --noEmit
+
+      - name: Build
+        run: pnpm --filter deer-mobile --filter kangaroo-mobile build
+
+      - name: Test (Vitest)
+        run: pnpm test
+
+  # ---------------------------------------------------------------
+  # 视觉回归测试 — 仅在 CI 主流程通过后运行
+  # 需要 playwright 浏览器环境，单独 job 避免影响主流程速度
+  # ---------------------------------------------------------------
+  visual-test:
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build Playground (required for visual tests)
+        run: pnpm --filter kangaroo-mobile exec -- vite build --config playground/vite.config.ts
+
+      - name: Run Playwright visual tests
+        run: pnpm --filter kangaroo-mobile test:e2e
