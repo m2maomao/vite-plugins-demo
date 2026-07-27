@@ -12,4 +12,10 @@ export default defineConfig({
     actionTimeout: 10000,
   },
   projects: [{ name: 'chromium', use: { browserName: 'chromium' } }],
+  webServer: {
+    command: 'npx vite --config playground/vite.config.ts --port 5174',
+    url: 'http://localhost:5174',
+    reuseExistingServer: !process.env.CI,
+    cwd: '.',
+  },
 });
