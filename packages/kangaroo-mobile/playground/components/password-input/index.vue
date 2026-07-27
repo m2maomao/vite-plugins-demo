@@ -1,33 +1,37 @@
 <template>
   <div class="demo-password-input">
-    <demo-block title="基础用法">
+    <demo-block ref="basicUsage" title="基础用法">
       <yhm-password-input
         :value="values.basicUsage"
         :focused="current === 'basicUsage'"
         @focus="current = 'basicUsage'" />
     </demo-block>
-    <demo-block title="自定义长度">
+
+    <demo-block ref="customLength" title="自定义长度">
       <yhm-password-input
         :value="values.customLength"
         :length="4"
         :focused="current === 'customLength'"
         @focus="current = 'customLength'" />
     </demo-block>
-    <demo-block title="格子间距">
+
+    <demo-block ref="addGutter" title="格子间距">
       <yhm-password-input
         :value="values.addGutter"
         :gutter="10"
         :focused="current === 'addGutter'"
         @focus="current = 'addGutter'" />
     </demo-block>
-    <demo-block title="明文展示">
+
+    <demo-block ref="removeMask" title="明文展示">
       <yhm-password-input
         :mask="false"
         :value="values.removeMask"
         :focused="current === 'removeMask'"
         @focus="current = 'removeMask'" />
     </demo-block>
-    <demo-block title="提示信息">
+
+    <demo-block ref="showInfo" title="提示信息">
       <yhm-password-input
         :info="'密码为 6 位数字'"
         :value="values.showInfo"
@@ -43,12 +47,33 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-const initialValue = { showInfo: '123', addGutter: '123', basicUsage: '123', removeMask: '123', customLength: '123' };
+const initialValue = {
+  showInfo: '123',
+  addGutter: '123',
+  basicUsage: '123',
+  removeMask: '123',
+  customLength: '123',
+};
+
 type ValueKeys = keyof typeof initialValue;
 
 const values = ref({ ...initialValue });
-const current = ref<ValueKeys | null>(null);
+const current = ref<ValueKeys | null>('basicUsage');
 const errorInfo = ref('');
+
+const showInfo = ref<any>(null);
+const addGutter = ref<any>(null);
+const basicUsage = ref<any>(null);
+const removeMask = ref<any>(null);
+const customLength = ref<any>(null);
+
+const refMap = {
+  showInfo,
+  addGutter,
+  basicUsage,
+  removeMask,
+  customLength,
+};
 
 const onInput = (key: string) => {
   if (!current.value) return;
@@ -65,4 +90,20 @@ const onDelete = () => {
   values.value[current.value] = values.value[current.value].slice(0, -1);
   if (current.value === 'showInfo') errorInfo.value = '';
 };
+
+watch(current, (value) => {
+  if (value) {
+    const vm = refMap[value].value;
+    if (vm) {
+      const { top } = vm.$el.getBoundingClientRect();
+      window.scrollTo(0, window.pageYOffset + top);
+    }
+  }
+});
 </script>
+
+<style lang="less">
+.demo-password-input {
+  min-height: 150vh;
+}
+</style>
