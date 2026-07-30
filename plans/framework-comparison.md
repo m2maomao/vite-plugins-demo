@@ -1,6 +1,6 @@
 # Deer Mobile 框架状态与对比
 
-> **最后更新**: 2026-07-27 | 核心框架完成度 ≈ **99%**（仅余 P3 低优先级项）
+> **最后更新**: 2026-07-30 | 核心框架完成度 ≈ **95%**（待补充 IM/WebSocket P0 + OCR P1）
 
 ---
 
@@ -86,7 +86,10 @@
 
 ## 三、缺失功能 ❌
 
-当前框架已无缺失功能项（P3 模板选择经评估确认为 TS-only 策略，无需支持 JS 模板）。
+| 功能 | 优先级 | 现状 | 说明 |
+|------|--------|------|------|
+| **IM/WebSocket** | 🔴 **P0** | ❌ 缺失 | WebSocket 连接管理（连接/断开/重连）、心跳机制、自动重连（最大次数限制+退避策略）、连接状态追踪、消息事件总线。需提供 `useWebSocket()` composable + `websocket-plugin.ts` RuntimePlugin |
+| **OCR 实名认证** | 🟡 **P1** | ❌ 缺失 | 浏览器摄像头调用封装、拍照+图片裁剪、OCR 识别服务对接（可配置 API）、loading/error 状态管理。需提供 `useCamera()` + `useOCR()` composable |
 
 ---
 
@@ -105,6 +108,7 @@
 | 插件市场/生态 | ✅ | ❌ | 🟡 远期中 |
 | HMR 插件热更新 | ✅ | ❌ | 🟢 低优先级 |
 | 插件间依赖声明 | ✅ (key deps) | ❌ | 🟢 低优先级 |
+| WebSocket/IM | ❌ 无内置 | ❌ 无内置 | ✅ 均无内置，需业务层集成 |
 
 ---
 
@@ -132,6 +136,8 @@
 | 运行时 I18n 插件 | [`runtime/i18n-plugin.ts`](../packages/deer-mobile/plugins/runtime/i18n-plugin.ts) | 静态导入 |
 | 运行时 API 插件 | [`runtime/api-plugin.ts`](../packages/deer-mobile/plugins/runtime/api-plugin.ts) | 注入 $api |
 | HTTP 封装 | [`utils/request.ts`](../packages/deer-mobile/src/utils/request.ts) | 已修复 Loading + SM4 |
+| **IM/WebSocket（待实现）** | — | P0：需提供 `useWebSocket()` composable + `websocket-plugin.ts` RuntimePlugin |
+| **OCR 实名认证（待实现）** | — | P1：需提供 `useCamera()` + `useOCR()` composable |
 | Kangaroo 组件入口 | [`kangaroo-mobile/src/index.ts`](../packages/kangaroo-mobile/src/index.ts) | install 注册所有组件 |
 | 组件 Demo | [`kangaroo-mobile/playground/`](../packages/kangaroo-mobile/playground/) | 所有组件 demo 页面 |
 | Playground CSS | [`playground-vars.less`](../packages/kangaroo-mobile/playground/playground-vars.less) | CSS normalize + 动画类 |
