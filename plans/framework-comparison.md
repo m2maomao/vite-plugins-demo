@@ -90,6 +90,7 @@
 |------|--------|------|------|
 | **IM/WebSocket** | 🔴 **P0** | ❌ 缺失 | WebSocket 连接管理（连接/断开/重连）、心跳机制、自动重连（最大次数限制+退避策略）、连接状态追踪、消息事件总线。需提供 `useWebSocket()` composable + `websocket-plugin.ts` RuntimePlugin |
 | **OCR 实名认证** | 🟡 **P1** | ❌ 缺失 | 浏览器摄像头调用封装、拍照+图片裁剪、OCR 识别服务对接（可配置 API）、loading/error 状态管理。需提供 `useCamera()` + `useOCR()` composable |
+| **业务组件** | 🟡 **P1** | ❌ 缺失 | 集成业务组件 |
 
 ---
 
