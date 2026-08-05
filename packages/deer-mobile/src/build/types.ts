@@ -126,6 +126,47 @@ export interface PWAOptions {
 }
 
 // ============================================
+// VConsoleConfig — vConsole 移动端调试面板配置
+// ============================================
+
+/**
+ * vConsole 调试面板配置。
+ *
+ * @example
+ * ```ts
+ * deer({
+ *   config: {
+ *     vconsole: {
+ *       enabled: 'auto',
+ *       urlParam: 'vconsole',
+ *       options: { theme: 'dark' },
+ *     },
+ *   },
+ * })
+ * ```
+ */
+export interface VConsoleConfig {
+  /**
+   * 启用策略（默认 'auto'）：
+   *  - 'auto'   dev 环境自动启用；生产环境可通过 URL 参数（?vconsole=1）按需打开
+   *  - 'always' 任何环境都启用（测试包 / 预发体验包）
+   *  - 'off'    完全禁用（URL 参数也不生效）
+   *  - true     等价于 'always'
+   *  - false    等价于 'off'
+   */
+  enabled?: boolean | 'auto' | 'always' | 'off';
+
+  /** 是否允许通过 URL 参数强制打开（默认 true） */
+  urlToggle?: boolean;
+
+  /** URL 参数名（默认 'vconsole'） */
+  urlParam?: string;
+
+  /** 透传给 VConsole 构造器的选项（如 theme、maxLogNumber 等） */
+  options?: Record<string, unknown>;
+}
+
+// ============================================
 // AppConfig — 应用配置
 // ============================================
 
@@ -169,6 +210,8 @@ export interface AppConfig {
     /** 自定义加载组件（Vue 组件对象） */
     component?: unknown;
   };
+  /** vConsole 移动端调试面板配置 */
+  vconsole?: VConsoleConfig;
   /** 运行时环境变量（由 deer() env 选项声明，构建时自动注入） */
   env: Record<string, string>;
   /** 插件配置动态扩展 */

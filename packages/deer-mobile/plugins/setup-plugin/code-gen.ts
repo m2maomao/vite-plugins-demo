@@ -46,6 +46,14 @@ function generateLoadingPluginCode(): string {
   ].join('\n');
 }
 
+/** 生成 vConsole 插件内联代码（移动端调试面板，按 appConfig.vconsole 策略启用） */
+function generateVConsolePluginCode(): string {
+  return [
+    "import createDeerVConsolePlugin from 'deer-mobile/runtime/vconsole';",
+    'const __deer_vconsolePlugin__ = createDeerVConsolePlugin();',
+  ].join('\n');
+}
+
 /** 生成环境变量类型声明代码（注入到生成的 entry 中，提供 TypeScript 类型提示） */
 function generateEnvDeclaration(envDefs: EnvDefinitions): string {
   const fields = Object.entries(envDefs)
@@ -110,6 +118,7 @@ export function generateSetupAppCode(
     '// ---- 框架内置插件 ----',
     generateLayoutPluginCode(),
     generateLoadingPluginCode(),
+    generateVConsolePluginCode(),
     '',
     '// ---- 用户自定义插件 ----',
     inlineCodes,
@@ -120,6 +129,7 @@ export function generateSetupAppCode(
     '// ---- 注册运行时插件 ----',
     'pluginManager.use(__deer_layoutPlugin__);',
     'pluginManager.use(__deer_loadingPlugin__);',
+    'pluginManager.use(__deer_vconsolePlugin__);',
     pluginRegistrations,
     '',
     '// ---- 环境变量类型声明 ----',

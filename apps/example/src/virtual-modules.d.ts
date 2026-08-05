@@ -1,6 +1,12 @@
 // src/virtual-modules.d.ts
 // 为虚拟模块提供 TypeScript 类型声明
 
+declare namespace JSX {
+  interface IntrinsicElements {
+    [elem: string]: any;
+  }
+}
+
 declare module 'virtual:greeting' {
   export const greeting: string;
   export const version: string;

@@ -32,7 +32,8 @@
     "vue-router": "^4.6.4",
     "pinia": "^3.0.4",
     "axios": "^1.18.1",
-    "@vueuse/core": "^14.3.0"
+    "@vueuse/core": "^14.3.0",
+    "vconsole": "^3.15.1"
   },
   "devDependencies": {
     "vite": "^8.1.0",

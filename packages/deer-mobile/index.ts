@@ -21,6 +21,7 @@ export { default as authRuntimePlugin } from './plugins/runtime/auth-plugin';
 export { default as apiRuntimePlugin } from './plugins/runtime/api-plugin';
 export { default as themeRuntimePlugin } from './plugins/runtime/theme-plugin';
 export { default as createLoadingPlugin } from './plugins/runtime/loading-plugin';
+export { default as createVConsolePlugin, vconsoleRuntimePlugin } from './plugins/runtime/vconsole-plugin';
 
 // ---- 类型导出 ----
 export type { MockPluginOptions, MockApis } from './plugins/mock-plugin';
@@ -29,6 +30,7 @@ export type {
   BuildAPI,
   Preset,
   AppConfig,
+  VConsoleConfig,
   PluginDescriptor,
   ScriptConfig,
   RouteConfig,

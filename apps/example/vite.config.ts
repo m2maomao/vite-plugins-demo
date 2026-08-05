@@ -41,6 +41,11 @@ export default defineConfig({
         author: 'michael',
         theme: { primaryColor: 'red', darkMode: false },
         layout: 'top',
+        // vConsole 移动端调试面板：dev 自动启用；生产可 ?vconsole=1 按需打开；测试包可设 enabled: 'always'
+        vconsole: {
+          enabled: 'auto',
+          // options: { theme: 'dark', maxLogNumber: 1000 },
+        },
         i18n: {
           locale: 'zh-CN',
           messages: {

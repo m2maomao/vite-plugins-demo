@@ -4,7 +4,7 @@
   "type": "module",
   "main": "./index.js",
   "scripts": {
-    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --external:vite --external:@vitejs/plugin-vue-jsx --external:@tailwindcss/vite --external:vite-plugin-pwa --external:@vite-pwa/* --external:workbox-* --charset=utf8",
+    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --external:vite --external:@vitejs/plugin-vue-jsx --external:@tailwindcss/vite --external:vite-plugin-pwa --external:@vite-pwa/* --external:workbox-* --external:vconsole --charset=utf8",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
@@ -67,6 +67,10 @@
       "development": "./plugins/runtime/loading-plugin.ts",
       "default": "./plugins/runtime/loading-plugin.ts"
     },
+    "./runtime/vconsole": {
+      "development": "./plugins/runtime/vconsole-plugin.ts",
+      "default": "./plugins/runtime/vconsole-plugin.ts"
+    },
     "./build": {
       "development": "./src/build/index.ts",
       "default": "./src/build/index.ts"
@@ -75,20 +79,28 @@
   "dependencies": {
     "fast-glob": "^3.3.3",
     "kangaroo-mobile": "workspace:*",
-    "vue-i18n": "^11.0.0",
-    "sm-crypto": "^0.4.0"
+    "sm-crypto": "^0.4.0",
+    "vue-i18n": "^11.0.0"
   },
   "peerDependencies": {
-    "vue": "^3.5.0",
-    "vue-router": "^4.0.0",
-    "axios": "^1.0.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-vue-jsx": "^5.0.0",
     "@vueuse/core": "^14.0.0",
+    "axios": "^1.0.0",
+    "esbuild": "^0.28.0",
     "pinia": "^3.0.0",
     "pinia-plugin-persistedstate": "^4.0.0",
+    "vconsole": "^3.15.1",
     "vite": "^8.0.0",
-    "@vitejs/plugin-vue-jsx": "^5.0.0",
-    "@tailwindcss/vite": "^4.0.0",
-    "esbuild": "^0.28.0"
+    "vue": "^3.5.0",
+    "vue-router": "^4.0.0"
   },
-  "peerDependenciesMeta": {}
+  "peerDependenciesMeta": {
+    "vconsole": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "vconsole": "^3.15.1"
+  }
 }
