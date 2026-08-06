@@ -2,7 +2,7 @@
 
 > **分析日期**：2026-08-06
 > **分析对象**：
-> - **deer-mobile**（当前框架，v0.1.31）：Vite 8 + Vue 3.5 + TypeScript 6，类 Umi 插件化 H5 框架
+> - **deer-mobile**（当前框架，v0.1.31）：Vite 8 + Vue 3.5 + TypeScript 6，**对标 Umi 插件化 + 借鉴 Next.js 约定式路由、页面预加载与秒开性能理念** 的 H5 框架
 > - **uni-app**（业务项目 `YH-RM-FD-H5-WEB-develop-2.0` 所用）：DCloud 跨端框架，Vue 2.6 + webpack 5 + Vuex 3
 > **分析范围**：① 纯 H5 场景的通用对比；② 结合现有业务迁移背景的多端影响；③ **App 端采用 Flutter + H5（WebView 内嵌）** 前提下的优劣势
 > **结论速览**：**纯 H5 场景下 deer-mobile 在工程化、类型安全、性能、企业级能力上全面占优；uni-app 的不可替代价值在于「一套代码多端」**。在 **App 用 Flutter + WebView 内嵌 H5** 的前提下，uni-app 的 App 端价值被 Flutter 替代，其多端价值收窄为「小程序一套代码」——这使 **deer-mobile 做 H5 的性价比进一步上升**。
@@ -66,7 +66,7 @@
 
 | 维度 | 现状 |
 |------|------|
-| **定位** | 企业级移动端 **H5 专用** 框架（**对标 Umi 插件化 + 借鉴 Next.js 约定式/性能理念**） |
+| **定位** | 企业级移动端 **H5 专用** 框架（**对标 Umi 插件化 + 借鉴 Next.js 约定式路由、页面预加载与极速启动理念**） |
 | **技术栈** | Vite 8 + Vue 3.5 + TypeScript 6（全量类型安全，支持 TSX） |
 | **路由** | 约定式扫描 [`scanPagesPlugin`](../packages/deer-mobile/plugins/scan-pages-plugin/index.ts)，支持动态/嵌套路由 + 路由元数据 |
 | **插件系统** | BuildPlugin 8 钩子 + RuntimePlugin 12 钩子（[`types.ts`](../packages/deer-mobile/src/runtime/types.ts)） |
@@ -86,9 +86,11 @@
 - **Provider 嵌套**：`rootContainer` / `innerProvider` / `outerProvider`（对齐 Umi rootContainer）。
 - **插件间通信 + Preset 组合**：`RuntimeContext.data` 数据空间、`registerMethod` / `callMethod`、多插件组合成一键 preset。
 
-**B. 借鉴 Next.js —— 约定式 + 性能理念**
+**B. 借鉴 Next.js —— 约定式 + 预加载 + 秒开**
 - **文件系统约定式路由**：新增页面文件即出路由（`src/pages/*.tsx` 自动扫描，支持动态 / 嵌套 / 元数据，类 Next.js pages 约定）。
-- **启动性能优化**：静态 import 消除 HTTP 瀑布 + 并行 fetch 远程路由不阻塞启动 + 路由就绪 ~20ms（类比 Next.js「快速可交互」理念，纯 H5 客户端实现而非 SSR 预取）。
+- **页面预加载（prefetch）**：路由级预取，页面代码预先加载，跳转即点即开、秒开切换。
+- **启动秒开 / 极速打开**：静态 import 预载消除 HTTP 瀑布 + 并行 fetch 远程路由不阻塞启动，`router.isReady()` 仅 ~20ms，首屏极速可交互。
+- **切页即时**：页面资源预载 + prefetch 双管齐下，路由切换零等待。
 - **内置页面与错误处理**：login / 404 / error / loading 开箱即用（类 Next.js 内置 404/error 页）。
 - **约定优先、零配置**（convention over configuration）：页面 / 布局 / API / Mock 目录约定即生效，业务方只写业务。
 
@@ -345,7 +347,7 @@ flowchart TB
 | **UI 组件** | kangaroo-mobile 54 个 Vant 4 组件 + 图标 + UI i18n |
 | **质量保障** | Husky + lint-staged + ESLint/Prettier + Vitest + Playwright + CI/CD |
 
-> **一句话**：业务方只需在 vite.config 里配置 `deer({ ... })` 并写页面 / 组件，其余工程化、框架能力、质量保障全部开盒即用——这是 uni-app「编译器」路线无法提供的「可编程应用框架」体验。
+> **一句话**：业务方只需在 vite.config 里配置 `deer({ ... })` 并写页面 / 组件，其余工程化、框架能力、质量保障全部开盒即用——这是 uni-app「编译器」路线无法提供的「可编程应用框架」体验。**传统 H5 靠手写拼装，deer-mobile 靠框架赋能：把 H5 从「能跑的网页」提升到「企业级、可维护、秒开的应用」，是开发方式的代际变革。**
 
 ---
 
@@ -515,7 +517,7 @@ flowchart TB
 2. **企业级工程能力开箱即用**：约定式路由、双插件系统（Build 8 + Runtime 12）、多布局 + TabBar + KeepAlive、Pinia 持久化、鉴权守卫、i18n、运行时主题、Loading、SM4 加密、业务状态码体系。
 3. **UI 组件库齐全**：kangaroo-mobile 54 个 Vant 4 组件，主题/暗黑/图标/UI 层 i18n 一应俱全，质量与维护度高于业务项目 v1 组件库。
 4. **框架级插件系统（uni-app 不具备）**：BuildPlugin 8 构建时钩子 + RuntimePlugin 12 运行时钩子 + 插件间通信/Provider 嵌套/路由守卫注册，基础设施可作为插件横切复用；已沉淀 IM / OCR / Chart 三个 Feature 模块（`features/`）按统一模式接入。uni-app 无等价框架级插件 API，只有底层构建插件与 easycom 等弱机制。
-5. **H5 性能与体积可控**：纯 Vite 产物 + 按需 tree-shaking + 静态 import（isReady ~20ms）+ PWA 离线缓存。
+5. **H5 秒开 · 性能与体积可控**：页面预加载（prefetch）+ 静态 import 预载消除 HTTP 瀑布 + 并行初始化（isReady ~20ms），启动秒开、切页即时；按需 tree-shaking + PWA 离线缓存，体积与体验可控。
 6. **测试完备**：Vitest 单元测试（192 用例）+ Playwright 视觉回归，可长期保障质量。
 7. **部署自由**：纯 Web 静态产物，任意 CDN / 服务器 / 网关即可上线，无 uni 运行时体积包袱。
 8. **与团队技能匹配**：统一 Vue 3 技术栈；TSX 支持意味着未来可平滑演进（React 组件/更复杂工程），无跨端抽象的心智负担。
