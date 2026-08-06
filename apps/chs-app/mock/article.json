@@ -1,0 +1,59 @@
+{
+  "POST /api/rmChsService/v1.0/resident/healthEduCate/page": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "records": [
+        {
+          "id": "1",
+          "title": "高血压患者的日常饮食管理",
+          "releaseTime": "2024-01-15",
+          "viewsNum": 1200,
+          "thumbNum": 86
+        },
+        {
+          "id": "2",
+          "title": "糖尿病的早期信号与预防",
+          "releaseTime": "2024-01-10",
+          "viewsNum": 980,
+          "thumbNum": 54
+        },
+        {
+          "id": "3",
+          "title": "老年人健康体检指南",
+          "releaseTime": "2024-01-05",
+          "viewsNum": 1500,
+          "thumbNum": 120
+        }
+      ],
+      "total": 3
+    }
+  },
+  "POST /api/rmChsService/v1.0/resident/healthEduCate/qryById/:id": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "id": "1",
+      "title": "高血压患者的日常饮食管理",
+      "releaseTime": "2024-01-15",
+      "viewsNum": 1200,
+      "thumbNum": 86,
+      "releaseContent": "<h3>一、控制钠盐摄入</h3><p>每日食盐摄入量不超过 5 克，避免腌制食品。</p><h3>二、合理膳食</h3><p>多吃蔬菜水果，减少高脂肪、高胆固醇食物。</p><h3>三、规律运动</h3><p>每周至少进行 150 分钟中等强度有氧运动。</p><h3>四、定期监测</h3><p>坚持家庭自测血压，记录并定期复查。</p>"
+    }
+  },
+  "POST /api/rmChsService/v1.0/resident/healthEduCate/thumbOrCancel": {
+    "status": 1,
+    "message": "success",
+    "data": {}
+  },
+  "POST /api/rmChsService/v1.0/resident/healthEduCate/thumbStatusValid": {
+    "status": 1,
+    "message": "success",
+    "data": 0
+  },
+  "POST /api/rmChsService/v1.0/resident/healthEduCate/viewsNum/add/:id": {
+    "status": 1,
+    "message": "success",
+    "data": {}
+  }
+}

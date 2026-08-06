@@ -23,6 +23,16 @@ export interface RuntimePlugin {
   /** 优先级（数字越小越先执行），默认 10 */
   priority?: number;
 
+  /**
+   * 插件工厂来源标记（可选）
+   * 当插件由工厂函数（如 createIMPlugin(options)）创建且需要保留闭包配置时，
+   * code-gen 会据此生成「导入 + 调用工厂」代码，而非 fn.toString() 内联对象。
+   * - module: 插件工厂所在模块（支持 deer-mobile 子路径）
+   * - name: 工厂函数导出名
+   * - args: 工厂参数（函数须自包含，可被序列化）
+   */
+  __factory?: { module: string; name: string; args?: unknown };
+
   // ===== 应用生命周期 =====
 
   /** App 创建后调用（此时 router 未创建） */

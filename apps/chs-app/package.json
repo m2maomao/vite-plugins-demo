@@ -1,0 +1,34 @@
+{
+  "name": "chs-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.1",
+    "@vueuse/core": "^14.3.0",
+    "axios": "^1.18.1",
+    "deer-mobile": "workspace:*",
+    "esbuild": "^0.28.1",
+    "fast-glob": "^3.3.3",
+    "kangaroo-mobile": "workspace:*",
+    "pinia": "^3.0.0",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "sm-crypto": "^0.4.0",
+    "tailwindcss": "^4.3.1",
+    "vue": "^3.5.39",
+    "vue-i18n": "^11.4.7",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vitejs/plugin-vue-jsx": "^5.1.6",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.0"
+  }
+}

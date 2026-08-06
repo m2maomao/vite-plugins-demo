@@ -147,25 +147,27 @@ export function generateSetupAppCode(
     '    appConfig,',
     '  }).catch(err => console.error("[Deer] Runtime Error:", err));',
     '',
-    '  // 2. 并行获取远程路由（不阻塞应用启动）',
-    '  fetch("/api/routes")',
-    '    .then(res => {',
-    "      if (!res.ok) throw new Error('HTTP ' + res.status);",
-    '      return res.json();',
-    '    })',
-    '    .then(result => {',
-    '      const serverRoutes = result.data || [];',
-    '      if (serverRoutes.length > 0 && pluginManager.getContext().router) {',
-    '        const router = pluginManager.getContext().router;',
-    '        serverRoutes.forEach(r => {',
-    '          if (r.redirect) {',
-    '            router.addRoute({ path: r.path, redirect: r.redirect });',
-    '          }',
-    '        });',
-    "        console.log('🌐 已加载 ' + serverRoutes.length + ' 个远程路由');",
-    '      }',
-    '    })',
-    "    .catch(e => console.warn('⚠️ 远程路由加载失败:', e));",
+    '  // 2. 并行获取远程路由（不阻塞应用启动；可通过 appConfig.remoteRoutes = false 关闭）',
+    '  if (appConfig.remoteRoutes !== false) {',
+    '    fetch("/api/routes")',
+    '      .then(res => {',
+    "        if (!res.ok) throw new Error('HTTP ' + res.status);",
+    '        return res.json();',
+    '      })',
+    '      .then(result => {',
+    '        const serverRoutes = result.data || [];',
+    '        if (serverRoutes.length > 0 && pluginManager.getContext().router) {',
+    '          const router = pluginManager.getContext().router;',
+    '          serverRoutes.forEach(r => {',
+    '            if (r.redirect) {',
+    '              router.addRoute({ path: r.path, redirect: r.redirect });',
+    '            }',
+    '          });',
+    "          console.log('🌐 已加载 ' + serverRoutes.length + ' 个远程路由');",
+    '        }',
+    '      })',
+    "      .catch(e => console.warn('⚠️ 远程路由加载失败:', e));",
+    '  }',
     '',
     '  await runtimeApp;',
     '}',
@@ -190,12 +192,42 @@ function collectPluginImports(plugins: RuntimePlugin[]): PluginImportInfo[] {
       };
     }
 
+    // 插件工厂来源（__factory）：生成「导入 + 调用工厂」代码，保留闭包配置
+    const factory = (plugin as RuntimePlugin & { __factory?: { module: string; name: string; args?: unknown } })
+      .__factory;
+    if (factory) {
+      const factoryVar = `${variable}Factory`;
+      return {
+        variable,
+        importStmt: `import { ${factory.name} as ${factoryVar} } from '${factory.module}';`,
+        inlineCode: `const ${variable} = ${factoryVar}(${serializeValue(factory.args)});`,
+      };
+    }
+
     return {
       variable,
       importStmt: '',
       inlineCode: generateInlinePluginCode(plugin, variable),
     };
   });
+}
+
+/** 序列化插件工厂参数（支持对象/数组/字面量/自包含函数） */
+function serializeValue(value: unknown): string {
+  if (value === undefined) return 'undefined';
+  if (value === null) return 'null';
+  const t = typeof value;
+  if (t === 'string') return JSON.stringify(value);
+  if (t === 'number' || t === 'boolean') return String(value);
+  if (t === 'function') return (value as () => unknown).toString();
+  if (Array.isArray(value)) return `[${value.map((v) => serializeValue(v)).join(', ')}]`;
+  if (t === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>)
+      .filter(([, v]) => v !== undefined)
+      .map(([k, v]) => `${JSON.stringify(k)}: ${serializeValue(v)}`);
+    return `{ ${entries.join(', ')} }`;
+  }
+  return String(value);
 }
 
 function generateInlinePluginCode(plugin: RuntimePlugin, varName: string): string {

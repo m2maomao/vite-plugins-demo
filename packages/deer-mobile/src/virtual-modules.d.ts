@@ -32,6 +32,12 @@ declare module 'virtual:app-config' {
     noNavPages: string[];
     request: {
       baseURL: string;
+      /** Authorization 头前缀（默认 'Bearer '；如网关不需前缀可置空） */
+      tokenPrefix?: string;
+      /** localStorage Token Key（默认 'token'） */
+      tokenKey?: string;
+      /** 超时时间 ms（默认 10000） */
+      timeout?: number;
     };
     /**
      * SM4 加密密钥（hex 格式，32 位十六进制字符串）

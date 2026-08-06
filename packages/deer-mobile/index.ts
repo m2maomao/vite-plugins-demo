@@ -41,3 +41,22 @@ export type { CreateRuntimeAppOptions } from './src/runtime/create-app';
 
 export { PluginManager } from './src/runtime/plugin-manager';
 export { createRuntimeApp } from './src/runtime/create-app';
+
+// ---- IM Feature（可选：需安装 @im/sdk + web 传输插件；未使用则 tree-shaking 剔除）----
+export { default as createIMPlugin } from './features/im/plugin';
+export { useIM } from './features/im/composables';
+export { initIM, destroyIM, reconnectIM, setIMHandlers } from './features/im/state';
+export { default as ImChat } from './features/im/components/ImChat';
+export { default as ImChatList } from './features/im/components/ImChatList';
+export { default as MessageBubble } from './features/im/components/MessageBubble';
+export type { DeerIMConfig, DeerIMPluginOptions, SendChatInfo, IMComMessage, IMComChat } from './features/im/types';
+
+// ---- OCR Feature（可选：身份证识别；未使用则 tree-shaking 剔除）----
+export { default as OcrCard } from './features/ocr/components/OcrCard';
+export { useIdCardOcr } from './features/ocr/composables';
+export type { IdCardInfo, IdCardOcrOptions, UseIdCardOcrReturn } from './features/ocr/types';
+
+// ---- Chart Feature（可选：echarts 图表；未使用则 tree-shaking 剔除）----
+export { default as ChartCpt } from './features/chart/components/ChartCpt';
+export { useChart } from './features/chart/composables';
+export type { ChartType, ChartData, ChartSeries, ChartCptProps } from './features/chart/types';

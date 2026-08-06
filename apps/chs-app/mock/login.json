@@ -1,0 +1,39 @@
+{
+  "POST /api/rmChsService/v1.0/resident/user/login": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "token": "mock-token-chs-001",
+      "id": "mock-user-001",
+      "name": "张健康",
+      "phone": "13800138000",
+      "idCard": "110101199001011234",
+      "sex": 1,
+      "age": 35,
+      "avatar": ""
+    }
+  },
+  "POST /api/rmChsService/v1.0/resident/user/authOperate": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "token": "mock-token-chs-001",
+      "id": "mock-user-001",
+      "name": "张健康",
+      "phone": "13800138000",
+      "idCard": "110101199001011234",
+      "sex": 1,
+      "age": 35
+    }
+  },
+  "POST /api/rmChsService/v1.0/resident/user/realNameAuth": {
+    "status": 1,
+    "message": "success",
+    "data": { "authStatus": 2, "name": "张健康", "idCard": "110101199001011234" }
+  },
+  "POST /api/rmChsService/v1.0/resident/user/ocr": {
+    "status": 1,
+    "message": "success",
+    "data": { "name": "张健康", "idCard": "110101199001011234" }
+  }
+}

@@ -78,10 +78,10 @@ class HttpClient {
 
   constructor(options: HttpClientOptions = {}) {
     this.options = {
-      baseURL: options.baseURL ?? appConfig.request.baseURL ?? '/api',
-      timeout: options.timeout ?? 10000,
-      tokenKey: options.tokenKey ?? DEFAULT_TOKEN_KEY,
-      tokenPrefix: options.tokenPrefix ?? 'Bearer ',
+      baseURL: options.baseURL ?? appConfig.request?.baseURL ?? '/api',
+      timeout: options.timeout ?? appConfig.request?.timeout ?? 10000,
+      tokenKey: options.tokenKey ?? appConfig.request?.tokenKey ?? DEFAULT_TOKEN_KEY,
+      tokenPrefix: options.tokenPrefix ?? appConfig.request?.tokenPrefix ?? 'Bearer ',
       successCodePattern: options.successCodePattern ?? DEFAULT_SUCCESS_CODE_PATTERN,
       loginTimeoutCodes: options.loginTimeoutCodes ?? DEFAULT_LOGIN_TIMEOUT_CODES,
       enableLoadingQueue: options.enableLoadingQueue ?? true,

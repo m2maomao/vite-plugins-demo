@@ -1,0 +1,95 @@
+{
+  "POST /api/rmChsService/v1.0/resident/healthPage/queryHealthArchive": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "name": "张健康",
+      "sex": 1,
+      "age": 35,
+      "idCard": "110101199001011234",
+      "resAdress": "北京市朝阳区幸福小区1号楼",
+      "diseaseNames": ["高血压", "糖尿病"],
+      "drugAllergyHistorys": ["青霉素过敏"],
+      "familyHistorys": ["高血压家族史"],
+      "riskFactors": [
+        { "riskType": 1, "riskFactorName": "血压偏高" },
+        { "riskType": 2, "riskFactorName": "BMI 超标" }
+      ],
+      "visitInfoDtos": [
+        { "CJBZDMC": "高血压门诊随访", "CJZRQ": "2024-01-10" },
+        { "CJBZDMC": "年度健康体检", "CJZRQ": "2023-12-20" }
+      ],
+      "crowdLabls": ["老年人群", "高血压重点人群"]
+    }
+  },
+  "POST /api/rmChsService/v1.0/resident/healthPage/queryResidentSignInfo": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "list": [
+        {
+          "typeCode": "xy",
+          "typeName": "血压",
+          "typeValue": "120/80",
+          "unit": "mmHg",
+          "time": "2024-01-15",
+          "trends": 1
+        },
+        {
+          "typeCode": "xt",
+          "typeName": "血糖",
+          "typeValue": "5.6",
+          "unit": "mmol/L",
+          "time": "2024-01-15",
+          "trends": 0
+        },
+        {
+          "typeCode": "xl",
+          "typeName": "心率",
+          "typeValue": "72",
+          "unit": "次/分",
+          "time": "2024-01-15",
+          "trends": 0
+        }
+      ]
+    }
+  },
+  "POST /api/rmChsService/v1.0/resident/healthPage/queryPersonalArchive": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "name": "张健康",
+      "sex": 1,
+      "age": 35,
+      "phone": "13800138000",
+      "idCard": "110101199001011234",
+      "resAdress": "北京市朝阳区幸福小区1号楼",
+      "height": "172",
+      "weight": "70",
+      "bloodType": "A型",
+      "drugAllergyHistorys": ["青霉素过敏"],
+      "familyHistorys": ["高血压家族史"],
+      "diseaseNames": ["高血压", "糖尿病"]
+    }
+  },
+  "POST /api/rmChsService/v1.0/resident/healthPage/modPersonalArchive": {
+    "status": 1,
+    "message": "success",
+    "data": {}
+  },
+  "POST /api/rmChsService/v1.0/resident/healthPage/healthArchiveValid": {
+    "status": 1,
+    "message": "success",
+    "data": {}
+  },
+  "POST /api/rmChsService/v1.0/resident/family/getMyFamily": {
+    "status": 1,
+    "message": "success",
+    "data": {
+      "list": [
+        { "id": "1", "name": "张健康", "phone": "13800138000", "sex": 1 },
+        { "id": "2", "name": "李女士", "phone": "13900139000", "sex": 2 }
+      ]
+    }
+  }
+}

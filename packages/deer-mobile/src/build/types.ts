@@ -184,8 +184,18 @@ export interface AppConfig {
   };
   layout: 'side' | 'top' | 'mix';
   noNavPages: string[];
+  /** 登录页路径（auth 守卫未登录跳转目标，默认 '/login'） */
+  loginPath?: string;
+  /** 是否启用远程路由拉取（启动时 fetch /api/routes 获取服务器动态路由；默认 true） */
+  remoteRoutes?: boolean;
   request: {
     baseURL: string;
+    /** Authorization 头前缀（默认 'Bearer '；如网关不需前缀可置空） */
+    tokenPrefix?: string;
+    /** localStorage Token Key（默认 'token'） */
+    tokenKey?: string;
+    /** 超时时间 ms（默认 10000） */
+    timeout?: number;
   };
   sm4Key?: string;
   i18n?: {

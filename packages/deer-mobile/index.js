@@ -2638,8 +2638,8 @@ var require_lib = __commonJS({
         }
         return node;
       }
-      parseMember(base, startLoc, state, computed5, optional) {
-        const node = super.parseMember(base, startLoc, state, computed5, optional);
+      parseMember(base, startLoc, state, computed6, optional) {
+        const node = super.parseMember(base, startLoc, state, computed6, optional);
         if (node.type === "OptionalMemberExpression") {
           this.castNodeTo(node, "MemberExpression");
         } else {
@@ -12164,10 +12164,10 @@ var require_lib = __commonJS({
     function isPossiblyLiteralEnum(expression) {
       if (expression.type !== "MemberExpression") return false;
       const {
-        computed: computed5,
+        computed: computed6,
         property
       } = expression;
-      if (computed5 && property.type !== "StringLiteral" && (property.type !== "TemplateLiteral" || property.expressions.length > 0)) {
+      if (computed6 && property.type !== "StringLiteral" && (property.type !== "TemplateLiteral" || property.expressions.length > 0)) {
         return false;
       }
       return isUncomputedMemberExpressionChain(expression.object);
@@ -12944,9 +12944,9 @@ var require_lib = __commonJS({
         if (!noCalls && this.match(10)) {
           return this.parseCoverCallAndAsyncArrowHead(base, startLoc, state, optional);
         } else {
-          const computed5 = this.eat(0);
-          if (computed5 || optional || this.eat(16)) {
-            return this.parseMember(base, startLoc, state, computed5, optional);
+          const computed6 = this.eat(0);
+          if (computed6 || optional || this.eat(16)) {
+            return this.parseMember(base, startLoc, state, computed6, optional);
           } else {
             return this.stopParseSubscript(base, state);
           }
@@ -12956,11 +12956,11 @@ var require_lib = __commonJS({
         state.stop = true;
         return base;
       }
-      parseMember(base, startLoc, state, computed5, optional) {
+      parseMember(base, startLoc, state, computed6, optional) {
         const node = this.startNodeAt(startLoc);
         node.object = base;
-        node.computed = computed5;
-        if (computed5) {
+        node.computed = computed6;
+        if (computed6) {
           node.property = this.parseExpression();
           this.expect(3);
         } else if (this.match(139)) {
@@ -34184,30 +34184,30 @@ var require_reactivity_cjs_prod = __commonJS({
       }
       return false;
     }
-    function refreshComputed(computed6) {
-      if (computed6.flags & 4 && !(computed6.flags & 16)) {
+    function refreshComputed(computed7) {
+      if (computed7.flags & 4 && !(computed7.flags & 16)) {
         return;
       }
-      computed6.flags &= -17;
-      if (computed6.globalVersion === globalVersion) {
+      computed7.flags &= -17;
+      if (computed7.globalVersion === globalVersion) {
         return;
       }
-      computed6.globalVersion = globalVersion;
-      if (!computed6.isSSR && computed6.flags & 128 && (!computed6.deps && !computed6._dirty || !isDirty(computed6))) {
+      computed7.globalVersion = globalVersion;
+      if (!computed7.isSSR && computed7.flags & 128 && (!computed7.deps && !computed7._dirty || !isDirty(computed7))) {
         return;
       }
-      computed6.flags |= 2;
-      const dep = computed6.dep;
+      computed7.flags |= 2;
+      const dep = computed7.dep;
       const prevSub = activeSub;
       const prevShouldTrack = shouldTrack;
-      activeSub = computed6;
+      activeSub = computed7;
       shouldTrack = true;
       try {
-        prepareDeps(computed6);
-        const value = computed6.fn(computed6._value);
-        if (dep.version === 0 || shared.hasChanged(value, computed6._value)) {
-          computed6.flags |= 128;
-          computed6._value = value;
+        prepareDeps(computed7);
+        const value = computed7.fn(computed7._value);
+        if (dep.version === 0 || shared.hasChanged(value, computed7._value)) {
+          computed7.flags |= 128;
+          computed7._value = value;
           dep.version++;
         }
       } catch (err) {
@@ -34216,8 +34216,8 @@ var require_reactivity_cjs_prod = __commonJS({
       } finally {
         activeSub = prevSub;
         shouldTrack = prevShouldTrack;
-        cleanupDeps(computed6);
-        computed6.flags &= -3;
+        cleanupDeps(computed7);
+        computed7.flags &= -3;
       }
     }
     function removeSub(link, soft = false) {
@@ -34318,8 +34318,8 @@ var require_reactivity_cjs_prod = __commonJS({
     };
     var Dep = class {
       // TODO isolatedDeclarations "__v_skip"
-      constructor(computed6) {
-        this.computed = computed6;
+      constructor(computed7) {
+        this.computed = computed7;
         this.version = 0;
         this.activeLink = void 0;
         this.subs = void 0;
@@ -34385,10 +34385,10 @@ var require_reactivity_cjs_prod = __commonJS({
     function addSub(link) {
       link.dep.sc++;
       if (link.sub.flags & 4) {
-        const computed6 = link.dep.computed;
-        if (computed6 && !link.dep.subs) {
-          computed6.flags |= 4 | 16;
-          for (let l2 = computed6.deps; l2; l2 = l2.nextDep) {
+        const computed7 = link.dep.computed;
+        if (computed7 && !link.dep.subs) {
+          computed7.flags |= 4 | 16;
+          for (let l2 = computed7.deps; l2; l2 = l2.nextDep) {
             addSub(l2);
           }
         }
@@ -35171,11 +35171,11 @@ var require_reactivity_cjs_prod = __commonJS({
       return r2 ? r2["__v_isRef"] === true : false;
     }
     // @__NO_SIDE_EFFECTS__
-    function ref7(value) {
+    function ref13(value) {
       return createRef(value, false);
     }
     // @__NO_SIDE_EFFECTS__
-    function shallowRef4(value) {
+    function shallowRef7(value) {
       return createRef(value, true);
     }
     function createRef(rawValue, shallow) {
@@ -35325,7 +35325,7 @@ var require_reactivity_cjs_prod = __commonJS({
       } else if (shared.isObject(source) && arguments.length > 1) {
         return propertyToRef(source, key, defaultValue);
       } else {
-        return /* @__PURE__ */ ref7(source);
+        return /* @__PURE__ */ ref13(source);
       }
     }
     function propertyToRef(source, key, defaultValue) {
@@ -35373,7 +35373,7 @@ var require_reactivity_cjs_prod = __commonJS({
       }
     };
     // @__NO_SIDE_EFFECTS__
-    function computed5(getterOrOptions, debugOptions, isSSR = false) {
+    function computed6(getterOrOptions, debugOptions, isSSR = false) {
       let getter;
       let setter;
       if (shared.isFunction(getterOrOptions)) {
@@ -35425,7 +35425,7 @@ var require_reactivity_cjs_prod = __commonJS({
         cleanups.push(cleanupFn);
       }
     }
-    function watch7(source, cb, options = shared.EMPTY_OBJ) {
+    function watch11(source, cb, options = shared.EMPTY_OBJ) {
       const { immediate, deep, once, scheduler, augmentJob, call } = options;
       const reactiveGetter = (source2) => {
         if (deep) return source2;
@@ -35610,7 +35610,7 @@ var require_reactivity_cjs_prod = __commonJS({
     exports.TrackOpTypes = TrackOpTypes;
     exports.TriggerOpTypes = TriggerOpTypes;
     exports.WatchErrorCodes = WatchErrorCodes;
-    exports.computed = computed5;
+    exports.computed = computed6;
     exports.customRef = customRef;
     exports.effect = effect;
     exports.effectScope = effectScope3;
@@ -35631,12 +35631,12 @@ var require_reactivity_cjs_prod = __commonJS({
     exports.reactive = reactive3;
     exports.reactiveReadArray = reactiveReadArray;
     exports.readonly = readonly;
-    exports.ref = ref7;
+    exports.ref = ref13;
     exports.resetTracking = resetTracking;
     exports.shallowReactive = shallowReactive2;
     exports.shallowReadArray = shallowReadArray;
     exports.shallowReadonly = shallowReadonly2;
-    exports.shallowRef = shallowRef4;
+    exports.shallowRef = shallowRef7;
     exports.stop = stop;
     exports.toRaw = toRaw3;
     exports.toReactive = toReactive;
@@ -35649,7 +35649,7 @@ var require_reactivity_cjs_prod = __commonJS({
     exports.trigger = trigger;
     exports.triggerRef = triggerRef;
     exports.unref = unref3;
-    exports.watch = watch7;
+    exports.watch = watch11;
   }
 });
 
@@ -36020,30 +36020,30 @@ var require_reactivity_cjs = __commonJS({
       }
       return false;
     }
-    function refreshComputed(computed6) {
-      if (computed6.flags & 4 && !(computed6.flags & 16)) {
+    function refreshComputed(computed7) {
+      if (computed7.flags & 4 && !(computed7.flags & 16)) {
         return;
       }
-      computed6.flags &= -17;
-      if (computed6.globalVersion === globalVersion) {
+      computed7.flags &= -17;
+      if (computed7.globalVersion === globalVersion) {
         return;
       }
-      computed6.globalVersion = globalVersion;
-      if (!computed6.isSSR && computed6.flags & 128 && (!computed6.deps && !computed6._dirty || !isDirty(computed6))) {
+      computed7.globalVersion = globalVersion;
+      if (!computed7.isSSR && computed7.flags & 128 && (!computed7.deps && !computed7._dirty || !isDirty(computed7))) {
         return;
       }
-      computed6.flags |= 2;
-      const dep = computed6.dep;
+      computed7.flags |= 2;
+      const dep = computed7.dep;
       const prevSub = activeSub;
       const prevShouldTrack = shouldTrack;
-      activeSub = computed6;
+      activeSub = computed7;
       shouldTrack = true;
       try {
-        prepareDeps(computed6);
-        const value = computed6.fn(computed6._value);
-        if (dep.version === 0 || shared.hasChanged(value, computed6._value)) {
-          computed6.flags |= 128;
-          computed6._value = value;
+        prepareDeps(computed7);
+        const value = computed7.fn(computed7._value);
+        if (dep.version === 0 || shared.hasChanged(value, computed7._value)) {
+          computed7.flags |= 128;
+          computed7._value = value;
           dep.version++;
         }
       } catch (err) {
@@ -36052,8 +36052,8 @@ var require_reactivity_cjs = __commonJS({
       } finally {
         activeSub = prevSub;
         shouldTrack = prevShouldTrack;
-        cleanupDeps(computed6);
-        computed6.flags &= -3;
+        cleanupDeps(computed7);
+        computed7.flags &= -3;
       }
     }
     function removeSub(link, soft = false) {
@@ -36161,8 +36161,8 @@ var require_reactivity_cjs = __commonJS({
     };
     var Dep = class {
       // TODO isolatedDeclarations "__v_skip"
-      constructor(computed6) {
-        this.computed = computed6;
+      constructor(computed7) {
+        this.computed = computed7;
         this.version = 0;
         this.activeLink = void 0;
         this.subs = void 0;
@@ -36254,10 +36254,10 @@ var require_reactivity_cjs = __commonJS({
     function addSub(link) {
       link.dep.sc++;
       if (link.sub.flags & 4) {
-        const computed6 = link.dep.computed;
-        if (computed6 && !link.dep.subs) {
-          computed6.flags |= 4 | 16;
-          for (let l2 = computed6.deps; l2; l2 = l2.nextDep) {
+        const computed7 = link.dep.computed;
+        if (computed7 && !link.dep.subs) {
+          computed7.flags |= 4 | 16;
+          for (let l2 = computed7.deps; l2; l2 = l2.nextDep) {
             addSub(l2);
           }
         }
@@ -37101,11 +37101,11 @@ var require_reactivity_cjs = __commonJS({
       return r2 ? r2["__v_isRef"] === true : false;
     }
     // @__NO_SIDE_EFFECTS__
-    function ref7(value) {
+    function ref13(value) {
       return createRef(value, false);
     }
     // @__NO_SIDE_EFFECTS__
-    function shallowRef4(value) {
+    function shallowRef7(value) {
       return createRef(value, true);
     }
     function createRef(rawValue, shallow) {
@@ -37273,7 +37273,7 @@ var require_reactivity_cjs = __commonJS({
       } else if (shared.isObject(source) && arguments.length > 1) {
         return propertyToRef(source, key, defaultValue);
       } else {
-        return /* @__PURE__ */ ref7(source);
+        return /* @__PURE__ */ ref13(source);
       }
     }
     function propertyToRef(source, key, defaultValue) {
@@ -37327,7 +37327,7 @@ var require_reactivity_cjs = __commonJS({
       }
     };
     // @__NO_SIDE_EFFECTS__
-    function computed5(getterOrOptions, debugOptions, isSSR = false) {
+    function computed6(getterOrOptions, debugOptions, isSSR = false) {
       let getter;
       let setter;
       if (shared.isFunction(getterOrOptions)) {
@@ -37387,7 +37387,7 @@ var require_reactivity_cjs = __commonJS({
         );
       }
     }
-    function watch7(source, cb, options = shared.EMPTY_OBJ) {
+    function watch11(source, cb, options = shared.EMPTY_OBJ) {
       const { immediate, deep, once, scheduler, augmentJob, call } = options;
       const warnInvalidSource = (s2) => {
         (options.onWarn || warn3)(
@@ -37586,7 +37586,7 @@ var require_reactivity_cjs = __commonJS({
     exports.TrackOpTypes = TrackOpTypes;
     exports.TriggerOpTypes = TriggerOpTypes;
     exports.WatchErrorCodes = WatchErrorCodes;
-    exports.computed = computed5;
+    exports.computed = computed6;
     exports.customRef = customRef;
     exports.effect = effect;
     exports.effectScope = effectScope3;
@@ -37607,12 +37607,12 @@ var require_reactivity_cjs = __commonJS({
     exports.reactive = reactive3;
     exports.reactiveReadArray = reactiveReadArray;
     exports.readonly = readonly;
-    exports.ref = ref7;
+    exports.ref = ref13;
     exports.resetTracking = resetTracking;
     exports.shallowReactive = shallowReactive2;
     exports.shallowReadArray = shallowReadArray;
     exports.shallowReadonly = shallowReadonly2;
-    exports.shallowRef = shallowRef4;
+    exports.shallowRef = shallowRef7;
     exports.stop = stop;
     exports.toRaw = toRaw3;
     exports.toReactive = toReactive;
@@ -37625,7 +37625,7 @@ var require_reactivity_cjs = __commonJS({
     exports.trigger = trigger;
     exports.triggerRef = triggerRef;
     exports.unref = unref3;
-    exports.watch = watch7;
+    exports.watch = watch11;
   }
 });
 
@@ -37788,7 +37788,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     var postFlushIndex = 0;
     var resolvedPromise = /* @__PURE__ */ Promise.resolve();
     var currentFlushPromise = null;
-    function nextTick4(fn) {
+    function nextTick5(fn) {
       const p2 = currentFlushPromise || resolvedPromise;
       return fn ? p2.then(this ? fn.bind(this) : fn) : p2;
     }
@@ -38059,7 +38059,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         { flush: "sync" }
       );
     }
-    function watch7(source, cb, options) {
+    function watch11(source, cb, options) {
       return doWatch(source, cb, options);
     }
     function doWatch(source, cb, options = shared.EMPTY_OBJ) {
@@ -38501,10 +38501,10 @@ var require_runtime_core_cjs_prod = __commonJS({
         isUnmounting: false,
         leavingVNodes: /* @__PURE__ */ new Map()
       };
-      onMounted3(() => {
+      onMounted6(() => {
         state.isMounted = true;
       });
-      onBeforeUnmount(() => {
+      onBeforeUnmount2(() => {
         state.isUnmounting = true;
       });
       return state;
@@ -38847,7 +38847,7 @@ var require_runtime_core_cjs_prod = __commonJS({
       return ret;
     }
     // @__NO_SIDE_EFFECTS__
-    function defineComponent5(options, extraOptions) {
+    function defineComponent10(options, extraOptions) {
       return shared.isFunction(options) ? (
         // #8236: extend call and options.name access are considered side-effects
         // by Rollup, so we have to wrap it in a pure-annotated IIFE.
@@ -38906,7 +38906,7 @@ var require_runtime_core_cjs_prod = __commonJS({
       }
       const refValue = vnode.shapeFlag & 4 ? getComponentPublicInstance(vnode.component) : vnode.el;
       const value = isUnmount ? null : refValue;
-      const { i: owner, r: ref7 } = rawRef;
+      const { i: owner, r: ref13 } = rawRef;
       const oldRef = oldRawRef && oldRawRef.r;
       const refs = owner.refs === shared.EMPTY_OBJ ? owner.refs = {} : owner.refs;
       const setupState = owner.setupState;
@@ -38923,7 +38923,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         }
         return true;
       };
-      if (oldRef != null && oldRef !== ref7) {
+      if (oldRef != null && oldRef !== ref13) {
         invalidatePendingSetRef(oldRawRef);
         if (shared.isString(oldRef)) {
           refs[oldRef] = null;
@@ -38938,28 +38938,28 @@ var require_runtime_core_cjs_prod = __commonJS({
           if (oldRawRefAtom.k) refs[oldRawRefAtom.k] = null;
         }
       }
-      if (shared.isFunction(ref7)) {
-        callWithErrorHandling(ref7, owner, 12, [value, refs]);
+      if (shared.isFunction(ref13)) {
+        callWithErrorHandling(ref13, owner, 12, [value, refs]);
       } else {
-        const _isString = shared.isString(ref7);
-        const _isRef = reactivity.isRef(ref7);
+        const _isString = shared.isString(ref13);
+        const _isRef = reactivity.isRef(ref13);
         if (_isString || _isRef) {
           const doSet = () => {
             if (rawRef.f) {
-              const existing = _isString ? canSetSetupRef(ref7) ? setupState[ref7] : refs[ref7] : canSetRef() || !rawRef.k ? ref7.value : refs[rawRef.k];
+              const existing = _isString ? canSetSetupRef(ref13) ? setupState[ref13] : refs[ref13] : canSetRef() || !rawRef.k ? ref13.value : refs[rawRef.k];
               if (isUnmount) {
                 shared.isArray(existing) && shared.remove(existing, refValue);
               } else {
                 if (!shared.isArray(existing)) {
                   if (_isString) {
-                    refs[ref7] = [refValue];
-                    if (canSetSetupRef(ref7)) {
-                      setupState[ref7] = refs[ref7];
+                    refs[ref13] = [refValue];
+                    if (canSetSetupRef(ref13)) {
+                      setupState[ref13] = refs[ref13];
                     }
                   } else {
                     const newVal = [refValue];
-                    if (canSetRef(ref7, rawRef.k)) {
-                      ref7.value = newVal;
+                    if (canSetRef(ref13, rawRef.k)) {
+                      ref13.value = newVal;
                     }
                     if (rawRef.k) refs[rawRef.k] = newVal;
                   }
@@ -38968,13 +38968,13 @@ var require_runtime_core_cjs_prod = __commonJS({
                 }
               }
             } else if (_isString) {
-              refs[ref7] = value;
-              if (canSetSetupRef(ref7)) {
-                setupState[ref7] = value;
+              refs[ref13] = value;
+              if (canSetSetupRef(ref13)) {
+                setupState[ref13] = value;
               }
             } else if (_isRef) {
-              if (canSetRef(ref7, rawRef.k)) {
-                ref7.value = value;
+              if (canSetRef(ref13, rawRef.k)) {
+                ref13.value = value;
               }
               if (rawRef.k) refs[rawRef.k] = value;
             } else ;
@@ -39054,7 +39054,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           slotScopeIds,
           isFragmentStart
         );
-        const { type, ref: ref7, shapeFlag, patchFlag } = vnode;
+        const { type, ref: ref13, shapeFlag, patchFlag } = vnode;
         let domType = node.nodeType;
         vnode.el = node;
         if (patchFlag === -2) {
@@ -39201,8 +39201,8 @@ var require_runtime_core_cjs_prod = __commonJS({
               );
             } else ;
         }
-        if (ref7 != null) {
-          setRef(ref7, null, parentSuspense, vnode);
+        if (ref13 != null) {
+          setRef(ref13, null, parentSuspense, vnode);
         }
         return nextNode;
       };
@@ -39677,7 +39677,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           return comp;
         }));
       };
-      return /* @__PURE__ */ defineComponent5({
+      return /* @__PURE__ */ defineComponent10({
         name: "AsyncComponentWrapper",
         __asyncLoader: load,
         __asyncHydrate(el, instance2, hydrate) {
@@ -39739,7 +39739,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           const delayed = reactivity.ref(!!delay);
           let timeoutTimer;
           let delayTimer;
-          onUnmounted4(() => {
+          onUnmounted6(() => {
             if (timeoutTimer != null) clearTimeout(timeoutTimer);
             if (delayTimer != null) clearTimeout(delayTimer);
           });
@@ -39899,7 +39899,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           cache2.delete(key);
           keys.delete(key);
         }
-        watch7(
+        watch11(
           () => [props.include, props.exclude],
           ([include, exclude]) => {
             include && pruneCache((name) => matches(include, name));
@@ -39920,9 +39920,9 @@ var require_runtime_core_cjs_prod = __commonJS({
             }
           }
         };
-        onMounted3(cacheSubtree);
+        onMounted6(cacheSubtree);
         onUpdated(cacheSubtree);
-        onBeforeUnmount(() => {
+        onBeforeUnmount2(() => {
           cache2.forEach((cached) => {
             const { subTree, suspense } = instance2;
             const vnode = getInnerChild(subTree);
@@ -40042,7 +40042,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         true
         /* prepend */
       );
-      onUnmounted4(() => {
+      onUnmounted6(() => {
         shared.remove(keepAliveRoot[type], injected);
       }, target2);
     }
@@ -40078,15 +40078,15 @@ var require_runtime_core_cjs_prod = __commonJS({
       }
     };
     var onBeforeMount = createHook("bm");
-    var onMounted3 = createHook("m");
+    var onMounted6 = createHook("m");
     var onBeforeUpdate = createHook(
       "bu"
     );
     var onUpdated = createHook("u");
-    var onBeforeUnmount = createHook(
+    var onBeforeUnmount2 = createHook(
       "bum"
     );
-    var onUnmounted4 = createHook("um");
+    var onUnmounted6 = createHook("um");
     var onServerPrefetch = createHook(
       "sp"
     );
@@ -40293,7 +40293,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         $forceUpdate: (i2) => i2.f || (i2.f = () => {
           queueJob(i2.update);
         }),
-        $nextTick: (i2) => i2.n || (i2.n = nextTick4.bind(i2.proxy)),
+        $nextTick: (i2) => i2.n || (i2.n = nextTick5.bind(i2.proxy)),
         $watch: (i2) => instanceWatch.bind(i2)
       })
     );
@@ -40580,7 +40580,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           const opt = computedOptions[key];
           const get2 = shared.isFunction(opt) ? opt.bind(publicThis, publicThis) : shared.isFunction(opt.get) ? opt.get.bind(publicThis, publicThis) : shared.NOOP;
           const set2 = !shared.isFunction(opt) && shared.isFunction(opt.set) ? opt.set.bind(publicThis) : shared.NOOP;
-          const c2 = computed5({
+          const c2 = computed6({
             get: get2,
             set: set2
           });
@@ -40614,7 +40614,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         }
       }
       registerLifecycleHook(onBeforeMount, beforeMount);
-      registerLifecycleHook(onMounted3, mounted);
+      registerLifecycleHook(onMounted6, mounted);
       registerLifecycleHook(onBeforeUpdate, beforeUpdate);
       registerLifecycleHook(onUpdated, updated);
       registerLifecycleHook(onActivated2, activated);
@@ -40622,8 +40622,8 @@ var require_runtime_core_cjs_prod = __commonJS({
       registerLifecycleHook(onErrorCaptured, errorCaptured);
       registerLifecycleHook(onRenderTracked, renderTracked);
       registerLifecycleHook(onRenderTriggered, renderTriggered);
-      registerLifecycleHook(onBeforeUnmount, beforeUnmount);
-      registerLifecycleHook(onUnmounted4, unmounted);
+      registerLifecycleHook(onBeforeUnmount2, beforeUnmount);
+      registerLifecycleHook(onUnmounted6, unmounted);
       registerLifecycleHook(onServerPrefetch, serverPrefetch);
       if (shared.isArray(expose)) {
         if (expose.length) {
@@ -40685,7 +40685,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     }
     function callHook(hook2, instance2, type) {
       callWithAsyncErrorHandling(
-        shared.isArray(hook2) ? hook2.map((h8) => h8.bind(instance2.proxy)) : hook2.bind(instance2.proxy),
+        shared.isArray(hook2) ? hook2.map((h9) => h9.bind(instance2.proxy)) : hook2.bind(instance2.proxy),
         instance2,
         type
       );
@@ -40696,12 +40696,12 @@ var require_runtime_core_cjs_prod = __commonJS({
         const handler = ctx[raw];
         if (shared.isFunction(handler)) {
           {
-            watch7(getter, handler);
+            watch11(getter, handler);
           }
         }
       } else if (shared.isFunction(raw)) {
         {
-          watch7(getter, raw.bind(publicThis));
+          watch11(getter, raw.bind(publicThis));
         }
       } else if (shared.isObject(raw)) {
         if (shared.isArray(raw)) {
@@ -40709,7 +40709,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         } else {
           const handler = shared.isFunction(raw.handler) ? raw.handler.bind(publicThis) : ctx[raw.handler];
           if (shared.isFunction(handler)) {
-            watch7(getter, handler, raw);
+            watch11(getter, handler, raw);
           }
         }
       } else ;
@@ -41768,7 +41768,7 @@ var require_runtime_core_cjs_prod = __commonJS({
           optimized = false;
           n2.dynamicChildren = null;
         }
-        const { type, ref: ref7, shapeFlag } = n2;
+        const { type, ref: ref13, shapeFlag } = n2;
         switch (type) {
           case Text2:
             processText(n1, n2, container, anchor);
@@ -41847,9 +41847,9 @@ var require_runtime_core_cjs_prod = __commonJS({
               );
             } else ;
         }
-        if (ref7 != null && parentComponent) {
-          setRef(ref7, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
-        } else if (ref7 == null && n1 && n1.ref != null) {
+        if (ref13 != null && parentComponent) {
+          setRef(ref13, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
+        } else if (ref13 == null && n1 && n1.ref != null) {
           setRef(n1.ref, null, parentSuspense, n1, true);
         }
       };
@@ -42840,7 +42840,7 @@ var require_runtime_core_cjs_prod = __commonJS({
         const {
           type,
           props,
-          ref: ref7,
+          ref: ref13,
           children,
           dynamicChildren,
           shapeFlag,
@@ -42852,9 +42852,9 @@ var require_runtime_core_cjs_prod = __commonJS({
         if (patchFlag === -2) {
           optimized = false;
         }
-        if (ref7 != null) {
+        if (ref13 != null) {
           reactivity.pauseTracking();
-          setRef(ref7, null, parentSuspense, vnode, true);
+          setRef(ref13, null, parentSuspense, vnode, true);
           reactivity.resetTracking();
         }
         if (cacheIndex != null) {
@@ -43793,14 +43793,14 @@ var require_runtime_core_cjs_prod = __commonJS({
     }
     var normalizeKey = ({ key }) => key != null ? key : null;
     var normalizeRef = ({
-      ref: ref7,
+      ref: ref13,
       ref_key,
       ref_for
     }) => {
-      if (typeof ref7 === "number") {
-        ref7 = "" + ref7;
+      if (typeof ref13 === "number") {
+        ref13 = "" + ref13;
       }
-      return ref7 != null ? shared.isString(ref7) || reactivity.isRef(ref7) || shared.isFunction(ref7) ? { i: currentRenderingInstance, r: ref7, k: ref_key, f: !!ref_for } : ref7 : null;
+      return ref13 != null ? shared.isString(ref13) || reactivity.isRef(ref13) || shared.isFunction(ref13) ? { i: currentRenderingInstance, r: ref13, k: ref_key, f: !!ref_for } : ref13 : null;
     };
     function createBaseVNode(type, props = null, children = null, patchFlag = 0, dynamicProps = null, shapeFlag = type === Fragment2 ? 0 : 1, isBlockNode = false, needFullChildrenNormalization = false) {
       const vnode = {
@@ -43911,7 +43911,7 @@ var require_runtime_core_cjs_prod = __commonJS({
       return reactivity.isProxy(props) || isInternalObject(props) ? shared.extend({}, props) : props;
     }
     function cloneVNode(vnode, extraProps, mergeRef = false, cloneTransition = false) {
-      const { props, ref: ref7, patchFlag, children, transition } = vnode;
+      const { props, ref: ref13, patchFlag, children, transition } = vnode;
       const mergedProps = extraProps ? mergeProps(props || {}, extraProps) : props;
       const cloned = {
         __v_isVNode: true,
@@ -43923,8 +43923,8 @@ var require_runtime_core_cjs_prod = __commonJS({
           // #2078 in the case of <component :is="vnode" ref="extra"/>
           // if the vnode itself already has a ref, cloneVNode will need to merge
           // the refs so the single vnode can be set on multiple refs
-          mergeRef && ref7 ? shared.isArray(ref7) ? ref7.concat(normalizeRef(extraProps)) : [ref7, normalizeRef(extraProps)] : normalizeRef(extraProps)
-        ) : ref7,
+          mergeRef && ref13 ? shared.isArray(ref13) ? ref13.concat(normalizeRef(extraProps)) : [ref13, normalizeRef(extraProps)] : normalizeRef(extraProps)
+        ) : ref13,
         scopeId: vnode.scopeId,
         slotScopeIds: vnode.slotScopeIds,
         children,
@@ -44365,11 +44365,11 @@ var require_runtime_core_cjs_prod = __commonJS({
     function isClassComponent(value) {
       return shared.isFunction(value) && "__vccOpts" in value;
     }
-    var computed5 = (getterOrOptions, debugOptions) => {
+    var computed6 = (getterOrOptions, debugOptions) => {
       const c2 = reactivity.computed(getterOrOptions, debugOptions, isInSSRComponentSetup);
       return c2;
     };
-    function h7(type, propsOrChildren, children) {
+    function h8(type, propsOrChildren, children) {
       try {
         setBlockTracking(-1);
         const l2 = arguments.length;
@@ -44500,7 +44500,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     exports.callWithErrorHandling = callWithErrorHandling;
     exports.cloneVNode = cloneVNode;
     exports.compatUtils = compatUtils;
-    exports.computed = computed5;
+    exports.computed = computed6;
     exports.createBlock = createBlock;
     exports.createCommentVNode = createCommentVNode;
     exports.createElementBlock = createElementBlock;
@@ -44513,7 +44513,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     exports.createTextVNode = createTextVNode;
     exports.createVNode = createVNode2;
     exports.defineAsyncComponent = defineAsyncComponent;
-    exports.defineComponent = defineComponent5;
+    exports.defineComponent = defineComponent10;
     exports.defineEmits = defineEmits;
     exports.defineExpose = defineExpose;
     exports.defineModel = defineModel;
@@ -44524,7 +44524,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     exports.getCurrentInstance = getCurrentInstance6;
     exports.getTransitionRawChildren = getTransitionRawChildren;
     exports.guardReactiveProps = guardReactiveProps;
-    exports.h = h7;
+    exports.h = h8;
     exports.handleError = handleError;
     exports.hasInjectionContext = hasInjectionContext2;
     exports.hydrateOnIdle = hydrateOnIdle;
@@ -44539,18 +44539,18 @@ var require_runtime_core_cjs_prod = __commonJS({
     exports.mergeDefaults = mergeDefaults;
     exports.mergeModels = mergeModels;
     exports.mergeProps = mergeProps;
-    exports.nextTick = nextTick4;
+    exports.nextTick = nextTick5;
     exports.onActivated = onActivated2;
     exports.onBeforeMount = onBeforeMount;
-    exports.onBeforeUnmount = onBeforeUnmount;
+    exports.onBeforeUnmount = onBeforeUnmount2;
     exports.onBeforeUpdate = onBeforeUpdate;
     exports.onDeactivated = onDeactivated2;
     exports.onErrorCaptured = onErrorCaptured;
-    exports.onMounted = onMounted3;
+    exports.onMounted = onMounted6;
     exports.onRenderTracked = onRenderTracked;
     exports.onRenderTriggered = onRenderTriggered;
     exports.onServerPrefetch = onServerPrefetch;
-    exports.onUnmounted = onUnmounted4;
+    exports.onUnmounted = onUnmounted6;
     exports.onUpdated = onUpdated;
     exports.openBlock = openBlock;
     exports.popScopeId = popScopeId;
@@ -44581,7 +44581,7 @@ var require_runtime_core_cjs_prod = __commonJS({
     exports.useTransitionState = useTransitionState;
     exports.version = version;
     exports.warn = warn$12;
-    exports.watch = watch7;
+    exports.watch = watch11;
     exports.watchEffect = watchEffect2;
     exports.watchPostEffect = watchPostEffect;
     exports.watchSyncEffect = watchSyncEffect;
@@ -44870,7 +44870,7 @@ var require_runtime_core_cjs = __commonJS({
     var resolvedPromise = /* @__PURE__ */ Promise.resolve();
     var currentFlushPromise = null;
     var RECURSION_LIMIT = 100;
-    function nextTick4(fn) {
+    function nextTick5(fn) {
       const p2 = currentFlushPromise || resolvedPromise;
       return fn ? p2.then(this ? fn.bind(this) : fn) : p2;
     }
@@ -45433,7 +45433,7 @@ var require_runtime_core_cjs = __commonJS({
         shared.extend({}, options, { flush: "sync" })
       );
     }
-    function watch7(source, cb, options) {
+    function watch11(source, cb, options) {
       if (!shared.isFunction(cb)) {
         warn$12(
           `\`watch(fn, options?)\` signature has been moved to a separate API. Use \`watchEffect(fn, options?)\` instead. \`watch\` now only supports \`watch(source, cb, options?) signature.`
@@ -45921,10 +45921,10 @@ var require_runtime_core_cjs = __commonJS({
         isUnmounting: false,
         leavingVNodes: /* @__PURE__ */ new Map()
       };
-      onMounted3(() => {
+      onMounted6(() => {
         state.isMounted = true;
       });
-      onBeforeUnmount(() => {
+      onBeforeUnmount2(() => {
         state.isUnmounting = true;
       });
       return state;
@@ -46277,7 +46277,7 @@ var require_runtime_core_cjs = __commonJS({
       return ret;
     }
     // @__NO_SIDE_EFFECTS__
-    function defineComponent5(options, extraOptions) {
+    function defineComponent10(options, extraOptions) {
       return shared.isFunction(options) ? (
         // #8236: extend call and options.name access are considered side-effects
         // by Rollup, so we have to wrap it in a pure-annotated IIFE.
@@ -46350,7 +46350,7 @@ var require_runtime_core_cjs = __commonJS({
       }
       const refValue = vnode.shapeFlag & 4 ? getComponentPublicInstance(vnode.component) : vnode.el;
       const value = isUnmount ? null : refValue;
-      const { i: owner, r: ref7 } = rawRef;
+      const { i: owner, r: ref13 } = rawRef;
       if (!owner) {
         warn$12(
           `Missing ref owner context. ref cannot be used on hoisted vnodes. A vnode with ref must be created inside the render function.`
@@ -46386,7 +46386,7 @@ var require_runtime_core_cjs = __commonJS({
         }
         return true;
       };
-      if (oldRef != null && oldRef !== ref7) {
+      if (oldRef != null && oldRef !== ref13) {
         invalidatePendingSetRef(oldRawRef);
         if (shared.isString(oldRef)) {
           refs[oldRef] = null;
@@ -46401,28 +46401,28 @@ var require_runtime_core_cjs = __commonJS({
           if (oldRawRefAtom.k) refs[oldRawRefAtom.k] = null;
         }
       }
-      if (shared.isFunction(ref7)) {
-        callWithErrorHandling(ref7, owner, 12, [value, refs]);
+      if (shared.isFunction(ref13)) {
+        callWithErrorHandling(ref13, owner, 12, [value, refs]);
       } else {
-        const _isString = shared.isString(ref7);
-        const _isRef = reactivity.isRef(ref7);
+        const _isString = shared.isString(ref13);
+        const _isRef = reactivity.isRef(ref13);
         if (_isString || _isRef) {
           const doSet = () => {
             if (rawRef.f) {
-              const existing = _isString ? canSetSetupRef(ref7) ? setupState[ref7] : refs[ref7] : canSetRef(ref7) || !rawRef.k ? ref7.value : refs[rawRef.k];
+              const existing = _isString ? canSetSetupRef(ref13) ? setupState[ref13] : refs[ref13] : canSetRef(ref13) || !rawRef.k ? ref13.value : refs[rawRef.k];
               if (isUnmount) {
                 shared.isArray(existing) && shared.remove(existing, refValue);
               } else {
                 if (!shared.isArray(existing)) {
                   if (_isString) {
-                    refs[ref7] = [refValue];
-                    if (canSetSetupRef(ref7)) {
-                      setupState[ref7] = refs[ref7];
+                    refs[ref13] = [refValue];
+                    if (canSetSetupRef(ref13)) {
+                      setupState[ref13] = refs[ref13];
                     }
                   } else {
                     const newVal = [refValue];
-                    if (canSetRef(ref7, rawRef.k)) {
-                      ref7.value = newVal;
+                    if (canSetRef(ref13, rawRef.k)) {
+                      ref13.value = newVal;
                     }
                     if (rawRef.k) refs[rawRef.k] = newVal;
                   }
@@ -46431,17 +46431,17 @@ var require_runtime_core_cjs = __commonJS({
                 }
               }
             } else if (_isString) {
-              refs[ref7] = value;
-              if (canSetSetupRef(ref7)) {
-                setupState[ref7] = value;
+              refs[ref13] = value;
+              if (canSetSetupRef(ref13)) {
+                setupState[ref13] = value;
               }
             } else if (_isRef) {
-              if (canSetRef(ref7, rawRef.k)) {
-                ref7.value = value;
+              if (canSetRef(ref13, rawRef.k)) {
+                ref13.value = value;
               }
               if (rawRef.k) refs[rawRef.k] = value;
             } else {
-              warn$12("Invalid template ref type:", ref7, `(${typeof ref7})`);
+              warn$12("Invalid template ref type:", ref13, `(${typeof ref13})`);
             }
           };
           if (value) {
@@ -46457,7 +46457,7 @@ var require_runtime_core_cjs = __commonJS({
             doSet();
           }
         } else {
-          warn$12("Invalid template ref type:", ref7, `(${typeof ref7})`);
+          warn$12("Invalid template ref type:", ref13, `(${typeof ref13})`);
         }
       }
     }
@@ -46524,7 +46524,7 @@ var require_runtime_core_cjs = __commonJS({
           slotScopeIds,
           isFragmentStart
         );
-        const { type, ref: ref7, shapeFlag, patchFlag } = vnode;
+        const { type, ref: ref13, shapeFlag, patchFlag } = vnode;
         let domType = node.nodeType;
         vnode.el = node;
         {
@@ -46686,8 +46686,8 @@ var require_runtime_core_cjs = __commonJS({
               warn$12("Invalid HostVNode type:", type, `(${typeof type})`);
             }
         }
-        if (ref7 != null) {
-          setRef(ref7, null, parentSuspense, vnode);
+        if (ref13 != null) {
+          setRef(ref13, null, parentSuspense, vnode);
         }
         return nextNode;
       };
@@ -47316,7 +47316,7 @@ Server rendered element contains fewer child nodes than client vdom.`
           return comp;
         }));
       };
-      return /* @__PURE__ */ defineComponent5({
+      return /* @__PURE__ */ defineComponent10({
         name: "AsyncComponentWrapper",
         __asyncLoader: load,
         __asyncHydrate(el, instance2, hydrate) {
@@ -47383,7 +47383,7 @@ Server rendered element contains fewer child nodes than client vdom.`
           const delayed = reactivity.ref(!!delay);
           let timeoutTimer;
           let delayTimer;
-          onUnmounted4(() => {
+          onUnmounted6(() => {
             if (timeoutTimer != null) clearTimeout(timeoutTimer);
             if (delayTimer != null) clearTimeout(delayTimer);
           });
@@ -47552,7 +47552,7 @@ Server rendered element contains fewer child nodes than client vdom.`
           cache2.delete(key);
           keys.delete(key);
         }
-        watch7(
+        watch11(
           () => [props.include, props.exclude],
           ([include, exclude]) => {
             include && pruneCache((name) => matches(include, name));
@@ -47573,9 +47573,9 @@ Server rendered element contains fewer child nodes than client vdom.`
             }
           }
         };
-        onMounted3(cacheSubtree);
+        onMounted6(cacheSubtree);
         onUpdated(cacheSubtree);
-        onBeforeUnmount(() => {
+        onBeforeUnmount2(() => {
           cache2.forEach((cached) => {
             const { subTree, suspense } = instance2;
             const vnode = getInnerChild(subTree);
@@ -47698,7 +47698,7 @@ Server rendered element contains fewer child nodes than client vdom.`
         true
         /* prepend */
       );
-      onUnmounted4(() => {
+      onUnmounted6(() => {
         shared.remove(keepAliveRoot[type], injected);
       }, target2);
     }
@@ -47739,15 +47739,15 @@ Server rendered element contains fewer child nodes than client vdom.`
       }
     };
     var onBeforeMount = createHook("bm");
-    var onMounted3 = createHook("m");
+    var onMounted6 = createHook("m");
     var onBeforeUpdate = createHook(
       "bu"
     );
     var onUpdated = createHook("u");
-    var onBeforeUnmount = createHook(
+    var onBeforeUnmount2 = createHook(
       "bum"
     );
-    var onUnmounted4 = createHook("um");
+    var onUnmounted6 = createHook("um");
     var onServerPrefetch = createHook(
       "sp"
     );
@@ -47978,7 +47978,7 @@ If this is a native custom element, make sure to exclude it from component resol
         $forceUpdate: (i2) => i2.f || (i2.f = () => {
           queueJob(i2.update);
         }),
-        $nextTick: (i2) => i2.n || (i2.n = nextTick4.bind(i2.proxy)),
+        $nextTick: (i2) => i2.n || (i2.n = nextTick5.bind(i2.proxy)),
         $watch: (i2) => instanceWatch.bind(i2)
       })
     );
@@ -48465,7 +48465,7 @@ If this is a native custom element, make sure to exclude it from component resol
               `Write operation failed: computed property "${key}" is readonly.`
             );
           };
-          const c2 = computed5({
+          const c2 = computed6({
             get: get2,
             set: set2
           });
@@ -48502,7 +48502,7 @@ If this is a native custom element, make sure to exclude it from component resol
         }
       }
       registerLifecycleHook(onBeforeMount, beforeMount);
-      registerLifecycleHook(onMounted3, mounted);
+      registerLifecycleHook(onMounted6, mounted);
       registerLifecycleHook(onBeforeUpdate, beforeUpdate);
       registerLifecycleHook(onUpdated, updated);
       registerLifecycleHook(onActivated2, activated);
@@ -48510,8 +48510,8 @@ If this is a native custom element, make sure to exclude it from component resol
       registerLifecycleHook(onErrorCaptured, errorCaptured);
       registerLifecycleHook(onRenderTracked, renderTracked);
       registerLifecycleHook(onRenderTriggered, renderTriggered);
-      registerLifecycleHook(onBeforeUnmount, beforeUnmount);
-      registerLifecycleHook(onUnmounted4, unmounted);
+      registerLifecycleHook(onBeforeUnmount2, beforeUnmount);
+      registerLifecycleHook(onUnmounted6, unmounted);
       registerLifecycleHook(onServerPrefetch, serverPrefetch);
       if (shared.isArray(expose)) {
         if (expose.length) {
@@ -48576,7 +48576,7 @@ If this is a native custom element, make sure to exclude it from component resol
     }
     function callHook(hook2, instance2, type) {
       callWithAsyncErrorHandling(
-        shared.isArray(hook2) ? hook2.map((h8) => h8.bind(instance2.proxy)) : hook2.bind(instance2.proxy),
+        shared.isArray(hook2) ? hook2.map((h9) => h9.bind(instance2.proxy)) : hook2.bind(instance2.proxy),
         instance2,
         type
       );
@@ -48587,14 +48587,14 @@ If this is a native custom element, make sure to exclude it from component resol
         const handler = ctx[raw];
         if (shared.isFunction(handler)) {
           {
-            watch7(getter, handler);
+            watch11(getter, handler);
           }
         } else {
           warn$12(`Invalid watch handler specified by key "${raw}"`, handler);
         }
       } else if (shared.isFunction(raw)) {
         {
-          watch7(getter, raw.bind(publicThis));
+          watch11(getter, raw.bind(publicThis));
         }
       } else if (shared.isObject(raw)) {
         if (shared.isArray(raw)) {
@@ -48602,7 +48602,7 @@ If this is a native custom element, make sure to exclude it from component resol
         } else {
           const handler = shared.isFunction(raw.handler) ? raw.handler.bind(publicThis) : ctx[raw.handler];
           if (shared.isFunction(handler)) {
-            watch7(getter, handler, raw);
+            watch11(getter, handler, raw);
           } else {
             warn$12(`Invalid watch handler specified by key "${raw.handler}"`, handler);
           }
@@ -50066,7 +50066,7 @@ If you want to remount the same app, move your app creation logic into a factory
           optimized = false;
           n2.dynamicChildren = null;
         }
-        const { type, ref: ref7, shapeFlag } = n2;
+        const { type, ref: ref13, shapeFlag } = n2;
         switch (type) {
           case Text2:
             processText(n1, n2, container, anchor);
@@ -50149,9 +50149,9 @@ If you want to remount the same app, move your app creation logic into a factory
               warn$12("Invalid VNode type:", type, `(${typeof type})`);
             }
         }
-        if (ref7 != null && parentComponent) {
-          setRef(ref7, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
-        } else if (ref7 == null && n1 && n1.ref != null) {
+        if (ref13 != null && parentComponent) {
+          setRef(ref13, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
+        } else if (ref13 == null && n1 && n1.ref != null) {
           setRef(n1.ref, null, parentSuspense, n1, true);
         }
       };
@@ -51255,7 +51255,7 @@ If you want to remount the same app, move your app creation logic into a factory
         const {
           type,
           props,
-          ref: ref7,
+          ref: ref13,
           children,
           dynamicChildren,
           shapeFlag,
@@ -51267,9 +51267,9 @@ If you want to remount the same app, move your app creation logic into a factory
         if (patchFlag === -2) {
           optimized = false;
         }
-        if (ref7 != null) {
+        if (ref13 != null) {
           reactivity.pauseTracking();
-          setRef(ref7, null, parentSuspense, vnode, true);
+          setRef(ref13, null, parentSuspense, vnode, true);
           reactivity.resetTracking();
         }
         if (cacheIndex != null) {
@@ -52271,14 +52271,14 @@ If you want to remount the same app, move your app creation logic into a factory
     };
     var normalizeKey = ({ key }) => key != null ? key : null;
     var normalizeRef = ({
-      ref: ref7,
+      ref: ref13,
       ref_key,
       ref_for
     }) => {
-      if (typeof ref7 === "number") {
-        ref7 = "" + ref7;
+      if (typeof ref13 === "number") {
+        ref13 = "" + ref13;
       }
-      return ref7 != null ? shared.isString(ref7) || reactivity.isRef(ref7) || shared.isFunction(ref7) ? { i: currentRenderingInstance, r: ref7, k: ref_key, f: !!ref_for } : ref7 : null;
+      return ref13 != null ? shared.isString(ref13) || reactivity.isRef(ref13) || shared.isFunction(ref13) ? { i: currentRenderingInstance, r: ref13, k: ref_key, f: !!ref_for } : ref13 : null;
     };
     function createBaseVNode(type, props = null, children = null, patchFlag = 0, dynamicProps = null, shapeFlag = type === Fragment2 ? 0 : 1, isBlockNode = false, needFullChildrenNormalization = false) {
       const vnode = {
@@ -52404,7 +52404,7 @@ Component that was made reactive: `,
       return reactivity.isProxy(props) || isInternalObject(props) ? shared.extend({}, props) : props;
     }
     function cloneVNode(vnode, extraProps, mergeRef = false, cloneTransition = false) {
-      const { props, ref: ref7, patchFlag, children, transition } = vnode;
+      const { props, ref: ref13, patchFlag, children, transition } = vnode;
       const mergedProps = extraProps ? mergeProps(props || {}, extraProps) : props;
       const cloned = {
         __v_isVNode: true,
@@ -52416,8 +52416,8 @@ Component that was made reactive: `,
           // #2078 in the case of <component :is="vnode" ref="extra"/>
           // if the vnode itself already has a ref, cloneVNode will need to merge
           // the refs so the single vnode can be set on multiple refs
-          mergeRef && ref7 ? shared.isArray(ref7) ? ref7.concat(normalizeRef(extraProps)) : [ref7, normalizeRef(extraProps)] : normalizeRef(extraProps)
-        ) : ref7,
+          mergeRef && ref13 ? shared.isArray(ref13) ? ref13.concat(normalizeRef(extraProps)) : [ref13, normalizeRef(extraProps)] : normalizeRef(extraProps)
+        ) : ref13,
         scopeId: vnode.scopeId,
         slotScopeIds: vnode.slotScopeIds,
         children: patchFlag === -1 && shared.isArray(children) ? children.map(deepCloneVNode) : children,
@@ -53003,7 +53003,7 @@ Component that was made reactive: `,
     function isClassComponent(value) {
       return shared.isFunction(value) && "__vccOpts" in value;
     }
-    var computed5 = (getterOrOptions, debugOptions) => {
+    var computed6 = (getterOrOptions, debugOptions) => {
       const c2 = reactivity.computed(getterOrOptions, debugOptions, isInSSRComponentSetup);
       {
         const i2 = getCurrentInstance6();
@@ -53013,7 +53013,7 @@ Component that was made reactive: `,
       }
       return c2;
     };
-    function h7(type, propsOrChildren, children) {
+    function h8(type, propsOrChildren, children) {
       try {
         setBlockTracking(-1);
         const l2 = arguments.length;
@@ -53111,9 +53111,9 @@ Component that was made reactive: `,
         if (instance2.data !== shared.EMPTY_OBJ) {
           blocks.push(createInstanceBlock("data", reactivity.toRaw(instance2.data)));
         }
-        const computed6 = extractKeys(instance2, "computed");
-        if (computed6) {
-          blocks.push(createInstanceBlock("computed", computed6));
+        const computed7 = extractKeys(instance2, "computed");
+        if (computed7) {
+          blocks.push(createInstanceBlock("computed", computed7));
         }
         const injected = extractKeys(instance2, "inject");
         if (injected) {
@@ -53318,7 +53318,7 @@ Component that was made reactive: `,
     exports.callWithErrorHandling = callWithErrorHandling;
     exports.cloneVNode = cloneVNode;
     exports.compatUtils = compatUtils;
-    exports.computed = computed5;
+    exports.computed = computed6;
     exports.createBlock = createBlock;
     exports.createCommentVNode = createCommentVNode;
     exports.createElementBlock = createElementBlock;
@@ -53331,7 +53331,7 @@ Component that was made reactive: `,
     exports.createTextVNode = createTextVNode;
     exports.createVNode = createVNode2;
     exports.defineAsyncComponent = defineAsyncComponent;
-    exports.defineComponent = defineComponent5;
+    exports.defineComponent = defineComponent10;
     exports.defineEmits = defineEmits;
     exports.defineExpose = defineExpose;
     exports.defineModel = defineModel;
@@ -53342,7 +53342,7 @@ Component that was made reactive: `,
     exports.getCurrentInstance = getCurrentInstance6;
     exports.getTransitionRawChildren = getTransitionRawChildren;
     exports.guardReactiveProps = guardReactiveProps;
-    exports.h = h7;
+    exports.h = h8;
     exports.handleError = handleError;
     exports.hasInjectionContext = hasInjectionContext2;
     exports.hydrateOnIdle = hydrateOnIdle;
@@ -53357,18 +53357,18 @@ Component that was made reactive: `,
     exports.mergeDefaults = mergeDefaults;
     exports.mergeModels = mergeModels;
     exports.mergeProps = mergeProps;
-    exports.nextTick = nextTick4;
+    exports.nextTick = nextTick5;
     exports.onActivated = onActivated2;
     exports.onBeforeMount = onBeforeMount;
-    exports.onBeforeUnmount = onBeforeUnmount;
+    exports.onBeforeUnmount = onBeforeUnmount2;
     exports.onBeforeUpdate = onBeforeUpdate;
     exports.onDeactivated = onDeactivated2;
     exports.onErrorCaptured = onErrorCaptured;
-    exports.onMounted = onMounted3;
+    exports.onMounted = onMounted6;
     exports.onRenderTracked = onRenderTracked;
     exports.onRenderTriggered = onRenderTriggered;
     exports.onServerPrefetch = onServerPrefetch;
-    exports.onUnmounted = onUnmounted4;
+    exports.onUnmounted = onUnmounted6;
     exports.onUpdated = onUpdated;
     exports.openBlock = openBlock;
     exports.popScopeId = popScopeId;
@@ -53399,7 +53399,7 @@ Component that was made reactive: `,
     exports.useTransitionState = useTransitionState;
     exports.version = version;
     exports.warn = warn3;
-    exports.watch = watch7;
+    exports.watch = watch11;
     exports.watchEffect = watchEffect2;
     exports.watchPostEffect = watchPostEffect;
     exports.watchSyncEffect = watchSyncEffect;
@@ -54078,13 +54078,13 @@ var require_runtime_dom_cjs_prod = __commonJS({
             originalStop.call(e2);
             e2._stopped = true;
           };
-          const handlers = value.slice();
+          const handlers2 = value.slice();
           const args = [e2];
-          for (let i2 = 0; i2 < handlers.length; i2++) {
+          for (let i2 = 0; i2 < handlers2.length; i2++) {
             if (e2._stopped) {
               break;
             }
-            const handler = handlers[i2];
+            const handler = handlers2[i2];
             if (handler) {
               runtimeCore.callWithAsyncErrorHandling(
                 handler,
@@ -55892,13 +55892,13 @@ var require_runtime_dom_cjs = __commonJS({
             originalStop.call(e2);
             e2._stopped = true;
           };
-          const handlers = value.slice();
+          const handlers2 = value.slice();
           const args = [e2];
-          for (let i2 = 0; i2 < handlers.length; i2++) {
+          for (let i2 = 0; i2 < handlers2.length; i2++) {
             if (e2._stopped) {
               break;
             }
-            const handler = handlers[i2];
+            const handler = handlers2[i2];
             if (handler) {
               runtimeCore.callWithAsyncErrorHandling(
                 handler,
@@ -57695,7 +57695,7 @@ var require_index_cjs = __commonJS({
     function doubleRaf(fn) {
       raf(() => raf(fn));
     }
-    var import_vue12 = require_vue();
+    var import_vue21 = require_vue();
     var isWindow = (val) => val === window;
     var makeDOMRect = (width2, height2) => ({
       top: 0,
@@ -57706,7 +57706,7 @@ var require_index_cjs = __commonJS({
       height: height2
     });
     var useRect = (elementOrRef) => {
-      const element = (0, import_vue12.unref)(elementOrRef);
+      const element = (0, import_vue21.unref)(elementOrRef);
       if (isWindow(element)) {
         const width2 = element.innerWidth;
         const height2 = element.innerHeight;
@@ -59065,7 +59065,7 @@ var require_vant_cjs = __commonJS({
     "use strict";
     Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toStringTag]: { value: "Module" } });
     var vue = require_vue();
-    var use = require_index_cjs();
+    var use2 = require_index_cjs();
     var shared = require_shared();
     var popperjs = require_index_cjs2();
     function noop3() {
@@ -59155,7 +59155,7 @@ var require_vant_cjs = __commonJS({
         return 0;
       }
       const scrollTop = scroller ? getScrollTop(scroller) : getRootScrollTop();
-      return use.useRect(el).top + scrollTop;
+      return use2.useRect(el).top + scrollTop;
     }
     var isIOS = isIOS$1();
     function resetScroll() {
@@ -59182,7 +59182,7 @@ var require_vant_cjs = __commonJS({
       const parentHidden = el.offsetParent === null && style.position !== "fixed";
       return hidden || parentHidden;
     }
-    var { width: windowWidth, height: windowHeight } = use.useWindowSize();
+    var { width: windowWidth, height: windowHeight } = use2.useWindowSize();
     function isContainingBlock(el) {
       const css = window.getComputedStyle(el);
       return css.transform !== "none" || css.perspective !== "none" || ["transform", "perspective", "filter"].some(
@@ -59513,7 +59513,7 @@ var require_vant_cjs = __commonJS({
     var useHeight = (element, withSafeArea) => {
       const height = vue.ref();
       const setHeight = () => {
-        height.value = use.useRect(element).height;
+        height.value = use2.useRect(element).height;
       };
       vue.onMounted(() => {
         vue.nextTick(setHeight);
@@ -59552,7 +59552,7 @@ var require_vant_cjs = __commonJS({
         const renderPlaceholder = usePlaceholder(root, bem$1F);
         const {
           linkChildren
-        } = use.useChildren(ACTION_BAR_KEY);
+        } = use2.useChildren(ACTION_BAR_KEY);
         linkChildren();
         const renderActionBar = () => {
           var _a25;
@@ -60074,7 +60074,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(ACTION_BAR_KEY);
+        } = use2.useParent(ACTION_BAR_KEY);
         const isFirst = vue.computed(() => {
           if (parent) {
             const prev = parent.children[index.value - 1];
@@ -60137,7 +60137,7 @@ var require_vant_cjs = __commonJS({
         slots
       }) {
         const route2 = useRoute();
-        use.useParent(ACTION_BAR_KEY);
+        use2.useParent(ACTION_BAR_KEY);
         const renderIcon = () => {
           const {
             dot,
@@ -60287,12 +60287,12 @@ var require_vant_cjs = __commonJS({
       const onTouchMove = (event) => {
         touch.move(event);
         const direction = touch.deltaY.value > 0 ? DIRECTION_DOWN : DIRECTION_UP;
-        let el = use.getScrollParent(
+        let el = use2.getScrollParent(
           event.target,
           rootRef.value
         );
         while (el.scrollHeight <= el.offsetHeight && el !== rootRef.value && el.parentElement) {
-          el = use.getScrollParent(el.parentElement, rootRef.value);
+          el = use2.getScrollParent(el.parentElement, rootRef.value);
         }
         const { scrollHeight, offsetHeight, scrollTop } = el;
         let status = "11";
@@ -60325,7 +60325,7 @@ var require_vant_cjs = __commonJS({
       };
       const init = () => shouldLock() && lock();
       const destroy = () => shouldLock() && unlock();
-      use.onMountedOrActivated(init);
+      use2.onMountedOrActivated(init);
       vue.onDeactivated(destroy);
       vue.onBeforeUnmount(destroy);
       vue.watch(shouldLock, (value) => {
@@ -60388,7 +60388,7 @@ var require_vant_cjs = __commonJS({
             "class": [bem$1x(), props2.className]
           }, attrs), [(_a25 = slots.default) == null ? void 0 : _a25.call(slots)]), [[vue.vShow, props2.show]]);
         });
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: root
         });
         return () => {
@@ -60579,7 +60579,7 @@ var require_vant_cjs = __commonJS({
           popupRef
         });
         useLockScroll(popupRef, () => props2.show && props2.lockScroll);
-        use.useEventListener("popstate", () => {
+        use2.useEventListener("popstate", () => {
           if (props2.closeOnPopstate) {
             close();
             shouldReopen = false;
@@ -60971,7 +60971,7 @@ var require_vant_cjs = __commonJS({
             return vue.createVNode("li", data, [slots.option ? slots.option(option, index) : vue.createVNode("div", childData, null)]);
           });
         };
-        use.useParent(PICKER_KEY);
+        use2.useParent(PICKER_KEY);
         useExpose({
           stopMomentum
         });
@@ -60982,7 +60982,7 @@ var require_vant_cjs = __commonJS({
           if (moving && enabledIndex < index) stopMomentum();
           currentOffset.value = offset;
         });
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: root
         });
         return () => vue.createVNode("div", {
@@ -61081,13 +61081,13 @@ var require_vant_cjs = __commonJS({
       const frames = duration === 0 ? 1 : Math.round(duration * 1e3 / 16);
       let scrollLeft = from;
       function cancel() {
-        use.cancelRaf(rafId);
+        use2.cancelRaf(rafId);
       }
       function animate() {
         scrollLeft += (to - from) / frames;
         scroller.scrollLeft = scrollLeft;
         if (++count < frames) {
-          rafId = use.raf(animate);
+          rafId = use2.raf(animate);
         }
       }
       animate();
@@ -61100,7 +61100,7 @@ var require_vant_cjs = __commonJS({
       const frames = duration === 0 ? 1 : Math.round(duration * 1e3 / 16);
       const step = (to - current2) / frames;
       function cancel() {
-        use.cancelRaf(rafId);
+        use2.cancelRaf(rafId);
       }
       function animate() {
         current2 += step;
@@ -61109,9 +61109,9 @@ var require_vant_cjs = __commonJS({
         }
         setScrollTop(scroller, current2);
         if (isDown && current2 < to || !isDown && current2 > to) {
-          rafId = use.raf(animate);
+          rafId = use2.raf(animate);
         } else if (callback) {
-          rafId = use.raf(callback);
+          rafId = use2.raf(callback);
         }
       }
       animate();
@@ -61164,7 +61164,7 @@ var require_vant_cjs = __commonJS({
       };
       vue.onDeactivated(unobserve);
       vue.onBeforeUnmount(unobserve);
-      use.onMountedOrActivated(observe);
+      use2.onMountedOrActivated(observe);
     }
     var [name$1w, bem$1s] = createNamespace("sticky");
     var stickyProps = {
@@ -61183,7 +61183,7 @@ var require_vant_cjs = __commonJS({
         slots
       }) {
         const root = vue.ref();
-        const scrollParent = use.useScrollParent(root);
+        const scrollParent = use2.useScrollParent(root);
         const state = vue.reactive({
           fixed: false,
           width: 0,
@@ -61236,13 +61236,13 @@ var require_vant_cjs = __commonJS({
             container,
             position
           } = props2;
-          const rootRect = use.useRect(root);
+          const rootRect = use2.useRect(root);
           const scrollTop = getScrollTop(window);
           state.width = rootRect.width;
           state.height = rootRect.height;
           if (position === "top") {
             if (container) {
-              const containerRect = use.useRect(container);
+              const containerRect = use2.useRect(container);
               const difference = containerRect.bottom - offset.value - state.height;
               state.fixed = offset.value > rootRect.top && containerRect.bottom > 0;
               state.transform = difference < 0 ? difference : 0;
@@ -61254,7 +61254,7 @@ var require_vant_cjs = __commonJS({
               clientHeight
             } = document.documentElement;
             if (container) {
-              const containerRect = use.useRect(container);
+              const containerRect = use2.useRect(container);
               const difference = clientHeight - containerRect.top - offset.value - state.height;
               state.fixed = clientHeight - offset.value < rootRect.bottom && clientHeight > containerRect.top;
               state.transform = difference < 0 ? -difference : 0;
@@ -61265,7 +61265,7 @@ var require_vant_cjs = __commonJS({
           emitScroll(scrollTop);
         };
         vue.watch(() => state.fixed, (value) => emit("change", value));
-        use.useEventListener("scroll", onScroll, {
+        use2.useEventListener("scroll", onScroll, {
           target: scrollParent,
           passive: true
         });
@@ -61276,7 +61276,7 @@ var require_vant_cjs = __commonJS({
           }
           isReset.value = true;
           vue.nextTick(() => {
-            const rootRect = use.useRect(root);
+            const rootRect = use2.useRect(root);
             state.width = rootRect.width;
             state.height = rootRect.height;
             isReset.value = false;
@@ -61336,7 +61336,7 @@ var require_vant_cjs = __commonJS({
         const {
           children,
           linkChildren
-        } = use.useChildren(SWIPE_KEY);
+        } = use2.useChildren(SWIPE_KEY);
         const count = vue.computed(() => children.length);
         const size = vue.computed(() => state[props2.vertical ? "height" : "width"]);
         const delta = vue.computed(() => props2.vertical ? touch.deltaY.value : touch.deltaX.value);
@@ -61434,7 +61434,7 @@ var require_vant_cjs = __commonJS({
         const prev = () => {
           correctPosition();
           touch.reset();
-          use.doubleRaf(() => {
+          use2.doubleRaf(() => {
             state.swiping = false;
             move({
               pace: -1,
@@ -61445,7 +61445,7 @@ var require_vant_cjs = __commonJS({
         const next = () => {
           correctPosition();
           touch.reset();
-          use.doubleRaf(() => {
+          use2.doubleRaf(() => {
             state.swiping = false;
             move({
               pace: 1,
@@ -61564,7 +61564,7 @@ var require_vant_cjs = __commonJS({
         const swipeTo = (index, options = {}) => {
           correctPosition();
           touch.reset();
-          use.doubleRaf(() => {
+          use2.doubleRaf(() => {
             let targetIndex;
             if (props2.loop && index === count.value) {
               targetIndex = state.active === 0 ? 0 : index;
@@ -61572,7 +61572,7 @@ var require_vant_cjs = __commonJS({
               targetIndex = index % count.value;
             }
             if (options.immediate) {
-              use.doubleRaf(() => {
+              use2.doubleRaf(() => {
                 state.swiping = false;
               });
             } else {
@@ -61628,7 +61628,7 @@ var require_vant_cjs = __commonJS({
         vue.watch(count, () => initialize(state.active));
         vue.watch(() => props2.autoplay, autoplay);
         vue.watch([windowWidth, windowHeight, () => props2.width, () => props2.height], resize);
-        vue.watch(use.usePageVisibility(), (visible) => {
+        vue.watch(use2.usePageVisibility(), (visible) => {
           if (visible === "visible") {
             autoplay();
           } else {
@@ -61640,7 +61640,7 @@ var require_vant_cjs = __commonJS({
         onPopupReopen(() => initialize(state.active));
         vue.onDeactivated(stopAutoplay);
         vue.onBeforeUnmount(stopAutoplay);
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: track
         });
         return () => {
@@ -61765,12 +61765,12 @@ var require_vant_cjs = __commonJS({
         const wrapRef = vue.ref();
         const contentRef = vue.ref();
         const id = useId();
-        const scroller = use.useScrollParent(root);
+        const scroller = use2.useScrollParent(root);
         const [titleRefs, setTitleRefs] = useRefs();
         const {
           children,
           linkChildren
-        } = use.useChildren(TABS_KEY);
+        } = use2.useChildren(TABS_KEY);
         const state = vue.reactive({
           inited: false,
           position: "",
@@ -61927,7 +61927,7 @@ var require_vant_cjs = __commonJS({
           for (let index = 0; index < children.length; index++) {
             const {
               top
-            } = use.useRect(children[index].$el);
+            } = use2.useRect(children[index].$el);
             if (top > scrollOffset.value) {
               return index === 0 ? 0 : index - 1;
             }
@@ -62006,7 +62006,7 @@ var require_vant_cjs = __commonJS({
           vue.nextTick(() => {
             state.inited = true;
             if (wrapRef.value) {
-              tabHeight = use.useRect(wrapRef.value).height;
+              tabHeight = use2.useRect(wrapRef.value).height;
             }
             scrollIntoView(true);
           });
@@ -62018,9 +62018,9 @@ var require_vant_cjs = __commonJS({
         });
         vue.onActivated(setLine);
         onPopupReopen(setLine);
-        use.onMountedOrActivated(init);
+        use2.onMountedOrActivated(init);
         useVisibilityChange(root, setLine);
-        use.useEventListener("scroll", onScroll, {
+        use2.useEventListener("scroll", onScroll, {
           target: scroller,
           passive: true
         });
@@ -62174,7 +62174,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(SWIPE_KEY);
+        } = use2.useParent(SWIPE_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <SwipeItem> must be a child component of <Swipe>.");
@@ -62256,7 +62256,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(TABS_KEY);
+        } = use2.useParent(TABS_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <Tab> must be a child component of <Tabs>.");
@@ -62312,7 +62312,7 @@ var require_vant_cjs = __commonJS({
           if (val) {
             hasInactiveClass.value = false;
           } else {
-            use.doubleRaf(() => {
+            use2.doubleRaf(() => {
               hasInactiveClass.value = true;
             });
           }
@@ -62394,7 +62394,7 @@ var require_vant_cjs = __commonJS({
         const {
           children,
           linkChildren
-        } = use.useChildren(PICKER_GROUP_KEY);
+        } = use2.useChildren(PICKER_GROUP_KEY);
         linkChildren();
         const showNextButton = () => +activeTab.value < props2.tabs.length - 1 && props2.nextStepText;
         const onConfirm = () => {
@@ -62470,11 +62470,11 @@ var require_vant_cjs = __commonJS({
         const selectedValues = vue.ref(props2.modelValue.slice(0));
         const {
           parent
-        } = use.useParent(PICKER_GROUP_KEY);
+        } = use2.useParent(PICKER_GROUP_KEY);
         const {
           children,
           linkChildren
-        } = use.useChildren(PICKER_KEY);
+        } = use2.useChildren(PICKER_KEY);
         linkChildren();
         const fields = vue.computed(() => assignDefaultFields(props2.columnsFieldNames));
         const optionHeight = vue.computed(() => unitToPx(props2.optionHeight));
@@ -62630,7 +62630,7 @@ var require_vant_cjs = __commonJS({
         }, {
           immediate: true
         });
-        use.useEventListener("touchmove", preventDefault, {
+        use2.useEventListener("touchmove", preventDefault, {
           target: columnsRef
         });
         const getSelectedOptions = () => selectedOptions.value;
@@ -62957,7 +62957,7 @@ var require_vant_cjs = __commonJS({
         const {
           children,
           linkChildren
-        } = use.useChildren(FORM_KEY);
+        } = use2.useChildren(FORM_KEY);
         const getFieldsByNames = (names) => {
           if (names) {
             return children.filter((field) => names.includes(field.name));
@@ -63245,7 +63245,7 @@ var require_vant_cjs = __commonJS({
         const customValue = vue.ref();
         const {
           parent: form
-        } = use.useParent(FORM_KEY);
+        } = use2.useParent(FORM_KEY);
         const getModelValue = () => {
           var _a25;
           return String((_a25 = props2.modelValue) != null ? _a25 : "");
@@ -63650,7 +63650,7 @@ var require_vant_cjs = __commonJS({
           getValidationStatus,
           adjustTextareaSize
         });
-        vue.provide(use.CUSTOM_FIELD_INJECTION_KEY, {
+        vue.provide(use2.CUSTOM_FIELD_INJECTION_KEY, {
           customValue,
           resetValidation,
           validateWithTrigger
@@ -63665,7 +63665,7 @@ var require_vant_cjs = __commonJS({
           updateValue(getModelValue(), props2.formatTrigger);
           vue.nextTick(adjustTextareaSize);
         });
-        use.useEventListener("touchstart", onClear, {
+        use2.useEventListener("touchstart", onClear, {
           target: vue.computed(() => {
             var _a25;
             return (_a25 = clearIconRef.value) == null ? void 0 : _a25.$el;
@@ -64046,7 +64046,7 @@ var require_vant_cjs = __commonJS({
             return slots.node();
           }
         };
-        use.useCustomFieldValue(() => props2.modelValue);
+        use2.useCustomFieldValue(() => props2.modelValue);
         return () => {
           var _a25;
           const {
@@ -64445,14 +64445,14 @@ var require_vant_cjs = __commonJS({
       }) {
         const {
           linkChildren
-        } = use.useChildren(RADIO_KEY);
+        } = use2.useChildren(RADIO_KEY);
         const updateValue = (value) => emit("update:modelValue", value);
         vue.watch(() => props2.modelValue, (value) => emit("change", value));
         linkChildren({
           props: props2,
           updateValue
         });
-        use.useCustomFieldValue(() => props2.modelValue);
+        use2.useCustomFieldValue(() => props2.modelValue);
         return () => {
           var _a25;
           return vue.createVNode("div", {
@@ -64485,7 +64485,7 @@ var require_vant_cjs = __commonJS({
         const {
           children,
           linkChildren
-        } = use.useChildren(CHECKBOX_GROUP_KEY);
+        } = use2.useChildren(CHECKBOX_GROUP_KEY);
         const updateValue = (value) => emit("update:modelValue", value);
         const toggleAll = (options = {}) => {
           if (typeof options === "boolean") {
@@ -64513,7 +64513,7 @@ var require_vant_cjs = __commonJS({
         useExpose({
           toggleAll
         });
-        use.useCustomFieldValue(() => props2.modelValue);
+        use2.useCustomFieldValue(() => props2.modelValue);
         linkChildren({
           props: props2,
           updateValue
@@ -64748,7 +64748,7 @@ var require_vant_cjs = __commonJS({
       }) {
         const {
           parent
-        } = use.useParent(RADIO_KEY);
+        } = use2.useParent(RADIO_KEY);
         const checked = () => {
           const value = parent ? parent.props.modelValue : props2.modelValue;
           return value === props2.name;
@@ -64789,7 +64789,7 @@ var require_vant_cjs = __commonJS({
       }) {
         const {
           parent
-        } = use.useParent(CHECKBOX_GROUP_KEY);
+        } = use2.useParent(CHECKBOX_GROUP_KEY);
         const setParentValue = (checked2) => {
           const {
             name: name2
@@ -64839,7 +64839,7 @@ var require_vant_cjs = __commonJS({
           props: props2,
           checked
         });
-        use.useCustomFieldValue(() => props2.modelValue);
+        use2.useCustomFieldValue(() => props2.modelValue);
         return () => vue.createVNode(stdin_default$1n, vue.mergeProps({
           "bem": bem$18,
           "role": "checkbox",
@@ -65042,7 +65042,7 @@ var require_vant_cjs = __commonJS({
       }
     });
     var AddressList = withInstall(stdin_default$1j);
-    var hasIntersectionObserver = use.inBrowser && "IntersectionObserver" in window && "IntersectionObserverEntry" in window && "intersectionRatio" in window.IntersectionObserverEntry.prototype;
+    var hasIntersectionObserver = use2.inBrowser && "IntersectionObserver" in window && "IntersectionObserverEntry" in window && "intersectionRatio" in window.IntersectionObserverEntry.prototype;
     var modeType = {
       event: "event",
       observer: "observer"
@@ -65109,9 +65109,9 @@ var require_vant_cjs = __commonJS({
       }
       return bestSelectedSrc;
     }
-    var getDPR = (scale = 1) => use.inBrowser ? window.devicePixelRatio || scale : scale;
+    var getDPR = (scale = 1) => use2.inBrowser ? window.devicePixelRatio || scale : scale;
     function supportWebp() {
-      if (!use.inBrowser) return false;
+      if (!use2.inBrowser) return false;
       let support = true;
       try {
         const elem = document.createElement("canvas");
@@ -65250,12 +65250,12 @@ var require_vant_cjs = __commonJS({
         const updateTarget = () => {
           if (inBrowser2) {
             vue.nextTick(() => {
-              scrollParent.value = props2.target ? getTarget() : use.getScrollParent(root.value);
+              scrollParent.value = props2.target ? getTarget() : use2.getScrollParent(root.value);
               scroll();
             });
           }
         };
-        use.useEventListener("scroll", throttle(scroll, 100), {
+        use2.useEventListener("scroll", throttle(scroll, 100), {
           target: scrollParent
         });
         vue.onMounted(updateTarget);
@@ -65682,7 +65682,7 @@ var require_vant_cjs = __commonJS({
         emit,
         slots
       }) {
-        const [visible, setVisible] = use.useToggle();
+        const [visible, setVisible] = use2.useToggle();
         const daysRef = vue.ref();
         const monthRef = vue.ref();
         const height = useHeight(monthRef);
@@ -65825,11 +65825,11 @@ var require_vant_cjs = __commonJS({
         const disabledDays = vue.computed(() => days.value.filter((day) => day.type === "disabled"));
         const scrollToDate = (body, targetDate) => {
           if (daysRef.value) {
-            const daysRect = use.useRect(daysRef.value);
+            const daysRect = use2.useRect(daysRef.value);
             const totalRows = placeholders.value.length;
             const currentRow = Math.ceil((targetDate.getDate() + offset.value) / 7);
             const rowOffset = (currentRow - 1) * daysRect.height / totalRows;
-            setScrollTop(body, daysRect.top + rowOffset + body.scrollTop - use.useRect(body).top);
+            setScrollTop(body, daysRect.top + rowOffset + body.scrollTop - use2.useRect(body).top);
           }
         };
         const renderDay = (item, index) => vue.createVNode(stdin_default$1g, {
@@ -66149,7 +66149,7 @@ var require_vant_cjs = __commonJS({
           if (canSwitch.value) {
             currentPanelDate.value = targetDate;
           } else {
-            use.raf(() => {
+            use2.raf(() => {
               months.value.some((month, index) => {
                 if (compareMonth(month, targetDate) === 0) {
                   if (bodyRef.value) {
@@ -66173,7 +66173,7 @@ var require_vant_cjs = __commonJS({
               scrollToDate(targetDate);
             }
           } else if (!canSwitch.value) {
-            use.raf(onScroll);
+            use2.raf(onScroll);
           }
         };
         const init = () => {
@@ -66181,8 +66181,8 @@ var require_vant_cjs = __commonJS({
             return;
           }
           if (!canSwitch.value) {
-            use.raf(() => {
-              bodyHeight = Math.floor(use.useRect(bodyRef).height);
+            use2.raf(() => {
+              bodyHeight = Math.floor(use2.useRect(bodyRef).height);
             });
           }
           scrollToCurrentDate();
@@ -66378,7 +66378,7 @@ var require_vant_cjs = __commonJS({
           scrollToDate,
           getSelectedDate
         });
-        use.onMountedOrActivated(init);
+        use2.onMountedOrActivated(init);
         return () => {
           if (props2.poppable) {
             return vue.createVNode(Popup, {
@@ -67018,14 +67018,14 @@ var require_vant_cjs = __commonJS({
             const rate2 = progress * (endRate - startRate) + startRate;
             emit("update:currentRate", format3(parseFloat(rate2.toFixed(1))));
             if (endRate > startRate ? rate2 < endRate : rate2 > endRate) {
-              rafId = use.raf(animate);
+              rafId = use2.raf(animate);
             }
           };
           if (props2.speed) {
             if (rafId) {
-              use.cancelRaf(rafId);
+              use2.cancelRaf(rafId);
             }
-            rafId = use.raf(animate);
+            rafId = use2.raf(animate);
           } else {
             emit("update:currentRate", endRate);
           }
@@ -67127,7 +67127,7 @@ var require_vant_cjs = __commonJS({
         const {
           children,
           linkChildren
-        } = use.useChildren(ROW_KEY);
+        } = use2.useChildren(ROW_KEY);
         const groups = vue.computed(() => {
           const groups2 = [[]];
           let totalSpan = 0;
@@ -67234,7 +67234,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(ROW_KEY);
+        } = use2.useParent(ROW_KEY);
         const style = vue.computed(() => {
           if (!parent) {
             return;
@@ -67315,7 +67315,7 @@ var require_vant_cjs = __commonJS({
         const {
           linkChildren,
           children
-        } = use.useChildren(COLLAPSE_KEY);
+        } = use2.useChildren(COLLAPSE_KEY);
         const updateName = (name2) => {
           emit("change", name2);
           emit("update:modelValue", name2);
@@ -67403,7 +67403,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(COLLAPSE_KEY);
+        } = use2.useParent(COLLAPSE_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <CollapseItem> must be a child component of <Collapse>.");
@@ -67431,7 +67431,7 @@ var require_vant_cjs = __commonJS({
           if (value) {
             show.value = true;
           }
-          const tick = value ? vue.nextTick : use.raf;
+          const tick = value ? vue.nextTick : use2.raf;
           tick(() => {
             if (!contentRef.value || !wrapperRef.value) {
               return;
@@ -67442,7 +67442,7 @@ var require_vant_cjs = __commonJS({
             if (offsetHeight) {
               const contentHeight = `${offsetHeight}px`;
               wrapperRef.value.style.height = value ? "0" : contentHeight;
-              use.doubleRaf(() => {
+              use2.doubleRaf(() => {
                 if (wrapperRef.value) {
                   wrapperRef.value.style.height = value ? contentHeight : "0";
                 }
@@ -67784,7 +67784,7 @@ var require_vant_cjs = __commonJS({
           pause,
           reset,
           current: current2
-        } = use.useCountDown({
+        } = use2.useCountDown({
           time: +props2.time,
           millisecond: props2.millisecond,
           onChange: (current22) => emit("change", current22),
@@ -68335,8 +68335,8 @@ var require_vant_cjs = __commonJS({
         const buttonDisabled = vue.computed(() => !props2.exchangeButtonLoading && (props2.exchangeButtonDisabled || !currentCode.value || currentCode.value.length < props2.exchangeMinLength));
         const updateListHeight = () => {
           const TABS_HEIGHT = 44;
-          const rootHeight = use.useRect(root).height;
-          const headerHeight = use.useRect(barRef).height + TABS_HEIGHT;
+          const rootHeight = use2.useRect(root).height;
+          const headerHeight = use2.useRect(barRef).height + TABS_HEIGHT;
           listHeight.value = (rootHeight > headerHeight ? rootHeight : windowHeight.value) - headerHeight;
         };
         const onExchange = () => {
@@ -68943,8 +68943,8 @@ var require_vant_cjs = __commonJS({
         const {
           children,
           linkChildren
-        } = use.useChildren(DROPDOWN_KEY);
-        const scrollParent = use.useScrollParent(root);
+        } = use2.useChildren(DROPDOWN_KEY);
+        const scrollParent = use2.useScrollParent(root);
         const opened = vue.computed(() => children.some((item) => item.state.showWrapper));
         const scrollable = vue.computed(() => props2.swipeThreshold && children.length > +props2.swipeThreshold);
         const barStyle = vue.computed(() => {
@@ -68966,7 +68966,7 @@ var require_vant_cjs = __commonJS({
         };
         const updateOffset = () => {
           if (barRef.value) {
-            const rect = use.useRect(barRef);
+            const rect = use2.useRect(barRef);
             if (props2.direction === "down") {
               offset.value = rect.bottom;
             } else {
@@ -69037,8 +69037,8 @@ var require_vant_cjs = __commonJS({
           opened,
           updateOffset
         });
-        use.useClickAway(root, onClickAway);
-        use.useEventListener("scroll", onScroll, {
+        use2.useClickAway(root, onClickAway);
+        use2.useEventListener("scroll", onScroll, {
           target: scrollParent,
           passive: true
         });
@@ -69087,7 +69087,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(DROPDOWN_KEY);
+        } = use2.useParent(DROPDOWN_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <DropdownItem> must be a child component of <DropdownMenu>.");
@@ -69191,7 +69191,7 @@ var require_vant_cjs = __commonJS({
           if (autoLocate && wrapperRef.value) {
             const offsetParent = getContainingBlock(wrapperRef.value);
             if (offsetParent) {
-              offsetValue -= use.useRect(offsetParent).top;
+              offsetValue -= use2.useRect(offsetParent).top;
             }
           }
           if (direction === "down") {
@@ -69309,7 +69309,7 @@ var require_vant_cjs = __commonJS({
           const {
             width,
             height
-          } = use.useRect(rootRef.value);
+          } = use2.useRect(rootRef.value);
           const {
             offset
           } = props2;
@@ -69350,7 +69350,7 @@ var require_vant_cjs = __commonJS({
             emit("update:offset", offset);
           }
         };
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: rootRef
         });
         const onTouchEnd = () => {
@@ -69528,7 +69528,7 @@ var require_vant_cjs = __commonJS({
           immediate: true
         });
         useLockScroll(rootRef, () => props2.lockScroll || dragging.value);
-        use.useEventListener("touchmove", onTouchmove, {
+        use2.useEventListener("touchmove", onTouchmove, {
           target: rootRef
         });
         const renderHeader = () => {
@@ -69587,7 +69587,7 @@ var require_vant_cjs = __commonJS({
       }) {
         const {
           linkChildren
-        } = use.useChildren(GRID_KEY);
+        } = use2.useChildren(GRID_KEY);
         linkChildren({
           props: props2
         });
@@ -69624,7 +69624,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(GRID_KEY);
+        } = use2.useParent(GRID_KEY);
         const route2 = useRoute();
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
@@ -69952,7 +69952,7 @@ var require_vant_cjs = __commonJS({
             const ratio = scale / state.scale;
             state.scale = scale;
             if (center) {
-              const imageRect = use.useRect((_a25 = imageRef.value) == null ? void 0 : _a25.$el);
+              const imageRect = use2.useRect((_a25 = imageRef.value) == null ? void 0 : _a25.$el);
               const origin = {
                 x: imageRect.width * 0.5,
                 y: imageRect.height * 0.5
@@ -70127,7 +70127,7 @@ var require_vant_cjs = __commonJS({
             initialMoveY = (imageRatio * rootWidth - rootHeight) / 2;
             state.moveY = initialMoveY;
             state.initializing = true;
-            use.raf(() => {
+            use2.raf(() => {
               state.initializing = false;
             });
           }
@@ -70148,7 +70148,7 @@ var require_vant_cjs = __commonJS({
           }
         });
         vue.watch(() => [props2.rootWidth, props2.rootHeight], resize);
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: vue.computed(() => {
             var _a25;
             return (_a25 = swipeItem.value) == null ? void 0 : _a25.$el;
@@ -70236,7 +70236,7 @@ var require_vant_cjs = __commonJS({
         });
         const resize = () => {
           if (swipeRef.value) {
-            const rect = use.useRect(swipeRef.value.$el);
+            const rect = use2.useRect(swipeRef.value.$el);
             state.rootWidth = rect.width;
             state.rootHeight = rect.height;
             swipeRef.value.resize();
@@ -70475,11 +70475,11 @@ var require_vant_cjs = __commonJS({
         const sidebar = vue.ref();
         const activeAnchor = vue.ref("");
         const touch = useTouch();
-        const scrollParent = use.useScrollParent(root);
+        const scrollParent = use2.useScrollParent(root);
         const {
           children,
           linkChildren
-        } = use.useChildren(INDEX_BAR_KEY);
+        } = use2.useChildren(INDEX_BAR_KEY);
         let selectActiveIndex;
         linkChildren({
           props: props2
@@ -70518,7 +70518,7 @@ var require_vant_cjs = __commonJS({
             indexList
           } = props2;
           const scrollTop = getScrollTop(scrollParent.value);
-          const scrollParentRect = use.useRect(scrollParent);
+          const scrollParentRect = use2.useRect(scrollParent);
           const rects = children.map((item) => item.getRect(scrollParent.value, scrollParentRect));
           let active = -1;
           if (selectActiveIndex) {
@@ -70566,7 +70566,7 @@ var require_vant_cjs = __commonJS({
         const init = () => {
           vue.nextTick(onScroll);
         };
-        use.useEventListener("scroll", onScroll, {
+        use2.useEventListener("scroll", onScroll, {
           target: scrollParent,
           passive: true
         });
@@ -70592,7 +70592,7 @@ var require_vant_cjs = __commonJS({
           const match = getMatchAnchor(selectActiveIndex);
           if (match) {
             const scrollTop = getScrollTop(scrollParent.value);
-            const scrollParentRect = use.useRect(scrollParent);
+            const scrollParentRect = use2.useRect(scrollParent);
             const {
               offsetHeight
             } = document.documentElement;
@@ -70653,7 +70653,7 @@ var require_vant_cjs = __commonJS({
         useExpose({
           scrollTo
         });
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: sidebar
         });
         return () => {
@@ -70692,7 +70692,7 @@ var require_vant_cjs = __commonJS({
         const root = vue.ref();
         const {
           parent
-        } = use.useParent(INDEX_BAR_KEY);
+        } = use2.useParent(INDEX_BAR_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <IndexAnchor> must be a child component of <IndexBar>.");
@@ -70715,7 +70715,7 @@ var require_vant_cjs = __commonJS({
           }
         });
         const getRect = (scrollParent, scrollParentRect) => {
-          const rootRect = use.useRect(root);
+          const rootRect = use2.useRect(root);
           state.rect.height = rootRect.height;
           if (scrollParent === window || scrollParent === document.body) {
             state.rect.top = rootRect.top + getRootScrollTop();
@@ -70777,7 +70777,7 @@ var require_vant_cjs = __commonJS({
         const root = vue.ref();
         const placeholder = vue.ref();
         const tabStatus = useAllTabStatus();
-        const scrollParent = use.useScrollParent(root);
+        const scrollParent = use2.useScrollParent(root);
         const scroller = vue.computed(() => props2.scroller || scrollParent.value);
         const check = () => {
           vue.nextTick(() => {
@@ -70789,12 +70789,12 @@ var require_vant_cjs = __commonJS({
               direction
             } = props2;
             const offset = +props2.offset;
-            const scrollParentRect = use.useRect(scroller);
+            const scrollParentRect = use2.useRect(scroller);
             if (!scrollParentRect.height || isHidden(root)) {
               return;
             }
             let isReachEdge = false;
-            const placeholderRect = use.useRect(placeholder);
+            const placeholderRect = use2.useRect(placeholder);
             if (direction === "up") {
               isReachEdge = scrollParentRect.top - placeholderRect.top <= offset;
             } else {
@@ -70864,7 +70864,7 @@ var require_vant_cjs = __commonJS({
         useExpose({
           check
         });
-        use.useEventListener("scroll", check, {
+        use2.useEventListener("scroll", check, {
           target: scroller,
           passive: true
         });
@@ -71057,8 +71057,8 @@ var require_vant_cjs = __commonJS({
         const onTransitionEnd = () => {
           state.offset = wrapWidth;
           state.duration = 0;
-          use.raf(() => {
-            use.doubleRaf(() => {
+          use2.raf(() => {
+            use2.doubleRaf(() => {
               state.offset = -contentWidth;
               state.duration = (contentWidth + wrapWidth) / +props2.speed;
               emit("replay");
@@ -71100,10 +71100,10 @@ var require_vant_cjs = __commonJS({
             if (!wrapRef.value || !contentRef.value || scrollable === false) {
               return;
             }
-            const wrapRefWidth = use.useRect(wrapRef).width;
-            const contentRefWidth = use.useRect(contentRef).width;
+            const wrapRefWidth = use2.useRect(wrapRef).width;
+            const contentRefWidth = use2.useRect(contentRef).width;
             if (scrollable || contentRefWidth > wrapRefWidth) {
-              use.doubleRaf(() => {
+              use2.doubleRaf(() => {
                 wrapWidth = wrapRefWidth;
                 contentWidth = contentRefWidth;
                 state.offset = -contentWidth;
@@ -71113,8 +71113,8 @@ var require_vant_cjs = __commonJS({
           }, ms);
         };
         onPopupReopen(reset);
-        use.onMountedOrActivated(reset);
-        use.useEventListener("pageshow", reset);
+        use2.onMountedOrActivated(reset);
+        use2.useEventListener("pageshow", reset);
         useExpose({
           reset
         });
@@ -71510,7 +71510,7 @@ var require_vant_cjs = __commonJS({
           }
         });
         if (props2.hideOnClickOutside) {
-          use.useClickAway(root, onBlur, {
+          use2.useClickAway(root, onBlur, {
             eventName: "touchstart"
           });
         }
@@ -71926,7 +71926,7 @@ var require_vant_cjs = __commonJS({
           }
         });
         vue.watch(() => [show.value, props2.offset, props2.placement], updateLocation);
-        use.useClickAway([wrapperRef, popupRef], onClickAway, {
+        use2.useClickAway([wrapperRef, popupRef], onClickAway, {
           eventName: "touchstart"
         });
         return () => {
@@ -72059,7 +72059,7 @@ var require_vant_cjs = __commonJS({
         let reachTop;
         const root = vue.ref();
         const track = vue.ref();
-        const scrollParent = use.useScrollParent(root);
+        const scrollParent = use2.useScrollParent(root);
         const state = vue.reactive({
           status: "normal",
           distance: 0,
@@ -72191,7 +72191,7 @@ var require_vant_cjs = __commonJS({
             setStatus(0, false);
           }
         });
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: track
         });
         return () => {
@@ -72279,8 +72279,8 @@ var require_vant_cjs = __commonJS({
         let minRectTop = Number.MAX_SAFE_INTEGER;
         let maxRectTop = Number.MIN_SAFE_INTEGER;
         const updateRanges = () => {
-          groupRefRect = use.useRect(groupRef);
-          const rects = itemRefs.value.map(use.useRect);
+          groupRefRect = use2.useRect(groupRef);
+          const rects = itemRefs.value.map(use2.useRect);
           ranges = [];
           rects.forEach((rect, index) => {
             minRectTop = Math.min(rect.top, minRectTop);
@@ -72414,8 +72414,8 @@ var require_vant_cjs = __commonJS({
             "classPrefix": iconPrefix
           }, null)]);
         };
-        use.useCustomFieldValue(() => props2.modelValue);
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useCustomFieldValue(() => props2.modelValue);
+        use2.useEventListener("touchmove", onTouchMove, {
           target: groupRef
         });
         return () => vue.createVNode("div", {
@@ -72534,7 +72534,7 @@ var require_vant_cjs = __commonJS({
         const reset = () => {
           rolling.value = false;
           if (props2.autoStart) {
-            use.raf(() => start());
+            use2.raf(() => start());
           }
         };
         vue.watch(() => props2.autoStart, (value) => {
@@ -72803,7 +72803,7 @@ var require_vant_cjs = __commonJS({
       }) {
         const {
           linkChildren
-        } = use.useChildren(SIDEBAR_KEY);
+        } = use2.useChildren(SIDEBAR_KEY);
         const getActive = () => +props2.modelValue;
         const setActive = (value) => {
           if (value !== getActive()) {
@@ -72845,7 +72845,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(SIDEBAR_KEY);
+        } = use2.useParent(SIDEBAR_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <SidebarItem> must be a child component of <Sidebar>.");
@@ -72939,7 +72939,7 @@ var require_vant_cjs = __commonJS({
           ctx.value.beginPath();
           ctx.value.lineWidth = props2.lineWidth;
           ctx.value.strokeStyle = props2.penColor;
-          canvasRect = use.useRect(canvasRef);
+          canvasRect = use2.useRect(canvasRef);
           emit("start");
         };
         const touchMove = (event) => {
@@ -73363,7 +73363,7 @@ var require_vant_cjs = __commonJS({
             vertical,
             modelValue
           } = props2;
-          const rect = use.useRect(root);
+          const rect = use2.useRect(root);
           const getDelta = () => {
             if (vertical) {
               if (reverse) {
@@ -73409,7 +73409,7 @@ var require_vant_cjs = __commonJS({
           preventDefault(event, true);
           touch.move(event);
           dragStatus.value = "dragging";
-          const rect = use.useRect(root);
+          const rect = use2.useRect(root);
           const delta = props2.vertical ? touch.deltaY.value : touch.deltaX.value;
           const total = props2.vertical ? rect.height : rect.width;
           let diff = delta / total * scope.value;
@@ -73493,9 +73493,9 @@ var require_vant_cjs = __commonJS({
           }, [renderButtonContent(current22, index)]);
         };
         updateValue(props2.modelValue);
-        use.useCustomFieldValue(() => props2.modelValue);
+        use2.useCustomFieldValue(() => props2.modelValue);
         slider.forEach((item) => {
-          use.useEventListener("touchmove", onTouchMove, {
+          use2.useEventListener("touchmove", onTouchMove, {
             target: item
           });
         });
@@ -73618,7 +73618,7 @@ var require_vant_cjs = __commonJS({
       }) {
         const {
           linkChildren
-        } = use.useChildren(STEPS_KEY);
+        } = use2.useChildren(STEPS_KEY);
         const onClickStep = (index) => emit("clickStep", index);
         linkChildren({
           props: props2,
@@ -73643,7 +73643,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(STEPS_KEY);
+        } = use2.useParent(STEPS_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <Step> must be a child component of <Steps>.");
@@ -73944,7 +73944,7 @@ var require_vant_cjs = __commonJS({
             name: props2.name
           });
         });
-        use.useCustomFieldValue(() => props2.modelValue);
+        use2.useCustomFieldValue(() => props2.modelValue);
         return () => vue.createVNode("div", {
           "role": "group",
           "class": bem$8([props2.theme])
@@ -74131,7 +74131,7 @@ var require_vant_cjs = __commonJS({
           dragging: false
         });
         const touch = useTouch();
-        const getWidthByRef = (ref22) => ref22.value ? use.useRect(ref22).width : 0;
+        const getWidthByRef = (ref22) => ref22.value ? use2.useRect(ref22).width : 0;
         const leftWidth = vue.computed(() => isDef(props2.leftWidth) ? +props2.leftWidth : getWidthByRef(leftRef));
         const rightWidth = vue.computed(() => isDef(props2.rightWidth) ? +props2.rightWidth : getWidthByRef(rightRef));
         const open2 = (side) => {
@@ -74241,10 +74241,10 @@ var require_vant_cjs = __commonJS({
           open: open2,
           close
         });
-        use.useClickAway(root, (event) => onClick("outside", event), {
+        use2.useClickAway(root, (event) => onClick("outside", event), {
           eventName: "touchstart"
         });
-        use.useEventListener("touchmove", onTouchMove, {
+        use2.useEventListener("touchmove", onTouchMove, {
           target: root
         });
         return () => {
@@ -74296,7 +74296,7 @@ var require_vant_cjs = __commonJS({
         const root = vue.ref();
         const {
           linkChildren
-        } = use.useChildren(TABBAR_KEY);
+        } = use2.useChildren(TABBAR_KEY);
         const renderPlaceholder = usePlaceholder(root, bem$5);
         const enableSafeArea = () => {
           var _a25;
@@ -74366,7 +74366,7 @@ var require_vant_cjs = __commonJS({
         const {
           parent,
           index
-        } = use.useParent(TABBAR_KEY);
+        } = use2.useParent(TABBAR_KEY);
         if (!parent) {
           if (process.env.NODE_ENV !== "production") {
             console.error("[Vant] <TabbarItem> must be a child component of <Tabbar>.");
@@ -75269,7 +75269,7 @@ var require_vant_cjs = __commonJS({
           reuploadFile,
           closeImagePreview
         });
-        use.useCustomFieldValue(() => props2.modelValue);
+        use2.useCustomFieldValue(() => props2.modelValue);
         return () => vue.createVNode("div", {
           "class": bem$1()
         }, [vue.createVNode("div", {
@@ -75488,7 +75488,7 @@ var require_vant_cjs = __commonJS({
        * @return {Boolean} el is in view
        */
       checkInView() {
-        const rect = use.useRect(this.el);
+        const rect = use2.useRect(this.el);
         return rect.top < window.innerHeight * this.options.preLoad && rect.bottom > this.options.preLoadTop && rect.left < window.innerWidth * this.options.preLoad && rect.right > 0;
       }
       /*
@@ -75700,7 +75700,7 @@ var require_vant_cjs = __commonJS({
          */
         addLazyBox(vm) {
           this.listeners.push(vm);
-          if (use.inBrowser) {
+          if (use2.inBrowser) {
             this.addListenerTarget(window);
             this.observer && this.observer.observe(vm.el);
             if (vm.$el && vm.$el.parentNode) {
@@ -75732,7 +75732,7 @@ var require_vant_cjs = __commonJS({
               $parent = $parent ? $parent.$el || $parent : document.getElementById(container);
             }
             if (!$parent) {
-              $parent = use.getScrollParent(el);
+              $parent = use2.getScrollParent(el);
             }
             const newListener = new ReactiveListener({
               bindType: binding.arg,
@@ -75747,7 +75747,7 @@ var require_vant_cjs = __commonJS({
               imageCache: this.imageCache
             });
             this.listeners.push(newListener);
-            if (use.inBrowser) {
+            if (use2.inBrowser) {
               this.addListenerTarget(window);
               this.addListenerTarget($parent);
             }
@@ -76068,8 +76068,8 @@ var require_vant_cjs = __commonJS({
       },
       methods: {
         checkInView() {
-          const rect = use.useRect(this.$el);
-          return use.inBrowser && rect.top < window.innerHeight * lazy.options.preLoad && rect.bottom > 0 && rect.left < window.innerWidth * lazy.options.preLoad && rect.right > 0;
+          const rect = use2.useRect(this.$el);
+          return use2.inBrowser && rect.top < window.innerHeight * lazy.options.preLoad && rect.bottom > 0 && rect.left < window.innerWidth * lazy.options.preLoad && rect.right > 0;
         },
         load() {
           this.show = true;
@@ -76212,7 +76212,7 @@ var require_vant_cjs = __commonJS({
           this.renderSrc = this.options.loading;
         },
         checkInView() {
-          const rect = use.useRect(this.$el);
+          const rect = use2.useRect(this.$el);
           return rect.top < window.innerHeight * lazyManager.options.preLoad && rect.bottom > 0 && rect.left < window.innerWidth * lazyManager.options.preLoad && rect.right > 0;
         },
         load(onFinish = noop3) {
@@ -77385,25 +77385,27 @@ function generateSetupAppCode(state, options) {
     "    appConfig,",
     '  }).catch(err => console.error("[Deer] Runtime Error:", err));',
     "",
-    "  // 2. 并行获取远程路由（不阻塞应用启动）",
-    '  fetch("/api/routes")',
-    "    .then(res => {",
-    "      if (!res.ok) throw new Error('HTTP ' + res.status);",
-    "      return res.json();",
-    "    })",
-    "    .then(result => {",
-    "      const serverRoutes = result.data || [];",
-    "      if (serverRoutes.length > 0 && pluginManager.getContext().router) {",
-    "        const router = pluginManager.getContext().router;",
-    "        serverRoutes.forEach(r => {",
-    "          if (r.redirect) {",
-    "            router.addRoute({ path: r.path, redirect: r.redirect });",
-    "          }",
-    "        });",
-    "        console.log('🌐 已加载 ' + serverRoutes.length + ' 个远程路由');",
-    "      }",
-    "    })",
-    "    .catch(e => console.warn('⚠️ 远程路由加载失败:', e));",
+    "  // 2. 并行获取远程路由（不阻塞应用启动；可通过 appConfig.remoteRoutes = false 关闭）",
+    "  if (appConfig.remoteRoutes !== false) {",
+    '    fetch("/api/routes")',
+    "      .then(res => {",
+    "        if (!res.ok) throw new Error('HTTP ' + res.status);",
+    "        return res.json();",
+    "      })",
+    "      .then(result => {",
+    "        const serverRoutes = result.data || [];",
+    "        if (serverRoutes.length > 0 && pluginManager.getContext().router) {",
+    "          const router = pluginManager.getContext().router;",
+    "          serverRoutes.forEach(r => {",
+    "            if (r.redirect) {",
+    "              router.addRoute({ path: r.path, redirect: r.redirect });",
+    "            }",
+    "          });",
+    "          console.log('🌐 已加载 ' + serverRoutes.length + ' 个远程路由');",
+    "        }",
+    "      })",
+    "      .catch(e => console.warn('⚠️ 远程路由加载失败:', e));",
+    "  }",
     "",
     "  await runtimeApp;",
     "}",
@@ -77424,12 +77426,35 @@ function collectPluginImports(plugins) {
         inlineCode: ""
       };
     }
+    const factory = plugin.__factory;
+    if (factory) {
+      const factoryVar = `${variable}Factory`;
+      return {
+        variable,
+        importStmt: `import { ${factory.name} as ${factoryVar} } from '${factory.module}';`,
+        inlineCode: `const ${variable} = ${factoryVar}(${serializeValue(factory.args)});`
+      };
+    }
     return {
       variable,
       importStmt: "",
       inlineCode: generateInlinePluginCode(plugin, variable)
     };
   });
+}
+function serializeValue(value) {
+  if (value === void 0) return "undefined";
+  if (value === null) return "null";
+  const t2 = typeof value;
+  if (t2 === "string") return JSON.stringify(value);
+  if (t2 === "number" || t2 === "boolean") return String(value);
+  if (t2 === "function") return value.toString();
+  if (Array.isArray(value)) return `[${value.map((v2) => serializeValue(v2)).join(", ")}]`;
+  if (t2 === "object") {
+    const entries = Object.entries(value).filter(([, v2]) => v2 !== void 0).map(([k2, v2]) => `${JSON.stringify(k2)}: ${serializeValue(v2)}`);
+    return `{ ${entries.join(", ")} }`;
+  }
+  return String(value);
 }
 function generateInlinePluginCode(plugin, varName) {
   const hooks2 = [];
@@ -80331,38 +80356,38 @@ var StateEditor = class {
   }
 };
 var RefStateEditor = class {
-  set(ref7, value) {
-    if (isRef(ref7)) {
-      ref7.value = value;
+  set(ref13, value) {
+    if (isRef(ref13)) {
+      ref13.value = value;
     } else {
-      if (ref7 instanceof Set && Array.isArray(value)) {
-        ref7.clear();
-        value.forEach((v2) => ref7.add(v2));
+      if (ref13 instanceof Set && Array.isArray(value)) {
+        ref13.clear();
+        value.forEach((v2) => ref13.add(v2));
         return;
       }
       const currentKeys = Object.keys(value);
-      if (ref7 instanceof Map) {
-        const previousKeysSet2 = new Set(ref7.keys());
+      if (ref13 instanceof Map) {
+        const previousKeysSet2 = new Set(ref13.keys());
         currentKeys.forEach((key) => {
-          ref7.set(key, Reflect.get(value, key));
+          ref13.set(key, Reflect.get(value, key));
           previousKeysSet2.delete(key);
         });
-        previousKeysSet2.forEach((key) => ref7.delete(key));
+        previousKeysSet2.forEach((key) => ref13.delete(key));
         return;
       }
-      const previousKeysSet = new Set(Object.keys(ref7));
+      const previousKeysSet = new Set(Object.keys(ref13));
       currentKeys.forEach((key) => {
-        Reflect.set(ref7, key, Reflect.get(value, key));
+        Reflect.set(ref13, key, Reflect.get(value, key));
         previousKeysSet.delete(key);
       });
-      previousKeysSet.forEach((key) => Reflect.deleteProperty(ref7, key));
+      previousKeysSet.forEach((key) => Reflect.deleteProperty(ref13, key));
     }
   }
-  get(ref7) {
-    return isRef(ref7) ? ref7.value : ref7;
+  get(ref13) {
+    return isRef(ref13) ? ref13.value : ref13;
   }
-  isRef(ref7) {
-    return isRef(ref7) || isReactive(ref7);
+  isRef(ref13) {
+    return isRef(ref13) || isReactive(ref13);
   }
 };
 var stateEditor = new StateEditor();
@@ -83698,16 +83723,16 @@ function createEmitter() {
   const emitter = {
     events,
     on(event, handler) {
-      const handlers = events.get(event);
-      const added = handlers && handlers.push(handler);
+      const handlers2 = events.get(event);
+      const added = handlers2 && handlers2.push(handler);
       if (!added) {
         events.set(event, [handler]);
       }
     },
     off(event, handler) {
-      const handlers = events.get(event);
-      if (handlers) {
-        handlers.splice(handlers.indexOf(handler) >>> 0, 1);
+      const handlers2 = events.get(event);
+      if (handlers2) {
+        handlers2.splice(handlers2.indexOf(handler) >>> 0, 1);
       }
     },
     emit(event, payload) {
@@ -91065,6 +91090,7 @@ var authRuntimePlugin = {
   priority: 1,
   onRouterCreated: (router, ctx) => {
     const noAuthPages = ctx.config.noNavPages ?? ["/login", "/404"];
+    const loginPath = ctx.config.loginPath ?? "/login";
     router.beforeEach((to) => {
       if (to.meta?.auth === false) return;
       if (noAuthPages.includes(to.path)) return;
@@ -91073,12 +91099,12 @@ var authRuntimePlugin = {
         if (userStore.token) {
           return;
         }
-        return "/login";
+        return loginPath;
       } catch {
       }
       const token = localStorage.getItem("token");
       if (!token) {
-        return "/login";
+        return loginPath;
       }
     });
   }
@@ -91764,20 +91790,20 @@ var routerKey = /* @__PURE__ */ Symbol(process.env.NODE_ENV !== "production" ? "
 var routeLocationKey = /* @__PURE__ */ Symbol(process.env.NODE_ENV !== "production" ? "route location" : "");
 var routerViewLocationKey = /* @__PURE__ */ Symbol(process.env.NODE_ENV !== "production" ? "router view location" : "");
 function useCallbacks() {
-  let handlers = [];
+  let handlers2 = [];
   function add(handler) {
-    handlers.push(handler);
+    handlers2.push(handler);
     return () => {
-      const i2 = handlers.indexOf(handler);
-      if (i2 > -1) handlers.splice(i2, 1);
+      const i2 = handlers2.indexOf(handler);
+      if (i2 > -1) handlers2.splice(i2, 1);
     };
   }
   function reset() {
-    handlers = [];
+    handlers2 = [];
   }
   return {
     add,
-    list: () => handlers.slice(),
+    list: () => handlers2.slice(),
     reset
   };
 }
@@ -93565,22 +93591,877 @@ async function createRuntimeApp(options) {
   perf("app.mount done");
   await pluginManager.callHook("onMounted");
 }
+
+// features/im/state.ts
+import { IM, defineConfig } from "@im/sdk";
+import webRequest from "@im/plugin-web-request";
+import webSocket from "@im/plugin-web-socket";
+var im = (0, vue_exports.shallowRef)(null);
+var imReady = (0, vue_exports.ref)(false);
+var unreadCount = (0, vue_exports.ref)(0);
+var handlers = {};
+var initOptions = null;
+function setIMHandlers(h8) {
+  Object.assign(handlers, h8);
+}
+var resolveStr = (v2) => typeof v2 === "function" ? v2() : v2;
+var resolveToken = (v2) => typeof v2 === "function" ? v2() : v2;
+async function boot(ctx) {
+  const { isLogin, next, close } = await ctx.checkIsLogin();
+  if (isLogin) {
+    const action = handlers.onLoginConflict ? handlers.onLoginConflict() : "login";
+    if (action === "login") next();
+    else close();
+  } else {
+    next();
+  }
+}
+async function initIM(config) {
+  if (im.value) return im.value;
+  initOptions = config;
+  const baseUrl = resolveStr(config.baseUrl) || "";
+  const socketUrl = resolveStr(config.socketUrl) || baseUrl.replace("https", "wss").replace("http", "ws");
+  const fileUrl = resolveStr(config.fileUrl) || baseUrl;
+  const token = resolveToken(config.token);
+  const imConfig = defineConfig({
+    userId: config.userId,
+    userName: config.userName,
+    systemId: config.systemId,
+    systemName: config.systemName || "",
+    userType: config.userType || "",
+    baseUrl,
+    socketUrl,
+    fileUrl,
+    terminal: IM.TERMINAL.WEB,
+    env: IM.ENV.WEB,
+    plugins: [
+      webRequest(void 0),
+      webSocket({
+        reconnectTotal: config.reconnectTotal ?? 5,
+        reconnectTime: config.reconnectTime ?? 5e3
+      })
+    ],
+    // deer-mobile 包 tsconfig 未引入 vite/client，用安全方式读取开发环境标记
+    log: import.meta.env?.DEV === true,
+    ...token ? { token } : {}
+  });
+  const ctx = new IM(imConfig);
+  im.value = ctx;
+  ctx.on(ctx.$event.READY, () => {
+    imReady.value = true;
+  });
+  ctx.on(ctx.$event.DESTROY, () => {
+    im.value = null;
+    imReady.value = false;
+    unreadCount.value = 0;
+  });
+  ctx.on(ctx.$event.UNREAD_COUNT_CHANGE, (value) => {
+    unreadCount.value = Number(value) || 0;
+  });
+  ctx.on(ctx.$event.KICKED_OUT, (data) => {
+    handlers.onKickedOut?.(data);
+  });
+  await boot(ctx);
+  return ctx;
+}
+function destroyIM() {
+  const ctx = im.value;
+  if (ctx) {
+    try {
+      ctx.destroy();
+    } catch {
+    }
+  }
+  im.value = null;
+  imReady.value = false;
+  unreadCount.value = 0;
+  initOptions = null;
+}
+function reconnectIM() {
+  return im.value?.reconnectSocket();
+}
+
+// features/im/plugin.ts
+function createIMPlugin(options = {}) {
+  const autoInit = options.autoInit !== false;
+  return {
+    name: "deer:im",
+    priority: 3,
+    // 插件工厂来源标记：code-gen 生成「import + createIMPlugin(options)」调用，保留闭包配置（如 getUser/baseUrl）
+    __factory: { module: "deer-mobile/im", name: "createIMPlugin", args: options },
+    onAppCreated: () => {
+      setIMHandlers({
+        onKickedOut: options.onKickedOut,
+        onLoginConflict: options.onLoginConflict
+      });
+    },
+    onRouterCreated: () => {
+      if (!autoInit) return;
+      const userStore = useUserStore();
+      (0, vue_exports.watch)(
+        () => userStore.token,
+        async (token) => {
+          if (token && !im.value) {
+            const user = options.getUser ? options.getUser() : userStore.user;
+            const base = options.config;
+            const imConfig = {
+              systemId: "",
+              baseUrl: "",
+              ...base || {},
+              userId: user?.userId || "",
+              userName: user?.userName || ""
+            };
+            if (!base?.token) {
+              imConfig.token = () => userStore.token;
+            }
+            await initIM(imConfig);
+          } else if (!token) {
+            destroyIM();
+          }
+        },
+        { immediate: true }
+      );
+    }
+  };
+}
+
+// features/im/composables.ts
+function useIM() {
+  return {
+    /** IM 实例（IMCtx | null，需就绪后使用） */
+    im,
+    /** 是否就绪（WS 已连接） */
+    imReady,
+    /** 全局未读消息数 */
+    unreadCount,
+    /** 初始化 IM */
+    initIM,
+    /** 销毁 IM */
+    destroyIM,
+    /** 重连 WebSocket */
+    reconnect: reconnectIM,
+    /** 获取 IM 上下文（composable 之外使用） */
+    getIM: () => im.value,
+    /** 发送文本消息 */
+    sendText(content, chat) {
+      const ctx = im.value;
+      if (!ctx) return Promise.reject(new Error("IM 未初始化"));
+      const msg = ctx.createTextMessage({ content });
+      return ctx.sendMessage(msg, chat);
+    }
+  };
+}
+
+// features/im/components/MessageBubble.tsx
+var MessageBubble_default = (0, vue_exports.defineComponent)({
+  name: "DeerMessageBubble",
+  props: {
+    message: { type: Object, required: true },
+    isSelf: { type: Boolean, default: false },
+    avatar: { type: String, default: "" }
+  },
+  setup(props) {
+    return () => {
+      const m2 = props.message;
+      const ct2 = m2.contentType;
+      const bubbleCls = props.isSelf ? "bg-[#95ec69] text-black" : "bg-white text-gray-800";
+      let body;
+      switch (ct2) {
+        case 1:
+          body = /* @__PURE__ */ h("div", { class: "whitespace-pre-wrap break-all" }, m2.content);
+          break;
+        case 2:
+          body = /* @__PURE__ */ h(
+            "img",
+            {
+              src: m2.filePath || m2.thumbnailPath,
+              class: "max-w-[200px] max-h-[220px] rounded-md object-cover",
+              alt: "图片",
+              loading: "lazy"
+            }
+          );
+          break;
+        case 3:
+          body = /* @__PURE__ */ h("div", { class: "flex items-center gap-1.5 text-sm" }, /* @__PURE__ */ h("span", { class: "text-xl" }, "📎"), /* @__PURE__ */ h("a", { class: "text-blue-600 break-all", href: m2.filePath, target: "_blank" }, m2.fileName || "文件"));
+          break;
+        case 4:
+          body = /* @__PURE__ */ h("div", { class: "flex items-center gap-1 text-sm" }, "🎤 语音", m2.fileSize ? ` ${(m2.fileSize / 1e3).toFixed(0)}"` : "");
+          break;
+        case 8:
+          body = /* @__PURE__ */ h("video", { src: m2.filePath, controls: true, class: "max-w-[200px] max-h-[200px] rounded-md" });
+          break;
+        default:
+          body = /* @__PURE__ */ h("div", { class: "whitespace-pre-wrap break-all text-sm" }, m2.content || "未知消息");
+      }
+      return /* @__PURE__ */ h("div", { class: `flex items-end gap-2 my-2 ${props.isSelf ? "flex-row-reverse" : ""}` }, /* @__PURE__ */ h("div", { class: "w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 text-xs shrink-0 overflow-hidden" }, props.avatar ? /* @__PURE__ */ h("img", { src: props.avatar, class: "w-full h-full object-cover", alt: "" }) : /* @__PURE__ */ h("span", null, props.isSelf ? "我" : "他")), /* @__PURE__ */ h(
+        "div",
+        {
+          class: `relative max-w-[72%] px-3 py-2 rounded-xl text-sm leading-5 shadow-sm ${bubbleCls} ${props.isSelf ? "rounded-tr-sm" : "rounded-tl-sm"}`
+        },
+        body
+      ));
+    };
+  }
+});
+
+// features/im/components/ImChat.tsx
+var ImChat_default = (0, vue_exports.defineComponent)({
+  name: "DeerImChat",
+  props: {
+    /** chatId 和 groupId 二选一必传 */
+    chatId: { type: String, default: "" },
+    groupId: { type: String, default: "" },
+    chatType: { type: Number, required: true },
+    targetUserId: { type: String, default: "" },
+    targetUserName: { type: String, default: "" },
+    avatar: { type: String, default: "" },
+    hiddenTextarea: { type: Boolean, default: false },
+    placeholder: { type: String, default: "输入消息..." }
+  },
+  emits: ["nav-left", "nav-right"],
+  setup(props) {
+    const { im: im2 } = useIM();
+    const messages = (0, vue_exports.ref)([]);
+    const input = (0, vue_exports.ref)("");
+    const sending = (0, vue_exports.ref)(false);
+    const loading = (0, vue_exports.ref)(false);
+    const scrollRef = (0, vue_exports.ref)(null);
+    let offHandlers = [];
+    let currentChatId = "";
+    const scrollToBottom = async () => {
+      await (0, vue_exports.nextTick)();
+      if (scrollRef.value) {
+        scrollRef.value.scrollTop = scrollRef.value.scrollHeight;
+      }
+    };
+    const appendMessage = (msg) => {
+      const exists = messages.value.some(
+        (m2) => m2.msgId && m2.msgId === msg.msgId || m2.requestId && m2.requestId === msg.requestId
+      );
+      if (!exists) {
+        messages.value = [...messages.value, msg];
+        scrollToBottom();
+      }
+    };
+    const ensureChat = async (ctx) => {
+      if (props.chatId || props.groupId) {
+        const params = { chatType: props.chatType };
+        if (props.chatId) params.chatId = props.chatId;
+        else params.groupId = props.groupId;
+        const { data = {} } = await ctx.getChatProfile(params);
+        ctx.$state.setChat(data);
+        currentChatId = data.chatId || props.chatId;
+        if (data.unreadNum) ctx.setMessageRead(data.unreadNum);
+        return data;
+      }
+      if (props.chatType === 1 && props.targetUserId) {
+        const { data = {} } = await ctx.createChat({
+          targetUserId: props.targetUserId,
+          targetUserName: props.targetUserName,
+          targetUserType: ""
+        });
+        currentChatId = data.chatId;
+        ctx.$state.setChat({
+          chatId: data.chatId,
+          chatType: props.chatType,
+          targetUserId: props.targetUserId,
+          targetUserName: props.targetUserName
+        });
+        return data;
+      }
+      return null;
+    };
+    const loadMessages = async (ctx) => {
+      if (!currentChatId) return;
+      loading.value = true;
+      try {
+        const res = await ctx.getMessageList({ chatId: currentChatId, size: 100 });
+        messages.value = (res?.data || []).reverse();
+        scrollToBottom();
+      } finally {
+        loading.value = false;
+      }
+    };
+    const setup = async () => {
+      const ctx = im2.value;
+      if (!ctx) return;
+      await ensureChat(ctx);
+      await loadMessages(ctx);
+      const onNews = (msg) => {
+        const chatId = ctx.$state.chat?.chatId;
+        if (msg.chatId === chatId || props.groupId && msg.targetUserId === props.groupId) {
+          appendMessage(msg);
+          if (msg.chatType === 1) ctx.setMessageRead();
+        }
+      };
+      const onReceipt = (msg) => {
+        const idx = messages.value.findIndex(
+          (m2) => m2.requestId && m2.requestId === msg.requestId
+        );
+        if (idx !== -1) {
+          messages.value = messages.value.map(
+            (m2, i2) => i2 === idx ? { ...m2, ...msg, errorOrLoading: void 0 } : m2
+          );
+        }
+      };
+      ctx.on(ctx.$event.MESSAGE_NEWS, onNews);
+      ctx.on(ctx.$event.MESSAGE_RECEIPT, onReceipt);
+      offHandlers.push(() => {
+        ctx.off(ctx.$event.MESSAGE_NEWS, onNews);
+        ctx.off(ctx.$event.MESSAGE_RECEIPT, onReceipt);
+      });
+    };
+    const send2 = async () => {
+      const ctx = im2.value;
+      const content = input.value.trim();
+      if (!ctx || !content || sending.value) return;
+      sending.value = true;
+      try {
+        const msg = ctx.createTextMessage({ content });
+        appendMessage({
+          ...msg,
+          requestId: `local_${Date.now()}`,
+          sendUserId: ctx.$config.userId,
+          sendUserName: ctx.$config.userName,
+          errorOrLoading: "loading"
+        });
+        await ctx.sendMessage(msg);
+      } catch (e2) {
+        console.error("[Deer IM] 发送失败", e2);
+      } finally {
+        sending.value = false;
+        input.value = "";
+        scrollToBottom();
+      }
+    };
+    (0, vue_exports.onMounted)(() => {
+      if (im2.value) setup();
+    });
+    (0, vue_exports.watch)(im2, (ctx) => {
+      if (ctx) setup();
+    });
+    (0, vue_exports.onUnmounted)(() => {
+      offHandlers.forEach((fn) => fn());
+      offHandlers = [];
+      const ctx = im2.value;
+      ctx?.$state.resetChat();
+    });
+    return () => /* @__PURE__ */ h("div", { class: "flex flex-col h-full bg-[#f7f8fa]" }, /* @__PURE__ */ h("div", { ref: scrollRef, class: "flex-1 overflow-y-auto px-3 py-2" }, loading.value && /* @__PURE__ */ h("div", { class: "text-center text-gray-400 text-sm py-8" }, "加载中..."), messages.value.map((m2, i2) => /* @__PURE__ */ h(
+      MessageBubble_default,
+      {
+        key: m2.msgId || m2.requestId || i2,
+        message: m2,
+        isSelf: m2.sendUserId === im2.value?.$config.userId,
+        avatar: props.avatar
+      }
+    ))), !props.hiddenTextarea && /* @__PURE__ */ h("div", { class: "flex items-center gap-2 px-3 py-2 bg-white border-t border-gray-100" }, /* @__PURE__ */ h(
+      "input",
+      {
+        value: input.value,
+        placeholder: props.placeholder,
+        class: "flex-1 min-w-0 px-3 py-2 bg-[#f7f8fa] rounded-lg text-sm outline-none",
+        onInput: (e2) => {
+          input.value = e2.target.value;
+        },
+        onKeydown: (e2) => {
+          if (e2.key === "Enter") send2();
+        }
+      }
+    ), /* @__PURE__ */ h(
+      "button",
+      {
+        class: "px-4 py-2 rounded-lg bg-[#096aff] text-white text-sm shrink-0 disabled:opacity-50",
+        disabled: sending.value || !input.value.trim(),
+        onClick: send2
+      },
+      "发送"
+    )));
+  }
+});
+
+// features/im/components/ImChatList.tsx
+var ImChatList_default = (0, vue_exports.defineComponent)({
+  name: "DeerImChatList",
+  emits: ["select"],
+  setup(_2, { emit }) {
+    const chatList = (0, vue_exports.ref)([]);
+    const loading = (0, vue_exports.ref)(false);
+    const { im: im2 } = useIM();
+    let offHandlers = [];
+    const load = async () => {
+      const ctx = im2.value;
+      if (!ctx) return;
+      loading.value = true;
+      try {
+        const res = await ctx.getChatList({ size: 100 });
+        chatList.value = res?.data || [];
+      } finally {
+        loading.value = false;
+      }
+    };
+    const bindEvents = (ctx) => {
+      const onUpdate = () => load();
+      ctx.on(ctx.$event.UPDATE_CHAT_LIST, onUpdate);
+      ctx.on(ctx.$event.REMOVE_LIST, onUpdate);
+      offHandlers.push(() => {
+        ctx.off(ctx.$event.UPDATE_CHAT_LIST, onUpdate);
+        ctx.off(ctx.$event.REMOVE_LIST, onUpdate);
+      });
+    };
+    (0, vue_exports.onMounted)(() => {
+      load();
+      if (im2.value) bindEvents(im2.value);
+    });
+    (0, vue_exports.watch)(im2, (ctx) => {
+      if (ctx) {
+        bindEvents(ctx);
+        load();
+      }
+    });
+    (0, vue_exports.onUnmounted)(() => {
+      offHandlers.forEach((fn) => fn());
+      offHandlers = [];
+    });
+    return () => /* @__PURE__ */ h("div", { class: "h-full bg-white overflow-y-auto" }, loading.value && /* @__PURE__ */ h("div", { class: "text-center text-gray-400 py-10 text-sm" }, "加载中..."), !loading.value && chatList.value.length === 0 && /* @__PURE__ */ h("div", { class: "text-center text-gray-400 py-20 text-sm" }, "暂无会话"), chatList.value.map((item) => /* @__PURE__ */ h(
+      "div",
+      {
+        key: item.chatId || item.groupId || `${item.targetUserId}-${item.chatType}`,
+        class: "flex items-center px-4 py-3 border-b border-gray-50 cursor-pointer active:bg-gray-50",
+        onClick: () => emit("select", item)
+      },
+      /* @__PURE__ */ h("div", { class: "w-11 h-11 rounded-full bg-[#eef2ff] flex items-center justify-center text-[#096aff] font-medium shrink-0" }, (item.targetUserName || item.groupName || "?").slice(0, 1)),
+      /* @__PURE__ */ h("div", { class: "flex-1 min-w-0 ml-3" }, /* @__PURE__ */ h("div", { class: "flex justify-between items-center" }, /* @__PURE__ */ h("span", { class: "text-[15px] font-medium truncate" }, item.targetUserName || item.groupName || "会话"), /* @__PURE__ */ h("span", { class: "text-xs text-gray-400 shrink-0 ml-2" }, item.lastMessageTime || "")), /* @__PURE__ */ h("div", { class: "flex justify-between items-center mt-1" }, /* @__PURE__ */ h("span", { class: "text-sm text-gray-500 truncate" }, item.lastMessageContent || item.lastMessage || ""), Number(item.unreadNum) > 0 && /* @__PURE__ */ h("span", { class: "min-w-[18px] h-[18px] px-1 rounded-full bg-[#ee0a24] text-white text-xs leading-[18px] text-center shrink-0 ml-2" }, Number(item.unreadNum) > 99 ? "99+" : item.unreadNum)))
+    )));
+  }
+});
+
+// features/ocr/composables.ts
+var DEFAULT_OCR_URL = "/api/rmChsService/v1.0/resident/user/ocr";
+async function defaultRequest(url, payload) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error(`OCR 请求失败（HTTP ${res.status}）`);
+  const json = await res.json();
+  return json?.data ?? json;
+}
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error("图片读取失败"));
+    reader.readAsDataURL(file);
+  });
+}
+function stripDataPrefix(dataUrl) {
+  const commaIndex = dataUrl.indexOf(",");
+  return commaIndex >= 0 ? dataUrl.slice(commaIndex + 1) : dataUrl;
+}
+function compressImage(dataUrl, maxSize, quality) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxSize || height > maxSize) {
+        const ratio = Math.min(maxSize / width, maxSize / height);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        resolve(dataUrl);
+        return;
+      }
+      ctx.drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL("image/jpeg", quality));
+    };
+    img.onerror = () => reject(new Error("图片压缩失败"));
+    img.src = dataUrl;
+  });
+}
+function useIdCardOcr(options = {}) {
+  const loading = (0, vue_exports.ref)(false);
+  const error = (0, vue_exports.ref)("");
+  const result = (0, vue_exports.shallowRef)(null);
+  const image = (0, vue_exports.ref)("");
+  const url = options.url ?? DEFAULT_OCR_URL;
+  const doRequest = options.request ?? ((payload) => defaultRequest(url, payload));
+  async function selectImage(file) {
+    error.value = "";
+    let dataUrl = await fileToDataUrl(file);
+    if (options.compress !== false) {
+      dataUrl = await compressImage(
+        dataUrl,
+        options.maxSize ?? 1280,
+        options.compressQuality ?? 0.6
+      );
+    }
+    image.value = dataUrl;
+    return dataUrl;
+  }
+  async function recognize(input) {
+    const source = input ?? image.value;
+    if (!source) {
+      error.value = "请先选择身份证图片";
+      throw new Error("请先选择身份证图片");
+    }
+    loading.value = true;
+    error.value = "";
+    try {
+      const data = await doRequest({ idCardImage: stripDataPrefix(source) });
+      const info = data ?? {};
+      result.value = info;
+      return info;
+    } catch (e2) {
+      error.value = e2 instanceof Error ? e2.message : "识别失败";
+      throw e2;
+    } finally {
+      loading.value = false;
+    }
+  }
+  function reset() {
+    loading.value = false;
+    error.value = "";
+    result.value = null;
+    image.value = "";
+  }
+  return { loading, result, error, image, selectImage, recognize, reset };
+}
+
+// features/ocr/components/OcrCard.tsx
+var OcrCard_default = (0, vue_exports.defineComponent)({
+  name: "DeerOcrCard",
+  props: {
+    /** OCR 识别接口地址（完整 URL） */
+    url: { type: String, default: "" },
+    /** 自定义请求函数（优先于 url） */
+    request: { type: Function, default: void 0 },
+    /** 是否压缩图片（默认 true） */
+    compress: { type: Boolean, default: true },
+    /** 压缩质量（0-1） */
+    compressQuality: { type: Number, default: 0.6 },
+    /** 最大图片尺寸 */
+    maxSize: { type: Number, default: 1280 },
+    /** 按钮文案 */
+    recognizeText: { type: String, default: "开始识别" },
+    /** 选择图片文案 */
+    selectText: { type: String, default: "选择身份证图片" },
+    /** 重新选择文案 */
+    reselectText: { type: String, default: "重新选择" }
+  },
+  emits: ["result", "error"],
+  setup(props, { emit, slots }) {
+    const fileInput2 = (0, vue_exports.ref)(null);
+    const ocr = useIdCardOcr({
+      url: props.url || void 0,
+      request: props.request || void 0,
+      compress: props.compress,
+      compressQuality: props.compressQuality,
+      maxSize: props.maxSize
+    });
+    function handleFileChange(e2) {
+      const input = e2.target;
+      const file = input.files?.[0];
+      if (!file) return;
+      ocr.selectImage(file).then(() => {
+        return ocr.recognize();
+      }).then((info) => {
+        emit("result", info);
+      }).catch((err) => {
+        emit("error", err instanceof Error ? err.message : "识别失败");
+      });
+    }
+    function openPicker() {
+      fileInput2.value?.click();
+    }
+    function handleRecognize() {
+      if (!ocr.image.value) return;
+      ocr.recognize().then((info) => emit("result", info)).catch((err) => emit("error", err instanceof Error ? err.message : "识别失败"));
+    }
+    return () => /* @__PURE__ */ h("div", { class: "deer-ocr-card" }, /* @__PURE__ */ h(
+      "input",
+      {
+        ref: fileInput2,
+        type: "file",
+        accept: "image/*",
+        capture: "environment",
+        style: "display:none",
+        onChange: handleFileChange
+      }
+    ), /* @__PURE__ */ h(
+      "div",
+      {
+        class: "relative flex items-center justify-center w-full overflow-hidden rounded-lg border border-dashed border-gray-300 bg-gray-50",
+        style: "height: 200px"
+      },
+      ocr.image.value ? /* @__PURE__ */ h("img", { src: ocr.image.value, alt: "身份证", class: "max-h-full max-w-full object-contain" }) : /* @__PURE__ */ h("div", { class: "text-center text-gray-400" }, slots.placeholder ? slots.placeholder() : /* @__PURE__ */ h("div", { class: "text-sm" }, "点击下方按钮选择 / 拍摄身份证人像面")),
+      ocr.loading.value && /* @__PURE__ */ h("div", { class: "absolute inset-0 flex items-center justify-center bg-black/30 text-white text-sm" }, "识别中...")
+    ), ocr.error.value && /* @__PURE__ */ h("div", { class: "mt-2 text-sm text-red-500" }, ocr.error.value), /* @__PURE__ */ h("div", { class: "mt-4 flex gap-2" }, /* @__PURE__ */ h(
+      "button",
+      {
+        type: "button",
+        class: "flex-1 py-2.5 rounded-lg text-white text-sm font-medium disabled:opacity-50",
+        style: "background:#096aff",
+        disabled: ocr.loading.value,
+        onClick: ocr.image.value ? handleRecognize : openPicker
+      },
+      ocr.image.value ? props.recognizeText : props.selectText
+    ), ocr.image.value && /* @__PURE__ */ h(
+      "button",
+      {
+        type: "button",
+        class: "px-4 py-2.5 rounded-lg text-sm text-gray-600 bg-gray-100 disabled:opacity-50",
+        disabled: ocr.loading.value,
+        onClick: () => {
+          ocr.reset();
+          if (fileInput2.value) fileInput2.value.value = "";
+        }
+      },
+      props.reselectText
+    )), ocr.result.value && slots.result && slots.result(ocr.result.value));
+  }
+});
+
+// features/chart/echarts.ts
+import * as echarts from "echarts/core";
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  RadarChart,
+  GaugeChart,
+  ScatterChart
+} from "echarts/charts";
+import {
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+  DatasetComponent,
+  TransformComponent,
+  DataZoomComponent,
+  MarkLineComponent,
+  MarkPointComponent,
+  ToolboxComponent
+} from "echarts/components";
+import { LabelLayout, UniversalTransition } from "echarts/features";
+import { CanvasRenderer } from "echarts/renderers";
+echarts.use([
+  // 图表
+  LineChart,
+  BarChart,
+  PieChart,
+  RadarChart,
+  GaugeChart,
+  ScatterChart,
+  // 组件
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+  DatasetComponent,
+  TransformComponent,
+  DataZoomComponent,
+  MarkLineComponent,
+  MarkPointComponent,
+  ToolboxComponent,
+  // 特性
+  LabelLayout,
+  UniversalTransition,
+  // 渲染器
+  CanvasRenderer
+]);
+
+// features/chart/composables.ts
+function useChart(domRef, optionRef, autoResize = true) {
+  const instance2 = (0, vue_exports.shallowRef)(null);
+  let resizeObserver = null;
+  function init() {
+    if (!domRef.value || instance2.value) return;
+    const chart = echarts.init(domRef.value);
+    instance2.value = chart;
+    chart.setOption(optionRef.value);
+    if (autoResize && typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => chart.resize());
+      resizeObserver.observe(domRef.value);
+    }
+  }
+  function update2() {
+    if (instance2.value) {
+      instance2.value.setOption(optionRef.value, { notMerge: true });
+    }
+  }
+  function resize() {
+    instance2.value?.resize();
+  }
+  function dispose() {
+    resizeObserver?.disconnect();
+    resizeObserver = null;
+    instance2.value?.dispose();
+    instance2.value = null;
+  }
+  (0, vue_exports.onMounted)(init);
+  (0, vue_exports.watch)(optionRef, update2, { deep: true });
+  (0, vue_exports.watch)(domRef, (val) => {
+    if (val && !instance2.value) init();
+    if (!val) dispose();
+  });
+  (0, vue_exports.onBeforeUnmount)(dispose);
+  return { instance: instance2, init, update: update2, resize, dispose };
+}
+
+// features/chart/components/ChartCpt.tsx
+function buildOption(type, data, themeColor, title) {
+  const categories = data.categories ?? [];
+  const series = data.series.map((s2) => {
+    const base = { name: s2.name, itemStyle: s2.color ? { color: s2.color } : void 0 };
+    switch (type) {
+      case "line":
+        return {
+          ...base,
+          type: "line",
+          smooth: true,
+          symbol: "circle",
+          symbolSize: 6,
+          lineStyle: { width: 2, color: s2.color ?? themeColor },
+          itemStyle: { color: s2.color ?? themeColor },
+          areaStyle: s2.areaStyle ? { color: { type: "linear", x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: `${themeColor}55` }, { offset: 1, color: `${themeColor}05` }] } } : void 0,
+          data: s2.data
+        };
+      case "bar":
+        return {
+          ...base,
+          type: "bar",
+          barMaxWidth: 24,
+          itemStyle: { color: s2.color ?? themeColor, borderRadius: [4, 4, 0, 0] },
+          data: s2.data
+        };
+      case "pie":
+        return {
+          ...base,
+          type: "pie",
+          radius: ["40%", "65%"],
+          center: ["50%", "50%"],
+          label: { show: true, formatter: "{b}: {c}" },
+          emphasis: { label: { show: true, fontWeight: "bold" } },
+          data: s2.data
+        };
+      case "radar":
+        return {
+          ...base,
+          type: "radar",
+          symbolSize: 5,
+          areaStyle: s2.areaStyle ? { opacity: 0.2 } : void 0,
+          data: [{ value: s2.data, name: s2.name }]
+        };
+      case "gauge":
+        return {
+          ...base,
+          type: "gauge",
+          min: 0,
+          max: 100,
+          progress: { show: true, width: 12, itemStyle: { color: s2.color ?? themeColor } },
+          axisLine: { lineStyle: { width: 12 } },
+          detail: { fontSize: 20, fontWeight: "bold" },
+          data: [{ value: s2.data, name: s2.name }]
+        };
+      case "scatter":
+        return {
+          ...base,
+          type: "scatter",
+          symbolSize: 10,
+          itemStyle: { color: s2.color ?? themeColor },
+          data: s2.data.map((v2, i2) => [categories[i2] ?? i2, v2])
+        };
+      default:
+        return { ...base, type: "line", data: s2.data };
+    }
+  });
+  const option = {
+    title: title ? { text: title, left: "center", textStyle: { fontSize: 14 } } : void 0,
+    tooltip: { trigger: type === "pie" ? "item" : "axis" },
+    legend: data.series.length > 1 ? { bottom: 0, type: "scroll" } : void 0,
+    color: [themeColor, "#15a3ff", "#00c48c", "#ff9f43", "#f32929", "#7e2fc3"]
+  };
+  if (type === "line" || type === "bar" || type === "scatter") {
+    Object.assign(option, {
+      grid: { left: 8, right: 16, top: 30, bottom: 30, containLabel: true },
+      xAxis: { type: "category", data: categories, axisLine: { lineStyle: { color: "#e5e5e5" } }, axisLabel: { color: "#999" } },
+      yAxis: { type: "value", axisLine: { show: false }, splitLine: { lineStyle: { color: "#e5e5e5" } }, axisLabel: { color: "#999" } }
+    });
+  } else if (type === "radar") {
+    Object.assign(option, {
+      radar: {
+        indicator: categories.map((c2) => ({ name: c2 })),
+        splitArea: { areaStyle: { color: ["#f7faff", "#fff"] } }
+      }
+    });
+  }
+  return option;
+}
+var ChartCpt_default = (0, vue_exports.defineComponent)({
+  name: "DeerChartCpt",
+  props: {
+    /** 图表类型 */
+    type: { type: String, required: true },
+    /** 图表数据 */
+    data: { type: Object, required: true },
+    /** 标题（可选） */
+    title: { type: String, default: "" },
+    /** 高度（默认 260px） */
+    height: { type: [String, Number], default: 260 },
+    /** 宽度（默认 100%） */
+    width: { type: [String, Number], default: "100%" },
+    /** 主题色（默认 #096aff） */
+    themeColor: { type: String, default: "#096aff" }
+  },
+  setup(props) {
+    const container = (0, vue_exports.ref)(null);
+    const option = (0, vue_exports.computed)(
+      () => buildOption(props.type, props.data, props.themeColor, props.title || void 0)
+    );
+    useChart(container, option);
+    const style = (0, vue_exports.computed)(() => ({
+      width: typeof props.width === "number" ? `${props.width}px` : props.width,
+      height: typeof props.height === "number" ? `${props.height}px` : props.height
+    }));
+    return () => /* @__PURE__ */ h("div", { ref: container, class: "deer-chart-cpt", style: style.value });
+  }
+});
 export {
+  ChartCpt_default as ChartCpt,
+  ImChat_default as ImChat,
+  ImChatList_default as ImChatList,
+  MessageBubble_default as MessageBubble,
+  OcrCard_default as OcrCard,
   PluginManager,
   apiPlugin,
   api_plugin_default as apiRuntimePlugin,
   auth_plugin_default as authRuntimePlugin,
   builtinPlugin,
+  createIMPlugin,
   createLoadingPlugin,
   createRuntimeApp,
   createVConsolePlugin,
   deer,
+  destroyIM,
   i18n_plugin_default as i18nRuntimePlugin,
+  initIM,
   mockPlugin,
   pinia_plugin_default as piniaRuntimePlugin,
   pwaPlugin as pwa,
+  reconnectIM,
   scanPagesPlugin,
+  setIMHandlers,
   theme_plugin_default as themeRuntimePlugin,
+  useChart,
+  useIM,
+  useIdCardOcr,
   vconsoleRuntimePlugin
 };
 /*! Bundled license information:

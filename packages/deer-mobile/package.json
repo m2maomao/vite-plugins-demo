@@ -4,7 +4,7 @@
   "type": "module",
   "main": "./index.js",
   "scripts": {
-    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --external:vite --external:@vitejs/plugin-vue-jsx --external:@tailwindcss/vite --external:vite-plugin-pwa --external:@vite-pwa/* --external:workbox-* --external:vconsole --charset=utf8",
+    "build": "npx esbuild index.ts --bundle --outfile=index.js --format=esm --platform=node --external:fast-glob --external:esbuild --external:virtual:* --external:deer-mobile --external:deer-mobile/* --external:@im/* --external:echarts --external:vite --external:@vitejs/plugin-vue-jsx --external:@tailwindcss/vite --external:vite-plugin-pwa --external:@vite-pwa/* --external:workbox-* --external:vconsole --charset=utf8",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
@@ -74,9 +74,25 @@
     "./build": {
       "development": "./src/build/index.ts",
       "default": "./src/build/index.ts"
+    },
+    "./im": {
+      "development": "./features/im/index.ts",
+      "default": "./features/im/index.ts"
+    },
+    "./ocr": {
+      "development": "./features/ocr/index.ts",
+      "default": "./features/ocr/index.ts"
+    },
+    "./chart": {
+      "development": "./features/chart/index.ts",
+      "default": "./features/chart/index.ts"
     }
   },
   "dependencies": {
+    "@im/plugin-web-request": "1.0.38",
+    "@im/plugin-web-socket": "1.0.38",
+    "@im/sdk": "1.0.38",
+    "echarts": "^6.1.0",
     "fast-glob": "^3.3.3",
     "kangaroo-mobile": "workspace:*",
     "sm-crypto": "^0.4.0",

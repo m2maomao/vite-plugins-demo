@@ -17,6 +17,8 @@ const authRuntimePlugin: RuntimePlugin = {
 
   onRouterCreated: (router, ctx) => {
     const noAuthPages: string[] = ctx.config.noNavPages ?? ['/login', '/404'];
+    // 登录页路径（可配置：如 /login/phone），默认 /login
+    const loginPath: string = ctx.config.loginPath ?? '/login';
 
     router.beforeEach((to) => {
       // 1. 页面级 auth 控制：auth: false 表示无需登录
@@ -31,7 +33,7 @@ const authRuntimePlugin: RuntimePlugin = {
           return; // 已登录，放行
         }
         // 未登录且需要 auth → 跳转登录页
-        return '/login';
+        return loginPath;
       } catch {
         // store 未就绪，降级到 localStorage
       }
@@ -39,7 +41,7 @@ const authRuntimePlugin: RuntimePlugin = {
       // 3. 降级方案：localStorage
       const token = localStorage.getItem('token');
       if (!token) {
-        return '/login';
+        return loginPath;
       }
     });
   },
