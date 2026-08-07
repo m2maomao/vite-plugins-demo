@@ -1,0 +1,40 @@
+{
+  "name": "kangaroo-uni",
+  "version": "0.1.0",
+  "description": "基于 wot-design-uni 二次封装的企业级 uniapp 组件库（npm 包形态，多项目共享）",
+  "type": "module",
+  "files": [
+    "components",
+    "theme",
+    "index.d.ts"
+  ],
+  "types": "index.d.ts",
+  "scripts": {},
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "uni_modules": {
+    "components": [
+      {
+        "name": "yhu-button",
+        "path": "components/yhu-button/yhu-button.vue"
+      },
+      {
+        "name": "yhu-cell",
+        "path": "components/yhu-cell/yhu-cell.vue"
+      },
+      {
+        "name": "yhu-field",
+        "path": "components/yhu-field/yhu-field.vue"
+      },
+      {
+        "name": "yhu-tag",
+        "path": "components/yhu-tag/yhu-tag.vue"
+      }
+    ]
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0",
+    "wot-design-uni": "^1.0.0"
+  }
+}

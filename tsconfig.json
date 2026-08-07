@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "ignoreDeprecations": "6.0",
-    "target": "es2023",
+    "target": "esnext",
     "module": "esnext",
     "lib": ["ES2023", "DOM"],
     "types": ["vite/client"],

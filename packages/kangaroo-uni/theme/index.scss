@@ -1,0 +1,21 @@
+// ==========================================
+// kangaroo-uni 主题系统
+// 业务品牌色 -> wot-design-uni CSS 变量
+// 全局引入（App.vue 或 uni.scss）：
+//   @import 'kangaroo-uni/theme/index.scss';
+// 覆盖品牌色：在引入前定义 $k-* 变量，或直接覆盖 --wot-* CSS 变量
+// ==========================================
+
+// ---- 业务品牌色（SCSS 变量，可被覆盖）----
+$k-color-theme: #0957de !default; // 品牌主题色
+$k-color-success: #34d19d !default; // 成功
+$k-color-warning: #f0883a !default; // 警告
+$k-color-danger: #fa4350 !default; // 危险
+
+// ---- 品牌色 -> wot-ui CSS 变量映射（跨端生效：H5 编译为 body，小程序为 page）----
+page {
+  --wot-color-theme: #{$k-color-theme};
+  --wot-color-success: #{$k-color-success};
+  --wot-color-warning: #{$k-color-warning};
+  --wot-color-danger: #{$k-color-danger};
+}

@@ -526,9 +526,26 @@ shamefully-hoist=true
 
 其他注意：
 
-- easycom 对 **npm 包内组件**支持有限，`kangaroo-uni` 组件库建议以 **uni_modules 目录**形态被 `deer-uni-demo` 引用（复制或链接到工程 `uni_modules/`），脚手架模板直接内置；
-- turbo 的 `dev` / `build` pipeline 需排除 `deer-uni-demo`（其脚本为 `dev:h5` / `dev:mp-weixin`，与 turbo `dev` 不冲突，但 `build` 需单独处理或排除）；
+- easycom 对 **npm 包内组件**支持已由 `^yhu-(.*)` custom 规则验证可行（指向 `kangaroo-uni/components/yhu-$1/yhu-$1.vue`），`kangaroo-uni` 以 npm 包形态分发（见 8.4）；
+- turbo 的 `dev` / `build` pipeline 需排除 `deer-uni`（其脚本为 `dev:h5` / `dev:mp-weixin`，与 turbo `dev` 不冲突，但 `build` 需单独处理或排除）；
 - `@dcloudio/*` 依赖版本要求整体一致，Vue3 线 lock 在 `^3.0.0-alpha` 系列。
+
+### 8.4 kangaroo-uni 部署形态定案（多项目框架场景）
+
+**决策**：kangaroo-uni 为**独立 npm 包**，发布到私有 registry，业务项目 `npm install` 真实安装 + semver 升级。
+
+**背景与坑**：P1 用 pnpm workspace 链接（`workspace:*`）时，微信开发者工具「过滤无依赖文件」无法识别符号链接包的依赖，报「已被代码依赖分析忽略」。真实 npm 包（如 wot-design-uni）无此问题。
+
+| 阶段 | 使用方式 | 微信工具表现 |
+|---|---|---|
+| monorepo 开发期 | workspace 链接 | 开发预览需临时关「过滤无依赖文件」（一次设置）；`build:mp` 发布不受影响 |
+| 业务项目使用 | 私有 registry `npm install kangaroo-uni@^0.x`（真实目录） | ✅ 正常 |
+| 组件升级 | 新增组件 = minor 发版，业务方 `pnpm update kangaroo-uni` | ✅ 正常 |
+
+配套：
+- 发布：`kangaroo-uni/package.json` 配 `publishConfig` 指向私有 registry（根 [`.npmrc`](../.npmrc) 的 @business 源）；
+- easycom 指向包路径 `"^yhu-(.*)": "kangaroo-uni/components/yhu-$1/yhu-$1.vue"`（已落地）；
+- peerDependencies：`vue` + `wot-design-uni`（业务项目需自行安装 wot-ui）。
 
 ---
 
@@ -539,7 +556,7 @@ shamefully-hoist=true
 | 阶段 | 目标 | 关键产出 |
 |---|---|---|
 | **P0 底座** | 创建**全新自研 deer-uni 工程**（**参考 unibest 实现**）+ 处理 pnpm 兼容 + 跑通三端链路 | 全新工程跑通 `dev:h5` / `dev:mp-weixin` + 根 `.npmrc` + wot-ui 接入 + 首个 k- 组件渲染 |
-| **P1 UI 库层（第一步）** | 搭建 `kangaroo-uni`，**基于 wot-ui 二次封装** | uni_modules 骨架 + easycom + 主题变量 + 透传模板 + `GlobalComponents` 类型声明；先封装 3-5 个核心组件（k-button / k-cell / k-field）在 demo 双端验证 |
+| **P1 UI 库层（第一步）** | 搭建 `kangaroo-uni`，**基于 wot-ui 二次封装** | uni_modules 骨架 + easycom + 主题变量 + 透传模板 + `GlobalComponents` 类型声明；封装核心组件（yhu-button / yhu-cell / yhu-field / yhu-tag）双端验证 |
 | **P2 框架层（第二步）** | 平移 deer-mobile 能力到 `deer-uni` | request 封装（公司协议 SM4 / 状态码）/ `addInterceptor` 守卫 / Pinia 持久化 / 权限 / 多环境 / 通用页面 |
 | **P3 脚手架** | 对标 `create-deer-mobile` | `create-deer-uni` CLI + 页面骨架模板 |
 | **P4 业务验证** | 迁移一个真实页面验证全链路 | 登录 + 列表 + 表单的完整走通（H5 + 小程序双端） |
@@ -563,15 +580,17 @@ shamefully-hoist=true
 
 ## 附：待办事项
 
-- [ ] P0：用官方 uniapp CLI（Vue3 + Vite 模板）创建全新 deer-uni 工程（参考 unibest 的 vite.config / @uni-helper 插件链）
-- [ ] P0：根 `.npmrc` 配置 `shamefully-hoist=true`（或 `public-hoist-pattern`）以兼容 pnpm + uniapp
-- [ ] P0：接入 wot-ui（easycom 配置），页面渲染首个 wd- 组件
-- [ ] P0：`deer-uni` 跑通 `pnpm dev:h5`（VS Code 开发，浏览器预览）
-- [ ] P0：安装微信开发者工具（开启服务端口），跑通 `pnpm dev:mp-weixin` 小程序预览
-- [ ] P0：搭建 `kangaroo-uni` 首个 k- 组件（easycom 生效）双端渲染验证
-- [ ] P1：搭建 `kangaroo-uni` uni_modules 骨架（easycom 规则 + 目录规范 + 主题变量）
-- [ ] P1：封装 3-5 个核心组件（k-button / k-cell / k-field）验证透传 / v-model / 插槽模板
-- [ ] P1：`kangaroo-uni` 在 `deer-uni-demo` 双端验证渲染一致 + `GlobalComponents` 类型声明
+> **P0 已完成 ✅**，详见 [`p0-feasibility-report.md`](./p0-feasibility-report.md)（结论：uniapp + Vue3 + Vite + wot-ui + kangaroo-uni 双端编译可行）。
+
+- [x] P0：用官方 uniapp CLI（Vue3 + Vite 模板）创建全新 deer-uni 工程（参考 unibest 的 vite.config / @uni-helper 插件链）
+- [x] P0：根 `.npmrc` 配置 `shamefully-hoist=true`（或 `public-hoist-pattern`）以兼容 pnpm + uniapp
+- [x] P0：接入 wot-ui（easycom 配置），页面渲染首个 wd- 组件
+- [x] P0：`deer-uni` 跑通 `pnpm dev:h5`（VS Code 开发，浏览器预览）
+- [x] P0：跑通 `pnpm dev:mp-weixin` 小程序编译（产物完整；微信开发者工具导入 `dist/dev/mp-weixin` 预览）
+- [x] P0：搭建 `kangaroo-uni` 首个 k- 组件（easycom 生效）双端渲染验证
+- [x] P1：搭建 `kangaroo-uni` 独立 uni_modules 包（`packages/kangaroo-uni`）+ 主题系统（品牌色 -> wot-ui CSS 变量）
+- [x] P1：封装核心组件（yhu-button / yhu-cell / yhu-field / yhu-tag），验证透传 / v-model 转发 / 业务态映射
+- [x] P1：`kangaroo-uni` 在 `deer-uni` 双端验证渲染一致（H5 + 小程序 easycom 均生效）+ `GlobalComponents` 类型声明
 - [ ] P2：编写 `deer-uni` request 封装（token / 状态码 / 超时 / 续约 / 加密）
 - [ ] P2：实现 `uni.addInterceptor` 路由鉴权与登录拦截
 - [ ] P2：接入 Pinia 持久化与权限模块
